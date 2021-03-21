@@ -400,8 +400,11 @@ uint32_t layer_state_set_user(uint32_t state) {
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    if ((keycode == LT(1,KC_A)) || (keycode == LCTL_T(KC_E))) {
+    if (keycode == LT(1,KC_A)) {
       return 190;
+    }
+    if (keycode == LCTL_T(KC_E)) {
+      return 220;
     }
     if ((keycode == LALT_T(KC_R)) || (keycode == LCTL_T(KC_S)) || (keycode == LSFT_T(KC_T)) ||
     (keycode == RSFT_T(KC_N)) || (keycode == LCTL_T(KC_E)) || (keycode == RALT_T(KC_I)) || (keycode == SCMD_T(KC_O))
