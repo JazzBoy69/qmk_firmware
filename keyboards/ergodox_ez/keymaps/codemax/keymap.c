@@ -57,7 +57,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // left hand ---------------------------------------------------------------------------------------------------
     KC_ESCAPE,          KC_F1,        KC_F2,           KC_F3,        KC_F4,        KC_F5,          TG(4),  
     KC_GRAVE,           KC_Q,         KC_W,            KC_F,         KC_P,         KC_G,           TG(3),  
-    OSL(6),           LT(1,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T), LT(2,KC_D), 
+    OSL(6),           LT(1,KC_A),  LALT_T(KC_R),       KC_S,         KC_T,       LT(2,KC_D), 
     OSM(MOD_LSFT),      KC_Z,         KC_X,            KC_C,         KC_V,         KC_B,           KC_F15,  
     KC_DELETE,      KC_APPLICATION, KC_MS_BTN2,     KC_ESCAPE,     KC_SPACE,                      
  // left thumb --------------------------------------------------------------------------------------------------
@@ -66,8 +66,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                            LT(7,KC_BSPACE),LT(5,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
 TG(1),      KC_F6,       KC_F7,         KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
-TG(3),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE,     KC_GRAVE,
-            KC_H,    RSFT_T(KC_N),   LCTL_T(KC_E),  RALT_T(KC_I),   SCMD_T(KC_O),      OSL(6),
+TG(3),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE,      KC_GRAVE,
+            KC_H,        KC_N,        LCTL_T(KC_E),    KC_I,        SCMD_T(KC_O),      OSL(6),
  KC_F15,    KC_K,        KC_M,         KC_COMMA,      KC_DOT,         KC_QUES,      OSM(MOD_LSFT),
                         KC_LGUI,        KC_F11,        KC_F12,      KC_APPLICATION,     XXX,
   // right thumb -------------------------------------------------------------------------------------------------
@@ -93,9 +93,9 @@ TG(3),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE, 
                        ST_MACRO_0,     XXX,        KC_KP_1,     KC_KP_2,    KC_KP_3,     KC_KP_SLASH,    KC_ENTER,
                                                    KC_SPACE,  KC_KP_COMMA,  KC_KP_DOT,      ___,            TO(0),
   // right thumb -------------------------------------------------------------------------------------------------
-                         ___,    XXX,
-                                 ___,
-                ___,   TG(2),  KC_KP_0
+                         ___,   TG(2),
+                                  ___,
+                ___,     ___,  KC_KP_0
   ),
   [NAV] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
@@ -109,15 +109,15 @@ TG(3),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE, 
                                           ___,
                         ___,     ___,     ___, 
 // right hand --------------------------------------------------------------------------------------------------
-                                ___,       ___,            ___,         ___,       ___,        ___,         ___,
-                                ___,  LCTL(KC_HOME),  OSM(MOD_LCTL),   KC_UP,    KC_PGUP,      XXX,         XXX,
-                                         KC_HOME,        KC_LEFT,     KC_DOWN,   KC_RIGHT,    KC_END,       XXX,
-                                ___,       XXX,         KC_DELETE,      XXX,    KC_PGDOWN,  LCTL(KC_END),   ___,
-                                                           XXX,         XXX,       XXX,        ___,        TO(0),
+                                ___,       ___,            ___,         ___,         ___,        ___,         ___,
+                                ___,  LCTL(KC_HOME),  OSM(MOD_LCTL),   KC_UP,      KC_PGUP,      XXX,         XXX,
+                                      LCTL(KC_LEFT),     KC_LEFT,     KC_DOWN,  LCTL(KC_RIGHT),    KC_END,       XXX,
+                                ___,       XXX,         KC_DELETE,      XXX,      KC_PGDOWN,  LCTL(KC_END),   ___,
+                                                           XXX,         XXX,         XXX,        ___,        TO(0),
   // right thumb -------------------------------------------------------------------------------------------------
-                        ___,   XXX,
+                        ___,   ___,
                         ___,
-                        ___,   ___,   KC_SPACE
+                        ___,   KC_HOME,   KC_END
   ),
   [MOUSE] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
@@ -406,8 +406,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (keycode == LCTL_T(KC_E)) {
       return 220;
     }
-    if ((keycode == LALT_T(KC_R)) || (keycode == LCTL_T(KC_S)) || (keycode == LSFT_T(KC_T)) ||
-    (keycode == RSFT_T(KC_N)) || (keycode == LCTL_T(KC_E)) || (keycode == RALT_T(KC_I)) || (keycode == SCMD_T(KC_O))
+    if ((keycode == LALT_T(KC_R)) || (keycode == LCTL_T(KC_E)) || (keycode == SCMD_T(KC_O))
     || (keycode == LT(7,KC_SPACE)) || (keycode == LT(7,KC_BSPACE))) {
       return 250;
     }
