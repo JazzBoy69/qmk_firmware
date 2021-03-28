@@ -7,7 +7,7 @@
 #define BASE 0
 #define NUMPAD 1
 #define NAV 2
-#define MOUSE 3
+#define TYPING 3
 #define GAME 4
 #define FN 5
 #define SYM 6
@@ -42,9 +42,6 @@ enum custom_keycodes {
   ST_MACRO_24,
 };
 
-enum tap_dance_codes {
-  DANCE_4,
-};
 
 // A 'transparent' key code (that falls back to the layers below it).
 #define ___ KC_TRANSPARENT
@@ -55,21 +52,21 @@ enum tap_dance_codes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    KC_ESCAPE,          KC_F1,        KC_F2,           KC_F3,        KC_F4,        KC_F5,          TG(4),  
-    KC_GRAVE,           KC_Q,         KC_W,            KC_F,         KC_P,         KC_G,           TG(3),  
-    OSL(6),           LT(1,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),       LT(2,KC_D), 
-    OSM(MOD_LSFT),      KC_Z,         KC_X,            KC_C,         KC_V,         KC_B,           KC_F15,  
-    KC_DELETE,      KC_APPLICATION, KC_MS_BTN2,     KC_ESCAPE,     KC_SPACE,                      
+    KC_ESCAPE,          KC_F1,            KC_F2,           KC_F3,        KC_F4,           KC_F5,          TG(GAME),  
+    KC_GRAVE,           KC_Q,             KC_W,            KC_F,         KC_P,             KC_G,         TG(TYPING),  
+    OSL(SYM),           LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
+    OSM(MOD_LSFT),      KC_Z,             KC_X,            KC_C,         KC_V,             KC_B,           KC_F15,  
+    KC_DELETE,        KC_MS_BTN1,       KC_MS_BTN2,     KC_ESCAPE,     KC_SPACE,                       
  // left thumb --------------------------------------------------------------------------------------------------
                                                                             LCTL(KC_Z),     LALT(KC_F4),    
                                                                                               KC_TAB,        
-                                                           LT(7,KC_BSPACE),LT(5,KC_ENTER), LSFT(KC_TAB),   
+                                                           LT(SYMPLUS,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
-TG(1),      KC_F6,       KC_F7,         KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
-TG(3),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE,      KC_GRAVE,
-            KC_H,        KC_N,        LCTL_T(KC_E),    KC_I,        SCMD_T(KC_O),      OSL(6),
- KC_F15,    KC_K,        KC_M,         KC_COMMA,      KC_DOT,         KC_QUES,      OSM(MOD_LSFT),
-                        KC_LGUI,        KC_F11,        KC_F12,      KC_APPLICATION,     XXX,
+TG(NUMPAD),      KC_F6,       KC_F7,         KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
+TG(TYPING),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE,      KC_GRAVE,
+                 KC_H,        KC_N,        LCTL_T(KC_E),    KC_I,        SCMD_T(KC_O),      OSL(6),
+ KC_F15,         KC_K,        KC_M,         KC_COMMA,      KC_DOT,         KC_QUES,      OSM(MOD_LSFT),
+                             KC_LGUI,        KC_F11,        KC_F12,      KC_APPLICATION,  ST_MACRO_1,
   // right thumb -------------------------------------------------------------------------------------------------
   KC_PSCREEN,     LCTL(KC_Y),
   KC_F23,
@@ -79,7 +76,7 @@ TG(3),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE, 
   // left hand ---------------------------------------------------------------------------------------------------
     ___, ___,     ___,  ___, ___,    ___,     ___,                              
     ___, ___,     ___,  ___, ___,    ___,     XXX,                    
-    ___, ___, KC_LALT,  ___, ___,   MO(2),              
+    ___, ___, KC_LALT,  ___, ___,   MO(NAV),              
     ___, ___,     ___,  ___, ___,    ___,     ___,     
     ___, ___,     XXX,  ___, ___,          
  // left thumb --------------------------------------------------------------------------------------------------
@@ -91,56 +88,44 @@ TG(3),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE, 
                     KC_CALCULATOR,  LCTL(KC_V),    KC_KP_7,     KC_KP_8,    KC_KP_9,       KC_COLN,     KC_KP_MINUS,
                                        XXX,         KC_KP_4,    KC_KP_5,    KC_KP_6,        KC_X,         KC_KP_PLUS,
                        ST_MACRO_0,     XXX,        KC_KP_1,     KC_KP_2,    KC_KP_3,     KC_KP_SLASH,    KC_ENTER,
-                                                   KC_SPACE,  KC_KP_COMMA,  KC_KP_DOT,      ___,            TO(0),
+                                                   KC_SPACE,  KC_KP_COMMA,  KC_KP_DOT,      ___,          TO(BASE),
   // right thumb -------------------------------------------------------------------------------------------------
-                         ___,   TG(2),
+                         ___,   TG(NAV),
                                   ___,
                 ___,     ___,  KC_KP_0
   ),
   [NAV] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    ___, ___,  ___,   ___,    ___,    ___, ___, 
-    ___, ___,  ___,   ___,    ___,    ___, ___, 
-    ___, ___,  ___,   ___, KC_LSHIFT, ___,                  
-    ___, ___,  ___,   ___,    ___,    ___, ___,    
-    ___, ___,  XXX,   ___,    ___,        
+    ___, ___,  ___,    ___,      ___,     ___, ___, 
+    ___, ___,  ___,    ___,      ___,     ___, ___, 
+    ___, ___,  ___,  KC_LCTRL, KC_LSHIFT, ___,                  
+    ___, ___,  ___,    ___,      ___,     ___, ___,    
+    ___, ___,  XXX,    ___,      ___,        
  // left thumb --------------------------------------------------------------------------------------------------
                         XXX,    KC_SCROLLLOCK, 
                                           ___,
                         ___,     ___,     ___, 
 // right hand --------------------------------------------------------------------------------------------------
-                                ___,       ___,            ___,         ___,         ___,        ___,         ___,
-                                ___,  LCTL(KC_HOME),  OSM(MOD_LCTL),   KC_UP,      KC_PGUP,      XXX,         XXX,
-                                      LCTL(KC_LEFT),     KC_LEFT,     KC_DOWN,    KC_RIGHT,  LCTL(KC_RIGHT),  XXX,
-                                ___,       XXX,         KC_DELETE,      XXX,      KC_PGDOWN,  LCTL(KC_END),   ___,
-                                                           XXX,         XXX,         XXX,        ___,        TO(0),
+                                ___,       ___,            ___,         ___,         ___,        ___,            ___,
+                                ___,  LCTL(KC_HOME),  OSM(MOD_LCTL),   KC_UP,      KC_PGUP,      XXX,        KC_MS_WH_UP,
+                                      LCTL(KC_LEFT),     KC_LEFT,     KC_DOWN,    KC_RIGHT,  LCTL(KC_RIGHT), KC_MS_WH_DOWN,
+                                ___,       XXX,         KC_DELETE,      XXX,      KC_PGDOWN,  LCTL(KC_END),      ___,
+                                                           XXX,         XXX,         XXX,        ___,           TO(BASE),
   // right thumb -------------------------------------------------------------------------------------------------
                         ___,   ___,
                         ___,
                         ___,   KC_HOME,   KC_END
   ),
-  [MOUSE] = LAYOUT_ergodox(
-  // left hand ---------------------------------------------------------------------------------------------------
-    ___, ___, ___, ___, ___, ___, ___,  
-    ___, ___, ___, ___, ___, ___, ___,  
-    ___, ___, ___, ___, ___, ___,                                              
-    ___, ___, ___, ___, ___, ___, ___,                      
-    ___, ___, ___, ___, ___,   
- // left thumb --------------------------------------------------------------------------------------------------
-                  XXX,   ___,
-                         ___, 
-               ___, ___, ___, 
-// right hand --------------------------------------------------------------------------------------------------
-                                 ___,      ___,         ___,         ___,           ___,           ___,        ___,
-                                 ___,      XXX,       KC_LCTRL,    KC_MS_UP,     KC_MS_WH_UP,      XXX,        ___,
-                                           XXX,      KC_MS_LEFT,  KC_MS_DOWN,    KC_MS_RIGHT,   KC_MS_BTN3,    ___,
-                                 ___,   LALT(KC_F4), ST_MACRO_1,  TD(DANCE_4),  KC_MS_WH_DOWN,     XXX,        ___,
-                                                        ___,         ___,           ___,        KC_MS_BTN2,   TO(0),
-  // right thumb -------------------------------------------------------------------------------------------------
-                                 ___, XXX,
-                                 ___,
-                                 ___,  ___,    KC_MS_BTN1  
-  ),
+  [TYPING] = LAYOUT_ergodox_pretty(
+    ___, KC_1, KC_2, KC_3, KC_4, KC_5, XXX,                ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___,
+    ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,  ___,
+    ___, ___,  KC_R, KC_S, KC_T, KC_D,                          ___,  ___,  KC_E, ___,  KC_O, ___,
+    ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,  ___,
+    ___, ___,  ___,  ___,  ___,                                       XXX,  XXX,  XXX,  XXX,  XXX,
+                                 ___, ___,                 ___, ___,
+                                      ___,                 ___,
+                            ___, ___, ___,                 ___, ___, ___
+  ), 
   [GAME] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
     ___, ___,    ___,     ___,      ___,    ___, ___,             
@@ -157,7 +142,7 @@ TG(3),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE, 
                                  ___, ___, ___,  KC_MS_WH_UP,   ___, ___,  ___,
                                       ___, KC_Q,       KC_E,     ___, ___,  ___,
                                  ___, ___, ___,  KC_MS_WH_DOWN, ___, ___,  ___,
-                                           ___,        ___,     ___, ___, TO(0),
+                                           ___,        ___,     ___, ___, TO(BASE),
 // right thumb -------------------------------------------------------------------------------------------------
                           ___, XXX,
                           ___,
@@ -179,7 +164,7 @@ TG(3),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE, 
                         ___,        ___, ___,   ___,   ___, ___,  ___,
                                     ___, ___,   ___,   ___, ___,  ___,
                    KC_SYSTEM_SLEEP, ___, ___,   ___,   ___, ___,  ___,
-                                         ___,   ___,   ___, ___, TO(0),
+                                         ___,   ___,   ___, ___, TO(BASE),
 // right thumb -------------------------------------------------------------------------------------------------
                ___, ___,
                ___,
@@ -201,7 +186,7 @@ TG(3),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE, 
                                  ___,      KC_TILD,      KC_SLASH,      KC_MINUS,         KC_PIPE,      ST_MACRO_4,   ST_MACRO_5,
                                           ST_MACRO_6,   ST_MACRO_7,     KC_RPRN,        KC_RBRACKET,     KC_RCBR,        ___,
                                  ___,      KC_CIRC,        ___,         KC_SCOLON,        KC_COLN,     KC_BSLASH,      ___,
-                                                           ___,           ___,              ___,           ___,          TO(0),
+                                                           ___,           ___,              ___,           ___,          TO(BASE),
 // right thumb -------------------------------------------------------------------------------------------------
                ___, ___,
                ___,
@@ -223,7 +208,7 @@ TG(3),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE, 
                                  ___, ___,  ST_MACRO_8,  ST_MACRO_16,  ST_MACRO_17,  ST_MACRO_18,   ___,
                                       ___, ST_MACRO_19,  ST_MACRO_20,     ___,       ST_MACRO_24,   ___,
                                  ___, ___,    ___,       ST_MACRO_21,  ST_MACRO_22,  ST_MACRO_23,   ___,
-                                              ___,           ___,         ___,          ___,      TO(0),
+                                              ___,           ___,         ___,          ___,      TO(BASE),
 // right thumb -------------------------------------------------------------------------------------------------
                ___, ___,
                ___,
@@ -276,11 +261,11 @@ void led_3_off(void) {
 }
 
 void set_indicator(void) {
-	if (current_layer > NAV) {
+	if (current_layer > TYPING) {
 		return;
 	}
-	 led_1_off();
-	  if (current_layer == BASE) {
+	led_1_off();
+	if ((current_layer == BASE) || (current_layer == TYPING)) {
 		if (sys_led_state & sys_led_mask_caps_lock) {
 		  led_1_on();
 		}
@@ -384,7 +369,7 @@ uint32_t layer_state_set_user(uint32_t state) {
     case NAV:
       led_2_on();
 	  break;
-    case MOUSE:
+    case TYPING:
       led_2_on();
       led_3_on();
       break;
@@ -568,73 +553,3 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   return true;
 }
-
-
-typedef struct {
-    bool is_press_action;
-    uint8_t step;
-} tap;
-
-enum {
-    SINGLE_TAP = 1,
-    SINGLE_HOLD,
-    DOUBLE_TAP,
-    DOUBLE_HOLD,
-    DOUBLE_SINGLE_TAP,
-    MORE_TAPS
-};
-
-static tap dance_state = {
-    .is_press_action = true,
-    .step = 0
-};
-
-void on_dance_4(qk_tap_dance_state_t *state, void *user_data);
-uint8_t dance_4_dance_step(qk_tap_dance_state_t *state);
-void dance_4_finished(qk_tap_dance_state_t *state, void *user_data);
-void dance_4_reset(qk_tap_dance_state_t *state, void *user_data);
-
-void on_dance_4(qk_tap_dance_state_t *state, void *user_data) {
-    if(state->count == 3) {
-        tap_code16(LALT(LCTL(LGUI(LSFT(KC_C)))));
-        tap_code16(LALT(LCTL(LGUI(LSFT(KC_C)))));
-        tap_code16(LALT(LCTL(LGUI(LSFT(KC_C)))));
-    }
-    if(state->count > 3) {
-        tap_code16(LALT(LCTL(LGUI(LSFT(KC_C)))));
-    }
-}
-
-uint8_t dance_4_dance_step(qk_tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (state->interrupted || !state->pressed) return SINGLE_TAP;
-        else return SINGLE_HOLD;
-    } else if (state->count == 2) {
-        if (state->interrupted) return DOUBLE_SINGLE_TAP;
-        else if (state->pressed) return DOUBLE_HOLD;
-        else return DOUBLE_TAP;
-    }
-    return MORE_TAPS;
-}
-void dance_4_finished(qk_tap_dance_state_t *state, void *user_data) {
-    dance_state.step = dance_4_dance_step(state);
-    switch (dance_state.step) {
-        case SINGLE_TAP: register_code16(LALT(LCTL(LGUI(LSFT(KC_C))))); break;
-        case DOUBLE_TAP: register_code16(LALT(LCTL(LGUI(LSFT(KC_A))))); break;
-        case DOUBLE_SINGLE_TAP: tap_code16(LALT(LCTL(LGUI(LSFT(KC_C))))); register_code16(LALT(LCTL(LGUI(LSFT(KC_C)))));
-    }
-}
-
-void dance_4_reset(qk_tap_dance_state_t *state, void *user_data) {
-    wait_ms(10);
-    switch (dance_state.step) {
-        case SINGLE_TAP: unregister_code16(LALT(LCTL(LGUI(LSFT(KC_C))))); break;
-        case DOUBLE_TAP: unregister_code16(LALT(LCTL(LGUI(LSFT(KC_A))))); break;
-        case DOUBLE_SINGLE_TAP: unregister_code16(LALT(LCTL(LGUI(LSFT(KC_C))))); break;
-    }
-    dance_state.step = 0;
-}
-
-qk_tap_dance_action_t tap_dance_actions[] = {
-        [DANCE_4] = ACTION_TAP_DANCE_FN_ADVANCED(on_dance_4, dance_4_finished, dance_4_reset),
-};
