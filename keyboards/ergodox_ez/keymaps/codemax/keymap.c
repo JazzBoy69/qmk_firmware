@@ -5,9 +5,9 @@
 
 // The layers for this keyboard.
 #define BASE 0
-#define NUMPAD 1
-#define NAV 2
-#define TYPING 3
+#define TYPING 1
+#define NUMPAD 2
+#define NAV 3
 #define GAME 4
 #define FN 5
 #define SYM 6
@@ -72,6 +72,16 @@ TG(TYPING),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QU
   KC_F23,
   KC_F24,          KC_END,         LT(7,KC_SPACE)
   ),
+  [TYPING] = LAYOUT_ergodox_pretty(
+    ___, KC_1, KC_2, KC_3, KC_4, KC_5, XXX,                ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___,
+    ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,  ___,
+    ___, ___,  KC_R, KC_S, KC_T, KC_D,                          ___,  ___,  KC_E, ___,  KC_O, ___,
+    ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,  ___,
+    ___, ___,  ___,  ___,  ___,                                       XXX,  XXX,  XXX,  XXX,  XXX,
+                                 ___, ___,                 ___, ___,
+                                      ___,                 ___,
+                            ___, ___, ___,                 ___, ___, ___
+  ), 
   [NUMPAD] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
     ___, ___,     ___,  ___, ___,    ___,     ___,                              
@@ -116,16 +126,6 @@ TG(TYPING),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QU
                         ___,
                         ___,   KC_HOME,   KC_END
   ),
-  [TYPING] = LAYOUT_ergodox_pretty(
-    ___, KC_1, KC_2, KC_3, KC_4, KC_5, XXX,                ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___,
-    ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,  ___,
-    ___, ___,  KC_R, KC_S, KC_T, KC_D,                          ___,  ___,  KC_E, ___,  KC_O, ___,
-    ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,  ___,
-    ___, ___,  ___,  ___,  ___,                                       XXX,  XXX,  XXX,  XXX,  XXX,
-                                 ___, ___,                 ___, ___,
-                                      ___,                 ___,
-                            ___, ___, ___,                 ___, ___, ___
-  ), 
   [GAME] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
     ___, ___,    ___,     ___,      ___,    ___, ___,             
