@@ -261,7 +261,7 @@ void led_3_off(void) {
 }
 
 void set_indicator(void) {
-	if (current_layer > TYPING) {
+	if (current_layer > NAV) {
 		return;
 	}
 	led_1_off();
