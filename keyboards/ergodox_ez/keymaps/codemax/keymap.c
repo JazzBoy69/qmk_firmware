@@ -73,7 +73,7 @@ TG(TYPING),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QU
   KC_F24,          KC_END,         LT(7,KC_SPACE)
   ),
   [TYPING] = LAYOUT_ergodox_pretty(
-    ___, KC_1, KC_2, KC_3, KC_4, KC_5, XXX,                ___, KC_6, KC_7, KC_8, KC_9, KC_0, ___,
+    ___, XXX,  XXX,  XXX,  XXX,  XXX, XXX,                ___,  XXX,  XXX,  XXX,  XXX,  XXX, ___,
     ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,  ___,
     ___, ___,  KC_R, KC_S, KC_T, KC_D,                          ___,  ___,  KC_E, ___,  KC_O, ___,
     ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,  ___,
@@ -342,6 +342,18 @@ void led_set_user(uint8_t usb_led) {
 uint16_t change_time = 0;
 
 void matrix_scan_user(void) {
+  if (current_layer == BASE) {
+    if (get_current_wpm()>50) {
+      layer_on(TYPING);
+    }
+    return;
+  }
+  if (current_layer == TYPING) {
+    if (get_current_wpm()<=50) {
+      layer_off(TYPING);
+    }
+    return;
+  }
 	if (current_layer == GAME) {
 		run(512);
 		return;
