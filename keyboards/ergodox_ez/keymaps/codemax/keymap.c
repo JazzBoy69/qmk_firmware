@@ -343,13 +343,13 @@ void led_set_user(uint8_t usb_led) {
 
 void matrix_scan_user(void) {
   if (current_layer == BASE) {
-    if (get_current_wpm()>45) {
+    if (get_current_wpm()>40) {
       layer_on(TYPING);
     }
     return;
   }
   if (current_layer == TYPING) {
-    if ((get_current_wpm()<=45) || (timer_elapsed(pressed_time) > 500)) {
+    if ((get_current_wpm()<=40) || (timer_elapsed(pressed_time) > 1000)) {
       layer_off(TYPING);
     }
     return;
