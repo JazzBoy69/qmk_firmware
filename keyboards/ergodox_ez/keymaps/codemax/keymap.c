@@ -219,6 +219,8 @@ uint32_t layer_state_set_user(uint32_t state);
 void flash(uint16_t time, uint8_t leds);
 void run(uint16_t speed);
 uint8_t current_layer = 0;
+uint16_t change_time = 0;
+uint16_t pressed_time = 0;
 
 // The state of the LEDs requested by the system, as a bitmask.
 static uint8_t sys_led_state = 0;
@@ -339,17 +341,15 @@ void led_set_user(uint8_t usb_led) {
 	 }
  }
 
-uint16_t change_time = 0;
-
 void matrix_scan_user(void) {
   if (current_layer == BASE) {
-    if (get_current_wpm()>50) {
+    if (get_current_wpm()>45) {
       layer_on(TYPING);
     }
     return;
   }
   if (current_layer == TYPING) {
-    if (get_current_wpm()<=50) {
+    if ((get_current_wpm()<=45) || (timer_elapsed(pressed_time) > 500)) {
       layer_off(TYPING);
     }
     return;
@@ -358,11 +358,11 @@ void matrix_scan_user(void) {
 		run(512);
 		return;
 	}
-	if ((current_layer == SYM) && (timer_read()>change_time + 500)) {
+	if ((current_layer == SYM) && (timer_elapsed(change_time) > 500)) {
 		flash(512, right_led);
 		return;
 	}
-	if ((current_layer == SYMPLUS) && (timer_read()>change_time + 500)) {
+	if ((current_layer == SYMPLUS) && (timer_elapsed(change_time) > 500)) {
 		flash(512, right_led | middle_led);
 		return;
 	}
@@ -371,10 +371,13 @@ void matrix_scan_user(void) {
 uint32_t layer_state_set_user(uint32_t state) {
   current_layer = biton32(state);
   change_time = timer_read();
-  	set_indicator();
+  set_indicator();
 	led_2_off();
 	led_3_off();
   switch (current_layer) {
+    case BASE:
+      set_current_wpm(0);
+      break;
     case NUMPAD:
       led_3_on();
       break;
@@ -411,6 +414,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  pressed_time = timer_read();
   switch (keycode) {
     case ST_MACRO_0:
     if (record->event.pressed) {
