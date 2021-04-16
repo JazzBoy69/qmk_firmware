@@ -75,7 +75,7 @@ TG(TYPING),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QU
   [TYPING] = LAYOUT_ergodox_pretty(
     ___,             XXX,  XXX,  XXX,  XXX,  XXX, XXX,                ___,  XXX,  XXX,  XXX,  XXX,  XXX,       ___,
     ___,             ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,       ___,
-    ___,             ___,  KC_R, KC_S, KC_T, KC_D,                          ___,  ___,  KC_E, ___,  KC_O,      ___,
+    ___,             ___,  KC_R, KC_S, KC_T, ___,                          ___,  ___,  KC_E, ___,  KC_O,      ___,
     ___,             ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,       ___,
     LCTL(KC_BSPACE), ___,  ___,  ___,  ___,                                       XXX,  XXX,  XXX,  XXX,  TO(BASE),
                                              ___, ___,                 ___, ___,
