@@ -53,7 +53,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
     KC_ESCAPE,          KC_F1,            KC_F2,           KC_F3,        KC_F4,           KC_F5,          TG(GAME),  
-    KC_GRAVE,           KC_Q,             KC_W,            KC_F,         KC_P,             KC_G,         TG(TYPING),  
+    KC_GRAVE,           KC_Q,             KC_W,            KC_F,         KC_P,             KC_G,         LCTL(KC_C),  
     OSL(SYM),           LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
     OSM(MOD_LSFT),      KC_Z,             KC_X,            KC_C,         KC_V,             KC_B,           KC_F15,  
     KC_DELETE,        KC_MS_BTN1,       KC_MS_BTN2,     KC_ESCAPE,     KC_SPACE,                       
@@ -63,7 +63,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                            LT(SYMPLUS,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
 TG(NUMPAD),      KC_F6,       KC_F7,         KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
-TG(TYPING),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE,      KC_GRAVE,
+LCTL(KC_V),     KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE,      KC_GRAVE,
                  KC_H,        KC_N,        LCTL_T(KC_E),    KC_I,        SCMD_T(KC_O),      OSL(6),
  KC_F15,         KC_K,        KC_M,         KC_COMMA,      KC_DOT,         KC_QUES,      OSM(MOD_LSFT),
                              KC_LGUI,        KC_F11,        KC_F12,      KC_APPLICATION,  ST_MACRO_1,
@@ -173,7 +173,7 @@ TG(TYPING),      KC_J,        KC_L,          KC_U,          KC_Y,          KC_QU
   [SYM] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
             ___,                KC_1,          KC_2,          KC_3,           KC_4,           KC_5,        ___,                                
-          ST_MACRO_2,        ST_MACRO_3,      KC_AMPR,       KC_PLUS,        KC_ASTR,        KC_EQUAL,     ___,     
+          ST_MACRO_2,        ST_MACRO_3,      KC_AMPR,       KC_PLUS,        KC_ASTR,        KC_EQUAL,     LCTL(KC_X),     
             ___,              KC_LCBR,       KC_LBRACKET,    KC_LPRN,        KC_EXLM,        KC_UNDS,             
             ___,              KC_BSLASH,       KC_AT,        KC_HASH,        KC_DLR,         KC_PERC,      ___,     
             ___,                 ___,           ___,           ___,           ___,                                                                                            
