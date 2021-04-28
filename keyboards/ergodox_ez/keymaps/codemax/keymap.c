@@ -53,31 +53,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
     KC_ESCAPE,          KC_F1,            KC_F2,           KC_F3,        KC_F4,           KC_F5,          TG(GAME),  
-    KC_GRAVE,           KC_Q,             KC_W,            KC_F,         KC_P,             KC_G,         LCTL(KC_C),  
+    KC_GRAVE,           KC_Q,             KC_W,            KC_F,         KC_P,             KC_G,         LALT(KC_F4),  
     OSL(SYM),           LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
     OSM(MOD_LSFT),      KC_Z,             KC_X,            KC_C,         KC_V,             KC_B,           KC_F15,  
     KC_DELETE,        KC_MS_BTN1,       KC_MS_BTN2,     KC_ESCAPE,     KC_SPACE,                       
  // left thumb --------------------------------------------------------------------------------------------------
-                                                                            LCTL(KC_Z),     LALT(KC_F4),    
+                                                                            LCTL(KC_Z),     LCTL(KC_Y),    
                                                                                               KC_TAB,        
                                                            LT(SYMPLUS,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
-TG(NUMPAD),      KC_F6,       KC_F7,         KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
-LCTL(KC_V),     KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE,      KC_GRAVE,
-                 KC_H,        KC_N,        LCTL_T(KC_E),    KC_I,        SCMD_T(KC_O),      OSL(6),
- KC_F15,         KC_K,        KC_M,         KC_COMMA,      KC_DOT,         KC_QUES,      OSM(MOD_LSFT),
-                             KC_LGUI,        KC_F11,        KC_F12,      KC_APPLICATION,  ST_MACRO_1,
+TG(NUMPAD),          KC_F6,       KC_F7,         KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
+LCTL(KC_BSPACE),     KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE,      KC_GRAVE,
+                     KC_H,        KC_N,        LCTL_T(KC_E),    KC_I,        SCMD_T(KC_O),      OSL(6),
+ KC_F15,             KC_K,        KC_M,         KC_COMMA,      KC_DOT,         KC_QUES,      OSM(MOD_LSFT),
+                                 KC_LGUI,        KC_F11,        KC_F12,      KC_APPLICATION,  ST_MACRO_1,
   // right thumb -------------------------------------------------------------------------------------------------
-  KC_PSCREEN,     LCTL(KC_Y),
+  KC_PSCREEN,     KC_HOME,
   KC_F23,
   KC_F24,          KC_END,         LT(7,KC_SPACE)
   ),
   [TYPING] = LAYOUT_ergodox_pretty(
-    ___,             XXX,  XXX,  XXX,  XXX,  XXX, XXX,                ___,  XXX,  XXX,  XXX,  XXX,  XXX,       ___,
-    ___,             ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,       ___,
-    ___,             ___,  KC_R, KC_S, KC_T, ___,                          ___,  ___,  KC_E, ___,  KC_O,      ___,
-    ___,             ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,       ___,
-    LCTL(KC_BSPACE), ___,  ___,  ___,  ___,                                       XXX,  XXX,  XXX,  XXX,  TO(BASE),
+    ___, XXX,  XXX,  XXX,  XXX,  XXX, XXX,                 ___,  XXX,  XXX,  XXX,  XXX,  XXX,      ___,
+    ___, ___,  ___,  ___,  ___,  ___, XXX,                 ___, ___,  ___,  ___,  ___,  ___,       ___,
+    ___, ___,  KC_R, KC_S, KC_T, ___,                          ___,  ___,  KC_E, ___,  KC_O,       ___,
+    ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,       ___,
+    ___, ___,  ___,  ___,  ___,                                       XXX,  XXX,  XXX,  XXX,  TO(BASE),
                                              ___, ___,                 ___, ___,
                                                   ___,                 ___,
                                         ___, ___, ___,                 ___, ___, ___
