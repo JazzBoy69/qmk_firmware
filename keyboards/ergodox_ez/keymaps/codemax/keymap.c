@@ -62,11 +62,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                               KC_TAB,        
                                                            LT(SYMPLUS,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
-TG(NUMPAD),          KC_F6,       KC_F7,         KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
-LCTL(KC_BSPACE),     KC_J,        KC_L,          KC_U,          KC_Y,          KC_QUOTE,      KC_GRAVE,
-                     KC_H,        KC_N,        LCTL_T(KC_E),    KC_I,        SCMD_T(KC_O),      OSL(6),
- KC_F15,             KC_K,        KC_M,         KC_COMMA,      KC_DOT,         KC_QUES,      OSM(MOD_LSFT),
-                                 KC_LGUI,        KC_F11,        KC_F12,      KC_APPLICATION,  ST_MACRO_1,
+TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
+LCTL(KC_BSPACE),     KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,      KC_GRAVE,
+                     KC_H,        LSFT_T(KC_N),        LCTL_T(KC_E),    KC_I,        SCMD_T(KC_O),      OSL(6),
+ KC_F15,             KC_K,        KC_M,                  KC_COMMA,      KC_DOT,         KC_QUES,      OSM(MOD_LSFT),
+                                 KC_LGUI,                KC_F11,        KC_F12,      KC_APPLICATION,  ST_MACRO_1,
   // right thumb -------------------------------------------------------------------------------------------------
   KC_PSCREEN,     KC_HOME,
   KC_F23,
