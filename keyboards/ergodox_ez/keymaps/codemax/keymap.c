@@ -12,6 +12,27 @@
 #define FN 5
 #define SYM 6
 #define SYMPLUS 7
+#define UNICODE 8
+
+#define CAP_ACCENTA SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_3) ))
+#define ACCENTA SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_5) ))
+
+
+#define SEND_UNICODE(upper, lower) uint8_t caps = caps_lock_on();\
+uint8_t shift = shift_pressed();\
+if (caps) {\
+            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));\
+          }\
+if ((caps + shift) == 1) {\
+          clear_oneshot_mods();\
+          upper;\
+        }\
+        else {\
+          lower;\
+        }\
+  if (caps) {\
+            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));\
+          }\
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
@@ -40,6 +61,21 @@ enum custom_keycodes {
   ST_MACRO_22,
   ST_MACRO_23,
   ST_MACRO_24,
+  SC_A,
+  SC_SEC,
+  SC_INVBANG,
+  SC_PAR,
+  SC_GU,
+  SC_SHIFT,
+  SC_DOT,
+  SC_COMMA,
+  SC_QUES,
+  SC_N,
+  SC_E,
+  SC_I,
+  SC_O,
+  SC_U,
+  SC_Y,
 };
 
 
@@ -53,7 +89,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
     KC_ESCAPE,          KC_F1,            KC_F2,           KC_F3,        KC_F4,           KC_F5,          TG(GAME),  
-    KC_GRAVE,           KC_Q,             KC_W,            KC_F,         KC_P,             KC_G,            XXX,  
+    OSL(UNICODE),       KC_Q,             KC_W,            KC_F,         KC_P,             KC_G,            XXX,  
     OSL(SYM),           LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
     OSM(MOD_LSFT),      KC_Z,             KC_X,            KC_C,         KC_V,             KC_B,           KC_F15,  
     KC_DELETE,        KC_MS_BTN1,       KC_MS_BTN2,     KC_ESCAPE,     KC_SPACE,                       
@@ -63,7 +99,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                            LT(SYMPLUS,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
 TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
-   XXX,              KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,      KC_GRAVE,
+   XXX,              KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,     OSL(UNICODE),
                      KC_H,        LSFT_T(KC_N),        LCTL_T(KC_E),    KC_I,        SCMD_T(KC_O),      OSL(6),
  KC_F15,             KC_K,        KC_M,                  KC_COMMA,      KC_DOT,         KC_QUES,      OSM(MOD_LSFT),
                                  KC_LGUI,                KC_F11,        KC_F12,      KC_APPLICATION,  ST_MACRO_1,
@@ -214,8 +250,32 @@ TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,  
                ___,
                ___, ___, ___ 
   ),
+  [UNICODE] = LAYOUT_ergodox(
+  // left hand ---------------------------------------------------------------------------------------------------
+    ___,            ___,   ___,  ___,   ___,          ___, ___, 
+    ___,            ___,   ___,  ___,   ___,       SC_PAR, SC_GU, 
+    ___,            SC_A,  ___, SC_SEC, SC_INVBANG,   ___, 
+    SC_SHIFT,  ___,   ___,  ___,   ___,          ___, ___,  
+    ___,            ___,   ___,  ___,   ___,   
+ // left thumb --------------------------------------------------------------------------------------------------
+                                                                              ___, ___,
+                                                                                   ___,
+                                                                         ___, ___, ___,
+// right hand --------------------------------------------------------------------------------------------------
+                                 ___, ___,    ___,   ___,     ___,      ___,   ___,
+                                 ___, ___,    ___,  SC_U,     SC_Y,     ___,   ___,
+                                      ___,   SC_N,  SC_E,     SC_I,    SC_O,   ___,
+                                 ___, ___,    ___,  SC_COMMA, SC_DOT, SC_QUES, SC_SHIFT,
+                                              ___,   ___,      ___,     ___,   ___,
+// right thumb -------------------------------------------------------------------------------------------------
+               ___, ___,
+               ___,
+               ___, ___, ___ 
+  ),
 };
 uint32_t layer_state_set_user(uint32_t state);
+uint8_t caps_lock_on(void);
+uint8_t shift_pressed(void);
 void flash(uint16_t time, uint8_t leds);
 void run(uint16_t speed);
 uint8_t current_layer = 0;
@@ -262,13 +322,27 @@ void led_3_off(void) {
   ergodox_right_led_3_off();
 }
 
+uint8_t caps_lock_on() {
+  if (sys_led_state & sys_led_mask_caps_lock) {
+    return 1;
+  }
+  return 0;
+}
+
+uint8_t shift_pressed() {
+  if ((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) {
+    return 1;
+  }
+  return 0;
+}
+
 void set_indicator(void) {
 	if (current_layer > NAV) {
 		return;
 	}
 	led_1_off();
 	if ((current_layer == BASE) || (current_layer == TYPING)) {
-		if (sys_led_state & sys_led_mask_caps_lock) {
+		if (caps_lock_on()) {
 		  led_1_on();
 		}
 		return;
@@ -414,8 +488,24 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  pressed_time = timer_read();
+  if (record->event.pressed) {
+    //layer_off(UNICODE);
+      pressed_time = timer_read();
+  }
   switch (keycode) {
+    case SC_SHIFT:
+      if (record->event.pressed) {
+        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+        reset_oneshot_layer();
+        layer_on(UNICODE);
+      }
+    break;    
+    case SC_A:
+      if (record->event.pressed) {
+        SEND_UNICODE(CAP_ACCENTA, ACCENTA);
+        layer_off(UNICODE);
+      }
+    break;
     case ST_MACRO_0:
     if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_C)) SS_DELAY(50) SS_LALT(SS_TAP(X_F4)));
