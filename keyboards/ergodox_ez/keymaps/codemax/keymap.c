@@ -13,6 +13,8 @@
 #define SYM 6
 #define SYMPLUS 7
 #define UNICODE 8
+#define MIRRORED 9
+
 
 #define CAP_ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_9) ))
 #define ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_1) ))
@@ -104,14 +106,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
     KC_ESCAPE,          KC_F1,            KC_F2,           KC_F3,        KC_F4,           KC_F5,          TG(GAME),  
-    OSL(UNICODE),       KC_Q,             KC_W,            KC_F,         KC_P,             KC_G,            XXX,  
+    OSL(UNICODE),       KC_Q,             KC_W,            KC_F,         KC_P,             KC_G,           XXX,  
     OSL(SYM),           LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
     OSM(MOD_LSFT),      KC_Z,             KC_X,            KC_C,         KC_V,             KC_B,           KC_F15,  
     KC_DELETE,        KC_MS_BTN1,       KC_MS_BTN2,     KC_ESCAPE,     KC_SPACE,                       
  // left thumb --------------------------------------------------------------------------------------------------
                                                                             LCTL(KC_Z),     LCTL(KC_Y),    
                                                                                               KC_TAB,        
-                                                           LT(SYMPLUS,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
+                                                           LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
 TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
    XXX,              KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,     OSL(UNICODE),
@@ -286,6 +288,28 @@ TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,  
                ___, ___,
                ___,
                ___, ___, ___ 
+  ),
+[MIRRORED] = LAYOUT_ergodox(
+// left hand ---------------------------------------------------------------------------------------------------
+    ___,       ___,            ___,            ___,         ___,          ___,         ___,  
+    ___,     KC_QUOTE,        KC_Y,           KC_U,         KC_L,         KC_J,        ___,  
+    ___,      KC_O,           KC_I,           KC_E,         KC_N,         KC_H, 
+    ___,    KC_QUES,          KC_DOT,        KC_COMMA,      KC_M,         KC_K,        ___,  
+    ___,     ___,              ___,            ___,          ___,                       
+ // left thumb --------------------------------------------------------------------------------------------------
+                                                                         ___,        ___,    
+                                                                                     ___,        
+                                                                          ___,  ___, ___,   
+  // right hand --------------------------------------------------------------------------------------------------
+                                 ___, ___,    ___,           ___,         ___,          ___,        ___,
+                                 ___, ___,  ST_MACRO_8,  ST_MACRO_16,  ST_MACRO_17,  ST_MACRO_18,   ___,
+                                      ___, ST_MACRO_19,  ST_MACRO_20,     ___,       ST_MACRO_24,   ___,
+                                 ___, ___,    ___,       ST_MACRO_21,  ST_MACRO_22,  ST_MACRO_23,   ___,
+                                              ___,           ___,         ___,          ___,      TO(BASE),
+  // right thumb -------------------------------------------------------------------------------------------------
+  ___,     ___,
+  ___,
+  ___,     ___,     ___
   ),
 };
 uint32_t layer_state_set_user(uint32_t state);
