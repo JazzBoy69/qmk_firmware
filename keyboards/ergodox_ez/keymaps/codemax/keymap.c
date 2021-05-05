@@ -14,8 +14,23 @@
 #define SYMPLUS 7
 #define UNICODE 8
 
+#define CAP_ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_9) ))
+#define ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_1) ))
 #define CAP_ACCENTA SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_3) ))
 #define ACCENTA SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_5) ))
+#define CAP_ACCENTE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_1) ))
+#define ACCENTE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_3) ))
+#define CAP_ACCENTI SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_5) ))
+#define ACCENTI SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_7) ))
+#define CAP_ACCENTO SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_1) ))
+#define ACCENTO SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_3) ))
+#define CAP_ACCENTU SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_8) ))
+#define ACCENTU SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_0) ))
+#define CAP_ACCENTY SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ))
+#define ACCENTY SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ))
+#define CAP_ACCENTGU SEND_STRING(SS_LSFT(SS_TAP(X_G)) SS_DELAY(50) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ))
+#define ACCENTGU SEND_STRING(SS_TAP(X_G) SS_DELAY(50) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ))
+
 
 
 #define SEND_UNICODE(upper, lower) uint8_t caps = caps_lock_on();\
@@ -252,11 +267,11 @@ TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,  
   ),
   [UNICODE] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    ___,            ___,   ___,  ___,   ___,          ___, ___, 
-    ___,            ___,   ___,  ___,   ___,       SC_PAR, SC_GU, 
-    ___,            SC_A,  ___, SC_SEC, SC_INVBANG,   ___, 
-    SC_SHIFT,  ___,   ___,  ___,   ___,          ___, ___,  
-    ___,            ___,   ___,  ___,   ___,   
+    ___,      ___,   ___,  ___,    ___,        ___,  ___, 
+    ___,      ___,   ___,  ___,  SC_PAR,     SC_GU,  ___, 
+    ___,      SC_A,  ___, SC_SEC, SC_INVBANG, ___, 
+    SC_SHIFT, ___,   ___,  ___,   ___,        ___,   ___,  
+    ___,      ___,   ___,  ___,   ___,   
  // left thumb --------------------------------------------------------------------------------------------------
                                                                               ___, ___,
                                                                                    ___,
@@ -488,10 +503,6 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    //layer_off(UNICODE);
-      pressed_time = timer_read();
-  }
   switch (keycode) {
     case SC_SHIFT:
       if (record->event.pressed) {
@@ -499,12 +510,99 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         reset_oneshot_layer();
         layer_on(UNICODE);
       }
+      return true;
     break;    
     case SC_A:
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ACCENTA, ACCENTA);
+      }
+    break;
+    case SC_E:
+      if (record->event.pressed) {
+        SEND_UNICODE(CAP_ACCENTE, ACCENTE);
+      }
+    break;
+    case SC_I:
+      if (record->event.pressed) {
+        SEND_UNICODE(CAP_ACCENTI, ACCENTI);
         layer_off(UNICODE);
       }
+      return false;
+    break;
+    case SC_O:
+      if (record->event.pressed) {
+        SEND_UNICODE(CAP_ACCENTO, ACCENTO);
+      }
+    break;
+    case SC_U:
+      if (record->event.pressed) {
+        SEND_UNICODE(CAP_ACCENTU, ACCENTU);
+        layer_off(UNICODE);
+      }
+      return false;
+    break;
+    case SC_Y:
+      if (record->event.pressed) {
+        SEND_UNICODE(CAP_ACCENTY, ACCENTY);
+        layer_off(UNICODE);
+      }
+      return false;
+    break;
+    case SC_GU:
+      if (record->event.pressed) {
+        SEND_UNICODE(CAP_ACCENTGU, ACCENTGU);
+        layer_off(UNICODE);
+      }
+      return false;
+    break;
+    case SC_N:
+      if (record->event.pressed) {
+        SEND_UNICODE(CAP_ENE, ENE);
+        layer_off(UNICODE);
+      }
+      return false;
+    break;
+    case SC_SEC:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7) ));
+        layer_off(UNICODE);
+      }
+      return false;
+    break;
+    case SC_QUES:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1) ));
+        layer_off(UNICODE);
+      }
+      return false;
+    break;
+    case SC_PAR:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_2) ));
+        layer_off(UNICODE);
+      }
+      return false;
+    break;
+    case SC_INVBANG:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_1) ));
+        layer_off(UNICODE);
+      }
+      return false;
+    break;
+    case SC_COMMA:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_0) ));
+        layer_off(UNICODE);
+      }
+      return false;
+    break;
+    case SC_DOT:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_3) ));
+        layer_off(UNICODE);
+      }
+      return false;
     break;
     case ST_MACRO_0:
     if (record->event.pressed) {
@@ -656,6 +754,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     }
     break;
+  }
+  if (record->event.pressed) {
+    layer_off(UNICODE);
+    pressed_time = timer_read();
   }
   return true;
 }
