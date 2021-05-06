@@ -464,6 +464,7 @@ void matrix_scan_user(void) {
   if (current_layer == TYPING) {
     if ((get_current_wpm()<=40) || (timer_elapsed(pressed_time) > 1000)) {
       layer_off(TYPING);
+      set_current_wpm(0);
     }
     return;
   }
@@ -475,7 +476,7 @@ void matrix_scan_user(void) {
 		flash(512, right_led);
 		return;
 	}
-	if ((current_layer == SYMPLUS) && (timer_elapsed(change_time) > 500)) {
+	if (((current_layer == SYMPLUS) || (current_layer == MIRRORED)) && (timer_elapsed(change_time) > 500)) {
 		flash(512, right_led | middle_led);
 		return;
 	}
@@ -488,9 +489,6 @@ uint32_t layer_state_set_user(uint32_t state) {
 	led_2_off();
 	led_3_off();
   switch (current_layer) {
-    case BASE:
-      set_current_wpm(0);
-      break;
     case NUMPAD:
       led_3_on();
       break;
@@ -503,7 +501,7 @@ uint32_t layer_state_set_user(uint32_t state) {
       break;
     case FN:
       led_1_on();
-	 led_2_on();
+	    led_2_on();
       led_3_on();
       break;
     default:
@@ -527,6 +525,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  pressed_time = timer_read();
   switch (keycode) {
     case SC_SHIFT:
       if (record->event.pressed) {
@@ -781,7 +780,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   if (record->event.pressed) {
     layer_off(UNICODE);
-    pressed_time = timer_read();
   }
   return true;
 }
