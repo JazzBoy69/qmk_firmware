@@ -514,11 +514,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (keycode == LT(1,KC_A)) {
       return 190;
     }
-     if ((keycode == LCTL_T(KC_U)) || (keycode == SCMD_T(KC_END))) {
-      return 250;
+     if ((keycode == LCTL_T(KC_U)) || (keycode == SCMD_T(KC_END)) 
+        || (keycode == LT(7,KC_SPACE)) || (keycode == LT(7,KC_BSPACE))) {
+      return 300;
     }
-    if ((keycode == LALT_T(KC_R)) 
-    || (keycode == LT(7,KC_SPACE)) || (keycode == LT(7,KC_BSPACE))) {
+    if (keycode == LALT_T(KC_R))  {
       return 200;
     }
     return TAPPING_TERM;
