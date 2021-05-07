@@ -116,19 +116,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                            LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
 TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
-   XXX,              KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,     OSL(UNICODE),
-                     KC_H,        LSFT_T(KC_N),        LCTL_T(KC_E),    KC_I,        SCMD_T(KC_O),      OSL(6),
+   XXX,              KC_J,        KC_L,              LCTL_T(KC_U),       KC_Y,          KC_QUOTE,     OSL(UNICODE),
+                     KC_H,        KC_N,                  KC_E,          KC_I,            KC_O,        OSL(6),
  KC_F15,             KC_K,        KC_M,                  KC_COMMA,      KC_DOT,         KC_QUES,      OSM(MOD_LSFT),
                                  KC_LGUI,                KC_F11,        KC_F12,      KC_APPLICATION,  ST_MACRO_1,
   // right thumb -------------------------------------------------------------------------------------------------
   KC_PSCREEN,     KC_HOME,
   KC_F23,
-  KC_F24,          KC_END,         LT(7,KC_SPACE)
+  KC_F24,      SCMD_T(KC_END),         LT(7,KC_SPACE)
   ),
   [TYPING] = LAYOUT_ergodox_pretty(
     ___, XXX,  XXX,  XXX,  XXX,  XXX, XXX,                 ___, XXX,  XXX,  XXX,  XXX,  XXX,       ___,
     ___, ___,  ___,  ___,  ___,  ___, XXX,                 ___, ___,  ___,  ___,  ___,  ___,       ___,
-    ___, ___,  KC_R, KC_S, KC_T, ___,                           ___,  ___,  KC_E, ___,  KC_O,      ___,
+    ___, ___,  KC_R, KC_S, KC_T, ___,                           ___,  ___,  ___,  ___,  ___,      ___,
     ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,       ___,
     ___, ___,  ___,  ___,  ___,                                 XXX,  XXX,  XXX,  XXX,  TO(BASE),
                                              ___, ___,                 ___, ___,
@@ -514,10 +514,10 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (keycode == LT(1,KC_A)) {
       return 190;
     }
-     if ((keycode == LCTL_T(KC_E)) || (keycode == SCMD_T(KC_O))) {
+     if ((keycode == LCTL_T(KC_U)) || (keycode == SCMD_T(KC_END))) {
       return 250;
     }
-    if ((keycode == LALT_T(KC_R)) || (keycode == LCTL_T(KC_E)) 
+    if ((keycode == LALT_T(KC_R)) 
     || (keycode == LT(7,KC_SPACE)) || (keycode == LT(7,KC_BSPACE))) {
       return 200;
     }
@@ -538,12 +538,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SC_A:
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ACCENTA, ACCENTA);
+        layer_off(UNICODE);
       }
+      return false;
     break;
     case SC_E:
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ACCENTE, ACCENTE);
+        layer_off(UNICODE);
       }
+      return false;
     break;
     case SC_I:
       if (record->event.pressed) {
@@ -555,7 +559,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SC_O:
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ACCENTO, ACCENTO);
+        layer_off(UNICODE);
       }
+      return false;
     break;
     case SC_U:
       if (record->event.pressed) {
