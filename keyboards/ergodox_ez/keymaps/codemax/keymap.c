@@ -69,7 +69,7 @@ enum custom_keycodes {
   ST_MACRO_13,
   ST_MACRO_14,
   ST_MACRO_15,
-  ST_MACRO_16,
+  SC_EMDASH,
   ST_MACRO_17,
   ST_MACRO_18,
   ST_MACRO_19,
@@ -203,11 +203,11 @@ TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,  
   ),
   [FN] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    LALT(LCTL(KC_DELETE)),   ___,   ___,   ___,   ___,     ___,    ___, 
-             ___,            ___,   ___,   ___,   ___,     ___,    ___, 
-             ___,           KC_1,  KC_2,   KC_3,  KC_4,    KC_5,   
-             ___,           KC_6,  KC_7,   KC_8,  KC_9,    KC_0,   ___,      
-             ___,            ___,   ___,   ___,   ___,      
+    LALT(LCTL(KC_DELETE)),   ___,   ___,   ___,        ___,     ___,    ___, 
+             ___,            ___,   ___,  SC_EMDASH,   ___,     ___,    ___, 
+             ___,           KC_1,  KC_2,   KC_3,      KC_4,    KC_5,   
+             ___,           KC_6,  KC_7,   KC_8,      KC_9,    KC_0,   ___,      
+             ___,            ___,   ___,   ___,        ___,      
  // left thumb --------------------------------------------------------------------------------------------------
                            ___, ___,
                                 ___,
@@ -258,7 +258,7 @@ TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,  
                                                                          ___, ___, ___,
 // right hand --------------------------------------------------------------------------------------------------
                                  ___, ___,    ___,           ___,         ___,          ___,        ___,
-                                 ___, ___,  ST_MACRO_8,  ST_MACRO_16,  ST_MACRO_17,  ST_MACRO_18,   ___,
+                                 ___, ___,  ST_MACRO_8,  SC_EMDASH,  ST_MACRO_17,  ST_MACRO_18,   ___,
                                       ___, ST_MACRO_19,  ST_MACRO_20,     ___,       ST_MACRO_24,   ___,
                                  ___, ___,    ___,       ST_MACRO_21,  ST_MACRO_22,  ST_MACRO_23,   ___,
                                               ___,           ___,         ___,          ___,      TO(BASE),
@@ -302,7 +302,7 @@ TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,  
                                                                           ___,  ___, ___,   
   // right hand --------------------------------------------------------------------------------------------------
                                  ___, ___,    ___,           ___,         ___,          ___,        ___,
-                                 ___, ___,  ST_MACRO_8,  ST_MACRO_16,  ST_MACRO_17,  ST_MACRO_18,   ___,
+                                 ___, ___,  ST_MACRO_8,  SC_EMDASH,  ST_MACRO_17,  ST_MACRO_18,   ___,
                                       ___, ST_MACRO_19,  ST_MACRO_20,     ___,       ST_MACRO_24,   ___,
                                  ___, ___,    ___,       ST_MACRO_21,  ST_MACRO_22,  ST_MACRO_23,   ___,
                                               ___,           ___,         ___,          ___,      TO(BASE),
@@ -514,11 +514,11 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (keycode == LT(1,KC_A)) {
       return 190;
     }
-     if ((keycode == LCTL_T(KC_U)) || (keycode == SCMD_T(KC_END)) 
+     if ((keycode == LCTL_T(KC_U))  
         || (keycode == LT(7,KC_SPACE)) || (keycode == LT(7,KC_BSPACE))) {
       return 300;
     }
-    if (keycode == LALT_T(KC_R))  {
+    if ((keycode == LALT_T(KC_R)) || (keycode == SCMD_T(KC_END))) {
       return 200;
     }
     return TAPPING_TERM;
@@ -729,7 +729,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     }
     break;
-    case ST_MACRO_16:
+    case SC_EMDASH:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_5) SS_TAP(X_KP_1) ));
 
