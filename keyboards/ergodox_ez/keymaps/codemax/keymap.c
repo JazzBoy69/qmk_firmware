@@ -14,6 +14,8 @@
 #define SYMPLUS 7
 #define UNICODE 8
 #define MIRRORED 9
+#define MIRSYM 10
+#define MIRUNI 11
 
 
 #define CAP_ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_9) ))
@@ -93,6 +95,7 @@ enum custom_keycodes {
   SC_O,
   SC_U,
   SC_Y,
+  SC_MIRSHIFT
 };
 
 
@@ -291,11 +294,11 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
   ),
 [MIRRORED] = LAYOUT_ergodox(
 // left hand ---------------------------------------------------------------------------------------------------
-    ___,       ___,            ___,            ___,         ___,          ___,         ___,  
-    ___,     KC_QUOTE,        KC_Y,           KC_U,         KC_L,         KC_J,        ___,  
-    ___,      KC_O,           KC_I,           KC_E,         KC_N,         KC_H, 
-    ___,    KC_QUES,          KC_DOT,        KC_COMMA,      KC_M,         KC_K,        ___,  
-    ___,     ___,              ___,            ___,          ___,                       
+    ___,               ___,             ___,            ___,         ___,          ___,         ___,  
+    OSL(MIRUNI),     KC_QUOTE,          KC_Y,           KC_U,        KC_L,         KC_J,        ___,  
+    OSL(MIRSYM),      KC_O,             KC_I,           KC_E,        KC_N,         KC_H, 
+    ___,             KC_QUES,          KC_DOT,        KC_COMMA,      KC_M,         KC_K,        ___,  
+    ___,               ___,              ___,            ___,          ___,                       
  // left thumb --------------------------------------------------------------------------------------------------
                                                                          ___,        ___,    
                                                                                      ___,        
@@ -310,6 +313,50 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
   ___,     ___,
   ___,
   ___,     ___,     ___
+  ),
+  [MIRUNI] = LAYOUT_ergodox(
+  // left hand ---------------------------------------------------------------------------------------------------
+    TO(BASE),     ___,      ___,  ___,    ___,        ___,  ___, 
+    ___,          ___,     SC_Y, SC_U,  SC_PAR,     SC_GU,  ___, 
+    ___,          SC_O,    SC_I, SC_E,  SC_N,         ___, 
+    SC_MIRSHIFT, SC_QUES,    ___,  ___,   ___,         ___,   ___,  
+    ___,           ___,      ___,  ___,   ___,   
+ // left thumb --------------------------------------------------------------------------------------------------
+                                                                              ___, ___,
+                                                                                   ___,
+                                                                         XXX, ___, ___,
+// right hand --------------------------------------------------------------------------------------------------
+                                 ___, ___,    ___,   ___,     ___,     ___,   ___,
+                                 ___, ___,    ___,   ___,     ___,     ___,   ___,
+                                      ___,    ___,   ___,     ___,     ___,   ___,
+                                 ___, ___,    ___,   ___,     ___,     ___,   ___,
+                                              ___,   ___,     ___,     ___,   ___,
+// right thumb -------------------------------------------------------------------------------------------------
+               ___, ___,
+               ___,
+               ___, ___, ___ 
+  ),
+  [MIRSYM] = LAYOUT_ergodox(
+  // left hand ---------------------------------------------------------------------------------------------------
+         TO(BASE),                KC_1,          KC_2,          KC_3,           KC_4,           KC_5,        ___,                                
+          ST_MACRO_2,        ST_MACRO_4,      KC_PIPE,       KC_MINUS,        KC_SLASH,      KC_TILD,      ___,     
+            ___,              KC_RCBR,       KC_RBRACKET,    KC_RPRN,        ST_MACRO_7,    ST_MACRO_6,             
+            ___,             KC_BSLASH,       KC_COLN,       KC_SCOLON,       ___,           KC_CIRC,        ___,     
+            ___,                 ___,           ___,           ___,           ___,                                                                                            
+ // left thumb --------------------------------------------------------------------------------------------------
+                                                                                               ___, ___,
+                                                                                                    ___,
+                                                                                           ___,___, ___,
+// right hand --------------------------------------------------------------------------------------------------
+                                 ___,      ___,    ___,      ___,   ___,    ___,      ___,
+                                 ___,      ___,    ___,      ___,   ___,    ___,      ___,
+                                           ___,    ___,      ___,   ___,    ___,      ___,
+                                 ___,      ___,    ___,      ___,   ___,    ___,      ___,
+                                                   ___,      ___,   ___,    ___,      ___,
+// right thumb -------------------------------------------------------------------------------------------------
+               ___, ___,
+               ___,
+               ___, ___, ___ 
   ),
 };
 uint32_t layer_state_set_user(uint32_t state);
@@ -534,11 +581,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(UNICODE);
       }
       return true;
-    break;    
+    break;
+    case SC_MIRSHIFT:
+      if (record->event.pressed) {
+        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+        reset_oneshot_layer();
+        layer_on(MIRUNI);
+      }
+      return true;
+    break;      
     case SC_A:
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ACCENTA, ACCENTA);
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -546,6 +602,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ACCENTE, ACCENTE);
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -553,6 +610,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ACCENTI, ACCENTI);
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -560,6 +618,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ACCENTO, ACCENTO);
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -567,6 +626,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ACCENTU, ACCENTU);
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -574,6 +634,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ACCENTY, ACCENTY);
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -581,6 +642,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ACCENTGU, ACCENTGU);
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -588,6 +650,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_UNICODE(CAP_ENE, ENE);
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -595,6 +658,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7) ));
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -602,6 +666,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1) ));
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -609,6 +674,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_2) ));
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -616,6 +682,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_1) ));
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -623,6 +690,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_0) ));
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -630,6 +698,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_3) ));
         layer_off(UNICODE);
+        layer_off(MIRUNI);
       }
       return false;
     break;
@@ -786,6 +855,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   }
   if (record->event.pressed) {
     layer_off(UNICODE);
+    layer_off(MIRUNI);
   }
   return true;
 }
