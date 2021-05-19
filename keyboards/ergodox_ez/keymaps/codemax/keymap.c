@@ -120,13 +120,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right hand --------------------------------------------------------------------------------------------------
 TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,          KC_F10,      KC_CAPSLOCK,
    XXX,              KC_J,        KC_L,              LCTL_T(KC_U),       KC_Y,          KC_QUOTE,     OSL(UNICODE),
-                     KC_H,        KC_N,                  KC_E,          KC_I,            KC_O,        OSL(6),
+                     KC_H,        KC_N,                  KC_E,          KC_I,       SCMD_T(KC_O),        OSL(6),
 OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT,         KC_QUES,      OSM(MOD_LSFT),
                                  KC_LGUI,                KC_F11,        KC_F12,      KC_APPLICATION,  ST_MACRO_1,
   // right thumb -------------------------------------------------------------------------------------------------
   KC_PSCREEN,     KC_HOME,
   KC_F23,
-  KC_F24,      SCMD_T(KC_END),         LT(7,KC_SPACE)
+  KC_F24,         KC_END,         LT(7,KC_SPACE)
   ),
   [TYPING] = LAYOUT_ergodox_pretty(
     ___, XXX,  XXX,  XXX,  XXX,  XXX, XXX,                 ___, XXX,  XXX,  XXX,  XXX,  XXX,       ___,
