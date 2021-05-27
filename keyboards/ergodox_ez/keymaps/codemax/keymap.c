@@ -94,7 +94,8 @@ enum custom_keycodes {
   SC_O,
   SC_U,
   SC_Y,
-  SC_MIRSHIFT
+  SC_MIRSHIFT,
+  SC_AS,
 };
 
 
@@ -139,11 +140,11 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
   ), 
   [NUMPAD] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    ___, ___,     ___,  ___, ___,    ___,     ___,                              
-    ___, ___,     ___,  ___, ___,    ___,     XXX,                    
-    ___, ___, KC_LALT,  ___, ___,   MO(NAV),              
-    ___, ___,     ___,  ___, ___,    ___,     ___,     
-    ___, ___,     XXX,  ___, ___,          
+    ___, ___,     ___,  ___,  ___,    ___,     ___,                              
+    ___, ___,     ___,  ___,  ___,    ___,     XXX,                    
+    ___, ___, KC_LALT, SC_AS, ___,   MO(NAV),              
+    ___, ___,     ___,  ___,  ___,    ___,     ___,     
+    ___, ___,     XXX,  ___,  ___,          
  // left thumb --------------------------------------------------------------------------------------------------
                                                            XXX,  KC_NUMLOCK,   
                                                                         ___, 
@@ -557,10 +558,10 @@ uint32_t layer_state_set_user(uint32_t state) {
 };
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == LT(1,KC_A)) {
+    if (keycode == LT(NUMPAD,KC_A)) {
       return 190;
     }
-     if (keycode == LCTL_T(KC_H)) {
+     if ((keycode == LCTL_T(KC_H)) || (keycode == OSM(MOD_LSFT))) {
       return 300;
     }
     if (keycode == LALT_T(KC_R)) {
@@ -651,7 +652,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_off(MIRUNI);
       }
       return false;
-    break;
+    break; 
     case SC_SEC:
       if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7) ));
@@ -850,6 +851,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     }
     break;
+    case SC_AS:
+       if (record->event.pressed) {
+        SEND_STRING(SS_TAP(X_A) SS_DELAY(50) SS_TAP(X_S));
+      }
   }
   if (record->event.pressed) {
     layer_off(UNICODE);
