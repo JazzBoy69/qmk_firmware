@@ -79,6 +79,7 @@ enum custom_keycodes {
   ST_MACRO_22,
   ST_MACRO_23,
   ST_MACRO_24,
+  ST_MACRO_25,
   SC_A,
   SC_SEC,
   SC_INVBANG,
@@ -261,9 +262,9 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
                                                                          ___, ___, ___,
 // right hand --------------------------------------------------------------------------------------------------
                                  ___, ___,    ___,           ___,         ___,          ___,        ___,
-                                 ___, ___,  ST_MACRO_8,  SC_EMDASH,  ST_MACRO_17,  ST_MACRO_18,   ___,
-                                      ___, ST_MACRO_19,  ST_MACRO_20,     ___,       ST_MACRO_24,   ___,
-                                 ___, ___,    ___,       ST_MACRO_21,  ST_MACRO_22,  ST_MACRO_23,   ___,
+                                 ___, ___,  ST_MACRO_8,  SC_EMDASH,   ST_MACRO_17,  ST_MACRO_18,   ___,
+                                      ___, ST_MACRO_19,  ST_MACRO_20, ST_MACRO_25,  ST_MACRO_24,   ___,
+                                 ___, ___,    ___,       ST_MACRO_21,  ST_MACRO_22, ST_MACRO_23,   ___,
                                               ___,           ___,         ___,          ___,      TO(BASE),
 // right thumb -------------------------------------------------------------------------------------------------
                ___, ___,
@@ -823,7 +824,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case ST_MACRO_20:
     if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_9)) SS_DELAY(50) SS_LSFT(SS_TAP(X_0)) SS_DELAY(50) SS_TAP(X_SCOLON) SS_DELAY(50) SS_TAP(X_ENTER));
+      SEND_STRING(SS_LSFT(SS_TAP(X_9)) SS_DELAY(50) SS_LSFT(SS_TAP(X_0)) SS_DELAY(50) SS_TAP(X_SCOLON));
 
     }
     break;
@@ -849,6 +850,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_X)) SS_DELAY(50) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(50) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(50) SS_TAP(X_LEFT) SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) SS_LCTL(SS_TAP(X_V)) SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) SS_TAP(X_UP));
 
+    }
+    break;
+    case ST_MACRO_25:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME)));
     }
     break;
     case SC_AS:
