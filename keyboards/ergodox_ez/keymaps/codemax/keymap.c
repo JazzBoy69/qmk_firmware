@@ -558,6 +558,13 @@ uint32_t layer_state_set_user(uint32_t state) {
   return state;
 };
 
+bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == LCTL_T(KC_CAPSLOCK)) {
+        return false;
+    }
+    return true;
+}
+
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (keycode == LT(NUMPAD,KC_A)) {
       return 190;
