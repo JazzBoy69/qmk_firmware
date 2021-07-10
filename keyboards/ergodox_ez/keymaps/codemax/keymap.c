@@ -559,7 +559,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 };
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == LCTL_T(KC_CAPSLOCK)) {
+    if ((keycode == LCTL_T(KC_CAPSLOCK)) || (keycode == LCTL_T(KC_S)) || (keycode == LSFT_T(KC_T))) {
         return false;
     }
     return true;
@@ -567,13 +567,14 @@ bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (keycode == LT(NUMPAD,KC_A)) {
-      return 190;
+      return 170;
     }
-     if ((keycode == LCTL_T(KC_H)) || (keycode == OSM(MOD_LSFT))) {
+     if ((keycode == LCTL_T(KC_H)) || (keycode == OSM(MOD_LSFT)) 
+     || (keycode == LCTL_T(KC_S)) || (keycode == LSFT_T(KC_T))) {
       return 300;
     }
     if (keycode == LALT_T(KC_R)) {
-      return 200;
+      return 250;
     }
     return TAPPING_TERM;
 }
