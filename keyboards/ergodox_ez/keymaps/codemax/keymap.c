@@ -109,21 +109,21 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    KC_ESCAPE,         KC_F1,          KC_F2,          KC_F3,        KC_F4,           KC_F5,          TG(GAME),  
+    KC_ESCAPE,        ___,             ___,             ___,           ___,             ___,              TG(GAME),  
     OSL(UNICODE),     KC_Q,            KC_W,            KC_F,         KC_P,             KC_G,           XXX,  
     OSL(SYM),       LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
     OSM(MOD_LSFT), LT(SYMPLUS,KC_Z),   KC_X,            KC_C,         KC_V,             KC_B,        OSM(MOD_MEH),  
-    KC_DELETE,        KC_MS_BTN1,       KC_MS_BTN2,     KC_ESCAPE,     KC_SPACE,                       
+    KC_DELETE,       ___,               ___,     KC_ESCAPE,        KC_SPACE,                       
  // left thumb --------------------------------------------------------------------------------------------------
                                                                             LCTL(KC_Z),     LCTL(KC_Y),    
                                                                                               KC_TAB,        
                                                            LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
-TG(NUMPAD),          KC_F6,       KC_F7,                 KC_F8,         KC_F9,          KC_F10,           LCTL_T(KC_CAPSLOCK),
+TG(NUMPAD),          ___,         ___,                   ___,           ___,             ___,           LCTL_T(KC_CAPSLOCK),
    XXX,              KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,              OSL(UNICODE),
               SCMD_T(KC_H),       KC_N,                  KC_E,          KC_I,            KC_O,                   OSL(SYM),
 OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT,       LT(SYMPLUS,KC_SLASH),     OSM(MOD_LSFT),
-                                 KC_LGUI,                KC_F11,        KC_F12,      KC_APPLICATION,           ST_MACRO_1,
+                                 KC_LGUI,                ___,            ___,             ___,           ST_MACRO_1,
   // right thumb -------------------------------------------------------------------------------------------------
   KC_PSCREEN,     KC_HOME,
   KC_F23,
@@ -218,14 +218,14 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
                       ___, ___, ___,
 // right hand --------------------------------------------------------------------------------------------------
                         ___,        ___, ___,  RESET,  ___, ___,  ___,
-                        ___,        ___, ___,   ___,   ___, ___,  ___,
-                                    ___, ___,   ___,   ___, ___,  ___,
-                   KC_SYSTEM_SLEEP, ___, ___,   ___,   ___, ___,  ___,
+                        ___,        ___, KC_F7, KC_F8, KC_F9, ___,  KC_F12,
+                                    ___, KC_F4, KC_F5, KC_F6, ___,  OSM(MOD_LCTL),
+                   KC_SYSTEM_SLEEP, ___, KC_F1, KC_F2, KC_F3, ___,  ___,
                                          ___,   ___,   ___, ___, TO(BASE),
 // right thumb -------------------------------------------------------------------------------------------------
                ___, ___,
                ___,
-               ___, ___, ___ 
+               ___, KC_F11, KC_F10 
   ),
   [SYM] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
