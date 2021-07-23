@@ -80,6 +80,7 @@ enum custom_keycodes {
   ST_MACRO_23,
   ST_MACRO_24,
   ST_MACRO_25,
+  OPENCLOSEBRACKETS,
   SC_A,
   SC_SEC,
   SC_INVBANG,
@@ -251,11 +252,11 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
   ),
   [SYMPLUS] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    ___,    ___,          ___,          ___,       LALT(KC_F4),  ___, ___, 
-    ___, ST_MACRO_9,   ST_MACRO_10,  ST_MACRO_11,     ___,       ___, ___, 
-    ___, ST_MACRO_12,     ___,       ST_MACRO_13,  ST_MACRO_14,  ___, 
-    ___, ST_MACRO_15,     ___,          ___,          ___,       ___, ___,  
-    ___,    ___,          ___,          ___,          ___,   
+    ___,    ___,          ___,              ___,       LALT(KC_F4),  ___, ___, 
+    ___, ST_MACRO_9,   ST_MACRO_10,       ST_MACRO_11,     ___,       ___, ___, 
+    ___, ST_MACRO_12,  OPENCLOSEBRACKETS, ST_MACRO_13,  ST_MACRO_14,  ___, 
+    ___, ST_MACRO_15,     ___,              ___,          ___,       ___, ___,  
+    ___,    ___,          ___,              ___,          ___,   
  // left thumb --------------------------------------------------------------------------------------------------
                                                                               ___, ___,
                                                                                    ___,
@@ -863,6 +864,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case ST_MACRO_25:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME)));
+    }
+    break;
+    case OPENCLOSEBRACKETS:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP(X_LBRACKET) SS_DELAY(50) SS_TAP(X_RBRACKET));
     }
     break;
     case SC_AS:
