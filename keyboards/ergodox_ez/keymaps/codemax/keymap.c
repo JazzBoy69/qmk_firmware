@@ -560,7 +560,8 @@ uint32_t layer_state_set_user(uint32_t state) {
 };
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
-    if ((keycode == LCTL_T(KC_CAPSLOCK)) || (keycode == LCTL_T(KC_S)) || (keycode == LSFT_T(KC_T))) {
+    if ((keycode == LCTL_T(KC_CAPSLOCK)) || (keycode == LCTL_T(KC_S)) || (keycode == LSFT_T(KC_T))
+    || (keycode == OSL(SYM)) || (keycode == OSL(UNICODE))) {
         return false;
     }
     return true;
