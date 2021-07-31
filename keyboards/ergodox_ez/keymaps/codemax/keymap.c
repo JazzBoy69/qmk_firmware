@@ -81,6 +81,7 @@ enum custom_keycodes {
   ST_MACRO_24,
   ST_MACRO_25,
   OPENCLOSEBRACKETS,
+  DELWORD,
   SC_A,
   SC_SEC,
   SC_INVBANG,
@@ -177,7 +178,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
                                 ___,       ___,            ___,         ___,         ___,        ___,            ___,
                                 ___,  LCTL(KC_HOME),  OSM(MOD_LCTL),   KC_UP,      KC_PGUP,      XXX,        KC_MS_WH_UP,
                                       LCTL(KC_LEFT),     KC_LEFT,     KC_DOWN,    KC_RIGHT,  LCTL(KC_RIGHT), KC_MS_WH_DOWN,
-                                ___,       XXX,         KC_DELETE,      XXX,      KC_PGDOWN,  LCTL(KC_END),      ___,
+                                ___,    DELWORD,        KC_DELETE,      XXX,      KC_PGDOWN,  LCTL(KC_END),      ___,
                                                            XXX,         XXX,         XXX,        ___,           TO(BASE),
   // right thumb -------------------------------------------------------------------------------------------------
                         ___,   ___,
@@ -870,6 +871,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case OPENCLOSEBRACKETS:
     if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_LBRACKET) SS_DELAY(50) SS_TAP(X_RBRACKET));
+    }
+    break;
+    case DELWORD:
+    if (record->event.pressed) {
+      SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)) SS_DELAY(50) SS_LSFT(SS_LCTL(SS_TAP(X_LEFT))) SS_DELAY(50) SS_TAP(X_DELETE));
     }
     break;
     case SC_AS:
