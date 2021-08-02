@@ -77,7 +77,7 @@ enum custom_keycodes {
   ST_MACRO_20,
   ST_MACRO_21,
   ST_MACRO_22,
-  ST_MACRO_23,
+  DEL_LINE,
   ST_MACRO_24,
   ST_MACRO_25,
   OPENCLOSEBRACKETS,
@@ -263,10 +263,10 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
                                                                                    ___,
                                                                          ___, ___, ___,
 // right hand --------------------------------------------------------------------------------------------------
-                                 ___, ___,    ___,           ___,         ___,          ___,        ___,
+                                 ___, ___,    ___,           ___,         ___,          ___,       ___,
                                  ___, ___,  ST_MACRO_8,  SC_EMDASH,   ST_MACRO_17,  ST_MACRO_18,   ___,
                                       ___, ST_MACRO_19,  ST_MACRO_20, ST_MACRO_25,  ST_MACRO_24,   ___,
-                                 ___, ___,    ___,       ST_MACRO_21,  ST_MACRO_22, ST_MACRO_23,   ___,
+                                 ___, ___,    ___,       ST_MACRO_21,  ST_MACRO_22,   DEL_LINE,    ___,
                                               ___,           ___,         ___,          ___,      TO(BASE),
 // right thumb -------------------------------------------------------------------------------------------------
                ___, ___,
@@ -310,7 +310,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
                                  ___, ___,    ___,           ___,         ___,          ___,        ___,
                                  ___, ___,  ST_MACRO_8,  SC_EMDASH,  ST_MACRO_17,  ST_MACRO_18,   ___,
                                       ___, ST_MACRO_19,  ST_MACRO_20,     ___,       ST_MACRO_24,   ___,
-                                 ___, ___,    ___,       ST_MACRO_21,  ST_MACRO_22,  ST_MACRO_23,   ___,
+                                 ___, ___,    ___,       ST_MACRO_21,  ST_MACRO_22,  DEL_LINE,   ___,
                                               ___,           ___,         ___,          ___,      TO(BASE),
   // right thumb -------------------------------------------------------------------------------------------------
   ___,     ___,
@@ -851,9 +851,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     }
     break;
-    case ST_MACRO_23:
+    case DEL_LINE:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME)) SS_DELAY(50) SS_TAP(X_DELETE) SS_DELAY(50) SS_TAP(X_DELETE));
+      SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME) SS_TAP(X_HOME)) SS_DELAY(50) SS_TAP(X_DELETE) SS_DELAY(50) SS_TAP(X_DELETE));
 
     }
     break;
