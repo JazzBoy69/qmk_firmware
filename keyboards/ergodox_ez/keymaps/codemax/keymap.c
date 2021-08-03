@@ -43,7 +43,7 @@ if (caps) {\
           }\
 if ((caps + shift) == 1) {\
           clear_oneshot_mods();\
-          upper;\
+        upper;\
         }\
         else {\
           lower;\
@@ -82,6 +82,7 @@ enum custom_keycodes {
   ST_MACRO_25,
   OPENCLOSEBRACKETS,
   DELWORD,
+  LOCKALT,
   SC_A,
   SC_SEC,
   SC_INVBANG,
@@ -99,6 +100,8 @@ enum custom_keycodes {
   SC_Y,
   SC_MIRSHIFT,
   SC_AS,
+  SC_AR,
+  SC_SUPERSHIFT,
 };
 
 
@@ -114,7 +117,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESCAPE,        ___,             ___,             ___,           ___,             ___,              TG(GAME),  
     OSL(UNICODE),     KC_Q,            KC_W,            KC_F,         KC_P,             KC_G,           XXX,  
     OSL(SYM),       LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
-    OSM(MOD_LSFT), LT(SYMPLUS,KC_Z),   KC_X,            KC_C,         KC_V,             KC_B,        OSM(MOD_MEH),  
+    SC_SUPERSHIFT, LT(SYMPLUS,KC_Z),   KC_X,            KC_C,         KC_V,             KC_B,        OSM(MOD_MEH),  
     KC_DELETE,       ___,               ___,     KC_ESCAPE,        KC_SPACE,                       
  // left thumb --------------------------------------------------------------------------------------------------
                                                                             LCTL(KC_Z),     LCTL(KC_Y),    
@@ -124,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 TG(NUMPAD),          ___,         ___,                   ___,           ___,             ___,           LCTL_T(KC_CAPSLOCK),
    XXX,              KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,              OSL(UNICODE),
               SCMD_T(KC_H),       KC_N,                  KC_E,          KC_I,            KC_O,                   OSL(SYM),
-OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT,       LT(SYMPLUS,KC_SLASH),     OSM(MOD_LSFT),
+OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT,       LT(SYMPLUS,KC_SLASH),   SC_SUPERSHIFT,
                                  KC_LGUI,                ___,            ___,             ___,           ST_MACRO_1,
   // right thumb -------------------------------------------------------------------------------------------------
   KC_PSCREEN,     KC_HOME,
@@ -145,7 +148,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
   // left hand ---------------------------------------------------------------------------------------------------
     ___, ___,     ___,  ___,  ___,    ___,     ___,                              
     ___, ___,     ___,  ___,  ___,    ___,     XXX,                    
-    ___, ___, KC_LALT, SC_AS, ___,   MO(NAV),              
+    ___, ___,   SC_AR, SC_AS, ___,   MO(NAV),              
     ___, ___,     ___,  ___,  ___,    ___,     ___,     
     ___, ___,     XXX,  ___,  ___,          
  // left thumb --------------------------------------------------------------------------------------------------
@@ -155,7 +158,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
   // right hand --------------------------------------------------------------------------------------------------
                               ___,     XXX,           XXX,       XXX,        XXX,           XXX,       KC_KP_ASTERISK,
                     KC_CALCULATOR,  LCTL(KC_V),    KC_KP_7,     KC_KP_8,    KC_KP_9,       KC_COLN,     KC_KP_MINUS,
-                                       XXX,         KC_KP_4,    KC_KP_5,    KC_KP_6,        KC_X,         KC_KP_PLUS,
+                                 OSM(MOD_LALT),     KC_KP_4,     KC_KP_5,    KC_KP_6,        KC_X,        KC_KP_PLUS,
                        ST_MACRO_0,     XXX,        KC_KP_1,     KC_KP_2,    KC_KP_3,     KC_KP_SLASH,    KC_ENTER,
                                                    KC_SPACE,  KC_KP_COMMA,  KC_KP_DOT,      ___,          TO(BASE),
   // right thumb -------------------------------------------------------------------------------------------------
@@ -419,7 +422,8 @@ uint8_t caps_lock_on() {
 }
 
 uint8_t shift_pressed() {
-  if ((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) {
+  if (((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) || 
+  ((get_oneshot_locked_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT))){
     return 1;
   }
   return 0;
@@ -532,6 +536,7 @@ void matrix_scan_user(void) {
 	}
 };
 
+
 uint32_t layer_state_set_user(uint32_t state) {
   current_layer = biton32(state);
   change_time = timer_read();
@@ -559,6 +564,7 @@ uint32_t layer_state_set_user(uint32_t state) {
   }
   return state;
 };
+
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     if ((keycode == LCTL_T(KC_CAPSLOCK)) || (keycode == LCTL_T(KC_S)) || (keycode == LSFT_T(KC_T))
@@ -590,6 +596,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_oneshot_mods(MOD_BIT(KC_LSHIFT));
         reset_oneshot_layer();
         layer_on(UNICODE);
+      }
+      return true;
+    break;
+    case SC_SUPERSHIFT:
+      if (record->event.pressed) {
+        uint8_t mods = get_oneshot_mods();
+        if (mods & MOD_BIT(KC_LSHIFT)) {
+          set_oneshot_mods(0);
+          tap_code(KC_CAPSLOCK);
+        }
+        else {
+          set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+        }
       }
       return true;
     break;
@@ -882,6 +901,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
        if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_A) SS_DELAY(50) SS_TAP(X_S));
       }
+    break;
+    case SC_AR:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP(X_A) SS_DELAY(50) SS_TAP(X_R));
+    }
+    break;
   }
   if (record->event.pressed) {
     layer_off(UNICODE);
