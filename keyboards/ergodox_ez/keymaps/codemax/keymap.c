@@ -102,6 +102,7 @@ enum custom_keycodes {
   SC_AS,
   SC_AR,
   SC_SUPERSHIFT,
+  SC_ARROW,
 };
 
 
@@ -256,10 +257,10 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
   ),
   [SYMPLUS] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    ___,    ___,          ___,              ___,       LALT(KC_F4),  ___, ___, 
-    ___, ST_MACRO_9,   ST_MACRO_10,       ST_MACRO_11,     ___,       ___, ___, 
+    ___,    ___,          ___,              ___,       LALT(KC_F4),   ___,     ___, 
+    ___, ST_MACRO_9,   ST_MACRO_10,       ST_MACRO_11,     ___,     SC_ARROW,  ___, 
     ___, ST_MACRO_12,  OPENCLOSEBRACKETS, ST_MACRO_13,  ST_MACRO_14,  ___, 
-    ___, ST_MACRO_15,     ___,              ___,          ___,       ___, ___,  
+    ___, ST_MACRO_15,     ___,              ___,          ___,        ___,     ___,  
     ___,    ___,          ___,              ___,          ___,   
  // left thumb --------------------------------------------------------------------------------------------------
                                                                               ___, ___,
@@ -601,6 +602,10 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case SC_SUPERSHIFT:
       if (record->event.pressed) {
+        if (caps_lock_on()) {
+          tap_code(KC_CAPSLOCK);
+          return true;
+        }
         uint8_t mods = get_oneshot_mods();
         if (mods & MOD_BIT(KC_LSHIFT)) {
           set_oneshot_mods(0);
@@ -900,6 +905,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SC_AS:
        if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_A) SS_DELAY(50) SS_TAP(X_S));
+      }
+    break;
+    case SC_ARROW:
+       if (record->event.pressed) {
+        SEND_STRING(SS_TAP(X_EQUAL) SS_DELAY(50) SS_LSFT(SS_TAP(X_DOT)));
       }
     break;
     case SC_AR:
