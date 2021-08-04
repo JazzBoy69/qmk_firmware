@@ -589,6 +589,8 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM;
 }
 
+uint16_t shift_time;
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   pressed_time = timer_read();
   switch (keycode) {
@@ -602,17 +604,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case SC_SUPERSHIFT:
       if (record->event.pressed) {
+        shift_time = timer_read();
+        add_mods(MOD_BIT(KC_LSHIFT));
+      }
+      else {
+        del_mods(MOD_BIT(KC_LSHIFT));
         if (caps_lock_on()) {
           tap_code(KC_CAPSLOCK);
           return true;
         }
-        uint8_t mods = get_oneshot_mods();
-        if (mods & MOD_BIT(KC_LSHIFT)) {
-          set_oneshot_mods(0);
-          tap_code(KC_CAPSLOCK);
+        if (timer_elapsed(shift_time)<TAPPING_TERM) {
+          uint8_t mods = get_oneshot_mods();
+          if (mods & MOD_BIT(KC_LSHIFT)) {
+            set_oneshot_mods(0);
+            tap_code(KC_CAPSLOCK);
+          }
+          else {
+            set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+          }
         }
-        else {
-          set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+        else
+        {
+          set_oneshot_mods(0);
         }
       }
       return true;
