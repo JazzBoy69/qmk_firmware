@@ -367,6 +367,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
   ),
 };
 uint32_t layer_state_set_user(uint32_t state);
+void handle_supershift(void);
 uint8_t caps_lock_on(void);
 uint8_t shift_pressed(void);
 void flash(uint16_t time, uint8_t leds);
@@ -374,6 +375,7 @@ void run(uint16_t speed);
 uint8_t current_layer = 0;
 uint16_t change_time = 0;
 uint16_t pressed_time = 0;
+uint16_t shift_time = 0;
 
 // The state of the LEDs requested by the system, as a bitmask.
 static uint8_t sys_led_state = 0;
@@ -589,7 +591,27 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     return TAPPING_TERM;
 }
 
-uint16_t shift_time;
+void handle_supershift() {
+  del_mods(MOD_BIT(KC_LSHIFT));
+  if (caps_lock_on()) {
+    tap_code(KC_CAPSLOCK);
+    return;
+  }
+  if (timer_elapsed(shift_time)<TAPPING_TERM) {
+    uint8_t mods = get_oneshot_mods();
+    if (mods & MOD_BIT(KC_LSHIFT)) {
+      set_oneshot_mods(0);
+      tap_code(KC_CAPSLOCK);
+    }
+    else {
+      set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+    }
+  }
+  else
+  {
+    set_oneshot_mods(0);
+  }
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   pressed_time = timer_read();
@@ -608,25 +630,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         add_mods(MOD_BIT(KC_LSHIFT));
       }
       else {
-        del_mods(MOD_BIT(KC_LSHIFT));
-        if (caps_lock_on()) {
-          tap_code(KC_CAPSLOCK);
-          return true;
-        }
-        if (timer_elapsed(shift_time)<TAPPING_TERM) {
-          uint8_t mods = get_oneshot_mods();
-          if (mods & MOD_BIT(KC_LSHIFT)) {
-            set_oneshot_mods(0);
-            tap_code(KC_CAPSLOCK);
-          }
-          else {
-            set_oneshot_mods(MOD_BIT(KC_LSHIFT));
-          }
-        }
-        else
-        {
-          set_oneshot_mods(0);
-        }
+        handle_supershift();
       }
       return true;
     break;
