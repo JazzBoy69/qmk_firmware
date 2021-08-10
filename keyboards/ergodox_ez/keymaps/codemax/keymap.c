@@ -236,7 +236,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
   [SYM] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
             ___,                KC_1,          KC_2,          KC_3,           KC_4,           KC_5,        ___,                                
-          ST_MACRO_2,        ST_MACRO_3,      KC_AMPR,       KC_PLUS,        KC_ASTR,        KC_EQUAL,     LCTL(KC_X),     
+          ST_MACRO_2,        ST_MACRO_3,      KC_AMPR,       KC_PLUS,        KC_ASTR,        KC_EQUAL,     ___,     
             ___,              KC_LCBR,       KC_LBRACKET,    KC_LPRN,        KC_EXLM,        KC_UNDS,             
             ___,              KC_BSLASH,       KC_AT,        KC_HASH,        KC_DLR,         KC_PERC,      ___,     
             ___,                 ___,           ___,           ___,           ___,                                                                                            
@@ -623,6 +623,102 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         layer_on(UNICODE);
       }
       return true;
+    break;
+    case KC_COLN:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_SCOLON)));
+      }
+      return false;
+    break;
+    case KC_LCBR:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_LBRACKET)));
+      }
+      return false;
+    break;
+    case KC_AMPR:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_7)));
+      }
+      return false;
+    break;
+    case KC_PLUS:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_EQUAL)));
+      }
+      return false;
+    break;
+    case KC_ASTR:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_8)));
+      }
+      return false;
+    break;
+    case KC_AT:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_2)));
+      }
+      return false;
+    break;
+    case KC_PERC:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_5)));
+      }
+      return false;
+    break;
+    case KC_HASH:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_3)));
+      }
+      return false;
+    break;
+    case KC_DLR:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_4)));
+      }
+      return false;
+    break;
+    case KC_TILD:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_GRV)));
+      }
+      return false;
+    break;
+    case KC_PIPE:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_BSLASH)));
+      }
+      return false;
+    break;
+    case KC_RCBR:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_RBRACKET)));
+      }
+      return false;
+    break;
+    case KC_RPRN:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_0)));
+      }
+      return false;
+    break;
+    case KC_LPRN:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_9)));
+      }
+      return false;
+    break;
+    case KC_EXLM:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_1)));
+      }
+      return false;
+    break;
+    case KC_UNDS:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_MINUS)));
+      }
+      return false;
     break;
     case SC_SUPERSHIFT:
       if (record->event.pressed) {
