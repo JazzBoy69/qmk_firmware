@@ -104,6 +104,7 @@ enum custom_keycodes {
   SC_SUPERSHIFT,
   SC_ARROW,
   SC_SUPERDOT,
+  SC_SUPERQUES,
 };
 
 
@@ -132,9 +133,9 @@ TG(NUMPAD),          ___,         ___,                   ___,           ___,    
 OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT,       LT(SYMPLUS,KC_SLASH),   SC_SUPERSHIFT,
                                  KC_LGUI,                ___,            XXX,             ___,                ST_MINIMIZE,
   // right thumb -------------------------------------------------------------------------------------------------
-  KC_PSCREEN,     KC_HOME,
+  KC_PSCREEN,     XXX,
   KC_F23,
-  KC_F24,         KC_END,       KC_SPACE
+  KC_F24,        KC_QUES,       KC_SPACE
   ),
   [TYPING] = LAYOUT_ergodox_pretty(
     ___, XXX,  XXX,  XXX,  XXX,  XXX, XXX,                 ___, XXX,  XXX,  XXX,  XXX,  XXX,       ___,
@@ -186,9 +187,9 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
                                 ___,    DELWORD,        KC_DELETE,      XXX,      KC_PGDOWN,  LCTL(KC_END),  OSM(MOD_LSFT),
                                                            XXX,         XXX,         XXX,        ___,           TO(BASE),
   // right thumb -------------------------------------------------------------------------------------------------
-                        ___,   ___,
+                        ___,      ___,
                         ___,
-                        ___,   ___,   ___
+                        ___,   KC_HOME,  KC_END
   ),
   [GAME] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
@@ -254,7 +255,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
 // right thumb -------------------------------------------------------------------------------------------------
                ___, ___,
                ___,
-               ___, ___, SC_SUPERDOT
+               ___, SC_SUPERQUES, SC_SUPERDOT
   ),
   [SYMPLUS] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
@@ -298,7 +299,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
 // right thumb -------------------------------------------------------------------------------------------------
                ___, ___,
                ___,
-               ___, ___, ___ 
+               ___, SC_QUES, ___ 
   ),
 [MIRRORED] = LAYOUT_ergodox(
 // left hand ---------------------------------------------------------------------------------------------------
@@ -427,7 +428,9 @@ uint8_t caps_lock_on() {
 
 uint8_t shift_pressed() {
   if (((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) || 
-  ((get_oneshot_locked_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT))){
+  ((get_oneshot_locked_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) ||
+  ((get_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)))
+  {
     return 1;
   }
   return 0;
@@ -737,6 +740,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
     break;
+    case SC_SUPERQUES:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_SLASH)) SS_DELAY(50) SS_TAP(X_SPACE));
+        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+      }
+      return true;
+    break;    
     case SC_MIRSHIFT:
       if (record->event.pressed) {
         set_oneshot_mods(MOD_BIT(KC_LSHIFT));
