@@ -526,7 +526,9 @@ void matrix_scan_user(void) {
   if (current_layer == TYPING) {
     if ((get_current_wpm()<=40) || (timer_elapsed(pressed_time) > 1000)) {
       layer_off(TYPING);
+      set_oneshot_mods(0);
       set_current_wpm(0);
+      SEND_STRING(SS_TAP(X_ESCAPE));
     }
     return;
   }
@@ -757,7 +759,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         set_oneshot_mods(MOD_BIT(KC_LSHIFT));
       }
       return true;
-    break;    
+    break;
+    case KC_ESCAPE:
+      if (record->event.pressed) {
+        clear_oneshot_mods();
+        clear_mods();
+        SEND_STRING(SS_TAP(X_ESCAPE));
+      }
+      return true;
+    break; 
     case SC_MIRSHIFT:
       if (record->event.pressed) {
         set_oneshot_mods(MOD_BIT(KC_LSHIFT));
