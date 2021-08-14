@@ -91,7 +91,7 @@ enum custom_keycodes {
   SC_SHIFT,
   SC_DOT,
   SC_COMMA,
-  SC_QUES,
+  SC_INVQUES,
   SC_N,
   SC_E,
   SC_I,
@@ -105,6 +105,7 @@ enum custom_keycodes {
   SC_ARROW,
   SC_SUPERDOT,
   SC_SUPERQUES,
+  SC_SUPERINVQUES,
 };
 
 
@@ -294,12 +295,12 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
                                  ___, ___,    ___,   ___,     ___,      ___,   ___,
                                  ___, ___,    ___,  SC_U,     SC_Y,     ___,   ___,
                                       ___,   SC_N,  SC_E,     SC_I,    SC_O,   ___,
-                                 ___, ___,    ___,  SC_COMMA, SC_DOT, SC_QUES, SC_SHIFT,
+                                 ___, ___,    ___,  SC_COMMA, SC_DOT, SC_INVQUES, SC_SHIFT,
                                               ___,   ___,      ___,     ___,   ___,
 // right thumb -------------------------------------------------------------------------------------------------
                ___, ___,
                ___,
-               ___, SC_QUES, ___ 
+               ___, SC_SUPERINVQUES, ___ 
   ),
 [MIRRORED] = LAYOUT_ergodox(
 // left hand ---------------------------------------------------------------------------------------------------
@@ -328,7 +329,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
     TO(BASE),     ___,      ___,  ___,    ___,        ___,  ___, 
     ___,          ___,     SC_Y, SC_U,  SC_PAR,     SC_GU,  ___, 
     ___,          SC_O,    SC_I, SC_E,  SC_N,         ___, 
-    SC_MIRSHIFT, SC_QUES,    ___,  ___,   ___,         ___,   ___,  
+    SC_MIRSHIFT, SC_INVQUES,    ___,  ___,   ___,         ___,   ___,  
     ___,           ___,      ___,  ___,   ___,   
  // left thumb --------------------------------------------------------------------------------------------------
                                                                               ___, ___,
@@ -740,6 +741,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return true;
     break;
+    case SC_SUPERINVQUES:
+      if (record->event.pressed) {
+        set_oneshot_mods(0);
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1) ));
+        layer_off(UNICODE);
+        layer_off(MIRUNI);
+        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+      }
+      return false;
+    break;   
     case SC_SUPERQUES:
       if (record->event.pressed) {
         SEND_STRING(SS_LSFT(SS_TAP(X_SLASH)) SS_DELAY(50) SS_TAP(X_SPACE));
@@ -827,7 +838,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     break;
-    case SC_QUES:
+    case SC_INVQUES:
       if (record->event.pressed) {
         SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1) ));
         layer_off(UNICODE);
