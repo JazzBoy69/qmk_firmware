@@ -378,6 +378,7 @@ void run(uint16_t speed);
 uint8_t current_layer = 0;
 uint16_t change_time = 0;
 uint16_t pressed_time = 0;
+uint16_t shift_time = 0;
 uint8_t shift_count = 0;
 
 // The state of the LEDs requested by the system, as a bitmask.
@@ -525,10 +526,9 @@ void matrix_scan_user(void) {
   }
   if (current_layer == TYPING) {
     if ((get_current_wpm()<=40) || (timer_elapsed(pressed_time) > 1000)) {
+      shift_time = 0;
       layer_off(TYPING);
-      set_oneshot_mods(0);
       set_current_wpm(0);
-      SEND_STRING(SS_TAP(X_ESCAPE));
     }
     return;
   }
@@ -622,6 +622,12 @@ void handle_supershift() {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   pressed_time = timer_read();
+  if (record->event.pressed && (shift_time != 0)) {
+      if (!caps_lock_on() && (timer_elapsed(shift_time) < 1000)) {
+        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+      }
+      shift_time = 0;
+    }
   switch (keycode) {
     case SC_SHIFT:
       if (record->event.pressed) {
@@ -730,7 +736,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SC_SUPERDOT:
       if (record->event.pressed) {
         SEND_STRING(SS_TAP(X_DOT)SS_DELAY(50)SS_TAP(X_SPACE));
-        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+        shift_time = timer_read();
       }
       return true;
     break;
@@ -746,24 +752,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case SC_SUPERINVQUES:
       if (record->event.pressed) {
         set_oneshot_mods(0);
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1) ));
+        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1)));
         layer_off(UNICODE);
         layer_off(MIRUNI);
-        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+        shift_time = timer_read();
       }
       return false;
     break;   
     case SC_SUPERQUES:
       if (record->event.pressed) {
         SEND_STRING(SS_LSFT(SS_TAP(X_SLASH)) SS_DELAY(50) SS_TAP(X_SPACE));
-        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+        shift_time = timer_read();
       }
       return true;
     break;
     case KC_ESCAPE:
       if (record->event.pressed) {
-        clear_oneshot_mods();
+        clear_oneshot_mods(); 
         clear_mods();
+        shift_time = 0;
         SEND_STRING(SS_TAP(X_ESCAPE));
       }
       return true;
