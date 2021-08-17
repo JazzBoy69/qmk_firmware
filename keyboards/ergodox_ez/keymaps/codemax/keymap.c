@@ -146,7 +146,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
     ___, ___,  ___,  ___,  ___,                                       XXX,  XXX,  XXX,  XXX,   TO(BASE),
                                              ___, ___,                 ___, ___,
                                                   ___,                 ___,
-                             KC_BSPACE, KC_ENTER, ___,                 ___, KC_END, KC_SPACE
+                             KC_BSPACE, KC_ENTER, ___,                 ___, ___, ___
   ), 
   [NUMPAD] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
