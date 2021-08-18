@@ -106,6 +106,7 @@ enum custom_keycodes {
   SC_SUPERDOT,
   SC_SUPERQUES,
   SC_SUPERINVQUES,
+  SC_SECTION,
 };
 
 
@@ -118,28 +119,28 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    KC_ESCAPE,        ___,             ___,             ___,           ___,             ___,              TG(GAME),  
-    OSL(UNICODE),     KC_Q,            KC_W,            KC_F,         KC_P,             KC_G,           XXX,  
+    KC_ESCAPE,   SC_SURROUNDBRKT, OPENCLOSEBRACKETS, SC_OPENCLOSEPAREN, SC_NOTEQUAL,    KC_EQUAL,       TG(GAME),  
+    OSL(UNICODE),     KC_Q,            KC_W,            KC_F,            KC_P,             KC_G,           XXX,  
     OSL(SYM),       LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
-    SC_SUPERSHIFT, LT(SYMPLUS,KC_Z),   KC_X,            KC_C,         KC_V,             KC_B,        OSM(MOD_MEH),  
-    KC_DELETE,       ___,               ___,     KC_ESCAPE,       MEH_T(KC_SPACE),                       
+    SC_SUPERSHIFT, LT(SYMPLUS,KC_Z),   KC_X,            KC_C,           KC_V,             KC_B,        OSM(MOD_MEH),  
+    KC_DELETE,       ___,               ___,     KC_ESCAPE,         MEH_T(KC_SPACE),                       
  // left thumb --------------------------------------------------------------------------------------------------
                                                                             LCTL(KC_Z),     LCTL(KC_Y),    
                                                                                               KC_TAB,        
                                                            LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
-TG(NUMPAD),          ___,         ___,                   ___,           ___,             ___,           LCTL_T(KC_CAPSLOCK),
+TG(NUMPAD),     SC_SEMICLNENTER,  SC_EQUALS,  SC_PARENSEMICOLON,           ___,      SC_SURROUNDBRKT,        LCTL_T(KC_CAPSLOCK),
    XXX,              KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,              OSL(UNICODE),
               SCMD_T(KC_H),       KC_N,                  KC_E,          KC_I,            KC_O,                   OSL(SYM),
 OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT,       LT(SYMPLUS,KC_SLASH),   SC_SUPERSHIFT,
-                                 KC_LGUI,                XXX,            XXX,             XXX,                ST_MINIMIZE,
+                              OSM(MOD_MEH),             KC_LGUI,         XXX,             XXX,                ST_MINIMIZE,
   // right thumb -------------------------------------------------------------------------------------------------
   KC_PSCREEN,     XXX,
   KC_F23,
   KC_F24,        KC_QUES,       KC_SPACE
   ),
   [TYPING] = LAYOUT_ergodox_pretty(
-    ___, XXX,  XXX,  XXX,  XXX,  XXX, XXX,                 ___, XXX,  XXX,  XXX,  XXX,  XXX,       ___,
+    ___, ___,  ___,  ___,  ___,  XXX, XXX,                 XXX, XXX,  ___,  ___,  ___,  ___,       ___,
     ___, ___,  ___,  ___,  ___,  ___, XXX,                 ___, ___,  ___,  ___,  ___,  ___,       ___,
     ___, ___,  KC_R, KC_S, KC_T, ___,                           ___,  ___,  ___,  ___,  ___,      ___,
     ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,       ___,
@@ -197,18 +198,18 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
     ___, KC_1,  KC_2,     KC_3,      KC_4,    KC_5, ___,             
     ___, KC_Y,  KC_Q,     KC_W,      KC_E,    KC_R, KC_T,               
    KC_X, KC_G,  KC_A,     KC_S,      KC_D,    KC_F,             
-    ___, KC_B,  KC_Z,     KC_UP,     KC_C,    KC_V, ___,                          
-    ___, KC_DOT,KC_LEFT, KC_DOWN,   KC_RIGHT,                                                                                        
+    ___, KC_B,  KC_Z,     KC_X,      KC_C,    KC_V, ___,                          
+    ___, KC_DOT, ___,      ___,       ___,                                                                                        
  // left thumb --------------------------------------------------------------------------------------------------
                                   XXX,              ___, 
                                                     ___, 
                                KC_SPACE,  KC_SPACE, ___, 
 // right hand --------------------------------------------------------------------------------------------------
-                                 ___, KC_6, KC_7,  KC_8,  KC_9, KC_0,  KC_LOCK,
-                                 ___, ___,  ___,   ___,   ___,  ___,   ___,
-                                      ___,  ___,   ___,   ___,  ___,   ___,
-                                 ___, ___,  ___,   ___,   ___,  ___,   ___,
-                                            ___,   ___,   ___,  ___, TO(BASE),
+                                 ___, KC_6, KC_7,     KC_8,    KC_9,    KC_0,  KC_LOCK,
+                                 ___, ___,  ___,      KC_UP,    ___,     ___,   ___,
+                                      ___, KC_LEFT,  KC_DOWN, KC_RIGHT,  ___,   ___,
+                                 ___, ___,  ___,      ___,      ___,     ___,   ___,
+                                            ___,      ___,      ___,     ___, TO(BASE),
 // right thumb -------------------------------------------------------------------------------------------------
                           ___, XXX,
                           ___,
@@ -262,7 +263,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
   // left hand ---------------------------------------------------------------------------------------------------
     ___,    ___,          ___,              ___,            LALT(KC_F4),   ___,     ___, 
     ___, SC_OPENQUOTE,   SC_AND,       SC_PLUSPLUS,        ___,       SC_ARROW,  ___, 
-    ___, SC_STARTSECTION,  OPENCLOSEBRACKETS, SC_OPENCLOSEPAREN,  SC_NOTEQUAL, ___, 
+    ___, SC_SECTION,  OPENCLOSEBRACKETS, SC_OPENCLOSEPAREN,  SC_NOTEQUAL, ___, 
     ___, SC_ENDSECTION,     ___,              ___,              ___,         ___,     ___,  
     ___,    ___,          ___,              ___,              ___,   
  // left thumb --------------------------------------------------------------------------------------------------
@@ -593,7 +594,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
       return 300;
     }
     if (keycode == LALT_T(KC_R)) {
-      return 250;
+      return 150;
     }
     return TAPPING_TERM;
 }
@@ -973,6 +974,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     }
     break;
+    case SC_SECTION:
+    if (record->event.pressed) {
+      SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(20) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_TAB));
+
+    }
+    break;
     case SC_OPENCLOSEPAREN:
     if (record->event.pressed) {
       SEND_STRING(SS_LSFT(SS_TAP(X_9)) SS_DELAY(50) SS_LSFT(SS_TAP(X_0)));
@@ -1041,7 +1048,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case SC_SURROUNDBRKT:
     if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_X)) SS_DELAY(50) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(50) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(50) SS_TAP(X_LEFT) SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) SS_LCTL(SS_TAP(X_V)) SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) SS_TAP(X_UP));
+      SEND_STRING(SS_LCTL(SS_TAP(X_X)) SS_DELAY(20) SS_LSFT(SS_TAP(X_TAB)) SS_DELAY(20) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_TAP(X_TAB) SS_DELAY(20) SS_LCTL(SS_TAP(X_V)));
 
     }
     break;
