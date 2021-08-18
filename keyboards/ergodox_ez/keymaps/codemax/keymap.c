@@ -969,7 +969,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case SC_STARTSECTION:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_TAP(X_SPACE) SS_DELAY(50) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(50) SS_TAP(X_ENTER));
+      SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(20) SS_TAP(X_ENTER));
 
     }
     break;
@@ -987,7 +987,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case SC_ENDSECTION:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_ENTER) SS_DELAY(50) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(50) SS_TAP(X_UP));
+      SEND_STRING(SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_TAB));
 
     }
     break;
