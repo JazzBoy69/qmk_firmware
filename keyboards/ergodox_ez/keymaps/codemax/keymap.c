@@ -122,7 +122,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     OSL(UNICODE),     KC_Q,            KC_W,            KC_F,         KC_P,             KC_G,           XXX,  
     OSL(SYM),       LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
     SC_SUPERSHIFT, LT(SYMPLUS,KC_Z),   KC_X,            KC_C,         KC_V,             KC_B,        OSM(MOD_MEH),  
-    KC_DELETE,       ___,               ___,     KC_ESCAPE,        KC_SPACE,                       
+    KC_DELETE,       ___,               ___,     KC_ESCAPE,       MEH_T(KC_SPACE),                       
  // left thumb --------------------------------------------------------------------------------------------------
                                                                             LCTL(KC_Z),     LCTL(KC_Y),    
                                                                                               KC_TAB,        
@@ -578,7 +578,7 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     if ((keycode == LCTL_T(KC_CAPSLOCK)) || (keycode == LCTL_T(KC_S)) || (keycode == LSFT_T(KC_T))
-    || (keycode == OSL(SYM)) || (keycode == OSL(UNICODE))) {
+    || (keycode == OSL(SYM)) || (keycode == OSL(UNICODE)) || (keycode == MEH_T(KC_SPACE))) {
         return false;
     }
     return true;
