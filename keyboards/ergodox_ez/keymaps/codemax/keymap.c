@@ -107,6 +107,8 @@ enum custom_keycodes {
   SC_SUPERQUES,
   SC_SUPERINVQUES,
   SC_SECTION,
+  SC_RENAME,
+  SC_EXTRACT,
 };
 
 
@@ -119,7 +121,7 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    KC_ESCAPE,   SC_SURROUNDBRKT, OPENCLOSEBRACKETS, SC_OPENCLOSEPAREN, SC_NOTEQUAL,    KC_EQUAL,       TG(GAME),  
+    KC_ESCAPE,   SC_SURROUNDBRKT, SC_RENAME, SC_EXTRACT, SC_NOTEQUAL,    KC_EQUAL,       TG(GAME),  
     OSL(UNICODE),     KC_Q,            KC_W,            KC_F,            KC_P,             KC_G,           XXX,  
     OSL(SYM),       LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
     SC_SUPERSHIFT, LT(SYMPLUS,KC_Z),   KC_X,            KC_C,           KC_V,             KC_B,        OSM(MOD_MEH),  
@@ -913,6 +915,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_6) ));
 
     }
+    break;
+    case SC_RENAME:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_TAP(X_R)) SS_LCTL(SS_TAP(X_R)));
+      }
+    break;
+    case SC_EXTRACT:
+      if (record->event.pressed) {
+        SEND_STRING(SS_LCTL(SS_TAP(X_R)) SS_LCTL(SS_TAP(X_M)));
+      }
     break;
     case SC_OPEN1QUOTE:
     if (record->event.pressed) {
