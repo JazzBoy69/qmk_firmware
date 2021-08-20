@@ -133,9 +133,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right hand --------------------------------------------------------------------------------------------------
    ___,              ___,         ___,                  ___,           ___,          ___,                     ___,
   TG(NUMPAD),        KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,              OSL(UNICODE),
-              SCMD_T(KC_H),       KC_N,              LCTL_T(KC_E),       KC_I,            KC_O,                   OSL(SYM),
+              SCMD_T(KC_H),       KC_N,                  KC_E,          KC_I,            KC_O,                   OSL(SYM),
 OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT,       LT(SYMPLUS,KC_SLASH),   SC_SUPERSHIFT,
-                              OSM(MOD_MEH),             KC_LGUI,         XXX,             XXX,                ST_MINIMIZE,
+                              OSM(MOD_LCTL),             KC_LGUI,         XXX,             XXX,                ST_MINIMIZE,
   // right thumb -------------------------------------------------------------------------------------------------
   KC_PSCREEN,     XXX,
   KC_F23,
@@ -220,7 +220,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
   [FN] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
              ___,           ___,   ___,   ___,        ___,     ___,    ___, 
-  LALT(LCTL(KC_DELETE)),    ___,   ___,  SC_EMDASH,   ___,     ___,    ___, 
+           RESET,           ___,   ___,  SC_EMDASH,   ___,     ___,    ___, 
              ___,           KC_1,  KC_2,   KC_3,      KC_4,    KC_5,   
              ___,           KC_6,  KC_7,   KC_8,      KC_9,    KC_0,   ___,      
              ___,            ___,   ___,   ___,        ___,      
@@ -229,7 +229,7 @@ OSM(MOD_MEH),        KC_K,        KC_M,                  KC_COMMA,      KC_DOT, 
                                 ___,
                       ___, ___, ___,
 // right hand --------------------------------------------------------------------------------------------------
-                        ___,        ___, ___,  RESET,  ___, ___,  ___,
+                        ___,        ___, ___,   ___,  ___, ___,  ___,
                         ___,        ___, KC_F7, KC_F8, KC_F9, ___,  KC_F12,
                                     ___, KC_F4, KC_F5, KC_F6, ___,  OSM(MOD_LCTL),
                    KC_SYSTEM_SLEEP, ___, KC_F1, KC_F2, KC_F3, ___,  ___,
@@ -591,12 +591,16 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
     if (keycode == LT(NUMPAD,KC_A)) {
       return 170;
     }
-     if ((keycode == LCTL_T(KC_H)) || (keycode == OSM(MOD_LSFT)) 
-     || (keycode == LCTL_T(KC_S))) {
+     if ((current_layer == TYPING) ||
+       (keycode == OSM(MOD_LSFT)) 
+     ) {
       return 300;
     }
-    if ((keycode == LALT_T(KC_R)) || (keycode == MEH_T(KC_SPACE))
-     || (keycode == LSFT_T(KC_T))) {
+    if ((keycode == LALT_T(KC_R)) || 
+        (keycode == MEH_T(KC_SPACE)) || 
+        (keycode == LSFT_T(KC_T)) ||
+        (keycode == LCTL_T(KC_S))
+    ) {
       return 150;
     }
     return TAPPING_TERM;
