@@ -121,32 +121,32 @@ enum custom_keycodes {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [BASE] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-         ___,         ___,             ___,             ___,            ___,               ___,       ___,  
-    OSL(UNICODE),     KC_Q,            KC_W,            KC_F,            KC_P,             KC_G,      ___,  
+         XXX,         XXX,             XXX,             XXX,            XXX,               XXX,       XXX,  
+    OSL(UNICODE),     KC_Q,            KC_W,            KC_F,            KC_P,             KC_G,      XXX,  
     OSL(SYM),       LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
-    SC_SUPERSHIFT, LT(SYMPLUS,KC_Z),  MEH_T(KC_X),            KC_C,       KC_V,             KC_B,     ___,  
-      ___,            ___,          KC_DELETE,      KC_ESCAPE,          KC_SPACE,                       
+    SC_SUPERSHIFT, LT(SYMPLUS,KC_Z),  MEH_T(KC_X),            KC_C,       KC_V,             KC_B,     XXX,  
+      XXX,            XXX,          KC_DELETE,      KC_ESCAPE,          KC_SPACE,                       
  // left thumb --------------------------------------------------------------------------------------------------
-                                                                                                   ___,     ___,    
+                                                                                                   XXX,     XXX,    
                                                                                                          KC_TAB,        
                                                            LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
-   ___,         ___,         ___,                  ___,           ___,            ___,                     ___,
-   ___,        KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,              OSL(UNICODE),
+   XXX,         XXX,         XXX,                  XXX,           XXX,            XXX,                     XXX,
+   XXX,        KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,              OSL(UNICODE),
               SCMD_T(KC_H), KC_N,                  KC_E,          KC_I,            KC_O,                   OSL(SYM),
-      ___,        KC_K,        KC_M,              KC_COMMA,  MEH_T(KC_DOT),  LT(SYMPLUS,KC_SLASH),   SC_SUPERSHIFT,
-                              OSM(MOD_LCTL),             KC_LGUI,         XXX,             XXX,                ST_MINIMIZE,
+      XXX,        KC_K,        KC_M,              KC_COMMA,  MEH_T(KC_DOT),  LT(SYMPLUS,KC_SLASH),   SC_SUPERSHIFT,
+                              OSM(MOD_LCTL),       KC_LGUI,       TO(NUMPAD),      XXX,                     XXX,
   // right thumb --------------------------------d-----------------------------------------------------------------
-  ___,     XXX,
+  XXX,     XXX,
   KC_F23,
   KC_F24,        KC_QUES,       KC_SPACE
   ),
   [TYPING] = LAYOUT_ergodox_pretty(
-    ___, ___,  ___,  ___,  ___,  XXX, XXX,                 XXX, XXX,  ___,  ___,  ___,  ___,       ___,
-    ___, ___,  ___,  ___,  ___,  ___, XXX,                 ___, ___,  ___,  ___,  ___,  ___,       ___,
-    ___, ___,  KC_R, KC_S, KC_T, ___,                           ___,  ___, KC_E,  ___,  ___,       ___,
-    ___, ___,  ___,  ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  ___,  ___,       ___,
-    ___, ___,  ___,  ___,  ___,                                       XXX,  XXX,  XXX,  XXX,   TO(BASE),
+    ___, ___,  ___,  ___,  ___,  XXX, XXX,                 XXX, XXX,  ___,  ___,  ___,     ___,       ___,
+    ___, ___,  ___,  ___,  ___,  ___, XXX,                 ___, ___,  ___,  ___,  ___,     ___,       ___,
+    ___, ___,  KC_R, KC_S, KC_T, ___,                           ___,  ___, KC_E,  ___,     ___,       ___,
+    ___, ___,  KC_X, ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  KC_DOT,  ___,       ___,
+    ___, ___,  ___,  ___,  ___,                                       XXX,  XXX,  XXX,     XXX,   TO(BASE),
                                              ___, ___,                 ___, ___,
                                                   ___,                 ___,
                              KC_BSPACE, KC_ENTER, ___,                 ___, ___, ___
@@ -166,12 +166,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                               ___,     XXX,           XXX,       XXX,        XXX,           XXX,       XXX,
                               ___,     XXX,         KC_KP_7,     KC_KP_8,    KC_KP_9,       KC_COLN,     KC_KP_MINUS,
                                  OSM(MOD_LALT),     KC_KP_4,     KC_KP_5,    KC_KP_6,   KC_KP_ASTERISK,  KC_KP_PLUS,
-                       SC_COPYCLOSE,     XXX,       KC_KP_1,     KC_KP_2,    KC_KP_3,   KC_KP_SLASH,    KC_ENTER,
+                              ___,     XXX,       KC_KP_1,     KC_KP_2,    KC_KP_3,   KC_KP_SLASH,    KC_ENTER,
                                                      KC_X,    KC_KP_COMMA,  KC_KP_DOT,         ___,         XXX,
   // right thumb -------------------------------------------------------------------------------------------------
                            ___,   ___,
               KC_NUMLOCK,
-                ___,   KC_ESCAPE,  KC_KP_0
+              TO(BASE),   KC_ESCAPE,  KC_KP_0
   ),
   [NAV] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
@@ -193,7 +193,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right thumb -------------------------------------------------------------------------------------------------
                         ___,      ___,
                   KC_SCROLLLOCK,
-                        ___,   KC_HOME,  KC_END
+                    TO(BASE),   KC_HOME,  KC_END
   ),
   [GAME] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
@@ -215,7 +215,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // right thumb -------------------------------------------------------------------------------------------------
                           ___, XXX,
                           ___,
-                          ___,  ___,   ___
+                        TO(BASE),  ___,   ___
   ),
   [FN] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
@@ -581,7 +581,8 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
     if ((keycode == LCTL_T(KC_CAPSLOCK)) || (keycode == LCTL_T(KC_S)) || (keycode == LSFT_T(KC_T))
-    || (keycode == OSL(SYM)) || (keycode == OSL(UNICODE)) || (keycode == MEH_T(KC_SPACE))) {
+    || (keycode == OSL(SYM)) || (keycode == OSL(UNICODE)) || (keycode == MEH_T(KC_SPACE))
+    || (keycode == MEH_T(KC_X)) || (keycode == MEH_T(KC_DOT))) {
         return false;
     }
     return true;
