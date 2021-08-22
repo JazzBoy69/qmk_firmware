@@ -234,25 +234,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       _______,      _______,           _______,           _______,     _______,  _______,_______,  _______,       _______, _______, _______,           _______,    SC_LESSOREQUAL, SC_GREATOREQUAL,        DEL_LINE, _______,
                                                           _______,     _______,  _______, _______, _______,       _______, _______, _______,           _______,           _______
     ),
-            /*
- * Adjust Layer: Function keys, RGB
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        | F1   |  F2  | F3   | F4   | F5   |                              | F6   | F7   |  F8  | F9   | F10  |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        | TOG  | SAI  | HUI  | VAI  | MOD  |                              |      |      |      | F11  | F12  |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      | SAD  | HUD  | VAD  | RMOD |      |      |  |      |      |      |      |      |      |      |        |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
     [UNICODE] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                           _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______,                                           _______, _______, _______, _______, _______, _______,
-      _______, _______, _______, _______, _______, _______,_______, _______,        _______, _______, _______, _______, _______, _______, _______, _______,
-                                 _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+      _______,  _______, _______, _______,     SC_PAR,   SC_GU,                                                   _______, _______,     SC_U,    SC_Y,    _______, _______,
+      _______,     SC_A, _______,  SC_SEC, SC_INVBANG, _______,                                                   _______,    SC_N,     SC_E,    SC_I,       SC_O, _______,
+      SC_SHIFT, _______, _______, _______,    _______, _______,_______, _______,        _______,         _______, _______, _______, SC_COMMA,  SC_DOT, SC_INVQUES, SC_SHIFT,
+                                 _______,     _______, _______, _______, _______,       _______, SC_SUPERINVQUES, _______, _______, _______
     ),
             /*
  * Adjust Layer: Function keys, RGB
@@ -358,17 +344,38 @@ static void render_status(void) {
     // Host Keyboard Layer Status
     oled_write_P(PSTR("Layer: "), false);
     switch (get_highest_layer(layer_state)) {
-        case _QWERTY:
-            oled_write_P(PSTR("Default\n"), false);
+        case COLEMAK:
+            oled_write_P(PSTR("Base\n"), false);
             break;
-        case _LOWER:
-            oled_write_P(PSTR("Lower\n"), false);
+        case TYPING:
+            oled_write_P(PSTR("Typing\n"), false);
             break;
-        case _RAISE:
-            oled_write_P(PSTR("Raise\n"), false);
+        case NUMPAD:
+            oled_write_P(PSTR("Numpad\n"), false);
             break;
-        case _ADJUST:
-            oled_write_P(PSTR("Adjust\n"), false);
+        case NAV:
+            oled_write_P(PSTR("Navigate\n"), false);
+            break;
+        case FN:
+            oled_write_P(PSTR("Function\n"), false);
+            break;
+        case SYM:
+            oled_write_P(PSTR("Symbols\n"), false);
+            break;
+        case SYMPLUS:
+            oled_write_P(PSTR("Symbols+\n"), false);
+            break;
+        case MIRRORED:
+            oled_write_P(PSTR("Mirrored\n"), false);
+            break;
+        case MIRSYM:
+            oled_write_P(PSTR("Mirrored symbols\n"), false);
+            break;
+        case MIRUNI:
+            oled_write_P(PSTR("Mirrored unicode\n"), false);
+            break;
+        case UNICODE:
+            oled_write_P(PSTR("Unicode\n"), false);
             break;
         default:
             oled_write_P(PSTR("Undefined\n"), false);
