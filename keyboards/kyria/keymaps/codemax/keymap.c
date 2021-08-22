@@ -49,6 +49,9 @@ uint16_t pressed_time = 0;
 uint16_t shift_time = 0;
 uint8_t shift_count = 0;
 bool resume_capslock = false;
+bool handle_keypress(uint16_t keycode);
+bool handle_keyrelease(uint16_t keycode);
+bool handle_unicode(uint16_t keycode);
 
 
 #define CAP_ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_9) ))
@@ -479,483 +482,338 @@ void handle_supershift() {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  if (record->event.pressed) {
+    return handle_keypress(keycode);
+  }
+  return handle_keyrelease(keycode);
+}
+
+bool handle_keypress(uint16_t keycode) {
   pressed_time = timer_read();
-  if (record->event.pressed && (shift_time != 0)) {
+  if (shift_time != 0) {
       if (!caps_lock_on() && (timer_elapsed(shift_time) < 1000)) {
         set_oneshot_mods(MOD_BIT(KC_LSHIFT));
       }
       shift_time = 0;
     }
+
     switch (keycode) {
     case SC_SUPERSHIFT:
-      if (record->event.pressed) {
         handle_supershift();
-      }
-      else {
-        del_mods(MOD_BIT(KC_LSHIFT));
-      }
       return true;
     break;
     case KC_QUOTE:
-      if (record->event.pressed) {
-        if (resume_capslock) {
-          resume_capslock = false;
-          SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE)));
-          tap_code(KC_CAPSLOCK);
-          return false;
-        }
-        SEND_STRING(SS_TAP(X_QUOTE));
+      if (resume_capslock) {
+        resume_capslock = false;
+        SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE)));
+        tap_code(KC_CAPSLOCK);
+        return false;
       }
+      SEND_STRING(SS_TAP(X_QUOTE));
       return false;
     break;
     case KC_COMMA:
-      if (record->event.pressed) {
-        if (resume_capslock) {
-          resume_capslock = false;
-          SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)));
-          tap_code(KC_CAPSLOCK);
-          return false;
-        }
-        SEND_STRING(SS_TAP(X_COMMA));
+      if (resume_capslock) {
+        resume_capslock = false;
+        SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)));
+        tap_code(KC_CAPSLOCK);
+        return false;
       }
+      SEND_STRING(SS_TAP(X_COMMA));
       return false;
     break;
     case MEH_T(KC_DOT):
-      if (record->event.pressed) {
-        if (resume_capslock) {
-          resume_capslock = false;
-          SEND_STRING(SS_LSFT(SS_TAP(X_DOT)));
-          tap_code(KC_CAPSLOCK);
-          return false;
-        }
+      if (resume_capslock) {
+        resume_capslock = false;
+        SEND_STRING(SS_LSFT(SS_TAP(X_DOT)));
+        tap_code(KC_CAPSLOCK);
+        return false;
       }
       return true;
     break;
     case LT(SYMPLUS,KC_SLASH):
-      if (record->event.pressed) {
-        if (resume_capslock) {
-          resume_capslock = false;
-          SEND_STRING(SS_LSFT(SS_TAP(X_SLASH)));
-          tap_code(KC_CAPSLOCK);
-          return false;
-        }
+      if (resume_capslock) {
+        resume_capslock = false;
+        SEND_STRING(SS_LSFT(SS_TAP(X_SLASH)));
+        tap_code(KC_CAPSLOCK);
+        return false;
       }
       return true;
     break;
   }
   resume_capslock = false;
+  if (handle_unicode(keycode)) {
+    layer_off(UNICODE);
+    layer_off(MIRUNI);
+    return false;
+  }
   switch (keycode) {
     case SC_SHIFT:
-      if (record->event.pressed) {
-        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
-        reset_oneshot_layer();
-        layer_on(UNICODE);
-      }
+      set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+      reset_oneshot_layer();
+      layer_on(UNICODE);
       return true;
     break;
     case KC_COLN:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_SCOLON)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_SCOLON)));
       return false;
     break;
     case KC_LCBR:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_LBRACKET)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_LBRACKET)));
       return false;
     break;
     case KC_AMPR:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_7)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_7)));
       return false;
     break;
     case KC_PLUS:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_EQUAL)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_EQUAL)));
       return false;
     break;
     case KC_ASTR:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_8)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_8)));
       return false;
     break;
     case KC_AT:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_2)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_2)));
       return false;
     break;
     case KC_PERC:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_5)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_5)));
       return false;
     break;
     case KC_HASH:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_3)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_3)));
       return false;
     break;
     case KC_DLR:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_4)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_4)));
       return false;
     break;
     case KC_TILD:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_GRV)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_GRV)));
       return false;
     break;
     case KC_PIPE:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_BSLASH)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_BSLASH)));
       return false;
     break;
     case KC_RCBR:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_RBRACKET)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_RBRACKET)));
       return false;
     break;
     case KC_RPRN:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_0)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_0)));
       return false;
     break;
     case KC_LPRN:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_9)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_9)));
       return false;
     break;
     case KC_EXLM:
-      if (record->event.pressed) {
-        SEND_STRING("!");//  SS_LSFT(SS_TAP(X_1)));
-      }
+      SEND_STRING("!");
       return false;
     break;
     case KC_UNDS:
-      if (record->event.pressed) {
-        SEND_STRING("_");
-      }
+      SEND_STRING("_");
       return false;
     break;
     case SC_SUPERDOT:
-      if (record->event.pressed) {
-        SEND_STRING(". ");//SS_TAP(X_DOT)SS_DELAY(50)SS_TAP(X_SPACE));
-        shift_time = timer_read();
-      }
+      SEND_STRING(". ");
+      shift_time = timer_read();
       return true;
     break;
     case SC_SUPERINVQUES:
-      if (record->event.pressed) {
-        set_oneshot_mods(0);
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1)));
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-        shift_time = timer_read();
-      }
+      set_oneshot_mods(0);
+      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1)));
+      layer_off(UNICODE);
+      layer_off(MIRUNI);
+      shift_time = timer_read();
       return false;
     break;   
     case SC_SUPERQUES:
-      if (record->event.pressed) {
-        SEND_STRING("? ");//SS_LSFT(SS_TAP(X_SLASH)) SS_DELAY(50) SS_TAP(X_SPACE));
-        shift_time = timer_read();
-      }
+      SEND_STRING("? ");
+      shift_time = timer_read();
       return true;
     break;
     case KC_ESCAPE:
-      if (record->event.pressed) {
-        clear_oneshot_mods(); 
-        clear_mods();
-        shift_time = 0;
-        SEND_STRING(SS_TAP(X_ESCAPE));
-      }
+      clear_oneshot_mods(); 
+      clear_mods();
+      shift_time = 0;
+      SEND_STRING(SS_TAP(X_ESCAPE));
       return true;
     break; 
     case SC_MIRSHIFT:
-      if (record->event.pressed) {
-        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
-        reset_oneshot_layer();
-        layer_on(MIRUNI);
-      }
+      set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+      reset_oneshot_layer();
+      layer_on(MIRUNI);
       return true;
     break;      
     case SC_A:
-      if (record->event.pressed) {
-        SEND_UNICODE(CAP_ACCENTA, ACCENTA);
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
+    {
+      SEND_UNICODE(CAP_ACCENTA, ACCENTA);
       return false;
+    }
     break;
     case SC_E:
-      if (record->event.pressed) {
-        SEND_UNICODE(CAP_ACCENTE, ACCENTE);
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
+    {
+      SEND_UNICODE(CAP_ACCENTE, ACCENTE);
       return false;
+    }
     break;
     case SC_I:
-      if (record->event.pressed) {
-        SEND_UNICODE(CAP_ACCENTI, ACCENTI);
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
+    {
+      SEND_UNICODE(CAP_ACCENTI, ACCENTI);
       return false;
+    }
     break;
     case SC_O:
-      if (record->event.pressed) {
-        SEND_UNICODE(CAP_ACCENTO, ACCENTO);
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
+    {
+      SEND_UNICODE(CAP_ACCENTO, ACCENTO);
       return false;
+    }
     break;
     case SC_U:
-      if (record->event.pressed) {
-        SEND_UNICODE(CAP_ACCENTU, ACCENTU);
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
+    {
+      SEND_UNICODE(CAP_ACCENTU, ACCENTU);
       return false;
+    }
     break;
     case SC_Y:
-      if (record->event.pressed) {
-        SEND_UNICODE(CAP_ACCENTY, ACCENTY);
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
+    {
+      SEND_UNICODE(CAP_ACCENTY, ACCENTY);
       return false;
+    }
     break;
     case SC_GU:
-      if (record->event.pressed) {
-        SEND_UNICODE(CAP_ACCENTGU, ACCENTGU);
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
+    {
+      SEND_UNICODE(CAP_ACCENTGU, ACCENTGU);
       return false;
+    }
     break;
     case SC_N:
-      if (record->event.pressed) {
-        SEND_UNICODE(CAP_ENE, ENE);
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
+    {
+      SEND_UNICODE(CAP_ENE, ENE);
       return false;
-    break; 
-    case SC_SEC:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7) ));
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
-      return false;
-    break;
-    case SC_INVQUES:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1) ));
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
-      return false;
-    break;
-    case SC_PAR:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_2) ));
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
-      return false;
-    break;
-    case SC_INVBANG:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_1) ));
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
-      return false;
-    break;
-    case SC_COMMA:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_0) ));
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
-      return false;
-    break;
-    case SC_DOT:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_3) ));
-        layer_off(UNICODE);
-        layer_off(MIRUNI);
-      }
-      return false;
+    }
     break;
     case SC_FEM:
-    if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_6) ));
-
-    }
     break;
     case SC_OPEN1QUOTE:
-    if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_5) ));
-
-    }
     break;
     case SC_CLOSE1QUOTE:
-    if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_6) ));
-
-    }
     break;
     case SC_MASC:
-    if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7) ));
-
-    }
     break;
     case SC_SEMICLNENTER:
-    if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_TAP(X_SCOLON) SS_DELAY(50) SS_TAP(X_ENTER));
-
-    }
     break;
     case SC_EQUALS:
-    if (record->event.pressed) {
-      SEND_STRING("==");//SS_TAP(X_EQUAL) SS_DELAY(50) SS_TAP(X_EQUAL));
-
-    }
+      SEND_STRING("==");
     break;
     case SC_ENDTAG:
-    if (record->event.pressed) {
-      SEND_STRING("</");//SS_LSFT(SS_TAP(X_COMMA)) SS_DELAY(50) SS_TAP(X_SLASH));
-
-    }
+      SEND_STRING("</");
     break;
     case SC_OPENQUOTE:
-    if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_7) ));
-
-    }
     break;
     case SC_SECTION:
-    if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(20) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_TAB));
-
-    }
     break;
     case SC_OPENCLOSEPAREN:
-    if (record->event.pressed) {
-      SEND_STRING("()");//SS_LSFT(SS_TAP(X_9)) SS_DELAY(50) SS_LSFT(SS_TAP(X_0)));
-
-    }
+      SEND_STRING("()");
     break;
     case SC_NOTEQUAL:
-    if (record->event.pressed) {
-      SEND_STRING("!=");//SS_LSFT(SS_TAP(X_1)) SS_DELAY(50) SS_TAP(X_EQUAL));
-
-    }
+      SEND_STRING("!=");
     break;
     case SC_ENDSECTION:
-    if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_TAB));
-
-    }
     break;
     case SC_EMDASH:
-    if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_5) SS_TAP(X_KP_1) ));
-
-    }
     break;
     case SC_CLOSEQUOTE:
-    if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_8) ));
-
-    }
     break;
     case SC_EXACTLYEQUAL:
-    if (record->event.pressed) {
-      SEND_STRING("===");//SS_TAP(X_EQUAL) SS_DELAY(50) SS_TAP(X_EQUAL) SS_DELAY(50) SS_TAP(X_EQUAL));
-
-    }
+      SEND_STRING("===");
     break;
     case SC_PARENSEMICOLON:
-    if (record->event.pressed) {
-      SEND_STRING("();");//SS_LSFT(SS_TAP(X_9)) SS_DELAY(50) SS_LSFT(SS_TAP(X_0)) SS_DELAY(50) SS_TAP(X_SCOLON));
-
-    }
+      SEND_STRING("();");
     break;
     case SC_LESSOREQUAL:
-    if (record->event.pressed) {
-      SEND_STRING("<=");//SS_LSFT(SS_TAP(X_COMMA)) SS_DELAY(50) SS_TAP(X_EQUAL));
-
-    }
+      SEND_STRING("<=");
     break;
     case SC_GREATOREQUAL:
-    if (record->event.pressed) {
-      SEND_STRING(">=");//SS_LSFT(SS_TAP(X_DOT)) SS_DELAY(50) SS_TAP(X_EQUAL));
-
-    }
+      SEND_STRING(">=");
     break;
     case DEL_LINE:
-    if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME) SS_TAP(X_HOME)) SS_DELAY(50) SS_TAP(X_DELETE) SS_DELAY(50) SS_TAP(X_DELETE));
-
-    }
     break;
     case SC_SURROUNDBRKT:
-    if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_X)) SS_DELAY(20) SS_LSFT(SS_TAP(X_TAB)) SS_DELAY(20) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_TAP(X_TAB) SS_DELAY(20) SS_LCTL(SS_TAP(X_V)));
-
-    }
     break;
     case SC_SELECTLINE:
-    if (record->event.pressed) {
       SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME)));
-    }
     break;
     case OPENCLOSEBRACKETS:
-    if (record->event.pressed) {
-      SEND_STRING("[]"); //SS_TAP(X_LBRACKET) SS_DELAY(50) SS_TAP(X_RBRACKET));
-    }
+      SEND_STRING("[]");
     break;
     case DELWORD:
-    if (record->event.pressed) {
       SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)) SS_DELAY(50) SS_LSFT(SS_LCTL(SS_TAP(X_LEFT))) SS_DELAY(50) SS_TAP(X_DELETE));
-    }
     break;
     case SC_AS:
-       if (record->event.pressed) {
-        SEND_STRING("AS");//SS_TAP(X_A) SS_DELAY(50) SS_TAP(X_S));
-      }
+        SEND_STRING("AS");
     break;
     case SC_ARROW:
-       if (record->event.pressed) {
-        SEND_STRING("=>");//SS_TAP(X_EQUAL) SS_DELAY(50) SS_LSFT(SS_TAP(X_DOT)));
-      }
+        SEND_STRING("=>");
     break;
     case SC_AR:
-    if (record->event.pressed) {
-      SEND_STRING("AR");//SS_TAP(X_A) SS_DELAY(50) SS_TAP(X_R));
-    }
+      SEND_STRING("AR");
     break;
   }
-  if (record->event.pressed) {
-    layer_off(UNICODE);
-    layer_off(MIRUNI);
+  layer_off(UNICODE);
+  layer_off(MIRUNI);
+  return true;
+}
+bool handle_unicode(uint16_t keycode) {
+  switch (keycode) {
+  case SC_SEC:
+      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7) ));
+      return true;
+    break;
+    case SC_INVQUES:
+      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1) ));
+      return true;
+    break;
+    case SC_PAR:
+      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_2) ));
+      return true;
+    break;
+    case SC_INVBANG:
+      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_1) ));
+      return true;
+    break;
+    case SC_COMMA:
+      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_0) ));
+      return true;
+    break;
+    case SC_DOT:
+      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_3) ));
+      return true;
+    break;
+  }
+  return false;
+}
+
+bool handle_keyrelease(uint16_t keycode) {
+  if (keycode == SC_SUPERSHIFT)
+  {
+    del_mods(MOD_BIT(KC_LSHIFT));
   }
   return true;
 }
