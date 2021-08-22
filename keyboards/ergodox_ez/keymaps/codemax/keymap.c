@@ -54,8 +54,6 @@ if ((caps + shift) == 1) {\
 
 enum custom_keycodes {
   RGB_SLD = EZ_SAFE_RANGE,
-  SC_COPYCLOSE,
-  ST_MINIMIZE,
   SC_FEM,
   SC_OPEN1QUOTE,
   SC_CLOSE1QUOTE,
@@ -64,14 +62,10 @@ enum custom_keycodes {
   SC_EQUALS,
   SC_ENDTAG,
   SC_OPENQUOTE,
-  SC_AND,
-  SC_PLUSPLUS,
-  SC_STARTSECTION,
   SC_OPENCLOSEPAREN,
   SC_NOTEQUAL,
   SC_ENDSECTION,
   SC_EMDASH,
-  SC_OR,
   SC_CLOSEQUOTE,
   SC_EXACTLYEQUAL,
   SC_PARENSEMICOLON,
@@ -107,8 +101,6 @@ enum custom_keycodes {
   SC_SUPERQUES,
   SC_SUPERINVQUES,
   SC_SECTION,
-  SC_RENAME,
-  SC_EXTRACT,
 };
 
 
@@ -142,11 +134,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_F24,        KC_QUES,       KC_SPACE
   ),
   [TYPING] = LAYOUT_ergodox_pretty(
-    ___, ___,  ___,  ___,  ___,  XXX, XXX,                 XXX, XXX,  ___,  ___,  ___,     ___,       ___,
-    ___, ___,  ___,  ___,  ___,  ___, XXX,                 ___, ___,  ___,  ___,  ___,     ___,       ___,
-    ___, ___,  KC_R, KC_S, KC_T, ___,                           ___,  ___, KC_E,  ___,     ___,       ___,
+    ___, ___,  ___,  ___,  ___,  XXX, XXX,                 XXX, XXX,  ___,  ___,  ___,  ___,       ___,
+    ___, ___,  ___,  ___,  ___,  ___, XXX,                 ___, ___,  ___,  ___,  ___,  ___,       ___,
+    ___, ___,  KC_R, KC_S, KC_T, ___,                           ___,  ___, KC_E,  ___,  ___,       ___,
     ___, ___,  KC_X, ___,  ___,  ___,  ___,                ___, ___,  ___,  ___,  KC_DOT,  ___,       ___,
-    ___, ___,  ___,  ___,  ___,                                       XXX,  XXX,  XXX,     XXX,   TO(BASE),
+    ___, ___,  ___,  ___,  ___,                                       XXX,  XXX,  XXX,     XXX,   ___,
                                              ___, ___,                 ___, ___,
                                                   ___,                 ___,
                              KC_BSPACE, KC_ENTER, ___,                 ___, ___, ___
@@ -264,7 +256,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [SYMPLUS] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
     ___,    ___,            ___,              ___,             ___,         ___,     ___, 
-    ___, SC_OPENQUOTE,   SC_AND,       SC_PLUSPLUS,            ___,       SC_ARROW,  ___, 
+    ___, SC_OPENQUOTE,      ___,              ___,            ___,       SC_ARROW,  ___, 
     ___, SC_SECTION,  OPENCLOSEBRACKETS, SC_OPENCLOSEPAREN,  SC_NOTEQUAL,   ___, 
     ___, ___,     ___,              ___,             ___,         ___,     ___,  
     ___,    ___,            ___,              ___,             ___,   
@@ -274,7 +266,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                          ___, ___, ___,
 // right hand --------------------------------------------------------------------------------------------------
                                  ___, ___,    ___,           ___,         ___,          ___,       ___,
-                                 ___, ___,  SC_ENDTAG,  SC_EMDASH,     SC_OR,  SC_CLOSEQUOTE,   ___,
+                                 ___, ___,  SC_ENDTAG,  SC_EMDASH,        ___,  SC_CLOSEQUOTE,   ___,
                                       ___, SC_EXACTLYEQUAL,  SC_PARENSEMICOLON, SC_SELECTLINE,  SC_SURROUNDBRKT,   ___,
                                  ___, ___,    ___,       SC_LESSOREQUAL,  SC_GREATOREQUAL,   DEL_LINE,    ___,
                                               ___,           ___,         ___,          ___,      ___,
@@ -318,7 +310,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                           ___,  ___, ___,   
   // right hand --------------------------------------------------------------------------------------------------
                                  ___, ___,    ___,           ___,         ___,          ___,        ___,
-                                 ___, ___,  SC_ENDTAG,  SC_EMDASH,  SC_OR,  SC_CLOSEQUOTE,   ___,
+                                 ___, ___,  SC_ENDTAG,  SC_EMDASH,  ___,  SC_CLOSEQUOTE,   ___,
                                       ___, SC_EXACTLYEQUAL,  SC_PARENSEMICOLON,     ___,       SC_SURROUNDBRKT,   ___,
                                  ___, ___,    ___,       SC_LESSOREQUAL,  SC_GREATOREQUAL,  DEL_LINE,   ___,
                                               ___,           ___,         ___,          ___,      TO(BASE),
@@ -732,19 +724,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case KC_EXLM:
       if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_1)));
+        SEND_STRING("!");//  SS_LSFT(SS_TAP(X_1)));
       }
       return false;
     break;
     case KC_UNDS:
       if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_MINUS)));
+        SEND_STRING("_");
       }
       return false;
     break;
     case SC_SUPERDOT:
       if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_DOT)SS_DELAY(50)SS_TAP(X_SPACE));
+        SEND_STRING(". ");//SS_TAP(X_DOT)SS_DELAY(50)SS_TAP(X_SPACE));
         shift_time = timer_read();
       }
       return true;
@@ -770,7 +762,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;   
     case SC_SUPERQUES:
       if (record->event.pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_SLASH)) SS_DELAY(50) SS_TAP(X_SPACE));
+        SEND_STRING("? ");//SS_LSFT(SS_TAP(X_SLASH)) SS_DELAY(50) SS_TAP(X_SPACE));
         shift_time = timer_read();
       }
       return true;
@@ -904,33 +896,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       return false;
     break;
-    case SC_COPYCLOSE:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LCTL(SS_TAP(X_C)) SS_DELAY(50) SS_LALT(SS_TAP(X_F4)));
-
-    }
-    break;
-    case ST_MINIMIZE:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LALT(SS_TAP(X_SPACE)) SS_DELAY(50) SS_TAP(X_N));
-
-    }
-    break;
     case SC_FEM:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_6) ));
 
     }
-    break;
-    case SC_RENAME:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_R)) SS_LCTL(SS_TAP(X_R)));
-      }
-    break;
-    case SC_EXTRACT:
-      if (record->event.pressed) {
-        SEND_STRING(SS_LCTL(SS_TAP(X_R)) SS_LCTL(SS_TAP(X_M)));
-      }
     break;
     case SC_OPEN1QUOTE:
     if (record->event.pressed) {
@@ -958,37 +928,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case SC_EQUALS:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_EQUAL) SS_DELAY(50) SS_TAP(X_EQUAL));
+      SEND_STRING("==");//SS_TAP(X_EQUAL) SS_DELAY(50) SS_TAP(X_EQUAL));
 
     }
     break;
     case SC_ENDTAG:
     if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)) SS_DELAY(50) SS_TAP(X_SLASH));
+      SEND_STRING("</");//SS_LSFT(SS_TAP(X_COMMA)) SS_DELAY(50) SS_TAP(X_SLASH));
 
     }
     break;
     case SC_OPENQUOTE:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_7) ));
-
-    }
-    break;
-    case SC_AND:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_7)) SS_DELAY(50) SS_LSFT(SS_TAP(X_7)));
-
-    }
-    break;
-    case SC_PLUSPLUS:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_EQUAL)) SS_DELAY(50) SS_LSFT(SS_TAP(X_EQUAL)) SS_DELAY(50) SS_TAP(X_SCOLON) SS_DELAY(50) SS_TAP(X_ENTER));
-
-    }
-    break;
-    case SC_STARTSECTION:
-    if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(20) SS_TAP(X_ENTER));
 
     }
     break;
@@ -1000,13 +952,13 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case SC_OPENCLOSEPAREN:
     if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_9)) SS_DELAY(50) SS_LSFT(SS_TAP(X_0)));
+      SEND_STRING("()");//SS_LSFT(SS_TAP(X_9)) SS_DELAY(50) SS_LSFT(SS_TAP(X_0)));
 
     }
     break;
     case SC_NOTEQUAL:
     if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_1)) SS_DELAY(50) SS_TAP(X_EQUAL));
+      SEND_STRING("!=");//SS_LSFT(SS_TAP(X_1)) SS_DELAY(50) SS_TAP(X_EQUAL));
 
     }
     break;
@@ -1022,12 +974,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
     }
     break;
-    case SC_OR:
-    if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_BSLASH)) SS_DELAY(50) SS_LSFT(SS_TAP(X_BSLASH)));
-
-    }
-    break;
     case SC_CLOSEQUOTE:
     if (record->event.pressed) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_8) ));
@@ -1036,25 +982,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case SC_EXACTLYEQUAL:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_EQUAL) SS_DELAY(50) SS_TAP(X_EQUAL) SS_DELAY(50) SS_TAP(X_EQUAL));
+      SEND_STRING("===");//SS_TAP(X_EQUAL) SS_DELAY(50) SS_TAP(X_EQUAL) SS_DELAY(50) SS_TAP(X_EQUAL));
 
     }
     break;
     case SC_PARENSEMICOLON:
     if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_9)) SS_DELAY(50) SS_LSFT(SS_TAP(X_0)) SS_DELAY(50) SS_TAP(X_SCOLON));
+      SEND_STRING("();");//SS_LSFT(SS_TAP(X_9)) SS_DELAY(50) SS_LSFT(SS_TAP(X_0)) SS_DELAY(50) SS_TAP(X_SCOLON));
 
     }
     break;
     case SC_LESSOREQUAL:
     if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)) SS_DELAY(50) SS_TAP(X_EQUAL));
+      SEND_STRING("<=");//SS_LSFT(SS_TAP(X_COMMA)) SS_DELAY(50) SS_TAP(X_EQUAL));
 
     }
     break;
     case SC_GREATOREQUAL:
     if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_TAP(X_DOT)) SS_DELAY(50) SS_TAP(X_EQUAL));
+      SEND_STRING(">=");//SS_LSFT(SS_TAP(X_DOT)) SS_DELAY(50) SS_TAP(X_EQUAL));
 
     }
     break;
@@ -1077,7 +1023,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case OPENCLOSEBRACKETS:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_LBRACKET) SS_DELAY(50) SS_TAP(X_RBRACKET));
+      SEND_STRING("[]"); //SS_TAP(X_LBRACKET) SS_DELAY(50) SS_TAP(X_RBRACKET));
     }
     break;
     case DELWORD:
@@ -1087,17 +1033,17 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     break;
     case SC_AS:
        if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_A) SS_DELAY(50) SS_TAP(X_S));
+        SEND_STRING("AS");//SS_TAP(X_A) SS_DELAY(50) SS_TAP(X_S));
       }
     break;
     case SC_ARROW:
        if (record->event.pressed) {
-        SEND_STRING(SS_TAP(X_EQUAL) SS_DELAY(50) SS_LSFT(SS_TAP(X_DOT)));
+        SEND_STRING("=>");//SS_TAP(X_EQUAL) SS_DELAY(50) SS_LSFT(SS_TAP(X_DOT)));
       }
     break;
     case SC_AR:
     if (record->event.pressed) {
-      SEND_STRING(SS_TAP(X_A) SS_DELAY(50) SS_TAP(X_R));
+      SEND_STRING("AR");//SS_TAP(X_A) SS_DELAY(50) SS_TAP(X_R));
     }
     break;
   }
