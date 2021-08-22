@@ -241,13 +241,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  // left thumb --------------------------------------------------------------------------------------------------
                                                                                                ___, ___,
                                                                                                     ___,
-                                                                   LCTL(KC_BSPACE),LCTL(KC_DELETE), ___,
+                                                                   LCTL(KC_BSPACE),            ___, ___,
 // right hand --------------------------------------------------------------------------------------------------
                                  ___,         ___,         ___,          ___,              ___,           ___,             ___,
                                  ___,      KC_TILD,      KC_SLASH,      KC_MINUS,         KC_PIPE,      SC_CLOSE1QUOTE,   SC_MASC,
                                           SC_SEMICLNENTER,   SC_EQUALS,  KC_RPRN,        KC_RBRACKET,     KC_RCBR,         ___,
                                  ___,      KC_CIRC,        ___,         KC_SCOLON,        KC_COLN,     KC_BSLASH,          ___,
-                                                           ___,           ___,              ___,           ___,          TO(BASE),
+                                                           ___,           ___,              ___,           ___,            ___,
 // right thumb -------------------------------------------------------------------------------------------------
                ___, ___,
                ___,
