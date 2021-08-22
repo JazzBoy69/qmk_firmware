@@ -48,6 +48,7 @@ uint16_t change_time = 0;
 uint16_t pressed_time = 0;
 uint16_t shift_time = 0;
 uint8_t shift_count = 0;
+bool resume_capslock = false;
 
 
 #define CAP_ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_9) ))
@@ -462,6 +463,7 @@ void oneshot_mods_changed_user(uint8_t mods) {
 
 void handle_supershift() {
   if (caps_lock_on()) {
+    resume_capslock = true;
     tap_code(KC_CAPSLOCK);
     return;
   }
@@ -484,6 +486,64 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       }
       shift_time = 0;
     }
+    switch (keycode) {
+    case SC_SUPERSHIFT:
+      if (record->event.pressed) {
+        handle_supershift();
+      }
+      else {
+        del_mods(MOD_BIT(KC_LSHIFT));
+      }
+      return true;
+    break;
+    case KC_QUOTE:
+      if (record->event.pressed) {
+        if (resume_capslock) {
+          resume_capslock = false;
+          SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE)));
+          tap_code(KC_CAPSLOCK);
+          return false;
+        }
+        SEND_STRING(SS_TAP(X_QUOTE));
+      }
+      return false;
+    break;
+    case KC_COMMA:
+      if (record->event.pressed) {
+        if (resume_capslock) {
+          resume_capslock = false;
+          SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)));
+          tap_code(KC_CAPSLOCK);
+          return false;
+        }
+        SEND_STRING(SS_TAP(X_COMMA));
+      }
+      return false;
+    break;
+    case MEH_T(KC_DOT):
+      if (record->event.pressed) {
+        if (resume_capslock) {
+          resume_capslock = false;
+          SEND_STRING(SS_LSFT(SS_TAP(X_DOT)));
+          tap_code(KC_CAPSLOCK);
+          return false;
+        }
+      }
+      return true;
+    break;
+    case LT(SYMPLUS,KC_SLASH):
+      if (record->event.pressed) {
+        if (resume_capslock) {
+          resume_capslock = false;
+          SEND_STRING(SS_LSFT(SS_TAP(X_SLASH)));
+          tap_code(KC_CAPSLOCK);
+          return false;
+        }
+      }
+      return true;
+    break;
+  }
+  resume_capslock = false;
   switch (keycode) {
     case SC_SHIFT:
       if (record->event.pressed) {
@@ -593,15 +653,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
       if (record->event.pressed) {
         SEND_STRING(". ");//SS_TAP(X_DOT)SS_DELAY(50)SS_TAP(X_SPACE));
         shift_time = timer_read();
-      }
-      return true;
-    break;
-    case SC_SUPERSHIFT:
-      if (record->event.pressed) {
-        handle_supershift();
-      }
-      else {
-        del_mods(MOD_BIT(KC_LSHIFT));
       }
       return true;
     break;
