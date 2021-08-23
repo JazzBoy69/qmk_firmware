@@ -2,108 +2,8 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include <stdlib.h>
+#include "codemax.h"
 
-// The layers for this keyboard.
-#define BASE 0
-#define TYPING 1
-#define NUMPAD 2
-#define NAV 3
-#define GAME 4
-#define FN 5
-#define SYM 6
-#define SYMPLUS 7
-#define UNICODE 8
-#define MIRRORED 9
-#define MIRSYM 10
-#define MIRUNI 11
-
-
-#define CAP_ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_9) ))
-#define ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_1) ))
-#define CAP_ACCENTA SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_3) ))
-#define ACCENTA SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_5) ))
-#define CAP_ACCENTE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_1) ))
-#define ACCENTE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_3) ))
-#define CAP_ACCENTI SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_5) ))
-#define ACCENTI SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_7) ))
-#define CAP_ACCENTO SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_1) ))
-#define ACCENTO SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_3) ))
-#define CAP_ACCENTU SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_8) ))
-#define ACCENTU SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_0) ))
-#define CAP_ACCENTY SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ))
-#define ACCENTY SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ))
-#define CAP_ACCENTGU SEND_STRING(SS_LSFT(SS_TAP(X_G)) SS_DELAY(50) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ))
-#define ACCENTGU SEND_STRING(SS_TAP(X_G) SS_DELAY(50) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ))
-
-
-#define SEND_UNICODE(upper, lower) uint8_t caps = caps_lock_on();\
-uint8_t shift = shift_pressed();\
-if (caps) {\
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));\
-          }\
-if ((caps + shift) == 1) {\
-          clear_oneshot_mods();\
-        upper;\
-        }\
-        else {\
-          lower;\
-        }\
-  if (caps) {\
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));\
-          }\
-  layer_off(UNICODE);\
-  layer_off(MIRUNI);\
-
-enum custom_keycodes {
-  RGB_SLD = EZ_SAFE_RANGE,
-  SC_FEM,
-  SC_OPEN1QUOTE,
-  SC_CLOSE1QUOTE,
-  SC_MASC,
-  SC_SEMICLNENTER,
-  SC_EQUALS,
-  SC_ENDTAG,
-  SC_OPENQUOTE,
-  SC_OPENCLOSEPAREN,
-  SC_NOTEQUAL,
-  SC_ENDSECTION,
-  SC_EMDASH,
-  SC_CLOSEQUOTE,
-  SC_EXACTLYEQUAL,
-  SC_PARENSEMICOLON,
-  SC_LESSOREQUAL,
-  SC_GREATOREQUAL,
-  DEL_LINE,
-  SC_SURROUNDBRKT,
-  SC_SELECTLINE,
-  OPENCLOSEBRACKETS,
-  DELWORD,
-  LOCKALT,
-  SC_A,
-  SC_SEC,
-  SC_INVBANG,
-  SC_PAR,
-  SC_GU,
-  SC_SHIFT,
-  SC_DOT,
-  SC_COMMA,
-  SC_INVQUES,
-  SC_N,
-  SC_E,
-  SC_I,
-  SC_O,
-  SC_U,
-  SC_Y,
-  SC_MIRSHIFT,
-  SC_AS,
-  SC_AR,
-  SC_SUPERSHIFT,
-  SC_ARROW,
-  SC_SUPERDOT,
-  SC_SUPERQUES,
-  SC_SUPERINVQUES,
-  SC_SECTION,
-};
 
 
 // A 'transparent' key code (that falls back to the layers below it).
@@ -113,23 +13,23 @@ enum custom_keycodes {
 #define XXX KC_NO
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [BASE] = LAYOUT_ergodox(
+  [COLEMAK] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-         XXX,         XXX,             XXX,             XXX,            XXX,               XXX,       XXX,  
-    OSL(UNICODE),     KC_Q,            KC_W,            KC_F,            KC_P,             KC_G,      XXX,  
-    OSL(SYM),       LT(NUMPAD,KC_A),  LALT_T(KC_R),   LCTL_T(KC_S),  LSFT_T(KC_T),   LT(NAV,KC_D), 
-    SC_SUPERSHIFT, LT(SYMPLUS,KC_Z),  MEH_T(KC_X),            KC_C,       KC_V,             KC_B,     XXX,  
-      XXX,            XXX,          KC_DELETE,      KC_ESCAPE,          KC_SPACE,                       
+             XXX,             XXX,          XXX,          XXX,                  XXX,          XXX,     XXX,  
+    OSL(UNICODE),            KC_Q,         KC_W,         KC_F,                 KC_P,         KC_G,     XXX,  
+        OSL(SYM), LT(NUMPAD,KC_A), LALT_T(KC_R), LCTL_T(KC_S),         LSFT_T(KC_T), LT(NAV,KC_D), 
+   SC_SUPERSHIFT,            KC_Z,  MEH_T(KC_X),         KC_C,                 KC_V,         KC_B,     XXX,  
+             XXX,             XXX,    KC_DELETE,    KC_ESCAPE, LT(SYMPLUS,KC_SPACE),                       
  // left thumb --------------------------------------------------------------------------------------------------
                                                                                                    XXX,     XXX,    
                                                                                                          KC_TAB,        
                                                            LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
   // right hand --------------------------------------------------------------------------------------------------
-   XXX,         XXX,         XXX,                  XXX,           XXX,            XXX,                     XXX,
-   XXX,        KC_J,        KC_L,                  KC_U,          KC_Y,          KC_QUOTE,              OSL(UNICODE),
-              SCMD_T(KC_H), KC_N,                  KC_E,          KC_I,            KC_O,                   OSL(SYM),
-      XXX,        KC_K,        KC_M,              KC_COMMA,  MEH_T(KC_DOT),  LT(SYMPLUS,KC_SLASH),   SC_SUPERSHIFT,
-                              OSM(MOD_LCTL),       KC_LGUI,       TO(NUMPAD),      XXX,                     XXX,
+                 XXX,          XXX,          XXX,     XXX,             XXX,       XXX,           XXX,
+                 XXX,         KC_J,         KC_L,     KC_U,           KC_Y,  KC_QUOTE,  OSL(UNICODE),
+                      SCMD_T(KC_H),         KC_N,     KC_E,           KC_I,      KC_O,      OSL(SYM),
+                 XXX,         KC_K,         KC_M, KC_COMMA,  MEH_T(KC_DOT),  KC_SLASH, SC_SUPERSHIFT,
+                                   OSM(MOD_LCTL),  KC_LGUI,     TO(NUMPAD),       XXX,           XXX,
   // right thumb --------------------------------d-----------------------------------------------------------------
   XXX,     XXX,
   KC_F23,
@@ -165,7 +65,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right thumb -------------------------------------------------------------------------------------------------
                            ___,   ___,
               KC_NUMLOCK,
-              TO(BASE),   KC_ESCAPE,  KC_KP_0
+              TO(COLEMAK),   KC_ESCAPE,  KC_KP_0
   ),
   [NAV] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
@@ -187,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   // right thumb -------------------------------------------------------------------------------------------------
                         ___,      ___,
                   KC_SCROLLLOCK,
-                    TO(BASE),   KC_HOME,  KC_END
+                    TO(COLEMAK),   KC_HOME,  KC_END
   ),
   [GAME] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
@@ -202,14 +102,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                KC_SPACE,  KC_SPACE, ___, 
 // right hand --------------------------------------------------------------------------------------------------
                                  ___, KC_6, KC_7,     KC_8,    KC_9,    KC_0,  KC_LOCK,
-                                 ___, ___,  ___,      KC_UP,    ___,     ___,  TO(BASE),
+                                 ___, ___,  ___,      KC_UP,    ___,     ___,  TO(COLEMAK),
                                       ___, KC_LEFT,  KC_DOWN, KC_RIGHT,  ___,   ___,
                                  ___, ___,  ___,      ___,      ___,     ___,   ___,
                                             ___,      ___,      ___,     ___,   ___,
 // right thumb -------------------------------------------------------------------------------------------------
                           ___, XXX,
                           ___,
-                        TO(BASE),  ___,   ___
+                        TO(COLEMAK),  ___,   ___
   ),
   [FN] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
@@ -257,21 +157,21 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [SYMPLUS] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    ___,    ___,            ___,              ___,             ___,         ___,     ___, 
-    ___, SC_OPENQUOTE,      ___,              ___,            ___,       SC_ARROW,  ___, 
-    ___, SC_SECTION,  OPENCLOSEBRACKETS, SC_OPENCLOSEPAREN,  SC_NOTEQUAL,   ___, 
-    ___, ___,     ___,              ___,             ___,         ___,     ___,  
-    ___,    ___,            ___,              ___,             ___,   
+    ___,     ___,     ___,      ___,   ___, ___,  ___, 
+    ___,     ___,   KC_UP,      ___,   ___, ___,  ___, 
+    ___, KC_LEFT, KC_DOWN, KC_RIGHT,   ___, ___, 
+    ___,     ___,     ___,      ___,   ___, ___,  ___,  
+    ___,     ___,     ___,      ___,   ___,   
  // left thumb --------------------------------------------------------------------------------------------------
                                                                               ___, ___,
                                                                                    ___,
                                                                          ___, ___, ___,
 // right hand --------------------------------------------------------------------------------------------------
-                                 ___, ___,    ___,           ___,         ___,          ___,       ___,
-                                 ___, ___,  SC_ENDTAG,  SC_EMDASH,        ___,  SC_CLOSEQUOTE,   ___,
-                                      ___, SC_EXACTLYEQUAL,  SC_PARENSEMICOLON, SC_SELECTLINE,  SC_SURROUNDBRKT,   ___,
-                                 ___, ___,    ___,       SC_LESSOREQUAL,  SC_GREATOREQUAL,   DEL_LINE,    ___,
-                                              ___,           ___,         ___,          ___,      ___,
+                                 ___, ___,             ___,               ___,             ___,             ___,   ___,
+                                 ___, ___,       SC_ENDTAG,         SC_EMDASH,             ___,   SC_CLOSEQUOTE,   ___,
+                                      ___, SC_EXACTLYEQUAL, SC_PARENSEMICOLON,   SC_SELECTLINE, SC_SURROUNDBRKT,   ___,
+                                 ___, ___,             ___,    SC_LESSOREQUAL, SC_GREATOREQUAL,        DEL_LINE,   ___,
+                                                       ___,               ___,             ___,             ___,   ___,
 // right thumb -------------------------------------------------------------------------------------------------
                ___, ___,
                ___,
@@ -311,11 +211,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                                                      ___,        
                                                                           ___,  ___, ___,   
   // right hand --------------------------------------------------------------------------------------------------
-                                 ___, ___,    ___,           ___,         ___,          ___,        ___,
-                                 ___, ___,  SC_ENDTAG,  SC_EMDASH,  ___,  SC_CLOSEQUOTE,   ___,
-                                      ___, SC_EXACTLYEQUAL,  SC_PARENSEMICOLON,     ___,       SC_SURROUNDBRKT,   ___,
-                                 ___, ___,    ___,       SC_LESSOREQUAL,  SC_GREATOREQUAL,  DEL_LINE,   ___,
-                                              ___,           ___,         ___,          ___,      TO(BASE),
+                                 ___,      ___,         ___,               ___,               ___,          ___,   ___,
+                                 ___, SC_ARROW,   SC_ENDTAG,         SC_EMDASH,               ___, SC_OPENQUOTE,   ___,
+                                           ___, SC_NOTEQUAL, SC_OPENCLOSEPAREN, OPENCLOSEBRACKETS,   SC_SECTION,   ___,
+                                 ___,      ___,         ___,    SC_LESSOREQUAL,   SC_GREATOREQUAL,     DEL_LINE,   ___,
+                                                        ___,               ___,               ___,          ___,   ___,
   // right thumb -------------------------------------------------------------------------------------------------
   ___,     ___,
   ___,
@@ -323,7 +223,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [MIRUNI] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-    TO(BASE),     ___,      ___,  ___,    ___,        ___,  ___, 
+    TO(COLEMAK),     ___,      ___,  ___,    ___,        ___,  ___, 
     ___,          ___,     SC_Y, SC_U,  SC_PAR,     SC_GU,  ___, 
     ___,          SC_O,    SC_I, SC_E,  SC_N,         ___, 
     SC_MIRSHIFT, SC_INVQUES,    ___,  ___,   ___,         ___,   ___,  
@@ -345,7 +245,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
   [MIRSYM] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
-         TO(BASE),                KC_1,          KC_2,          KC_3,           KC_4,           KC_5,        ___,                                
+         TO(COLEMAK),                KC_1,          KC_2,          KC_3,           KC_4,           KC_5,        ___,                                
           SC_FEM,        SC_CLOSE1QUOTE,      KC_PIPE,       KC_MINUS,        KC_SLASH,      KC_TILD,      ___,     
             ___,              KC_RCBR,       KC_RBRACKET,    KC_RPRN,        SC_EQUALS,    SC_SEMICLNENTER,             
             ___,             KC_BSLASH,       KC_COLN,       KC_SCOLON,       ___,           KC_CIRC,        ___,     
@@ -444,7 +344,7 @@ void set_indicator(void) {
 		return;
 	}
 	led_1_off();
-	if ((current_layer == BASE) || (current_layer == TYPING)) {
+	if ((current_layer == COLEMAK) || (current_layer == TYPING)) {
 		if (caps_lock_on()) {
 		  led_1_on();
 		}
@@ -519,7 +419,7 @@ void led_set_user(uint8_t usb_led) {
  }
 
 void matrix_scan_user(void) {
-  if (current_layer == BASE) {
+  if (current_layer == COLEMAK) {
     if (get_current_wpm()>40) {
       layer_on(TYPING);
     }
@@ -878,9 +778,6 @@ bool handle_keypress(uint16_t keycode) {
     break;
     case SC_NOTEQUAL:
       SEND_STRING("!=");
-    break;
-    case SC_ENDSECTION:
-      SEND_STRING(SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_TAB));
     break;
     case SC_EMDASH:
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_5) SS_TAP(X_KP_1) ));
