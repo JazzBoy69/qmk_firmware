@@ -68,8 +68,8 @@ bool handle_unicode(uint16_t keycode);
 #define ACCENTU SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_0) ))
 #define CAP_ACCENTY SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ))
 #define ACCENTY SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ))
-#define CAP_ACCENTGU SEND_STRING(SS_LSFT(SS_TAP(X_G)) SS_DELAY(50) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ))
-#define ACCENTGU SEND_STRING(SS_TAP(X_G) SS_DELAY(50) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ))
+#define CAP_ACCENTGU SEND_STRING(SS_LSFT(SS_TAP(X_G)) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ))
+#define ACCENTGU SEND_STRING(SS_TAP(X_G) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ))
 
 
 #define SEND_UNICODE(upper, lower) uint8_t caps = caps_lock_on();\
@@ -100,7 +100,6 @@ enum custom_keycodes {
   SC_OPENQUOTE,
   SC_OPENCLOSEPAREN,
   SC_NOTEQUAL,
-  SC_ENDSECTION,
   SC_EMDASH,
   SC_CLOSEQUOTE,
   SC_EXACTLYEQUAL,
@@ -169,23 +168,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                      KC_DELETE,      KC_ESCAPE,  KC_SPACE,                    LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER),   KC_QUES,  KC_SPACE, OSM(MOD_LCTL), KC_LGUI, TO(NUMPAD)                    
                                                                                 
 
-  // right thumb --------------------------------d-----------------------------------------------------------------
  
           
   ),
 /*
- * Lower Layer: Symbols
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * |        |      |  R   |  S   |  T   |      |                              |      |      |   E  |      |      |        |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |        |      |  X   |      |      |      |      |      |  |      |      |      |      |      |  .   |      |        |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        |      |      |      | SPACE|ENTER |  |      |      |      |      |      |
- *                        |      |      |      |      |      |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
  */
     [TYPING] = LAYOUT(
     ___, ___,  ___,  ___,  ___,  ___,                                  ___,  ___,  ___,  ___,     ___,       ___,
@@ -682,7 +668,7 @@ bool handle_keypress(uint16_t keycode) {
       SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7) ));
     break;
     case SC_SEMICLNENTER:
-      SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_TAP(X_SCOLON) SS_DELAY(50) SS_TAP(X_ENTER));
+      SEND_STRING(SS_TAP(X_END) SS_TAP(X_SCOLON) SS_TAP(X_ENTER));
     break;
     case SC_EQUALS:
       SEND_STRING("==");
@@ -701,9 +687,6 @@ bool handle_keypress(uint16_t keycode) {
     break;
     case SC_NOTEQUAL:
       SEND_STRING("!=");
-    break;
-    case SC_ENDSECTION:
-      SEND_STRING(SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_TAB));
     break;
     case SC_EMDASH:
       SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_5) SS_TAP(X_KP_1) ));
