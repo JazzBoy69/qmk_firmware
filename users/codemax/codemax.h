@@ -284,6 +284,47 @@ enum custom_keycodes {
 #define MIR_R2                                            _______
 #define MIR_R3                                            _______
 
+
+#define ________________MRU_L1____________________        ___,        ___, SC_Y, SC_U, SC_PAR, SC_GU
+#define ________________MRU_L2____________________        ___,       SC_O, SC_I, SC_E,   SC_N,   ___
+#define ________________MRU_L3____________________        ___, SC_INVQUES,  ___,  ___,    ___,   ___
+
+#define ________________MRU_R1____________________         ________________BLANK_____________________
+#define ________________MRU_R2____________________         ________________BLANK_____________________
+#define ________________MRU_R3____________________         ________________BLANK_____________________ 
+
+
+#define _____MRU_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
+#define _____MRU_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
+
+#define MRU_L1                                            ___,  ___
+#define MRU_L2                                            _______
+#define MRU_L3                                            _______
+#define MRU_R1                                            ___, ___
+#define MRU_R2                                            _______
+#define MRU_R3                                            _______
+
+
+#define ________________MRS_L1____________________        SC_FEM, SC_CLOSE1QUOTE,     KC_PIPE,  KC_MINUS,  KC_SLASH,         KC_TILD
+#define ________________MRS_L2____________________           ___,        KC_RCBR, KC_RBRACKET,   KC_RPRN, SC_EQUALS, SC_SEMICLNENTER
+#define ________________MRS_L3____________________           ___,      KC_BSLASH,     KC_COLN, KC_SCOLON,       ___,         KC_CIRC
+
+#define ________________MRS_R1____________________         ________________BLANK_____________________
+#define ________________MRS_R2____________________         ________________BLANK_____________________
+#define ________________MRS_R3____________________         ________________BLANK_____________________ 
+
+
+#define _____MRS_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
+#define _____MRS_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
+
+#define MRS_L1                                            ___,  ___
+#define MRS_L2                                            _______
+#define MRS_L3                                            _______
+#define MRS_R1                                            ___, ___
+#define MRS_R2                                            _______
+#define MRS_R3                                            _______
+
+
 void handle_supershift(void);
 uint8_t caps_lock_on(void);
 uint8_t shift_pressed(void);
