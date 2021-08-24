@@ -17,22 +17,6 @@
 #include "codemax.h"
 
 
-void handle_supershift(void);
-uint8_t caps_lock_on(void);
-uint8_t shift_pressed(void);
-void flash(uint16_t time, uint8_t leds);
-void run(uint16_t speed);
-uint8_t current_layer = 0;
-uint16_t change_time = 0;
-uint16_t pressed_time = 0;
-uint16_t shift_time = 0;
-uint8_t shift_count = 0;
-bool resume_capslock = false;
-bool handle_keypress(uint16_t keycode);
-bool handle_keyrelease(uint16_t keycode);
-bool handle_unicode(uint16_t keycode);
-
-
 
 // A 'transparent' key code (that falls back to the layers below it).
 #define ___ KC_TRANSPARENT
@@ -264,31 +248,13 @@ uint8_t shift_pressed() {
 
 
 void matrix_scan_user(void) {
-  if (current_layer == COLEMAK) {
-    if (get_current_wpm()>40) {
-      layer_on(TYPING);
-    }
-    return;
-  }
-  if (current_layer == TYPING) {
-    if ((get_current_wpm()<=40) || (timer_elapsed(pressed_time) > 1000)) {
-      shift_time = 0;
-      layer_off(TYPING);
-      set_current_wpm(0);
-    }
-    return;
-  }
+  HANDLE_MATRIX_SCAN
 };
 
 
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
-    if ((keycode == LCTL_T(KC_CAPSLOCK)) || (keycode == LCTL_T(KC_S)) || (keycode == LSFT_T(KC_T))
-    || (keycode == OSL(SYM)) || (keycode == OSL(UNICODE)) || (keycode == MEH_T(KC_SPACE))
-    || (keycode == MEH_T(KC_X)) || (keycode == MEH_T(KC_DOT))) {
-        return false;
-    }
-    return true;
+  HANDLE_RETRO_TAPPING
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
