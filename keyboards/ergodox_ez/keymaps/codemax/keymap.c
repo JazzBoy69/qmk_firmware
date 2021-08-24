@@ -12,28 +12,40 @@
 // A 'blocking' key code. Does nothing but prevent falling back to another layer.
 #define XXX KC_NO
 
+#define LAYOUT_wrapper(...)            LAYOUT_ergodox_pretty(__VA_ARGS__)
+#define LAYOUT_ergodox_base( \
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
+    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, K1C, K1D,\
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B,\
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39, K3A, K3B, K3C, K3D,\
+    K40, K41, K42, K43, K44, K45, K46, K47, K48, K49,\
+    K50, K51, K52, K53,\
+    K60, K61,\
+    K70, K71, K72, K73, K74, K75\
+  ) \
+  LAYOUT_wrapper( \
+         K00,  K01,     K02,     K03,     K04,     K05,  K06,                              K07,     K08,     K09,     K0A,     K0B,     K0C,     K0D,\
+         K10,  K11,     K12,     K13,     K14,     K15,  K16,                              K17,     K18,     K19,     K1A,     K1B,     K1C,     K1D,\
+         K20,  K21,     K22,     K23,     K24,     K25,                                             K26,     K27,     K28,     K29,     K2A,     K2B,\
+         K30,  K31,     K32,     K33,     K34,     K35,  K36,                              K37,     K38,     K39,     K3A,     K3B,     K3C,     K3D,\
+         K40,  K41,     K42,     K43,     K44,                                                               K45,     K46,     K47,     K48,     K49,\
+                                                            K50, K51,                 K52, K53,\
+                                                                 K60,                 K61,\
+                                                       K70, K71, K72,                 K73, K74, K75\
+    )
+/* Re-pass though to allow templates to be used */
+#define LAYOUT_ergodox_base_wrapper(...)       LAYOUT_ergodox_base(__VA_ARGS__)
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-  [COLEMAK] = LAYOUT_ergodox(
-  // left hand ---------------------------------------------------------------------------------------------------
-             XXX,             XXX,          XXX,          XXX,                  XXX,          XXX,     XXX,  
-    OSL(UNICODE),            KC_Q,         KC_W,         KC_F,                 KC_P,         KC_G,     XXX,  
-        OSL(SYM), LT(NUMPAD,KC_A), LALT_T(KC_R), LCTL_T(KC_S),         LSFT_T(KC_T), LT(NAV,KC_D), 
-   SC_SUPERSHIFT,            KC_Z,  MEH_T(KC_X),         KC_C,                 KC_V,         KC_B,     XXX,  
-             XXX,             XXX,    KC_DELETE,    KC_ESCAPE, LT(SYMPLUS,KC_SPACE),                       
- // left thumb --------------------------------------------------------------------------------------------------
-                                                                                                   XXX,     XXX,    
-                                                                                                         KC_TAB,        
-                                                           LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER), LSFT(KC_TAB),   
-  // right hand --------------------------------------------------------------------------------------------------
-                 XXX,          XXX,          XXX,     XXX,             XXX,       XXX,           XXX,
-                 XXX,         KC_J,         KC_L,     KC_U,           KC_Y,  KC_QUOTE,  OSL(UNICODE),
-                      SCMD_T(KC_H),         KC_N,     KC_E,           KC_I,      KC_O,      OSL(SYM),
-                 XXX,         KC_K,         KC_M, KC_COMMA,  MEH_T(KC_DOT),  KC_SLASH, SC_SUPERSHIFT,
-                                   OSM(MOD_LCTL),  KC_LGUI,     TO(NUMPAD),       XXX,           XXX,
-  // right thumb --------------------------------d-----------------------------------------------------------------
-  XXX,     XXX,
-  KC_F23,
-  KC_F24,        KC_QUES,       KC_SPACE
+  [COLEMAK] = LAYOUT_ergodox_base_wrapper(
+    XXX,          ________________BLANK_____________________, XXX,          XXX, ________________BLANK_____________________, XXX,
+    OSL(UNICODE), ________________COLEMAK_L1________________, XXX,          XXX, ________________COLEMAK_R1________________, OSL(UNICODE), 
+    OSL(SYM),     ________________COLEMAK_L2________________,                    ________________COLEMAK_R2________________, OSL(SYM),
+    SC_SUPERSHIFT,________________COLEMAK_L3________________, XXX,          XXX, ________________COLEMAK_R3________________, SC_SUPERSHIFT,
+    XXX, XXX,     _________BOTTOM_L1_________,                                     _________BOTTOM_R1_________, XXX, XXX,
+                                                              XXX, XXX,  XXX, XXX,
+                                                                 TH_L2,  TH_R2,
+                                                       THUMB_L1, TH_L3,  TH_R3, THUMB_R1
   ),
   [TYPING] = LAYOUT_ergodox_pretty(
     ___, ___,  ___,  ___,  ___,  XXX, XXX,                 XXX, XXX,  ___,  ___,  ___,  ___,       ___,

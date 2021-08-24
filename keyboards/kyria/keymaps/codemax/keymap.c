@@ -14,29 +14,8 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "codemax.h"
 
-
-// The layers for this keyboard.
-#define COLEMAK 0
-#define TYPING 1
-#define NUMPAD 2
-#define NAV 3
-#define GAME 4
-#define FN 5
-#define SYM 6
-#define SYMPLUS 7
-#define UNICODE 8
-#define MIRRORED 9
-#define MIRSYM 10
-#define MIRUNI 11
-
-
-enum layers {
-    _QWERTY = 0,
-    _LOWER,
-    _RAISE,
-    _ADJUST
-};
 
 void handle_supershift(void);
 uint8_t caps_lock_on(void);
@@ -54,89 +33,6 @@ bool handle_keyrelease(uint16_t keycode);
 bool handle_unicode(uint16_t keycode);
 
 
-#define CAP_ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_9) ))
-#define ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_1) ))
-#define CAP_ACCENTA SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_3) ))
-#define ACCENTA SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_5) ))
-#define CAP_ACCENTE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_1) ))
-#define ACCENTE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_3) ))
-#define CAP_ACCENTI SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_5) ))
-#define ACCENTI SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_7) ))
-#define CAP_ACCENTO SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_1) ))
-#define ACCENTO SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_3) ))
-#define CAP_ACCENTU SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_8) ))
-#define ACCENTU SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_0) ))
-#define CAP_ACCENTY SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ))
-#define ACCENTY SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ))
-#define CAP_ACCENTGU SEND_STRING(SS_LSFT(SS_TAP(X_G)) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ))
-#define ACCENTGU SEND_STRING(SS_TAP(X_G) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ))
-
-
-#define SEND_UNICODE(upper, lower) uint8_t caps = caps_lock_on();\
-uint8_t shift = shift_pressed();\
-if (caps) {\
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));\
-          }\
-if ((caps + shift) == 1) {\
-          clear_oneshot_mods();\
-        upper;\
-        }\
-        else {\
-          lower;\
-        }\
-  if (caps) {\
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));\
-          }\
-
-enum custom_keycodes {
-  RGB_SLD = SAFE_RANGE,
-  SC_FEM,
-  SC_OPEN1QUOTE,
-  SC_CLOSE1QUOTE,
-  SC_MASC,
-  SC_SEMICLNENTER,
-  SC_EQUALS,
-  SC_ENDTAG,
-  SC_OPENQUOTE,
-  SC_OPENCLOSEPAREN,
-  SC_NOTEQUAL,
-  SC_EMDASH,
-  SC_CLOSEQUOTE,
-  SC_EXACTLYEQUAL,
-  SC_PARENSEMICOLON,
-  SC_LESSOREQUAL,
-  SC_GREATOREQUAL,
-  DEL_LINE,
-  SC_SURROUNDBRKT,
-  SC_SELECTLINE,
-  OPENCLOSEBRACKETS,
-  DELWORD,
-  LOCKALT,
-  SC_A,
-  SC_SEC,
-  SC_INVBANG,
-  SC_PAR,
-  SC_GU,
-  SC_SHIFT,
-  SC_DOT,
-  SC_COMMA,
-  SC_INVQUES,
-  SC_N,
-  SC_E,
-  SC_I,
-  SC_O,
-  SC_U,
-  SC_Y,
-  SC_MIRSHIFT,
-  SC_AS,
-  SC_AR,
-  SC_SUPERSHIFT,
-  SC_ARROW,
-  SC_SUPERDOT,
-  SC_SUPERQUES,
-  SC_SUPERINVQUES,
-  SC_SECTION,
-};
 
 // A 'transparent' key code (that falls back to the layers below it).
 #define ___ KC_TRANSPARENT
@@ -145,32 +41,30 @@ enum custom_keycodes {
 #define XXX KC_NO
 
 
-const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-/*
- * Base Layer: COLEMAK
- *
- * ,-------------------------------------------.                              ,-------------------------------------------.
- * |    `   |   Q  |   W  |   F  |   P  |   G  |                              |   J  |   L  |   U  |   Y  |   '  |    `   |
- * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
- * | [] []  |123/A |ALT/R |CTL/S |SHFT/T|   D  |                              |SCMD/H|   N  |   E  |   I  |   O  | [] []  |
- * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
- * |  Shift |[]+/Z |MEH/X |   C  |   V  |   B  |  TAB |SFTTAB|  | F23  | F24  |   K  |   M  | ,  < | . >  | /  ? |  SHIFT |
- * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
- *                        | DEL  | ESC  | SPACE| BACKS| ENTER|  |   ?  | Space| CTRL | GUI  |NUMPAD|
- *                        |      |      |      | MIRR |  FN  |  |      |      |      |      |      |
- *                        `----------------------------------'  `----------------------------------'
- */
- 
-    [COLEMAK] = LAYOUT(
-    OSL(UNICODE),     KC_Q,            KC_W,          KC_F,       KC_P,           KC_G,                                                                       KC_J,        KC_L,     KC_U,          KC_Y,          KC_QUOTE,              OSL(UNICODE),
-    OSL(SYM),       LT(NUMPAD,KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T), LT(NAV,KC_D),                                                              SCMD_T(KC_H),    KC_N,     KC_E,          KC_I,            KC_O,                   OSL(SYM),
-    SC_SUPERSHIFT, LT(SYMPLUS,KC_Z), MEH_T(KC_X),     KC_C,       KC_V,           KC_B,                       KC_TAB,LSFT(KC_TAB),       KC_F23,  KC_F24,     KC_K,        KC_M,   KC_COMMA,  MEH_T(KC_DOT),  LT(SYMPLUS,KC_SLASH),   SC_SUPERSHIFT,
-                                     KC_DELETE,      KC_ESCAPE,  KC_SPACE,                    LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER),   KC_QUES,  KC_SPACE, OSM(MOD_LCTL), KC_LGUI, TO(NUMPAD)                    
-                                                                                
+#define LAYOUT_wrapper(...)            LAYOUT(__VA_ARGS__)
+#define LAYOUT_kyria_base( \
+    K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, \
+    K10, K11, K12, K13, K14, K15, K16, K17, K18, K19, K1A, K1B, \
+    K20, K21, K22, K23, K24, K25, K26, K27, K28, K29, K2A, K2B, K2C, K2D, K2E, K2F,\
+    K30, K31, K32, K33, K34, K35, K36, K37, K38, K39\
+  ) \
+  LAYOUT_wrapper( \
+         K00,  K01,     K02,     K03,     K04,     K05,                                             K06,     K07,     K08,     K09,     K0A,     K0B, \
+         K10,  K11,     K12,     K13,     K14,     K15,                                             K16,     K17,     K18,     K19,     K1A,     K1B, \
+         K20,  K21,     K22,     K23,     K24,     K25,  K26, K27,                        K28, K29, K2A,     K2B,     K2C,     K2D,     K2E,     K2F, \
+                                 K30,     K31,     K32,  K33, K34,                        K35, K36,  K37,    K38,     K39 \
+    )
+/* Re-pass though to allow templates to be used */
+#define LAYOUT_kyria_base_wrapper(...)       LAYOUT_kyria_base(__VA_ARGS__)
 
- 
-          
-  ),
+const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
+
+    [COLEMAK] = LAYOUT_kyria_base_wrapper( 
+    OSL(UNICODE), ________________COLEMAK_L1________________,                                ________________COLEMAK_R1________________,OSL(UNICODE),
+    OSL(SYM),     ________________COLEMAK_L2________________,                                ________________COLEMAK_R2________________,OSL(SYM),
+    SC_SUPERSHIFT,________________COLEMAK_L3________________, TH_L2, TH_L3,    TH_R2, TH_R3, ________________COLEMAK_R3________________,SC_SUPERSHIFT,
+                                   _________BOTTOM_L1_________, THUMB_L1,          THUMB_R1, _________BOTTOM_R1_________
+),
 /*
  */
     [TYPING] = LAYOUT(
@@ -256,7 +150,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 layer_state_t layer_state_set_user(layer_state_t state) {
     current_layer = biton32(state);
     change_time = timer_read();
-    return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
+    return update_tri_layer_state(state, COLEMAK, SYM, NUMPAD);
 }
 
 #ifdef OLED_DRIVER_ENABLE
