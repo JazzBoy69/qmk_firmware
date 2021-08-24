@@ -72,19 +72,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ________________FN_L3_____________________,  FN_L2,FN_L3,  FN_R3, FN_R2, ________________FN_R3_____________________,
                  _____FN_BOTTOM_L1__________,       FN_L1,         FN_R1,          _____FN_BOTTOM_R1__________       
     ), 
-    [SYM] = LAYOUT(
-      SC_FEM,  SC_OPEN1QUOTE,     KC_AMPR, KC_PLUS, _______, _______,                                                                    KC_TILD,  KC_SLASH,  KC_MINUS,     KC_PIPE, SC_CLOSE1QUOTE, SC_MASC,
-      _______,       KC_LCBR, KC_LBRACKET, KC_LPRN, _______, _______,                                                            SC_SEMICLNENTER, SC_EQUALS,   KC_RPRN, KC_RBRACKET,        KC_RCBR, _______,
-      _______,     KC_BSLASH,       KC_AT, KC_HASH, _______, _______, _______,         _______,            _______,     _______,         KC_CIRC,   _______, KC_SCOLON,     KC_COLN,      KC_BSLASH, _______,
-                                           _______, _______, _______, LCTL(KC_BSPACE), _______,       SC_SUPERQUES, SC_SUPERDOT,         _______,   _______, _______
+    [SYM] = LAYOUT_kyria_base_wrapper(
+      ________________SYM_L1____________________,                                     ________________SYM_R1____________________,
+      ________________SYM_L2____________________,                                     ________________SYM_R2____________________,
+      ________________SYM_L3____________________,   SYM_L2, SYM_L3,  SYM_R2, SYM_R3,  ________________SYM_R3____________________,
+                    _____SYM_BOTTOM_L1_________,        SYM_L1,         SYM_R1,          _____SYM_BOTTOM_R1_________
     ),
         /*
  */
-    [SYMPLUS] = LAYOUT(
-      _______, SC_OPENQUOTE,           _______,           _______,     _______, SC_ARROW,                                           _______,         SC_ENDTAG,         SC_EMDASH,         _______,   SC_CLOSEQUOTE, _______,
-      _______,   SC_SECTION, OPENCLOSEBRACKETS, SC_OPENCLOSEPAREN, SC_NOTEQUAL,  _______,                                           _______,   SC_EXACTLYEQUAL, SC_PARENSEMICOLON,   SC_SELECTLINE, SC_SURROUNDBRKT, _______,   
-      _______,      _______,           _______,           _______,     _______,  _______,_______,  _______,       _______, _______, _______,           _______,    SC_LESSOREQUAL, SC_GREATOREQUAL,        DEL_LINE, _______,
-                                                          _______,     _______,  _______, _______, _______,       _______, _______, _______,           _______,           _______
+    [SYMPLUS] = LAYOUT_kyria_base_wrapper(
+      ________________SYMP_L1___________________,                                        ________________SYMP_R1___________________,
+      ________________SYMP_L2___________________,                                        ________________SYMP_R2___________________,
+      ________________SYMP_L3___________________,  SYMP_L2, SYMP_L3,  SYMP_R2, SYMP_R3,  ________________SYMP_R3___________________,
+                   _____SYMP_BOTTOM_L1________,        SYMP_L1,         SYMP_R1,          _____SYMP_BOTTOM_R1________
     ),
     [UNICODE] = LAYOUT(
       _______,  _______, _______, _______,     SC_PAR,   SC_GU,                                                   _______, _______,     SC_U,    SC_Y,    _______, _______,

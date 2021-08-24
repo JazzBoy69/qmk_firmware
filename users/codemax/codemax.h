@@ -205,6 +205,45 @@ enum custom_keycodes {
 #define FN_R2                                             _______
 #define FN_R3                                             _______
 
+#define ________________SYM_L1____________________        SC_FEM,        SC_OPEN1QUOTE,      KC_AMPR,       KC_PLUS,        KC_ASTR,        KC_EQUAL
+#define ________________SYM_L2____________________        ___,              KC_LCBR,       KC_LBRACKET,    KC_LPRN,        KC_EXLM,        KC_UNDS
+#define ________________SYM_L3____________________        ___,              KC_BSLASH,       KC_AT,        KC_HASH,        KC_DLR,         KC_PERC
+
+#define ________________SYM_R1____________________         KC_TILD,      KC_SLASH,      KC_MINUS,         KC_PIPE,      SC_CLOSE1QUOTE,   SC_MASC
+#define ________________SYM_R2____________________        SC_SEMICLNENTER,   SC_EQUALS,  KC_RPRN,        KC_RBRACKET,     KC_RCBR,         ___
+#define ________________SYM_R3____________________          KC_CIRC,        ___,         KC_SCOLON,        KC_COLN,     KC_BSLASH,          ___
+
+
+#define _____SYM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
+#define _____SYM_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
+
+#define SYM_L1                                            LCTL(KC_BSPACE),  ___
+#define SYM_L2                                            _______
+#define SYM_L3                                            _______
+#define SYM_R1                                            SC_SUPERQUES, SC_SUPERDOT
+#define SYM_R2                                            _______
+#define SYM_R3                                            _______
+
+
+#define ________________SYMP_L1___________________        ___,         ___,   KC_UP,      ___,   ___, ___
+#define ________________SYMP_L2___________________        KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,   ___, ___
+#define ________________SYMP_L3___________________        KC_END,      ___,     ___,      ___,   ___, ___
+
+#define ________________SYMP_R1___________________        ___,       SC_ENDTAG,         SC_EMDASH,             ___,   SC_CLOSEQUOTE,   ___
+#define ________________SYMP_R2___________________        ___, SC_EXACTLYEQUAL, SC_PARENSEMICOLON,   SC_SELECTLINE, SC_SURROUNDBRKT,   ___
+#define ________________SYMP_R3___________________        ___,             ___,    SC_LESSOREQUAL, SC_GREATOREQUAL,        DEL_LINE,   ___
+
+
+#define _____SYMP_BOTTOM_L1________                       ________BLANK_BOTTOM_______
+#define _____SYMP_BOTTOM_R1________                       ________BLANK_BOTTOM_______
+
+#define SYMP_L1                                            ___,  ___
+#define SYMP_L2                                            _______
+#define SYMP_L3                                            _______
+#define SYMP_R1                                            ___,  ___
+#define SYMP_R2                                            _______
+#define SYMP_R3                                            _______
+
 
 void handle_supershift(void);
 uint8_t caps_lock_on(void);
