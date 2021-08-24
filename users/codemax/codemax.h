@@ -102,21 +102,30 @@ enum custom_keycodes {
   SC_SECTION,
 };
 
-#define ________________BLANK_____________________        XXX,     XXX,     XXX,     XXX,    XXX
+#define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,    XXX
+#define ________________BLANK_____________________        ___,     ___,     ___,     ___,    ___
 
-#define ________________COLEMAK_L1________________       KC_Q,    KC_W,    KC_F,    KC_P,    KC_G
-#define ________________COLEMAK_L2________________       KC_A,    KC_R,    KC_S,    KC_T,    KC_D
-#define ________________COLEMAK_L3________________       KC_Z,    KC_X,    KC_C,    KC_V,    KC_B
+#define ________________COLEMAK_L1________________       KC_Q,                    KC_W,         KC_F,         KC_P,    KC_G
+#define ________________COLEMAK_L2________________       LT(NUMPAD,KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),    LT(NAV,KC_D)
+#define ________________COLEMAK_L3________________       KC_Z,             MEH_T(KC_X),         KC_C,         KC_V,    KC_B
 
-#define ________________COLEMAK_R1________________       KC_J,    KC_L,    KC_U,    KC_Y,    KC_QUOT
-#define ________________COLEMAK_R2________________       KC_H,    KC_N,    KC_E,    KC_I,    KC_O    
+#define ________________COLEMAK_R1________________       KC_J,    KC_L,        KC_U,          KC_Y, KC_QUOT
+#define ________________COLEMAK_R2________________       KC_H,    KC_N,        KC_E,          KC_I,    KC_O    
 #define ________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMMA, MEH_T(KC_DOT), KC_SLSH
 
-#define _________BOTTOM_L1_________                       KC_DELETE,    KC_ESCAPE, LT(SYMPLUS,KC_SPACE)
+#define _________BOTTOM_L1_________                       KC_DELETE,    KC_ESCAPE,     LT(SYMPLUS,KC_SPACE)
 #define _________BOTTOM_R1_________                       OSM(MOD_LCTL),  KC_LGUI,     TO(NUMPAD)
+#define ________BLOCK_BOTTOM_______                       XXX,  XXX,  XXX
+#define ________BLANK_BOTTOM_______                       ___,  ___,  ___
 #define THUMB_L1                                          LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER)
 #define TH_L2                                             KC_TAB
 #define TH_L3                                             LSFT(KC_TAB)
 #define THUMB_R1                                          KC_QUES,       KC_SPACE
 #define TH_R2                                             KC_F23
 #define TH_R3                                             KC_F24
+
+#define ________________TYPING_L2_________________        ___,  KC_R, KC_S, KC_T, ___
+#define ________________TYPING_L3_________________        ___,  KC_X, ___,  ___,  ___
+#define ________________TYPING_R2_________________        ___,   ___, KC_E,  ___, ___
+#define ________________TYPING_R3_________________        ___, ___,  ___, KC_DOT, ___
+#define TYPE_THUMB_L1                                     KC_BSPACE, KC_ENTER
