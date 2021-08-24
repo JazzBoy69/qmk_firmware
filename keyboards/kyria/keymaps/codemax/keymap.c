@@ -95,11 +95,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
             /*
  *                        `----------------------------------'  `----------------------------------'
  */
-    [MIRRORED] = LAYOUT(
-      OSL(MIRUNI), KC_QUOTE,   KC_Y,     KC_U,    KC_L,    KC_J,                                             _______,       SC_ENDTAG,         SC_EMDASH,         _______,   SC_CLOSEQUOTE, _______,
-      OSL(MIRSYM),     KC_O,   KC_I,     KC_E,    KC_N,    KC_H,                                             _______, SC_EXACTLYEQUAL, SC_PARENSEMICOLON,   SC_SELECTLINE, SC_SURROUNDBRKT, _______,   
-          _______,  KC_QUES, KC_DOT, KC_COMMA,    KC_M,    KC_K, _______, _______,        _______, _______,  _______,         _______,    SC_LESSOREQUAL, SC_GREATOREQUAL,        DEL_LINE, _______,
-                                      _______, _______, _______, _______, _______,       _______, _______, _______, _______, _______
+    [MIRRORED] = LAYOUT_kyria_base_wrapper(
+      ________________MIR_L1____________________,                                     ________________MIR_R1____________________,
+      ________________MIR_L2____________________,                                     ________________MIR_R2____________________,
+      ________________MIR_L3____________________,   MIR_L2, MIR_L3,  MIR_R2, MIR_R3,  ________________MIR_R3____________________,
+                    _____MIR_BOTTOM_L1_________,        MIR_L1,         MIR_R1,          _____MIR_BOTTOM_R1_________
     ),
             /*
  */

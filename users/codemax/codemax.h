@@ -265,6 +265,25 @@ enum custom_keycodes {
 #define UNI_R3                                            _______
 
 
+#define ________________MIR_L1____________________        OSL(MIRUNI),     KC_QUOTE,          KC_Y,           KC_U,        KC_L,         KC_J
+#define ________________MIR_L2____________________        OSL(MIRSYM),      KC_O,             KC_I,           KC_E,        KC_N,         KC_H
+#define ________________MIR_L3____________________        ___,             KC_QUES,          KC_DOT,        KC_COMMA,      KC_M,         KC_K
+
+#define ________________MIR_R1____________________         SC_ARROW,   SC_ENDTAG,         SC_EMDASH,               ___, SC_OPENQUOTE,   ___
+#define ________________MIR_R2____________________              ___, SC_NOTEQUAL, SC_OPENCLOSEPAREN, OPENCLOSEBRACKETS,   SC_SECTION,   ___
+#define ________________MIR_R3____________________              ___,         ___,    SC_LESSOREQUAL,   SC_GREATOREQUAL,     DEL_LINE,   ___
+
+
+#define _____MIR_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
+#define _____MIR_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
+
+#define MIR_L1                                            ___,  ___
+#define MIR_L2                                            _______
+#define MIR_L3                                            _______
+#define MIR_R1                                            ___, ___
+#define MIR_R2                                            _______
+#define MIR_R3                                            _______
+
 void handle_supershift(void);
 uint8_t caps_lock_on(void);
 uint8_t shift_pressed(void);
