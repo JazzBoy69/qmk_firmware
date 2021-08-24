@@ -60,11 +60,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 /*
  */
-    [NAV] = LAYOUT(
-      _______, _______, _______,  _______,  _______,  _______,                                          LCTL(KC_HOME), _______, KC_UP,    KC_PGUP, _______,  KC_MS_WH_UP,
-      _______, _______, _______, KC_LCTRL, KC_LSHIFT, _______,                                          LCTL(KC_LEFT), KC_LEFT, KC_DOWN, KC_RIGHT, LCTL(KC_RIGHT),  KC_MS_WH_DOWN,
-      _______, _______, _______,  _______,  _______,  _______, _______, _______,           TO(COLEMAK), KC_SCROLLLOCK, DELWORD, KC_DELETE, _______, KC_PGDOWN, LCTL(KC_END), OSM(MOD_LSFT),
-                                  _______,  _______,  _______, KC_MS_BTN2, KC_MS_BTN1,       KC_HOME,          KC_END, _______, _______, _______
+    [NAV] = LAYOUT_kyria_base_wrapper(
+      ________________NAV_L1____________________,                                     ________________NAV_R1____________________,
+      ________________NAV_L2____________________,                                     ________________NAV_R2____________________,
+      ________________NAV_L3____________________,   NAV_L2, NAV_L3,  NAV_R2, NAV_R3,  ________________NAV_R3____________________,
+                    _____NAV_BOTTOM_L1_________,        NAV_L1,         NAV_R1,          _____NAV_BOTTOM_R1_________
     ),
     /*
  */

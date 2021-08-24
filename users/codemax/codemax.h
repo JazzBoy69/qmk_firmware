@@ -159,13 +159,31 @@ enum custom_keycodes {
 #define _____NUM_BOTTOM_R1_________                       KC_X,    KC_KP_COMMA,  KC_KP_DOT
 
 
-#define NUM_L1                                           ___, ___
-#define NUM_L2                                           LCTL(KC_Z)
-#define NUM_L3                                           LCTL(KC_Y)
-#define NUM_R1                                           KC_ESCAPE,  KC_KP_0
-#define NUM_R2                                           KC_NUMLOCK
-#define NUM_R3                                           TO(COLEMAK)
+#define NUM_L1                                            ___, ___
+#define NUM_L2                                            LCTL(KC_Z)
+#define NUM_L3                                            LCTL(KC_Y)
+#define NUM_R1                                            KC_ESCAPE,  KC_KP_0
+#define NUM_R2                                            KC_NUMLOCK
+#define NUM_R3                                            TO(COLEMAK)
 
+#define ________________NAV_L1____________________        ________________BLANK_____________________
+#define ________________NAV_L2____________________        ___, ___,  ___,  KC_LCTRL, KC_LSHIFT, ___
+#define ________________NAV_L3____________________        ________________BLANK_____________________
+
+#define ________________NAV_R1____________________        LCTL(KC_HOME),  OSM(MOD_LCTL),   KC_UP,      KC_PGUP,      XXX,        KC_MS_WH_UP
+#define ________________NAV_R2____________________        LCTL(KC_LEFT),     KC_LEFT,     KC_DOWN,    KC_RIGHT,  LCTL(KC_RIGHT), KC_MS_WH_DOWN
+#define ________________NAV_R3____________________          DELWORD,        KC_DELETE,      XXX,      KC_PGDOWN,  LCTL(KC_END),  OSM(MOD_LSFT)
+
+
+#define _____NAV_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
+#define _____NAV_BOTTOM_R1_________                       KC_X,    KC_KP_COMMA,  KC_KP_DOT
+
+#define NAV_L1                                            KC_MS_BTN2,  KC_MS_BTN1
+#define NAV_L2                                            _______
+#define NAV_L3                                            _______
+#define NAV_R1                                            KC_HOME,  KC_END
+#define NAV_R2                                            KC_SCROLLLOCK
+#define NAV_R3                                            TO(COLEMAK)
 
 
 void handle_supershift(void);
