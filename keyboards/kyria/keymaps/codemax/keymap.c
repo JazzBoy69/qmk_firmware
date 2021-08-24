@@ -66,16 +66,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
       ________________NAV_L3____________________,   NAV_L2, NAV_L3,  NAV_R2, NAV_R3,  ________________NAV_R3____________________,
                     _____NAV_BOTTOM_L1_________,        NAV_L1,         NAV_R1,          _____NAV_BOTTOM_R1_________
     ),
-    /*
- */
-    [FN] = LAYOUT(
-                RESET, _______,      _______,    SC_EMDASH,      _______, _______,                                          XXX, KC_F7, KC_F8, KC_F9, XXX,  KC_F12,
-      KC_SYSTEM_SLEEP,    KC_1, LALT_T(KC_2), LCTL_T(KC_3), LSFT_T(KC_4),    KC_5,                                          XXX, KC_F4, KC_F5, KC_F6, XXX,     XXX,
-           KC_PSCREEN,    KC_6,         KC_7,         KC_8,         KC_9,    KC_0, _______, _______,      _______, _______, XXX, KC_F1, KC_F2, KC_F3, XXX, _______,
-                                                   _______,      _______,     ___, _______, _______,      _______, _______, ___, ___,     ___
+    [FN] = LAYOUT_kyria_base_wrapper(
+    ________________FN_L1_____________________,                              ________________FN_R1_____________________,               
+    ________________FN_L2_____________________,                              ________________FN_R2_____________________,  
+    ________________FN_L3_____________________,  FN_L2,FN_L3,  FN_R3, FN_R2, ________________FN_R3_____________________,
+                 _____FN_BOTTOM_L1__________,       FN_L1,         FN_R1,          _____FN_BOTTOM_R1__________       
     ), 
-        /*
- */
     [SYM] = LAYOUT(
       SC_FEM,  SC_OPEN1QUOTE,     KC_AMPR, KC_PLUS, _______, _______,                                                                    KC_TILD,  KC_SLASH,  KC_MINUS,     KC_PIPE, SC_CLOSE1QUOTE, SC_MASC,
       _______,       KC_LCBR, KC_LBRACKET, KC_LPRN, _______, _______,                                                            SC_SEMICLNENTER, SC_EQUALS,   KC_RPRN, KC_RBRACKET,        KC_RCBR, _______,

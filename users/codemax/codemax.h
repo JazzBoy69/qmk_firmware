@@ -186,6 +186,26 @@ enum custom_keycodes {
 #define NAV_R3                                            TO(COLEMAK)
 
 
+#define ________________FN_L1_____________________        RESET,           ___,           ___,     SC_EMDASH,      ___,     ___
+#define ________________FN_L2_____________________        KC_SYSTEM_SLEEP,      KC_1,  LALT_T(KC_2), LCTL_T(KC_3), LSFT_T(KC_4), KC_5
+#define ________________FN_L3_____________________        KC_PSCREEN,           KC_6,         KC_7,         KC_8,       KC_9,    KC_0
+
+#define ________________FN_R1_____________________        XXX, KC_F7, KC_F8, KC_F9, XXX,  KC_F12
+#define ________________FN_R2_____________________        XXX, KC_F4, KC_F5, KC_F6, XXX,  XXX
+#define ________________FN_R3_____________________        XXX, KC_F1, KC_F2, KC_F3, XXX,  ___
+
+
+#define _____FN_BOTTOM_L1__________                       ________BLANK_BOTTOM_______
+#define _____FN_BOTTOM_R1__________                       ________BLANK_BOTTOM_______
+
+#define FN_L1                                             ___, ___
+#define FN_L2                                             _______
+#define FN_L3                                             _______
+#define FN_R1                                             KC_F11, KC_F10
+#define FN_R2                                             _______
+#define FN_R3                                             _______
+
+
 void handle_supershift(void);
 uint8_t caps_lock_on(void);
 uint8_t shift_pressed(void);
