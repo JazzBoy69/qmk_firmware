@@ -53,6 +53,12 @@ if ((caps + shift) == 1) {\
     #define THIS_SAFE_RANGE SAFE_RANGE
   #endif
 
+// A 'transparent' key code (that falls back to the layers below it).
+#define ___ KC_TRANSPARENT
+
+// A 'blocking' key code. Does nothing but prevent falling back to another layer.
+#define XXX KC_NO
+
 enum custom_keycodes {
   SC_FEM = THIS_SAFE_RANGE,
   SC_OPEN1QUOTE,
@@ -102,16 +108,16 @@ enum custom_keycodes {
   SC_SECTION,
 };
 
-#define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,    XXX
-#define ________________BLANK_____________________        ___,     ___,     ___,     ___,    ___
+#define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
+#define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
-#define ________________COLEMAK_L1________________       KC_Q,                    KC_W,         KC_F,         KC_P,    KC_G
-#define ________________COLEMAK_L2________________       LT(NUMPAD,KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),    LT(NAV,KC_D)
-#define ________________COLEMAK_L3________________       KC_Z,             MEH_T(KC_X),         KC_C,         KC_V,    KC_B
+#define ________________COLEMAK_L1________________       OSL(UNICODE), KC_Q,      KC_W,         KC_F,         KC_P,    KC_G
+#define ________________COLEMAK_L2________________       OSL(SYM),    LT(NUMPAD,KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),    LT(NAV,KC_D)
+#define ________________COLEMAK_L3________________       SC_SUPERSHIFT,KC_Z,             MEH_T(KC_X),         KC_C,         KC_V,    KC_B
 
-#define ________________COLEMAK_R1________________       KC_J,    KC_L,        KC_U,          KC_Y, KC_QUOT
-#define ________________COLEMAK_R2________________       KC_H,    KC_N,        KC_E,          KC_I,    KC_O    
-#define ________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMMA, MEH_T(KC_DOT), KC_SLSH
+#define ________________COLEMAK_R1________________       KC_J,    KC_L,        KC_U,          KC_Y, KC_QUOT, OSL(UNICODE)
+#define ________________COLEMAK_R2________________       KC_H,    KC_N,        KC_E,          KC_I,    KC_O, OSL(SYM)   
+#define ________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMMA, MEH_T(KC_DOT), KC_SLSH, SC_SUPERSHIFT
 
 #define _________BOTTOM_L1_________                       KC_DELETE,    KC_ESCAPE,     LT(SYMPLUS,KC_SPACE)
 #define _________BOTTOM_R1_________                       OSM(MOD_LCTL),  KC_LGUI,     TO(NUMPAD)
@@ -124,13 +130,41 @@ enum custom_keycodes {
 #define TH_R2                                             KC_F23
 #define TH_R3                                             KC_F24
 
-#define ________________TYPING_L2_________________        ___,  KC_R, KC_S, KC_T, ___
-#define ________________TYPING_L3_________________        ___,  KC_X, ___,  ___,  ___
-#define ________________TYPING_R2_________________        ___,   ___, KC_E,  ___, ___
-#define ________________TYPING_R3_________________        ___, ___,  ___, KC_DOT, ___
-#define TYPE_THUMB_L1                                     KC_BSPACE, KC_ENTER
+#define ________________TYPING_L1_________________        ________________BLANK_____________________
+#define ________________TYPING_L2_________________        ___, ___,  KC_R, KC_S, KC_T, ___
+#define ________________TYPING_L3_________________        ___, ___,  KC_X, ___,  ___,  ___
+#define ________________TYPING_R1_________________        ________________BLANK_____________________
+#define ________________TYPING_R2_________________        ___,   ___, KC_E,  ___, ___, ___
+#define ________________TYPING_R3_________________        ___, ___,  ___, KC_DOT, ___, ___
+
+#define ____TYPE_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
+#define ____TYPE_BOTTOM_R1_________                       ________BLOCK_BOTTOM_______
+#define TYPE_L1                                           KC_BSPACE, KC_ENTER
+#define TYPE_L2                                           ___
+#define TYPE_L3                                           ___
+#define TYPE_R1                                           ___, ___
+#define TYPE_R2                                           ___
+#define TYPE_R3                                           ___
 
 
+#define ________________NUMPAD_L1_________________        ________________BLANK_____________________
+#define ________________NUMPAD_L2_________________        ___, ___, SC_AR,     SC_AS, ___, ___
+#define ________________NUMPAD_L3_________________        ________________BLANK_____________________
+
+#define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9,        KC_COLN, KC_KP_MINUS
+#define ________________NUMPAD_R2_________________        OSM(MOD_LALT), KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_ASTERISK,  KC_KP_PLUS
+#define ________________NUMPAD_R3_________________        XXX,           KC_KP_1, KC_KP_2, KC_KP_3,    KC_KP_SLASH,    KC_ENTER
+
+#define _____NUM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
+#define _____NUM_BOTTOM_R1_________                       KC_X,    KC_KP_COMMA,  KC_KP_DOT
+
+
+#define NUM_L1                                           ___, ___
+#define NUM_L2                                           LCTL(KC_Z)
+#define NUM_L3                                           LCTL(KC_Y)
+#define NUM_R1                                           KC_ESCAPE,  KC_KP_0
+#define NUM_R2                                           KC_NUMLOCK
+#define NUM_R3                                           TO(COLEMAK)
 
 
 
@@ -548,4 +582,20 @@ bool handle_keyrelease(uint16_t keycode) {
   return true;
 }
 
+  
+uint8_t caps_lock_on() {
+  if (IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK)) {
+    return 1;
+  }
+  return 0;
+}
 
+uint8_t shift_pressed() {
+  if (((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) || 
+  ((get_oneshot_locked_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) ||
+  ((get_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)))
+  {
+    return 1;
+  }
+  return 0;
+}

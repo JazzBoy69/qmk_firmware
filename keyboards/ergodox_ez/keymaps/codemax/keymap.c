@@ -6,12 +6,6 @@
 
 #define ERGODOX yes
 
-// A 'transparent' key code (that falls back to the layers below it).
-#define ___ KC_TRANSPARENT
-
-// A 'blocking' key code. Does nothing but prevent falling back to another layer.
-#define XXX KC_NO
-
 #define LAYOUT_wrapper(...)            LAYOUT_ergodox_pretty(__VA_ARGS__)
 #define LAYOUT_ergodox_base( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, K0C, K0D, \
@@ -38,47 +32,35 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [COLEMAK] = LAYOUT_ergodox_base_wrapper(
-    XXX,          ________________BLOCK_____________________, XXX,          XXX, ________________BLOCK_____________________, XXX,
-    OSL(UNICODE), ________________COLEMAK_L1________________, XXX,          XXX, ________________COLEMAK_R1________________, OSL(UNICODE), 
-    OSL(SYM),     ________________COLEMAK_L2________________,                    ________________COLEMAK_R2________________, OSL(SYM),
-    SC_SUPERSHIFT,________________COLEMAK_L3________________, XXX,          XXX, ________________COLEMAK_R3________________, SC_SUPERSHIFT,
+        ________________BLOCK_____________________, XXX,          XXX, ________________BLOCK_____________________, 
+        ________________COLEMAK_L1________________, XXX,          XXX, ________________COLEMAK_R1________________, 
+        ________________COLEMAK_L2________________,                    ________________COLEMAK_R2________________,
+        ________________COLEMAK_L3________________, XXX,          XXX, ________________COLEMAK_R3________________,
     XXX, XXX,     _________BOTTOM_L1_________,                                     _________BOTTOM_R1_________, XXX, XXX,
-                                                              XXX, XXX,  XXX, XXX,
-                                                                 TH_L2,  TH_R2,
-                                                       THUMB_L1, TH_L3,  TH_R3, THUMB_R1
+                                                   XXX, XXX,  XXX, XXX,
+                                                      TH_L2,  TH_R2,
+                                            THUMB_L1, TH_L3,  TH_R3, THUMB_R1
   ),
   [TYPING] = LAYOUT_ergodox_base_wrapper(
-    ___, ________________BLANK_____________________, ___,          ___, ________________BLANK_____________________, ___,
-    ___, ________________BLANK_____________________, ___,          ___, ________________BLANK_____________________, ___, 
-    ___, ________________TYPING_L2_________________,                    ________________TYPING_R2_________________, ___,
-    ___, ________________TYPING_L3_________________, ___,          ___, ________________TYPING_R3_________________, ___,
-    ___, ___,     ________BLANK_BOTTOM_______,                                     ________BLOCK_BOTTOM_______, ___, ___,
+    ________________BLANK_____________________, ___,               ___, ________________BLANK_____________________, 
+    ________________TYPING_L1_________________, ___,               ___, ________________TYPING_R1_________________, 
+    ________________TYPING_L2_________________,                         ________________TYPING_R2_________________, 
+    ________________TYPING_L3_________________, ___,               ___, ________________TYPING_R3_________________, 
+    ___, ___,     ____TYPE_BOTTOM_L1_________,                               ____TYPE_BOTTOM_R1_________, ___, ___,
                                                      ___, ___,  ___, ___,
-                                                          ___,  ___,
-                                           TYPE_THUMB_L1, ___,  ___, ___, ___
+                                                        TYPE_L2,  TYPE_R2,
+                                              TYPE_L1, TYPE_L3,   TYPE_R3, TYPE_R1
 
   ), 
-  [NUMPAD] = LAYOUT_ergodox(
-  // left hand ---------------------------------------------------------------------------------------------------
-    ___, ___,     ___,  ___,  ___,       ___,     ___,                              
-    ___, ___,     ___,  ___,  ___,    TG(GAME),   XXX,                    
-    ___, ___,   SC_AR, SC_AS, ___,     MO(NAV),              
-    ___, ___,     ___,  ___,  ___,       ___,     ___,     
-    ___, ___,     XXX,  ___,  ___,          
- // left thumb --------------------------------------------------------------------------------------------------
-                                                                    XXX,        ___,   
-                                                                          LCTL(KC_Z), 
-                                                           ___,     ___,  LCTL(KC_Y),
-  // right hand --------------------------------------------------------------------------------------------------
-                              ___,     XXX,           XXX,       XXX,        XXX,           XXX,       XXX,
-                              ___,     XXX,         KC_KP_7,     KC_KP_8,    KC_KP_9,       KC_COLN,     KC_KP_MINUS,
-                                 OSM(MOD_LALT),     KC_KP_4,     KC_KP_5,    KC_KP_6,   KC_KP_ASTERISK,  KC_KP_PLUS,
-                              ___,     XXX,       KC_KP_1,     KC_KP_2,    KC_KP_3,   KC_KP_SLASH,    KC_ENTER,
-                                                     KC_X,    KC_KP_COMMA,  KC_KP_DOT,         ___,         XXX,
-  // right thumb -------------------------------------------------------------------------------------------------
-                           ___,   ___,
-              KC_NUMLOCK,
-              TO(COLEMAK),   KC_ESCAPE,  KC_KP_0
+  [NUMPAD] = LAYOUT_ergodox_base_wrapper(
+    ________________BLANK_____________________,  ___,      ___, ________________BLANK_____________________,                       
+    ___, ___, ___,    ___,    ___,    TG(GAME),  XXX,      ___, ________________NUMPAD_R1_________________,               
+    ________________NUMPAD_L2_________________,                 ________________NUMPAD_R2_________________,  
+    ________________NUMPAD_L3_________________,  ___,      ___, ________________NUMPAD_R3_________________,
+    ___, ___,      _____NUM_BOTTOM_L1_________,                       _____NUM_BOTTOM_R1_________, ___, ___,       
+                                             ___, ___,  ___, ___,
+                                                NUM_L2,  NUM_R2,
+                                        NUM_L1, NUM_L3,   NUM_R3, NUM_R1                                                                   
   ),
   [NAV] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
@@ -280,6 +262,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+
 // The state of the LEDs requested by the system, as a bitmask.
 static uint8_t sys_led_state = 0;
 
@@ -398,23 +381,6 @@ void led_set_user(uint8_t usb_led) {
 	 }
  }
 
- 
-uint8_t caps_lock_on() {
-  if (IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK)) {
-    return 1;
-  }
-  return 0;
-}
-
-uint8_t shift_pressed() {
-  if (((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) || 
-  ((get_oneshot_locked_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) ||
-  ((get_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)))
-  {
-    return 1;
-  }
-  return 0;
-}
 
 void matrix_scan_user(void) {
   HANDLE_MATRIX_SCAN

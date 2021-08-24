@@ -17,14 +17,6 @@
 #include "codemax.h"
 
 
-
-// A 'transparent' key code (that falls back to the layers below it).
-#define ___ KC_TRANSPARENT
-
-// A 'blocking' key code. Does nothing but prevent falling back to another layer.
-#define XXX KC_NO
-
-
 #define LAYOUT_wrapper(...)            LAYOUT(__VA_ARGS__)
 #define LAYOUT_kyria_base( \
     K00, K01, K02, K03, K04, K05, K06, K07, K08, K09, K0A, K0B, \
@@ -44,27 +36,27 @@
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [COLEMAK] = LAYOUT_kyria_base_wrapper( 
-    OSL(UNICODE), ________________COLEMAK_L1________________,                                ________________COLEMAK_R1________________,OSL(UNICODE),
-    OSL(SYM),     ________________COLEMAK_L2________________,                                ________________COLEMAK_R2________________,OSL(SYM),
-    SC_SUPERSHIFT,________________COLEMAK_L3________________, TH_L2, TH_L3,    TH_R2, TH_R3, ________________COLEMAK_R3________________,SC_SUPERSHIFT,
-                                   _________BOTTOM_L1_________, THUMB_L1,          THUMB_R1, _________BOTTOM_R1_________
+    ________________COLEMAK_L1________________,                                ________________COLEMAK_R1________________,
+    ________________COLEMAK_L2________________,                                ________________COLEMAK_R2________________,
+    ________________COLEMAK_L3________________, TH_L2, TH_L3,    TH_R2, TH_R3, ________________COLEMAK_R3________________,
+                     _________BOTTOM_L1_________, THUMB_L1,          THUMB_R1, _________BOTTOM_R1_________
 ),
 /*
  */
     [TYPING] = LAYOUT_kyria_base_wrapper(
-    ___, ________________BLANK_____________________,                       ________________BLANK_____________________, ___,
-    ___, ________________TYPING_L2_________________,                       ________________TYPING_R2_________________, ___,
-    ___, ________________TYPING_L3_________________, ___, ___,  ___, ___,  ________________TYPING_R3_________________, ___,
-                  ________BLANK_BOTTOM_______,  TYPE_THUMB_L1,  ___, ___,    ________BLOCK_BOTTOM_______   
+    ________________TYPING_L1_________________,                                       ________________TYPING_R1_________________, 
+    ________________TYPING_L2_________________,                                       ________________TYPING_R2_________________, 
+    ________________TYPING_L3_________________, TYPE_L2, TYPE_L3,  TYPE_R2, TYPE_R3,  ________________TYPING_R3_________________, 
+                  ____TYPE_BOTTOM_L1_________,            TYPE_L1,  TYPE_R1,             ____TYPE_BOTTOM_R1_________   
   ), 
 /*
  *                        `----------------------------------'  `----------------------------------'
  */
-    [NUMPAD] = LAYOUT(
-      _______, _______, _______, _______, _______, _______,                                                      _______, KC_KP_7,  KC_KP_8, KC_KP_9, KC_COLN,        KC_KP_MINUS,
-      _______, _______, SC_AR,     SC_AS, _______, _______,                                                OSM(MOD_LALT), KC_KP_4,  KC_KP_5, KC_KP_6, KC_KP_ASTERISK, KC_KP_PLUS,
-      _______, _______, _______, _______, _______, _______, LCTL(KC_Z), LCTL(KC_Y),       TO(COLEMAK), KC_NUMLOCK, _______, KC_KP_1,  KC_KP_2, KC_KP_3, KC_KP_SLASH,    KC_ENTER,
-                                 _______, _______, _______,    _______,    _______,       KC_ESCAPE, KC_KP_0, KC_X, KC_KP_COMMA, KC_KP_DOT
+    [NUMPAD] = LAYOUT_kyria_base_wrapper(
+      ________________NUMPAD_L1_________________,                                     ________________NUMPAD_R1_________________,
+      ________________NUMPAD_L2_________________,                                     ________________NUMPAD_R2_________________,
+      ________________NUMPAD_L3_________________,   NUM_L2, NUM_L3,  NUM_R2, NUM_R3,  ________________NUMPAD_R3_________________,
+                    _____NUM_BOTTOM_L1_________,        NUM_L1,         NUM_R1,          _____NUM_BOTTOM_R1_________
     ),
 /*
  */
