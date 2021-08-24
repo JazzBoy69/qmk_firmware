@@ -245,6 +245,26 @@ enum custom_keycodes {
 #define SYMP_R3                                            _______
 
 
+#define ________________UNI_L1____________________        ___,      ___,   ___,  ___,  SC_PAR,     SC_GU
+#define ________________UNI_L2____________________        ___,      SC_A,  ___, SC_SEC, SC_INVBANG, ___
+#define ________________UNI_L3____________________        SC_SHIFT, ___,   ___,  ___,   ___,        ___
+
+#define ________________UNI_R1____________________         ___,    ___,  SC_U,     SC_Y,     ___,   ___
+#define ________________UNI_R2____________________         ___,   SC_N,  SC_E,     SC_I,    SC_O,   ___
+#define ________________UNI_R3____________________         ___,    ___,  SC_COMMA, SC_DOT, SC_INVQUES, SC_SHIFT
+
+
+#define _____UNI_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
+#define _____UNI_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
+
+#define UNI_L1                                            ___,  ___
+#define UNI_L2                                            _______
+#define UNI_L3                                            _______
+#define UNI_R1                                            SC_SUPERINVQUES, ___
+#define UNI_R2                                            _______
+#define UNI_R3                                            _______
+
+
 void handle_supershift(void);
 uint8_t caps_lock_on(void);
 uint8_t shift_pressed(void);
