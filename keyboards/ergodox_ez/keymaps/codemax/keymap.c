@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include "codemax.h"
 
-
+#define ERGODOX yes
 
 // A 'transparent' key code (that falls back to the layers below it).
 #define ___ KC_TRANSPARENT
@@ -279,28 +279,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                ___, ___, ___ 
   ),
 };
-uint32_t layer_state_set_user(uint32_t state);
-void handle_supershift(void);
-uint8_t caps_lock_on(void);
-uint8_t shift_pressed(void);
-void flash(uint16_t time, uint8_t leds);
-void run(uint16_t speed);
-uint8_t current_layer = 0;
-uint16_t change_time = 0;
-uint16_t pressed_time = 0;
-uint16_t shift_time = 0;
-uint8_t shift_count = 0;
-bool resume_capslock = false;
-bool handle_keypress(uint16_t keycode);
-bool handle_keyrelease(uint16_t keycode);
-bool handle_unicode(uint16_t keycode);
 
 // The state of the LEDs requested by the system, as a bitmask.
 static uint8_t sys_led_state = 0;
 
 // Use these masks to read the system LEDs state.
 static const uint8_t sys_led_mask_num_lock = 1 << USB_LED_NUM_LOCK;
-static const uint8_t sys_led_mask_caps_lock = 1 << USB_LED_CAPS_LOCK;
 static const uint8_t sys_led_mask_scroll_lock = 1 << USB_LED_SCROLL_LOCK;
 
 // Value to use to switch LEDs on. The default value of 255 is far too bright.
@@ -333,23 +317,6 @@ void led_2_off(void) {
 
 void led_3_off(void) {
   ergodox_right_led_3_off();
-}
-
-uint8_t caps_lock_on() {
-  if (sys_led_state & sys_led_mask_caps_lock) {
-    return 1;
-  }
-  return 0;
-}
-
-uint8_t shift_pressed() {
-  if (((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) || 
-  ((get_oneshot_locked_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) ||
-  ((get_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)))
-  {
-    return 1;
-  }
-  return 0;
 }
 
 void set_indicator(void) {
@@ -431,22 +398,27 @@ void led_set_user(uint8_t usb_led) {
 	 }
  }
 
+ 
+uint8_t caps_lock_on() {
+  if (IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK)) {
+    return 1;
+  }
+  return 0;
+}
+
+uint8_t shift_pressed() {
+  if (((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) || 
+  ((get_oneshot_locked_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) ||
+  ((get_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)))
+  {
+    return 1;
+  }
+  return 0;
+}
+
 void matrix_scan_user(void) {
-  if (current_layer == COLEMAK) {
-    if (get_current_wpm()>40) {
-      layer_on(TYPING);
-    }
-    return;
-  }
-  if (current_layer == TYPING) {
-    if ((get_current_wpm()<=40) || (timer_elapsed(pressed_time) > 1000)) {
-      shift_time = 0;
-      layer_off(TYPING);
-      set_current_wpm(0);
-    }
-    return;
-  }
-	if (current_layer == GAME) {
+  HANDLE_MATRIX_SCAN
+  if (current_layer == GAME) {
 		run(512);
 		return;
 	}
@@ -491,388 +463,19 @@ uint32_t layer_state_set_user(uint32_t state) {
 
 
 bool get_retro_tapping(uint16_t keycode, keyrecord_t *record) {
-    if ((keycode == LCTL_T(KC_CAPSLOCK)) || (keycode == LCTL_T(KC_S)) || (keycode == LSFT_T(KC_T))
-    || (keycode == OSL(SYM)) || (keycode == OSL(UNICODE)) || (keycode == MEH_T(KC_SPACE))
-    || (keycode == MEH_T(KC_X)) || (keycode == MEH_T(KC_DOT))) {
-        return false;
-    }
-    return true;
+    HANDLE_RETRO_TAPPING
 }
 
 uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
-    if (keycode == LT(NUMPAD,KC_A)) {
-      return 170;
-    }
-     if ((current_layer == TYPING) ||
-       (keycode == OSM(MOD_LSFT)) 
-     ) {
-      return 300;
-    }
-    if ((keycode == LALT_T(KC_R)) || 
-        (keycode == MEH_T(KC_SPACE)) || 
-        (keycode == LSFT_T(KC_T)) ||
-        (keycode == MEH_T(KC_X)) || 
-        (keycode == LCTL_T(KC_S))
-    ) {
-      return 150;
-    }
-    return TAPPING_TERM;
+    HANDLE_TAPPING_TERM
 }
 
 void oneshot_mods_changed_user(uint8_t mods) {
- if (!(mods & MOD_MASK_SHIFT)) {
-   shift_count = 0;
+  HANDLE_ONESHOT_MODS
  }
-}
 
-void handle_supershift() {
-  if (caps_lock_on()) {
-    tap_code(KC_CAPSLOCK);
-    resume_capslock = true;
-    return;
-  }
-  if (shift_count > 0) {
-    set_oneshot_mods(0);
-    shift_count = 0;
-    tap_code(KC_CAPSLOCK);
-    return;
-  }
-  add_mods(MOD_BIT(KC_LSHIFT));
-  set_oneshot_mods(MOD_BIT(KC_LSHIFT));
-  shift_count = 1;
-}
 
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  if (record->event.pressed) {
-    return handle_keypress(keycode);
-  }
-  return handle_keyrelease(keycode);
-}
-
-bool handle_keypress(uint16_t keycode) {
-  pressed_time = timer_read();
-  if (shift_time != 0) {
-      if (!caps_lock_on() && (timer_elapsed(shift_time) < 1000)) {
-        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
-      }
-      shift_time = 0;
-    }
-
-    switch (keycode) {
-    case SC_SUPERSHIFT:
-        handle_supershift();
-      return true;
-    break;
-    case KC_QUOTE:
-      if (resume_capslock) {
-        resume_capslock = false;
-        SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE)));
-        tap_code(KC_CAPSLOCK);
-        return false;
-      }
-      SEND_STRING(SS_TAP(X_QUOTE));
-      return false;
-    break;
-    case KC_COMMA:
-      if (resume_capslock) {
-        resume_capslock = false;
-        SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)));
-        tap_code(KC_CAPSLOCK);
-        return false;
-      }
-      SEND_STRING(SS_TAP(X_COMMA));
-      return false;
-    break;
-    case MEH_T(KC_DOT):
-      if (resume_capslock) {
-        resume_capslock = false;
-        SEND_STRING(SS_LSFT(SS_TAP(X_DOT)));
-        tap_code(KC_CAPSLOCK);
-        return false;
-      }
-      return true;
-    break;
-    case LT(SYMPLUS,KC_SLASH):
-      if (resume_capslock) {
-        resume_capslock = false;
-        SEND_STRING(SS_LSFT(SS_TAP(X_SLASH)));
-        tap_code(KC_CAPSLOCK);
-        return false;
-      }
-      return true;
-    break;
-  }
-  resume_capslock = false;
-  if (handle_unicode(keycode)) {
-    layer_off(UNICODE);
-    layer_off(MIRUNI);
-    return false;
-  }
-  switch (keycode) {
-    case SC_SHIFT:
-      set_oneshot_mods(MOD_BIT(KC_LSHIFT));
-      reset_oneshot_layer();
-      layer_on(UNICODE);
-      return true;
-    break;
-    case KC_COLN:
-      SEND_STRING(SS_LSFT(SS_TAP(X_SCOLON)));
-      return false;
-    break;
-    case KC_LCBR:
-      SEND_STRING(SS_LSFT(SS_TAP(X_LBRACKET)));
-      return false;
-    break;
-    case KC_AMPR:
-      SEND_STRING(SS_LSFT(SS_TAP(X_7)));
-      return false;
-    break;
-    case KC_PLUS:
-      SEND_STRING(SS_LSFT(SS_TAP(X_EQUAL)));
-      return false;
-    break;
-    case KC_ASTR:
-      SEND_STRING(SS_LSFT(SS_TAP(X_8)));
-      return false;
-    break;
-    case KC_AT:
-      SEND_STRING(SS_LSFT(SS_TAP(X_2)));
-      return false;
-    break;
-    case KC_PERC:
-      SEND_STRING(SS_LSFT(SS_TAP(X_5)));
-      return false;
-    break;
-    case KC_HASH:
-      SEND_STRING(SS_LSFT(SS_TAP(X_3)));
-      return false;
-    break;
-    case KC_DLR:
-      SEND_STRING(SS_LSFT(SS_TAP(X_4)));
-      return false;
-    break;
-    case KC_TILD:
-      SEND_STRING(SS_LSFT(SS_TAP(X_GRV)));
-      return false;
-    break;
-    case KC_PIPE:
-      SEND_STRING(SS_LSFT(SS_TAP(X_BSLASH)));
-      return false;
-    break;
-    case KC_RCBR:
-      SEND_STRING(SS_LSFT(SS_TAP(X_RBRACKET)));
-      return false;
-    break;
-    case KC_RPRN:
-      SEND_STRING(SS_LSFT(SS_TAP(X_0)));
-      return false;
-    break;
-    case KC_LPRN:
-      SEND_STRING(SS_LSFT(SS_TAP(X_9)));
-      return false;
-    break;
-    case KC_EXLM:
-      SEND_STRING("!");
-      return false;
-    break;
-    case KC_UNDS:
-      SEND_STRING("_");
-      return false;
-    break;
-    case SC_SUPERDOT:
-      SEND_STRING(". ");
-      shift_time = timer_read();
-      return true;
-    break;
-    case SC_SUPERINVQUES:
-      set_oneshot_mods(0);
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1)));
-      layer_off(UNICODE);
-      layer_off(MIRUNI);
-      shift_time = timer_read();
-      return false;
-    break;   
-    case SC_SUPERQUES:
-      SEND_STRING("? ");
-      shift_time = timer_read();
-      return true;
-    break;
-    case KC_ESCAPE:
-      clear_oneshot_mods(); 
-      clear_mods();
-      shift_time = 0;
-      SEND_STRING(SS_TAP(X_ESCAPE));
-      return true;
-    break; 
-    case SC_MIRSHIFT:
-      set_oneshot_mods(MOD_BIT(KC_LSHIFT));
-      reset_oneshot_layer();
-      layer_on(MIRUNI);
-      return true;
-    break;      
-    case SC_A:
-    {
-      SEND_UNICODE(CAP_ACCENTA, ACCENTA);
-      return false;
-    }
-    break;
-    case SC_E:
-    {
-      SEND_UNICODE(CAP_ACCENTE, ACCENTE);
-      return false;
-    }
-    break;
-    case SC_I:
-    {
-      SEND_UNICODE(CAP_ACCENTI, ACCENTI);
-      return false;
-    }
-    break;
-    case SC_O:
-    {
-      SEND_UNICODE(CAP_ACCENTO, ACCENTO);
-      return false;
-    }
-    break;
-    case SC_U:
-    {
-      SEND_UNICODE(CAP_ACCENTU, ACCENTU);
-      return false;
-    }
-    break;
-    case SC_Y:
-    {
-      SEND_UNICODE(CAP_ACCENTY, ACCENTY);
-      return false;
-    }
-    break;
-    case SC_GU:
-    {
-      SEND_UNICODE(CAP_ACCENTGU, ACCENTGU);
-      return false;
-    }
-    break;
-    case SC_N:
-    {
-      SEND_UNICODE(CAP_ENE, ENE);
-      return false;
-    }
-    break;
-    case SC_FEM:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_6) ));
-    break;
-    case SC_OPEN1QUOTE:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_5) ));
-    break;
-    case SC_CLOSE1QUOTE:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_6) ));
-    break;
-    case SC_MASC:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7) ));
-    break;
-    case SC_SEMICLNENTER:
-      SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_TAP(X_SCOLON) SS_DELAY(50) SS_TAP(X_ENTER));
-    break;
-    case SC_EQUALS:
-      SEND_STRING("==");
-    break;
-    case SC_ENDTAG:
-      SEND_STRING("</");
-    break;
-    case SC_OPENQUOTE:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_7) ));
-    break;
-    case SC_SECTION:
-      SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(20) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_TAB));
-    break;
-    case SC_OPENCLOSEPAREN:
-      SEND_STRING("()");
-    break;
-    case SC_NOTEQUAL:
-      SEND_STRING("!=");
-    break;
-    case SC_EMDASH:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_5) SS_TAP(X_KP_1) ));
-    break;
-    case SC_CLOSEQUOTE:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_8) ));
-    break;
-    case SC_EXACTLYEQUAL:
-      SEND_STRING("===");
-    break;
-    case SC_PARENSEMICOLON:
-      SEND_STRING("();");
-    break;
-    case SC_LESSOREQUAL:
-      SEND_STRING("<=");
-    break;
-    case SC_GREATOREQUAL:
-      SEND_STRING(">=");
-    break;
-    case DEL_LINE:
-      SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME) SS_TAP(X_HOME)) SS_DELAY(50) SS_TAP(X_DELETE) SS_DELAY(50) SS_TAP(X_DELETE));
-    break;
-    case SC_SURROUNDBRKT:
-      SEND_STRING(SS_LCTL(SS_TAP(X_X)) SS_DELAY(20) SS_LSFT(SS_TAP(X_TAB)) SS_DELAY(20) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_TAP(X_TAB) SS_DELAY(20) SS_LCTL(SS_TAP(X_V)));
-    break;
-    case SC_SELECTLINE:
-      SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME)));
-    break;
-    case OPENCLOSEBRACKETS:
-      SEND_STRING("[]");
-    break;
-    case DELWORD:
-      SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)) SS_DELAY(50) SS_LSFT(SS_LCTL(SS_TAP(X_LEFT))) SS_DELAY(50) SS_TAP(X_DELETE));
-    break;
-    case SC_AS:
-        SEND_STRING("AS");
-    break;
-    case SC_ARROW:
-        SEND_STRING("=>");
-    break;
-    case SC_AR:
-      SEND_STRING("AR");
-    break;
-  }
-  layer_off(UNICODE);
-  layer_off(MIRUNI);
-  return true;
-}
-bool handle_unicode(uint16_t keycode) {
-  switch (keycode) {
-  case SC_SEC:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7) ));
-      return true;
-    break;
-    case SC_INVQUES:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1) ));
-      return true;
-    break;
-    case SC_PAR:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_2) ));
-      return true;
-    break;
-    case SC_INVBANG:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_1) ));
-      return true;
-    break;
-    case SC_COMMA:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_0) ));
-      return true;
-    break;
-    case SC_DOT:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_3) ));
-      return true;
-    break;
-  }
-  return false;
-}
-
-bool handle_keyrelease(uint16_t keycode) {
-  if (keycode == SC_SUPERSHIFT)
-  {
-    del_mods(MOD_BIT(KC_LSHIFT));
-  }
-  return true;
+  HANDLE_KEY_PRESS
 }
