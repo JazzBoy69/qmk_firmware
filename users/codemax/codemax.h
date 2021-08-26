@@ -11,41 +11,36 @@
 #define MIRSYM 10
 #define MIRUNI 11
 
-#define CAP_ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_9) ))
-#define ENE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_1) ))
-#define CAP_ACCENTA SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_3) ))
-#define ACCENTA SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_5) ))
-#define CAP_ACCENTE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_1) ))
-#define ACCENTE SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_3) ))
-#define CAP_ACCENTI SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_0) SS_TAP(X_KP_5) ))
-#define ACCENTI SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_3) SS_TAP(X_KP_7) ))
-#define CAP_ACCENTO SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_1) ))
-#define ACCENTO SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_4) SS_TAP(X_KP_3) ))
-#define CAP_ACCENTU SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_1) SS_TAP(X_KP_8) ))
-#define ACCENTU SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_0) ))
-#define CAP_ACCENTY SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ))
-#define ACCENTY SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ))
-#define CAP_ACCENTGU SEND_STRING(SS_LSFT(SS_TAP(X_G)) SS_DELAY(50) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_2) SS_TAP(X_KP_0) ))
-#define ACCENTGU SEND_STRING(SS_TAP(X_G) SS_DELAY(50) SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_2) SS_TAP(X_KP_5) SS_TAP(X_KP_2) ))
 
-
-#define SEND_UNICODE(upper, lower) uint8_t caps = caps_lock_on();\
-uint8_t shift = shift_pressed();\
-if (caps) {\
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));\
-          }\
-if ((caps + shift) == 1) {\
-          clear_oneshot_mods();\
-        upper;\
-        }\
-        else {\
-          lower;\
-        }\
-  if (caps) {\
-            SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));\
-          }\
-  layer_off(UNICODE);\
-  layer_off(MIRUNI);\
+uint16_t CAP_ENE[4] = { KC_KP_0, KC_KP_2, KC_KP_0, KC_KP_9 };
+uint16_t ENE[4] = { KC_KP_0, KC_KP_2, KC_KP_4, KC_KP_1 };
+uint16_t CAP_ACCENTA[4] = { KC_KP_0, KC_KP_1, KC_KP_9, KC_KP_3 };
+uint16_t ACCENTA[4] = { KC_KP_0, KC_KP_2, KC_KP_2, KC_KP_5 };
+uint16_t CAP_ACCENTE[4] = { KC_KP_0, KC_KP_2, KC_KP_0, KC_KP_1 };
+uint16_t ACCENTE[4] = { KC_KP_0, KC_KP_2, KC_KP_3, KC_KP_3 };
+uint16_t CAP_ACCENTI[4] = { KC_KP_0, KC_KP_2, KC_KP_0, KC_KP_5 };
+uint16_t ACCENTI[4] = { KC_KP_0, KC_KP_2, KC_KP_3, KC_KP_7 };
+uint16_t CAP_ACCENTO[4] = { KC_KP_0, KC_KP_2, KC_KP_1, KC_KP_1 };
+uint16_t ACCENTO[4] = { KC_KP_0, KC_KP_2, KC_KP_4, KC_KP_3 };
+uint16_t CAP_ACCENTU[4] = { KC_KP_0, KC_KP_2, KC_KP_1, KC_KP_8 };
+uint16_t ACCENTU[4] = { KC_KP_0, KC_KP_2, KC_KP_5, KC_KP_0 };
+uint16_t CAP_ACCENTY[4] = { KC_KP_0, KC_KP_2, KC_KP_2, KC_KP_0 };
+uint16_t ACCENTY[4] = { KC_KP_0, KC_KP_2, KC_KP_5, KC_KP_2 };
+uint16_t CAP_ACCENTGU[4] = { KC_KP_0, KC_KP_2, KC_KP_2, KC_KP_0 };
+uint16_t ACCENTGU[4] = { KC_KP_0, KC_KP_2, KC_KP_5, KC_KP_2 };
+uint16_t OPEN1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_5 };
+uint16_t CLOSE1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_6 };
+uint16_t FEM[4] = { KC_KP_1, KC_KP_6, KC_KP_6 };
+uint16_t MASC[4] = { KC_KP_1, KC_KP_6, KC_KP_7 };
+uint16_t OPENQUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_7 };
+uint16_t EMDASH[4] = { KC_KP_0, KC_KP_1, KC_KP_5, KC_KP_1 };
+uint16_t CLOSEQUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_8 };
+uint16_t SEC[4] = { KC_KP_0, KC_KP_1, KC_KP_6, KC_KP_7 };
+uint16_t INVQUES[4] = { KC_KP_0, KC_KP_1, KC_KP_9, KC_KP_1 };
+uint16_t PAR[4] = { KC_KP_0, KC_KP_1, KC_KP_8, KC_KP_2 };
+uint16_t INVBANG[4] = { KC_KP_0, KC_KP_1, KC_KP_6, KC_KP_1 };
+uint16_t COMMA[4] = { KC_KP_0, KC_KP_1, KC_KP_8, KC_KP_0 };
+uint16_t DOT[4] = { KC_KP_0, KC_KP_1, KC_KP_8, KC_KP_3 };
 
 #ifdef ERGODOX
     #define THIS_SAFE_RANGE EZ_SAFE_RANGE
@@ -341,7 +336,36 @@ bool handle_keyrelease(uint16_t keycode);
 bool handle_unicode(uint16_t keycode);
 void handle_matrix_scan(void);
 bool capslock_desactivated(void);
+void SendShiftedAltCode(uint16_t shifted[], uint16_t unshifted[]);
+void SendAltCode(uint16_t code[], int length);
 
+void SendShiftedAltCode(uint16_t shifted[], uint16_t unshifted[]) {
+  uint8_t caps = caps_lock_on();
+  uint8_t shift = shift_pressed();
+  if (caps) {
+    SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));
+  }
+  if ((caps + shift) == 1) {
+    clear_oneshot_mods();
+    SendAltCode(shifted, 4);
+  }
+    else {
+      SendAltCode(unshifted, 4);
+  }
+  if (caps) {
+    SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));
+  }
+  layer_off(UNICODE);
+  layer_off(MIRUNI);
+}
+
+void SendAltCode(uint16_t code[], int length) {
+  register_code(KC_LALT);
+  for (int i = 0; i < length; i++) {
+    tap_code(code[i]);
+  }
+  unregister_code(KC_LALT);
+}
 
 #define HANDLE_MATRIX_SCAN if (current_layer == COLEMAK) {\
         if (get_current_wpm()>40) {\
@@ -482,44 +506,60 @@ bool handle_keypress(uint16_t keycode) {
       return false;
     break;
     case KC_PIPE:
-      SEND_STRING(SS_LSFT(SS_TAP(X_BSLASH)));
+      register_code(KC_LSHIFT);
+      tap_code(KC_BSLASH);
+      unregister_code(KC_LSHIFT);
       return false;
     break;
     case KC_RCBR:
-      SEND_STRING(SS_LSFT(SS_TAP(X_RBRACKET)));
+      register_code(KC_LSHIFT);
+      tap_code(KC_RBRACKET);
+      unregister_code(KC_LSHIFT);
       return false;
     break;
     case KC_RPRN:
-      SEND_STRING(SS_LSFT(SS_TAP(X_0)));
+      register_code(KC_LSHIFT);
+      tap_code(KC_0);
+      unregister_code(KC_LSHIFT);
       return false;
     break;
     case KC_LPRN:
-      SEND_STRING(SS_LSFT(SS_TAP(X_9)));
+      register_code(KC_LSHIFT);
+      tap_code(KC_9);
+      unregister_code(KC_LSHIFT);
       return false;
     break;
     case KC_EXLM:
-      SEND_STRING("!");
+      register_code(KC_LSHIFT);
+      tap_code(KC_1);
+      unregister_code(KC_LSHIFT);
       return false;
     break;
     case KC_UNDS:
-      SEND_STRING("_");
+      register_code(KC_LSHIFT);
+      tap_code(KC_MINUS);
+      unregister_code(KC_LSHIFT);
       return false;
     break;
     case SC_SUPERDOT:
-      SEND_STRING(". ");
+      tap_code(KC_DOT);
+      tap_code(KC_SPACE);
       shift_time = timer_read();
       return true;
     break;
     case SC_SUPERINVQUES:
       set_oneshot_mods(0);
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1)));
+      SendAltCode(INVQUES, 4);
       layer_off(UNICODE);
       layer_off(MIRUNI);
       shift_time = timer_read();
       return false;
     break;   
     case SC_SUPERQUES:
-      SEND_STRING("? ");
+      register_code(KC_LSHIFT);
+      tap_code(KC_SLASH);
+      unregister_code(KC_LSHIFT);
+      tap_code(KC_SPACE);
       shift_time = timer_read();
       return true;
     break;
@@ -527,7 +567,7 @@ bool handle_keypress(uint16_t keycode) {
       clear_oneshot_mods(); 
       clear_mods();
       shift_time = 0;
-      SEND_STRING(SS_TAP(X_ESCAPE));
+      tap_code(KC_ESCAPE);
       return true;
     break; 
     case SC_MIRSHIFT:
@@ -538,75 +578,77 @@ bool handle_keypress(uint16_t keycode) {
     break;      
     case SC_A:
     {
-      SEND_UNICODE(CAP_ACCENTA, ACCENTA);
+      SendShiftedAltCode(CAP_ACCENTA, ACCENTA);
       return false;
     }
     break;
     case SC_E:
     {
-      SEND_UNICODE(CAP_ACCENTE, ACCENTE);
+      SendShiftedAltCode(CAP_ACCENTE, ACCENTE);
       return false;
     }
     break;
     case SC_I:
     {
-      SEND_UNICODE(CAP_ACCENTI, ACCENTI);
+      SendShiftedAltCode(CAP_ACCENTI, ACCENTI);
       return false;
     }
     break;
     case SC_O:
     {
-      SEND_UNICODE(CAP_ACCENTO, ACCENTO);
+      SendShiftedAltCode(CAP_ACCENTO, ACCENTO);
       return false;
     }
     break;
     case SC_U:
     {
-      SEND_UNICODE(CAP_ACCENTU, ACCENTU);
+      SendShiftedAltCode(CAP_ACCENTU, ACCENTU);
       return false;
     }
     break;
     case SC_Y:
     {
-      SEND_UNICODE(CAP_ACCENTY, ACCENTY);
+      SendShiftedAltCode(CAP_ACCENTY, ACCENTY);
       return false;
     }
     break;
     case SC_GU:
     {
-      SEND_UNICODE(CAP_ACCENTGU, ACCENTGU);
+      tap_code(KC_G);
+      SendShiftedAltCode(CAP_ACCENTGU, ACCENTGU);
       return false;
     }
     break;
     case SC_N:
     {
-      SEND_UNICODE(CAP_ENE, ENE);
+      SendShiftedAltCode(CAP_ENE, ENE);
       return false;
     }
     break;
     case SC_FEM:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_6) ));
+      SendAltCode(FEM, 3);
     break;
     case SC_OPEN1QUOTE:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_5) ));
+      SendAltCode(OPEN1QUOTE, 4);
     break;
     case SC_CLOSE1QUOTE:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_6) ));
+      SendAltCode(CLOSE1QUOTE, 4);
     break;
     case SC_MASC:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7) ));
+      SendAltCode(MASC, 3);
     break;
     case SC_SEMICLNENTER:
       SEND_STRING(SS_TAP(X_END) SS_TAP(X_SCOLON) SS_TAP(X_ENTER));
     break;
     case SC_EQUALS:
-      SEND_STRING("==");
+      tap_code(KC_EQUAL);
+      tap_code(KC_EQUAL);
     break;
     case SC_ENDTAG:
       SEND_STRING("</");
     break;
     case SC_OPENQUOTE:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_7) ));
+      SendAltCode(OPENQUOTE, 4);
     break;
     case SC_SECTION:
       SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(20) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_TAB));
@@ -618,10 +660,10 @@ bool handle_keypress(uint16_t keycode) {
       SEND_STRING("!=");
     break;
     case SC_EMDASH:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_5) SS_TAP(X_KP_1) ));
+      SendAltCode(EMDASH, 4);
     break;
     case SC_CLOSEQUOTE:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_4) SS_TAP(X_KP_8) ));
+      SendAltCode(CLOSEQUOTE, 4);
     break;
     case SC_EXACTLYEQUAL:
       SEND_STRING("===");
@@ -667,27 +709,27 @@ bool handle_keypress(uint16_t keycode) {
 bool handle_unicode(uint16_t keycode) {
   switch (keycode) {
   case SC_SEC:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_7) ));
+      SendAltCode(SEC, 4);
       return true;
     break;
     case SC_INVQUES:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_9) SS_TAP(X_KP_1) ));
+      SendAltCode(INVQUES, 4);
       return true;
     break;
     case SC_PAR:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_2) ));
+      SendAltCode(PAR, 4);;
       return true;
     break;
     case SC_INVBANG:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_6) SS_TAP(X_KP_1) ));
+      SendAltCode(INVBANG, 4);
       return true;
     break;
     case SC_COMMA:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_0) ));
+      SendAltCode(COMMA, 4);
       return true;
     break;
     case SC_DOT:
-      SEND_STRING(SS_LALT(SS_TAP(X_KP_0) SS_TAP(X_KP_1) SS_TAP(X_KP_8) SS_TAP(X_KP_3) ));
+      SendAltCode(DOT, 4);
       return true;
     break;
   }
