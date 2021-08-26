@@ -335,11 +335,12 @@ uint16_t change_time = 0;
 uint16_t pressed_time = 0;
 uint16_t shift_time = 0;
 uint8_t shift_count = 0;
-bool resume_capslock = false;
+bool resume_capslock = true;
 bool handle_keypress(uint16_t keycode);
 bool handle_keyrelease(uint16_t keycode);
 bool handle_unicode(uint16_t keycode);
 void handle_matrix_scan(void);
+bool capslock_desactivated(void);
 
 
 #define HANDLE_MATRIX_SCAN if (current_layer == COLEMAK) {\
@@ -374,6 +375,9 @@ void handle_matrix_scan(void);
      ) {\
       return 300;\
     }\
+    if (keycode == MEH_T(KC_X)) {\
+      return 250;\
+    }\
     if ((keycode == LALT_T(KC_R)) || \
         (keycode == MEH_T(KC_SPACE)) || \
         (keycode == LSFT_T(KC_T)) ||\
@@ -384,27 +388,6 @@ void handle_matrix_scan(void);
     return TAPPING_TERM;\
 
 
-#define HANDLE_ONESHOT_MODS  if (!(mods & MOD_MASK_SHIFT)) {\
-   shift_count = 0;\
- }\
-
-
- void handle_supershift() {
-  if (caps_lock_on()) {
-    tap_code(KC_CAPSLOCK);
-    resume_capslock = true;
-    return;
-  }
-  if (shift_count > 0) {
-    set_oneshot_mods(0);
-    shift_count = 0;
-    tap_code(KC_CAPSLOCK);
-    return;
-  }
-  add_mods(MOD_BIT(KC_LSHIFT));
-  set_oneshot_mods(MOD_BIT(KC_LSHIFT));
-  shift_count = 1;
-}
 
 #define HANDLE_KEY_PRESS if (record->event.pressed) {\
     return handle_keypress(keycode);\
@@ -412,7 +395,7 @@ void handle_matrix_scan(void);
   return handle_keyrelease(keycode);\
 
 
-  bool handle_keypress(uint16_t keycode) {
+bool handle_keypress(uint16_t keycode) {
   pressed_time = timer_read();
   if (shift_time != 0) {
       if (!caps_lock_on() && (timer_elapsed(shift_time) < 1000)) {
@@ -427,45 +410,25 @@ void handle_matrix_scan(void);
       return true;
     break;
     case KC_QUOTE:
-      if (resume_capslock) {
-        resume_capslock = false;
-        SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE)));
-        tap_code(KC_CAPSLOCK);
-        return false;
-      }
       SEND_STRING(SS_TAP(X_QUOTE));
       return false;
     break;
     case KC_COMMA:
-      if (resume_capslock) {
-        resume_capslock = false;
-        SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)));
-        tap_code(KC_CAPSLOCK);
-        return false;
-      }
       SEND_STRING(SS_TAP(X_COMMA));
       return false;
     break;
     case MEH_T(KC_DOT):
-      if (resume_capslock) {
-        resume_capslock = false;
-        SEND_STRING(SS_LSFT(SS_TAP(X_DOT)));
-        tap_code(KC_CAPSLOCK);
-        return false;
-      }
-      return true;
+      SEND_STRING(SS_TAP(X_DOT));
+      return false;
     break;
-    case LT(SYMPLUS,KC_SLASH):
-      if (resume_capslock) {
-        resume_capslock = false;
-        SEND_STRING(SS_LSFT(SS_TAP(X_SLASH)));
-        tap_code(KC_CAPSLOCK);
-        return false;
-      }
-      return true;
+    case KC_SLASH:
+      SEND_STRING(SS_TAP(X_SLASH));
+      return false;
     break;
   }
-  resume_capslock = false;
+  if (capslock_desactivated()) {
+    tap_code(KC_CAPSLOCK);
+  }
   if (handle_unicode(keycode)) {
     layer_off(UNICODE);
     layer_off(MIRUNI);
@@ -735,10 +698,30 @@ bool handle_keyrelease(uint16_t keycode) {
   if (keycode == SC_SUPERSHIFT)
   {
     del_mods(MOD_BIT(KC_LSHIFT));
+    if (shift_count > 0) {
+      set_oneshot_mods(0);
+      shift_count = 0;
+      tap_code(KC_CAPSLOCK);
+      return true;
+    }
+    shift_count = 1;
   }
   return true;
 }
 
+#define HANDLE_ONESHOT_MODS  if (!(mods & MOD_MASK_SHIFT)) {\
+   shift_count = 0;\
+ }\
+
+
+ void handle_supershift() {
+  add_mods(MOD_BIT(KC_LSHIFT));
+  set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+}
+
+bool capslock_desactivated() {
+  return caps_lock_on() && ((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) && (!((get_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)));
+}
   
 uint8_t caps_lock_on() {
   if (IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK)) {
