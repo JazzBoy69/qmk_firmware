@@ -106,13 +106,13 @@ enum custom_keycodes {
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
-#define ________________COLEMAK_L1________________       OSL(UNICODE), KC_Q,      KC_W,         KC_F,         KC_P,    KC_G
+#define ________________COLEMAK_L1________________       OSL(UNICODE), KC_Q,      KC_W, MEH_T(KC_F),         KC_P,    KC_G
 #define ________________COLEMAK_L2________________       OSL(SYM),    LT(NUMPAD,KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),    LT(NAV,KC_D)
-#define ________________COLEMAK_L3________________       SC_SUPERSHIFT,KC_Z,             MEH_T(KC_X),         KC_C,         KC_V,    KC_B
+#define ________________COLEMAK_L3________________       SC_SUPERSHIFT,KC_Z,                   KC_X,         KC_C,         KC_V,    KC_B
 
-#define ________________COLEMAK_R1________________       KC_J,    KC_L,        KC_U,          KC_Y, KC_QUOT, OSL(UNICODE)
-#define ________________COLEMAK_R2________________       KC_H,    KC_N,        KC_E,          KC_I,    KC_O, OSL(SYM)   
-#define ________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMMA, MEH_T(KC_DOT), KC_SLSH, SC_SUPERSHIFT
+#define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, KC_QUOT, OSL(UNICODE)
+#define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O, OSL(SYM)   
+#define ________________COLEMAK_R3________________       KC_K,            KC_M,    KC_COMMA,        KC_DOT, KC_SLSH, SC_SUPERSHIFT
 
 #define _________BOTTOM_L1_________                       KC_DELETE,    KC_ESCAPE,     LT(SYMPLUS,KC_SPACE)
 #define _________BOTTOM_R1_________                       OSM(MOD_LCTL),  KC_LGUI,     TO(NUMPAD)
@@ -204,9 +204,9 @@ enum custom_keycodes {
 #define ________________SYM_L2____________________        ___,              KC_LCBR,       KC_LBRACKET,    KC_LPRN,        KC_EXLM,        KC_UNDS
 #define ________________SYM_L3____________________        ___,              KC_BSLASH,       KC_AT,        KC_HASH,        KC_DLR,         KC_PERC
 
-#define ________________SYM_R1____________________         KC_TILD,      KC_SLASH,      KC_MINUS,         KC_PIPE,      SC_CLOSE1QUOTE,   SC_MASC
-#define ________________SYM_R2____________________        SC_SEMICLNENTER,   SC_EQUALS,  KC_RPRN,        KC_RBRACKET,     KC_RCBR,         ___
-#define ________________SYM_R3____________________          KC_CIRC,        ___,         KC_SCOLON,        KC_COLN,     KC_BSLASH,          ___
+#define ________________SYM_R1____________________         KC_TILD,         KC_SLASH,  KC_MINUS,        KC_PIPE,      SC_CLOSE1QUOTE,   SC_MASC
+#define ________________SYM_R2____________________        SC_SEMICLNENTER, SC_EQUALS,   KC_RPRN,        KC_RBRACKET,     KC_RCBR,         ___
+#define ________________SYM_R3____________________          KC_CIRC,        KC_GRAVE, KC_SCOLON,        KC_COLN,     KC_BSLASH,          ___
 
 
 #define _____SYM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
@@ -367,7 +367,12 @@ void SendAltCode(uint16_t code[], int length) {
   unregister_code(KC_LALT);
 }
 
-#define HANDLE_MATRIX_SCAN if (current_layer == COLEMAK) {\
+#define HANDLE_MATRIX_SCAN if ((shift_time != 0) && (timer_elapsed(shift_time) >= 1000) && (caps_lock_on())) {\
+tap_code(KC_CAPSLOCK);\
+shift_time = 0;\
+shift_count = 0;\
+}\
+if (current_layer == COLEMAK) {\
         if (get_current_wpm()>40) {\
         layer_on(TYPING);\
         }\
@@ -386,7 +391,7 @@ void SendAltCode(uint16_t code[], int length) {
 #define HANDLE_RETRO_TAPPING  if ((keycode == LCTL_T(KC_CAPSLOCK)) || (keycode == LCTL_T(KC_S)) \
     || (keycode == LSFT_T(KC_T))\
     || (keycode == OSL(SYM)) || (keycode == OSL(UNICODE)) || (keycode == MEH_T(KC_SPACE))\
-    || (keycode == MEH_T(KC_X)) || (keycode == MEH_T(KC_DOT))) {\
+    || (keycode == MEH_T(KC_F)) || (keycode == MEH_T(KC_U))) {\
         return false;\
     }\
     return true;\
@@ -427,12 +432,11 @@ bool handle_keypress(uint16_t keycode) {
       }
       shift_time = 0;
     }
-
-    switch (keycode) {
-    case SC_SUPERSHIFT:
+    if (keycode == SC_SUPERSHIFT) {
         handle_supershift();
-      return true;
-    break;
+        return false;
+    }
+    switch (keycode) {
     case KC_QUOTE:
       SEND_STRING(SS_TAP(X_QUOTE));
       return false;
@@ -441,7 +445,7 @@ bool handle_keypress(uint16_t keycode) {
       SEND_STRING(SS_TAP(X_COMMA));
       return false;
     break;
-    case MEH_T(KC_DOT):
+    case KC_DOT:
       SEND_STRING(SS_TAP(X_DOT));
       return false;
     break;
@@ -747,12 +751,15 @@ bool handle_keyrelease(uint16_t keycode) {
       return true;
     }
     shift_count = 1;
-  }
+  } else { shift_count = 0; }
   return true;
 }
 
 #define HANDLE_ONESHOT_MODS  if (!(mods & MOD_MASK_SHIFT)) {\
    shift_count = 0;\
+   if (caps_lock_on())  {\
+     tap_code(KC_CAPSLOCK);\
+   }\
  }\
 
 
