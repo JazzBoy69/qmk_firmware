@@ -320,7 +320,6 @@ enum custom_keycodes {
 #define MRS_R3                                            _______
 
 
-void handle_supershift(void);
 uint8_t caps_lock_on(void);
 uint8_t shift_pressed(void);
 void flash(uint16_t time, uint8_t leds);
@@ -330,14 +329,14 @@ uint16_t change_time = 0;
 uint16_t pressed_time = 0;
 uint16_t shift_time = 0;
 uint8_t shift_count = 0;
-bool resume_capslock = true;
+bool resume_capslock = false;
 bool handle_keypress(uint16_t keycode);
 bool handle_keyrelease(uint16_t keycode);
 bool handle_unicode(uint16_t keycode);
 void handle_matrix_scan(void);
-bool capslock_desactivated(void);
 void SendShiftedAltCode(uint16_t shifted[], uint16_t unshifted[]);
 void SendAltCode(uint16_t code[], int length);
+bool handle_shiftedsymbols(uint16_t keycode);
 
 void SendShiftedAltCode(uint16_t shifted[], uint16_t unshifted[]) {
   uint8_t caps = caps_lock_on();
@@ -388,7 +387,7 @@ if (current_layer == COLEMAK) {\
     }\
 
 
-#define HANDLE_RETRO_TAPPING  if ((keycode == LCTL_T(KC_CAPSLOCK)) || (keycode == LCTL_T(KC_S)) \
+#define HANDLE_RETRO_TAPPING  if ((keycode == LCTL_T(KC_S)) \
     || (keycode == LSFT_T(KC_T))\
     || (keycode == OSL(SYM)) || (keycode == OSL(UNICODE)) || (keycode == MEH_T(KC_SPACE))\
     || (keycode == MEH_T(KC_F)) || (keycode == MEH_T(KC_U))) {\
@@ -426,37 +425,26 @@ if (current_layer == COLEMAK) {\
 
 bool handle_keypress(uint16_t keycode) {
   pressed_time = timer_read();
-  if (shift_time != 0) {
+  if (shift_time != 0) {//add shift to capitalize first letter of sentence
       if (!caps_lock_on() && (timer_elapsed(shift_time) < 1000)) {
         set_oneshot_mods(MOD_BIT(KC_LSHIFT));
       }
       shift_time = 0;
-    }
-    if (keycode == SC_SUPERSHIFT) {
-        handle_supershift();
-        return false;
-    }
-    switch (keycode) {
-    case KC_QUOTE:
-      SEND_STRING(SS_TAP(X_QUOTE));
-      return false;
-    break;
-    case KC_COMMA:
-      SEND_STRING(SS_TAP(X_COMMA));
-      return false;
-    break;
-    case KC_DOT:
-      SEND_STRING(SS_TAP(X_DOT));
-      return false;
-    break;
-    case KC_SLASH:
-      SEND_STRING(SS_TAP(X_SLASH));
-      return false;
-    break;
   }
-  if (capslock_desactivated()) {
+  if (keycode == SC_SUPERSHIFT) {
+      add_oneshot_mods(MOD_BIT(KC_LSHIFT));
+      add_mods(MOD_BIT(KC_LSHIFT));
+      resume_capslock = false;
+      return true;
+  }
+  if (handle_shiftedsymbols(keycode)) {
+    return false;
+  }
+  resume_capslock = false;
+  if (caps_lock_on() && ((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT))) {
     tap_code(KC_CAPSLOCK);
-  }
+    clear_oneshot_mods();
+    }
   if (handle_unicode(keycode)) {
     layer_off(UNICODE);
     layer_off(MIRUNI);
@@ -710,6 +698,29 @@ bool handle_keypress(uint16_t keycode) {
   layer_off(MIRUNI);
   return true;
 }
+bool handle_shiftedsymbols(uint16_t keycode) {
+    resume_capslock = true;
+    switch (keycode) {
+    case KC_QUOTE:
+      SEND_STRING(SS_TAP(X_QUOTE));
+      return true;
+    break;
+    case KC_COMMA:
+      SEND_STRING(SS_TAP(X_COMMA));
+      return true;
+    break;
+    case KC_DOT:
+      SEND_STRING(SS_TAP(X_DOT));
+      return true;
+    break;
+    case KC_SLASH:
+      SEND_STRING(SS_TAP(X_SLASH));
+      return true;
+    break;
+  }
+  return false;
+}
+
 bool handle_unicode(uint16_t keycode) {
   switch (keycode) {
   case SC_SEC:
@@ -743,34 +754,28 @@ bool handle_unicode(uint16_t keycode) {
 bool handle_keyrelease(uint16_t keycode) {
   if (keycode == SC_SUPERSHIFT)
   {
-    del_mods(MOD_BIT(KC_LSHIFT));
-    if (shift_count > 0) {
-      set_oneshot_mods(0);
-      shift_count = 0;
+    clear_mods();
+    if (shift_count>0) {
+      clear_oneshot_mods();
       tap_code(KC_CAPSLOCK);
+      shift_count = 0;
       return true;
     }
     shift_count = 1;
-  } else { shift_count = 0; }
+    return true;
+  } 
+  shift_count = 0;
   return true;
 }
 
 #define HANDLE_ONESHOT_MODS  if (!(mods & MOD_MASK_SHIFT)) {\
-   shift_count = 0;\
-   if (caps_lock_on())  {\
+   if ((shift_count > 0) && (caps_lock_on()) && !(resume_capslock))  {\
      tap_code(KC_CAPSLOCK);\
    }\
+  shift_count = 0;\
+  resume_capslock = false;\
  }\
 
-
- void handle_supershift() {
-  add_mods(MOD_BIT(KC_LSHIFT));
-  set_oneshot_mods(MOD_BIT(KC_LSHIFT));
-}
-
-bool capslock_desactivated() {
-  return caps_lock_on() && ((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)) && (!((get_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT)));
-}
   
 uint8_t caps_lock_on() {
   if (IS_LED_ON(host_keyboard_leds(), USB_LED_CAPS_LOCK)) {
