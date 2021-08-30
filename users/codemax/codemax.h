@@ -328,6 +328,7 @@ uint8_t current_layer = 0;
 uint16_t change_time = 0;
 uint16_t pressed_time = 0;
 uint16_t shift_time = 0;
+uint16_t supershift_time = 0;
 uint8_t shift_count = 0;
 bool resume_capslock = false;
 bool handle_keypress(uint16_t keycode);
@@ -433,7 +434,7 @@ bool handle_keypress(uint16_t keycode) {
   }
   if (keycode == SC_SUPERSHIFT) {
       register_code(KC_LSHIFT);
-      shift_time = pressed_time;
+      supershift_time = pressed_time;
       resume_capslock = false;
       return true;
   }
@@ -755,10 +756,9 @@ bool handle_keyrelease(uint16_t keycode) {
   if (keycode == SC_SUPERSHIFT)
   {
     unregister_code(KC_LSHIFT);
-    if (shift_time == pressed_time) {
+    if (supershift_time == pressed_time) {
       if (shift_count>0) {
         shift_count = 0;
-        shift_time = 0;
         clear_oneshot_mods();
         tap_code(KC_CAPSLOCK);
         return true;
