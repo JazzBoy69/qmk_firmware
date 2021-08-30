@@ -432,8 +432,8 @@ bool handle_keypress(uint16_t keycode) {
       shift_time = 0;
   }
   if (keycode == SC_SUPERSHIFT) {
-      add_oneshot_mods(MOD_BIT(KC_LSHIFT));
-      add_mods(MOD_BIT(KC_LSHIFT));
+      register_code(KC_LSHIFT);
+      shift_time = pressed_time;
       resume_capslock = false;
       return true;
   }
@@ -441,7 +441,7 @@ bool handle_keypress(uint16_t keycode) {
     return false;
   }
   resume_capslock = false;
-  if (caps_lock_on() && ((get_oneshot_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT))) {
+  if (caps_lock_on() && (get_oneshot_mods() & MOD_BIT(KC_LSHIFT))) {
     tap_code(KC_CAPSLOCK);
     clear_oneshot_mods();
     }
@@ -754,14 +754,18 @@ bool handle_unicode(uint16_t keycode) {
 bool handle_keyrelease(uint16_t keycode) {
   if (keycode == SC_SUPERSHIFT)
   {
-    clear_mods();
-    if (shift_count>0) {
-      clear_oneshot_mods();
-      tap_code(KC_CAPSLOCK);
-      shift_count = 0;
-      return true;
+    unregister_code(KC_LSHIFT);
+    if (shift_time == pressed_time) {
+      if (shift_count>0) {
+        shift_count = 0;
+        shift_time = 0;
+        clear_oneshot_mods();
+        tap_code(KC_CAPSLOCK);
+        return true;
+      }
+      add_oneshot_mods(MOD_BIT(KC_LSHIFT));
+      shift_count = 1;
     }
-    shift_count = 1;
     return true;
   } 
   shift_count = 0;
