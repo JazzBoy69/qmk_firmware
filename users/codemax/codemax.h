@@ -121,7 +121,7 @@ enum custom_keycodes {
 #define THUMB_L1                                          LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER)
 #define TH_L2                                             KC_TAB
 #define TH_L3                                             LSFT(KC_TAB)
-#define THUMB_R1                                          KC_QUES,       KC_SPACE
+#define THUMB_R1                                          KC_QUES,       LCTL_T(KC_SPACE)
 #define TH_R2                                             KC_F23
 #define TH_R3                                             KC_F24
 
