@@ -166,6 +166,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ),
 };
 
+void flash(uint16_t time, uint8_t leds);
+void run(uint16_t speed);
 
 // The state of the LEDs requested by the system, as a bitmask.
 static uint8_t sys_led_state = 0;
@@ -287,7 +289,7 @@ void led_set_user(uint8_t usb_led) {
 
 
 void matrix_scan_user(void) {
-  HANDLE_MATRIX_SCAN
+  HANDLE_MATRIX_SCAN 
   if (current_layer == GAME) {
 		run(512);
 		return;

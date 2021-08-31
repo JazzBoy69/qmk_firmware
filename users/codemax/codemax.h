@@ -322,8 +322,6 @@ enum custom_keycodes {
 
 uint8_t caps_lock_on(void);
 uint8_t shift_pressed(void);
-void flash(uint16_t time, uint8_t leds);
-void run(uint16_t speed);
 uint8_t current_layer = 0;
 uint16_t change_time = 0;
 uint16_t pressed_time = 0;
@@ -334,7 +332,6 @@ bool resume_capslock = false;
 bool handle_keypress(uint16_t keycode);
 bool handle_keyrelease(uint16_t keycode);
 bool handle_unicode(uint16_t keycode);
-void handle_matrix_scan(void);
 void SendShiftedAltCode(uint16_t shifted[], uint16_t unshifted[]);
 void SendAltCode(uint16_t code[], int length);
 bool handle_shiftedsymbols(uint16_t keycode);
@@ -373,13 +370,13 @@ shift_time = 0;\
 shift_count = 0;\
 }\
 if (current_layer == COLEMAK) {\
-        if (get_current_wpm()>40) {\
+        if (get_current_wpm()>30) {\
         layer_on(TYPING);\
         }\
         return;\
     }\
     if (current_layer == TYPING) {\
-        if ((get_current_wpm()<=40) || (timer_elapsed(pressed_time) > 1000)) {\
+        if ((timer_elapsed(pressed_time) > 1000)) {\
         shift_time = 0;\
         layer_off(TYPING);\
         set_current_wpm(0);\
