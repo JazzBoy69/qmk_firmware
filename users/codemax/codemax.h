@@ -134,7 +134,7 @@ enum custom_keycodes {
 
 #define ____TYPE_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
 #define ____TYPE_BOTTOM_R1_________                       ________BLOCK_BOTTOM_______
-#define TYPE_L1                                           KC_BSPACE, KC_ENTER
+#define TYPE_L1                                           ___, KC_ENTER
 #define TYPE_L2                                           ___
 #define TYPE_L3                                           ___
 #define TYPE_R1                                           ___, ___
