@@ -683,13 +683,13 @@ bool handle_keypress(uint16_t keycode) {
       SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)) SS_DELAY(50) SS_LSFT(SS_LCTL(SS_TAP(X_LEFT))) SS_DELAY(50) SS_TAP(X_DELETE));
     break;
     case SC_AS:
-        SEND_STRING("AS");
+        SEND_STRING("as");
     break;
     case SC_ARROW:
         SEND_STRING("=>");
     break;
     case SC_AR:
-      SEND_STRING("AR");
+      SEND_STRING("ar");
     break;
   }
   layer_off(UNICODE);
