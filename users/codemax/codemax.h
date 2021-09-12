@@ -759,12 +759,12 @@ bool handle_keyrelease(uint16_t keycode) {
         clear_oneshot_mods();
         tap_code(KC_CAPSLOCK);
         if (timer_elapsed(supershift_time)>225) tap_code(KC_CAPSLOCK);
-        return false;
+        return true;
       }
       add_oneshot_mods(MOD_BIT(KC_LSHIFT));
       shift_count = 1;
     }
-    return false;
+    return true;
   } 
   shift_count = 0;
   return true;
