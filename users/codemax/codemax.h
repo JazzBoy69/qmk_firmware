@@ -327,6 +327,7 @@ uint16_t change_time = 0;
 uint16_t pressed_time = 0;
 uint16_t shift_time = 0;
 uint16_t supershift_time = 0;
+uint16_t startsupershift_time = 0;
 uint8_t shift_count = 0;
 bool resume_capslock = false;
 bool handle_keypress(uint16_t keycode);
@@ -432,6 +433,7 @@ bool handle_keypress(uint16_t keycode) {
   if (keycode == SC_SUPERSHIFT) {
       register_code(KC_LSHIFT);
       supershift_time = pressed_time;
+      if (shift_count == 0) startsupershift_time = pressed_time;
       resume_capslock = false;
       return true;
   }
@@ -757,8 +759,8 @@ bool handle_keyrelease(uint16_t keycode) {
       if (shift_count>0) {
         shift_count = 0;
         clear_oneshot_mods();
-        tap_code(KC_CAPSLOCK);
-        if (timer_elapsed(supershift_time)>225) tap_code(KC_CAPSLOCK);
+        if (timer_elapsed(startsupershift_time)<425) tap_code(KC_CAPSLOCK);
+        tap_code(KC_LSHIFT);
         return false;
       }
       add_oneshot_mods(MOD_BIT(KC_LSHIFT));
