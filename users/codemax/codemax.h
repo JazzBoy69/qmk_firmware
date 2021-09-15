@@ -766,7 +766,7 @@ bool handle_keyrelease(uint16_t keycode) {
       add_oneshot_mods(MOD_BIT(KC_LSHIFT));
       shift_count = 1;
     }
-    return false;
+    return true;
   } 
   shift_count = 0;
   return true;
