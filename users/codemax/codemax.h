@@ -119,11 +119,11 @@ enum custom_keycodes {
 #define ________BLOCK_BOTTOM_______                       XXX,  XXX,  XXX
 #define ________BLANK_BOTTOM_______                       ___,  ___,  ___
 #define THUMB_L1                                          LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER)
-#define TH_L2                                             KC_TAB
-#define TH_L3                                             LSFT(KC_TAB)
+#define TH_L2                                             _______
+#define TH_L3                                             _______
 #define THUMB_R1                                          KC_QUES,       LCTL_T(KC_SPACE)
-#define TH_R2                                             KC_F23
-#define TH_R3                                             KC_F24
+#define TH_R2                                             _______
+#define TH_R3                                             _______
 
 #define ________________TYPING_L1_________________        ________________BLANK_____________________
 #define ________________TYPING_L2_________________        ___, ___,  KC_R, KC_S, KC_T, ___
@@ -142,8 +142,8 @@ enum custom_keycodes {
 #define TYPE_R3                                           ___
 
 
-#define ________________NUMPAD_L1_________________        ________________BLANK_____________________
-#define ________________NUMPAD_L2_________________        ___, ___, SC_AR,     SC_AS, ___, ___
+#define ________________NUMPAD_L1_________________        KC_NUMLOCK,  ___,   ___,     ___, ___, ___
+#define ________________NUMPAD_L2_________________        TO(COLEMAK), ___, SC_AR,   SC_AS, ___, ___
 #define ________________NUMPAD_L3_________________        ________________BLANK_____________________
 
 #define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9,        KC_COLN, KC_KP_MINUS
@@ -154,15 +154,15 @@ enum custom_keycodes {
 #define _____NUM_BOTTOM_R1_________                       KC_X,    KC_KP_COMMA,  KC_KP_DOT
 
 
-#define NUM_L1                                            ___, ___
-#define NUM_L2                                            LCTL(KC_Z)
-#define NUM_L3                                            LCTL(KC_Y)
+#define NUM_L1                                            LSFT(KC_TAB), KC_TAB
+#define NUM_L2                                            ___
+#define NUM_L3                                            ___
 #define NUM_R1                                            KC_ESCAPE,  KC_KP_0
-#define NUM_R2                                            KC_NUMLOCK
-#define NUM_R3                                            TO(COLEMAK)
+#define NUM_R2                                            ___
+#define NUM_R3                                            ___
 
-#define ________________NAV_L1____________________        ________________BLANK_____________________
-#define ________________NAV_L2____________________        ___, ___,  ___,  KC_LCTRL, KC_LSHIFT, ___
+#define ________________NAV_L1____________________        KC_SCROLLLOCK, ___,  ___,       ___,       ___, ___
+#define ________________NAV_L2____________________        TO(COLEMAK),   ___,  ___,  KC_LCTRL, KC_LSHIFT, ___
 #define ________________NAV_L3____________________        ________________BLANK_____________________
 
 #define ________________NAV_R1____________________        LCTL(KC_HOME),  OSM(MOD_LCTL),   KC_UP,      KC_PGUP,      XXX,        KC_MS_WH_UP
@@ -177,8 +177,8 @@ enum custom_keycodes {
 #define NAV_L2                                            _______
 #define NAV_L3                                            _______
 #define NAV_R1                                            KC_HOME,  KC_END
-#define NAV_R2                                            KC_SCROLLLOCK
-#define NAV_R3                                            TO(COLEMAK)
+#define NAV_R2                                            _______
+#define NAV_R3                                            _______
 
 
 #define ________________FN_L1_____________________        RESET,           ___,           ___,     SC_EMDASH,      ___,     ___
@@ -691,7 +691,10 @@ bool handle_keypress(uint16_t keycode) {
         SEND_STRING("=>");
     break;
     case SC_AR:
-      SEND_STRING("ar");
+      if (get_current_wpm()>35)
+        SEND_STRING("ar");
+      else
+        register_code(KC_LALT);
     break;
   }
   layer_off(UNICODE);
@@ -768,6 +771,9 @@ bool handle_keyrelease(uint16_t keycode) {
     }
     return true;
   } 
+  if (keycode == SC_AR) {
+    unregister_code(KC_LALT);
+  }
   shift_count = 0;
   return true;
 }
