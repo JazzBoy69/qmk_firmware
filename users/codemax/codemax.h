@@ -115,7 +115,7 @@ enum custom_keycodes {
 #define ________________COLEMAK_R3________________       KC_K,            KC_M,    KC_COMMA,        KC_DOT, KC_SLSH, SC_SUPERSHIFT
 
 #define _________BOTTOM_L1_________                       KC_DELETE,    KC_ESCAPE,     LT(SYMPLUS,KC_SPACE)
-#define _________BOTTOM_R1_________                       OSM(MOD_LCTL),  KC_LGUI,     TO(NUMPAD)
+#define _________BOTTOM_R1_________                       KC_LGUI,  TO(NUMPAD),  ___   
 #define ________BLOCK_BOTTOM_______                       XXX,  XXX,  XXX
 #define ________BLANK_BOTTOM_______                       ___,  ___,  ___
 #define THUMB_L1                                          LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER)
