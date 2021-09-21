@@ -14,8 +14,15 @@
 #define SP_RBKT KC_BSLASH
 #define SP_LBKT KC_QUOT
 #define SP_QUOTE KC_MINUS
+#define SP_LPAREN KC_ASTR
+#define SP_RPAREN KC_LPRN
 
 
+#define ESP_SLASH SS_LSFT(SS_TAP(X_7))
+#define ESP_QUES SS_TAP(X_MINUS)
+#define ESP_GT SS_LSFT(SS_TAP(X_NUBS))
+#define ESP_LT SS_TAP(X_NUBS)
+#define ESP_2QUOTE SS_LSFT(SS_TAP(X_2))
 
 uint16_t OPEN1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_5 };
 uint16_t CLOSE1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_6 };
@@ -95,6 +102,11 @@ enum combo_events {
   Y_TILDE,
   N_TILDE,
   G_TILDE,
+  CTRL_BKSP,
+  CTRL_BKSP2,
+  R1_QUOTE,
+  SHIFT_CAPS,
+  RSHIFT_CAPS,
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -106,6 +118,11 @@ const uint16_t PROGMEM utilde_combo[] = {SP_LBKT, MEH_T(KC_U), COMBO_END};
 const uint16_t PROGMEM ytilde_combo[] = {SP_LBKT, KC_Y, COMBO_END};
 const uint16_t PROGMEM ntilde_combo[] = {SP_LBKT, KC_N, COMBO_END};
 const uint16_t PROGMEM gtilde_combo[] = {SP_RBKT, KC_G, COMBO_END};
+const uint16_t PROGMEM parbksp_combo[] = {SP_RPAREN, LT(MIRRORED,KC_BSPACE), COMBO_END};
+const uint16_t PROGMEM bksp_combo[] = {SP_RPAREN, KC_BSPACE, COMBO_END};
+const uint16_t PROGMEM r1quote_combo[] = {SP_LPAREN, SP_QUOTE, COMBO_END};
+const uint16_t PROGMEM shiftcaps_combo[] = {OSM(MOD_LSFT), SP_LPAREN, COMBO_END};
+const uint16_t PROGMEM rshiftcaps_combo[] = {OSM(MOD_LSFT), SP_RPAREN, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -117,6 +134,11 @@ combo_t key_combos[COMBO_COUNT] = {
   [Y_TILDE] = COMBO(ytilde_combo, XXX),
   [G_TILDE] = COMBO(gtilde_combo, XXX),
   [N_TILDE] = COMBO(ntilde_combo, XXX),
+  [CTRL_BKSP] = COMBO(parbksp_combo, LCTL(KC_BSPACE)),
+  [CTRL_BKSP2] = COMBO(bksp_combo, LCTL(KC_BSPACE)),
+  [R1_QUOTE] = COMBO(r1quote_combo, SC_CLOSE1QUOTE),
+  [SHIFT_CAPS] = COMBO(shiftcaps_combo, KC_CAPSLOCK),
+  [RSHIFT_CAPS] = COMBO(rshiftcaps_combo, KC_CAPSLOCK),
 };
 
 
@@ -124,12 +146,12 @@ combo_t key_combos[COMBO_COUNT] = {
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
 #define ________________COLEMAK_L1________________       SP_LBKT, KC_Q,      KC_W, MEH_T(KC_F),         KC_P,    KC_G
-#define ________________COLEMAK_L2________________       OSL(SYM),    LT(NUMPAD,KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),    LT(NAV,KC_D)
-#define ________________COLEMAK_L3________________       SC_SUPERSHIFT,KC_Z,                   KC_X,         KC_C,         KC_V,    KC_B
+#define ________________COLEMAK_L2________________       SP_LPAREN,    LT(NUMPAD,KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),    LT(NAV,KC_D)
+#define ________________COLEMAK_L3________________       OSM(MOD_LSFT),KC_Z,                   KC_X,         KC_C,         KC_V,    KC_B
 
 #define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, SP_QUOTE, SP_RBKT
-#define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O, OSL(SYM)   
-#define ________________COLEMAK_R3________________       KC_K,            KC_M,    KC_COMMA,        KC_DOT, SP_SLASH, SC_SUPERSHIFT
+#define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O, SP_RPAREN  
+#define ________________COLEMAK_R3________________       KC_K,            KC_M,    KC_COMMA,        KC_DOT, SP_SLASH, OSM(MOD_LSFT)
 
 #define _________BOTTOM_L1_________                       KC_DELETE,    KC_ESCAPE,     LT(SYMPLUS,KC_SPACE)
 #define _________BOTTOM_R1_________                       KC_LGUI,  TO(NUMPAD),  ___   
@@ -459,9 +481,10 @@ bool handle_keypress(uint16_t keycode) {
   }
   resume_capslock = false;
   if (caps_lock_on() && (get_oneshot_mods() & MOD_BIT(KC_LSHIFT))) {
-    tap_code(KC_CAPSLOCK);
     clear_oneshot_mods();
-    }
+    register_code(KC_CAPSLOCK);
+    unregister_code(KC_CAPSLOCK);
+  }
   if (handle_unicode(keycode)) {
     layer_off(UNICODE);
     layer_off(MIRUNI);
@@ -602,9 +625,16 @@ bool handle_keypress(uint16_t keycode) {
 bool handle_shiftedsymbols(uint16_t keycode) {
     resume_capslock = true;
     switch (keycode) {
+    case LCTL_T(KC_SPACE):
+      if (shift_pressed()) {
+        tap_code(KC_SLASH);
+        return true;
+      }
+      return false;
+    break;
     case SP_QUOTE:
       if (shift_pressed()) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_2)));
+        SEND_STRING(ESP_2QUOTE);
         return true;
       }
       tap_code(SP_QUOTE);
@@ -614,7 +644,7 @@ bool handle_shiftedsymbols(uint16_t keycode) {
       if (shift_pressed()) {
         clear_mods();
         clear_oneshot_mods();
-        SEND_STRING(SS_TAP(X_NUBS));
+        SEND_STRING(ESP_LT);
         return true;
       }
       SEND_STRING(SS_TAP(X_COMMA));
@@ -622,7 +652,7 @@ bool handle_shiftedsymbols(uint16_t keycode) {
     break;
     case KC_DOT:
       if (shift_pressed()) {
-        SEND_STRING(SS_TAP(X_NUBS));
+        SEND_STRING(ESP_GT);
         return true;
       } 
       SEND_STRING(SS_TAP(X_DOT));
@@ -630,10 +660,10 @@ bool handle_shiftedsymbols(uint16_t keycode) {
     break;
     case SP_SLASH:
       if (shift_pressed()) {
-        SEND_STRING(SS_TAP(X_MINUS));
+        SEND_STRING(ESP_QUES);
         return true;
       }
-      SEND_STRING(SS_LSFT(SS_TAP(X_7)));
+      SEND_STRING(ESP_SLASH);
       return true;
     break;
   }
