@@ -11,6 +11,9 @@
 #define MIRSYM 10
 #define MIRUNI 11
 
+#define SP_RBKT KC_BSLASH
+#define SP_LBKT KC_QUOT
+#define SP_QUOTE KC_MINUS
 
 
 uint16_t OPEN1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_5 };
@@ -91,11 +94,11 @@ combo_t key_combos[COMBO_COUNT] = {
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
-#define ________________COLEMAK_L1________________       OSL(UNICODE), KC_Q,      KC_W, MEH_T(KC_F),         KC_P,    KC_G
+#define ________________COLEMAK_L1________________       SP_LBKT, KC_Q,      KC_W, MEH_T(KC_F),         KC_P,    KC_G
 #define ________________COLEMAK_L2________________       OSL(SYM),    LT(NUMPAD,KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),    LT(NAV,KC_D)
 #define ________________COLEMAK_L3________________       SC_SUPERSHIFT,KC_Z,                   KC_X,         KC_C,         KC_V,    KC_B
 
-#define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, KC_QUOT, OSL(UNICODE)
+#define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, SP_QUOTE, SP_RBKT
 #define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O, OSL(SYM)   
 #define ________________COLEMAK_R3________________       KC_K,            KC_M,    KC_COMMA,        KC_DOT, KC_SLSH, SC_SUPERSHIFT
 
@@ -245,7 +248,7 @@ combo_t key_combos[COMBO_COUNT] = {
 #define UNI_R3                                            _______
 
 
-#define ________________MIR_L1____________________        OSL(MIRUNI),     KC_QUOTE,          KC_Y,           KC_U,        KC_L,         KC_J
+#define ________________MIR_L1____________________        OSL(MIRUNI),     SP_QUOTE,          KC_Y,           KC_U,        KC_L,         KC_J
 #define ________________MIR_L2____________________        OSL(MIRSYM),      KC_O,             KC_I,           KC_E,        KC_N,         KC_H
 #define ________________MIR_L3____________________        ___,             KC_QUES,          KC_DOT,        KC_COMMA,      KC_M,         KC_K
 
@@ -464,6 +467,18 @@ bool handle_keypress(uint16_t keycode) {
       shift_time = timer_read();
       return true;
     break;
+    case SP_LBKT:
+      register_code(KC_RALT);
+      tap_code(SP_LBKT);
+      unregister_code(KC_RALT);
+      return false;
+    break;
+    case SP_RBKT:
+      register_code(KC_RALT);
+      tap_code(SP_RBKT);
+      unregister_code(KC_RALT);
+      return false;
+    break;
     case KC_ESCAPE:
       clear_oneshot_mods(); 
       clear_mods();
@@ -558,8 +573,8 @@ bool handle_keypress(uint16_t keycode) {
 bool handle_shiftedsymbols(uint16_t keycode) {
     resume_capslock = true;
     switch (keycode) {
-    case KC_QUOTE:
-      SEND_STRING(SS_TAP(X_QUOTE));
+    case SP_QUOTE:
+      tap_code(SP_QUOTE);
       return true;
     break;
     case KC_COMMA:
