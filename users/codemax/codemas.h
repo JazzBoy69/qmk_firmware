@@ -14,6 +14,7 @@
 #define SP_RBKT KC_BSLASH
 #define SP_LBKT KC_QUOT
 #define SP_QUOTE KC_MINUS
+#define SP_2QUOTE LSFT_T(KC_2)
 
 
 uint16_t OPEN1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_5 };
@@ -81,6 +82,8 @@ enum custom_keycodes {
   SC_SECTION,
 };
 
+//COMBOS
+
 enum combo_events {
   SDOT_BUL,
 };
@@ -89,6 +92,15 @@ const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [SDOT_BUL] = COMBO(sdot_combo, XXX),
+};
+
+//KEY OVERRIDES
+
+const key_override_t quote_key_override = ko_make_basic(MOD_MASK_SHIFT, SP_QUOTE, SP_2QUOTE);
+
+const key_override_t **key_overrides = (const key_override_t *[]){
+    &quote_key_override,
+    NULL 
 };
 
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
