@@ -1,3 +1,5 @@
+
+
 #define COLEMAK 0
 #define TYPING 1
 #define NUMPAD 2
@@ -41,6 +43,8 @@ uint16_t PAR[4] = { KC_KP_0, KC_KP_1, KC_KP_8, KC_KP_2 };
 uint16_t INVBANG[4] = { KC_KP_0, KC_KP_1, KC_KP_6, KC_KP_1 };
 uint16_t COMMA[4] = { KC_KP_0, KC_KP_1, KC_KP_8, KC_KP_0 };
 uint16_t DOT[4] = { KC_KP_0, KC_KP_1, KC_KP_8, KC_KP_3 };
+uint16_t BULLET[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_9 };
+
 
 #ifdef ERGODOX
     #define THIS_SAFE_RANGE EZ_SAFE_RANGE
@@ -101,6 +105,16 @@ enum custom_keycodes {
   SC_SUPERQUES,
   SC_SUPERINVQUES,
   SC_SECTION,
+};
+
+enum combo_events {
+  SDOT_BUL,
+};
+
+const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+  [SDOT_BUL] = COMBO(sdot_combo, XXX),
 };
 
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
@@ -802,4 +816,15 @@ uint8_t shift_pressed() {
     return 1;
   }
   return 0;
+}
+
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case SDOT_BUL:
+      if (pressed) {
+        SendAltCode(BULLET, 4);
+      }
+      break;
+  }
 }
