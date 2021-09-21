@@ -14,7 +14,7 @@
 #define SP_RBKT KC_BSLASH
 #define SP_LBKT KC_QUOT
 #define SP_QUOTE KC_MINUS
-#define SP_2QUOTE LSFT_T(KC_2)
+
 
 
 uint16_t OPEN1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_5 };
@@ -80,28 +80,45 @@ enum custom_keycodes {
   SC_SUPERQUES,
   SC_SUPERINVQUES,
   SC_SECTION,
+  SP_SLASH,
 };
 
 //COMBOS
 
 enum combo_events {
-  SDOT_BUL,
+  DOT_BUL,
+  A_TILDE,
+  E_TILDE,
+  I_TILDE,
+  O_TILDE,
+  U_TILDE,
+  Y_TILDE,
+  N_TILDE,
+  G_TILDE,
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
+const uint16_t PROGMEM atilde_combo[] = {SP_RBKT, LT(NUMPAD,KC_A), COMBO_END};
+const uint16_t PROGMEM etilde_combo[] = {SP_LBKT, KC_E, COMBO_END};
+const uint16_t PROGMEM itilde_combo[] = {SP_LBKT, KC_I, COMBO_END};
+const uint16_t PROGMEM otilde_combo[] = {SP_LBKT, KC_O, COMBO_END};
+const uint16_t PROGMEM utilde_combo[] = {SP_LBKT, MEH_T(KC_U), COMBO_END};
+const uint16_t PROGMEM ytilde_combo[] = {SP_LBKT, KC_Y, COMBO_END};
+const uint16_t PROGMEM ntilde_combo[] = {SP_LBKT, KC_N, COMBO_END};
+const uint16_t PROGMEM gtilde_combo[] = {SP_RBKT, KC_G, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
-  [SDOT_BUL] = COMBO(sdot_combo, XXX),
+  [DOT_BUL] = COMBO(sdot_combo, XXX),
+  [A_TILDE] = COMBO(atilde_combo, XXX),
+  [E_TILDE] = COMBO(etilde_combo, XXX),
+  [I_TILDE] = COMBO(itilde_combo, XXX),
+  [O_TILDE] = COMBO(otilde_combo, XXX),
+  [U_TILDE] = COMBO(utilde_combo, XXX),
+  [Y_TILDE] = COMBO(ytilde_combo, XXX),
+  [G_TILDE] = COMBO(gtilde_combo, XXX),
+  [N_TILDE] = COMBO(ntilde_combo, XXX),
 };
 
-//KEY OVERRIDES
-
-const key_override_t quote_key_override = ko_make_basic(MOD_MASK_SHIFT, SP_QUOTE, SP_2QUOTE);
-
-const key_override_t **key_overrides = (const key_override_t *[]){
-    &quote_key_override,
-    NULL 
-};
 
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
@@ -112,7 +129,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 
 #define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, SP_QUOTE, SP_RBKT
 #define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O, OSL(SYM)   
-#define ________________COLEMAK_R3________________       KC_K,            KC_M,    KC_COMMA,        KC_DOT, KC_SLSH, SC_SUPERSHIFT
+#define ________________COLEMAK_R3________________       KC_K,            KC_M,    KC_COMMA,        KC_DOT, SP_SLASH, SC_SUPERSHIFT
 
 #define _________BOTTOM_L1_________                       KC_DELETE,    KC_ESCAPE,     LT(SYMPLUS,KC_SPACE)
 #define _________BOTTOM_R1_________                       KC_LGUI,  TO(NUMPAD),  ___   
@@ -204,7 +221,7 @@ const key_override_t **key_overrides = (const key_override_t *[]){
 #define ________________SYM_L2____________________        ___,              KC_LCBR,       KC_LBRACKET,    KC_LPRN,        KC_EXLM,        KC_UNDS
 #define ________________SYM_L3____________________        ___,              KC_BSLASH,       KC_AT,        KC_HASH,        KC_DLR,         KC_PERC
 
-#define ________________SYM_R1____________________         KC_TILD,         KC_SLASH,  KC_MINUS,        KC_PIPE,      SC_CLOSE1QUOTE,   ___
+#define ________________SYM_R1____________________         KC_TILD,         SP_SLASH,  KC_MINUS,        KC_PIPE,      SC_CLOSE1QUOTE,   ___
 #define ________________SYM_R2____________________        SC_SEMICLNENTER, SC_EQUALS,   KC_RPRN,        KC_RBRACKET,     KC_RCBR,         ___
 #define ________________SYM_R3____________________          KC_CIRC,        KC_GRAVE, KC_SCOLON,        KC_COLN,     KC_BSLASH,          ___
 
@@ -586,19 +603,37 @@ bool handle_shiftedsymbols(uint16_t keycode) {
     resume_capslock = true;
     switch (keycode) {
     case SP_QUOTE:
+      if (shift_pressed()) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_2)));
+        return true;
+      }
       tap_code(SP_QUOTE);
       return true;
     break;
     case KC_COMMA:
+      if (shift_pressed()) {
+        clear_mods();
+        clear_oneshot_mods();
+        SEND_STRING(SS_TAP(X_NUBS));
+        return true;
+      }
       SEND_STRING(SS_TAP(X_COMMA));
       return true;
     break;
     case KC_DOT:
+      if (shift_pressed()) {
+        SEND_STRING(SS_TAP(X_NUBS));
+        return true;
+      } 
       SEND_STRING(SS_TAP(X_DOT));
       return true;
     break;
-    case KC_SLASH:
-      SEND_STRING(SS_TAP(X_SLASH));
+    case SP_SLASH:
+      if (shift_pressed()) {
+        SEND_STRING(SS_TAP(X_MINUS));
+        return true;
+      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_7)));
       return true;
     break;
   }
@@ -680,10 +715,88 @@ uint8_t shift_pressed() {
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
-    case SDOT_BUL:
+    case DOT_BUL:
       if (pressed) {
         SendAltCode(BULLET, 4);
       }
-      break;
+    break;
+    case A_TILDE:
+      if (pressed) {
+        if (shift_pressed()) {
+          clear_oneshot_mods();
+          clear_mods();
+          SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_A)));
+          return;
+        }
+        SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_A));
+      }
+    break;
+    case E_TILDE:
+      if (pressed) {
+        if (shift_pressed()) {
+          clear_oneshot_mods();
+          clear_mods();
+          SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_E)));
+          return;
+        }
+        SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_E));
+      }
+    break;
+    case I_TILDE:
+      if (pressed) {
+        if (shift_pressed()) {
+          clear_oneshot_mods();
+          clear_mods();
+          SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_I)));
+          return;
+        }
+        SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_I));
+      }
+    break;
+    case O_TILDE:
+      if (pressed) {
+        if (shift_pressed()) {
+          clear_oneshot_mods();
+          clear_mods();
+          SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_O)));
+          return;
+        }
+        SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_O));
+      }
+    break;
+    case U_TILDE:
+      if (pressed) {
+        if (shift_pressed()) {
+          clear_oneshot_mods();
+          clear_mods();
+          SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_U)));
+          return;
+        }
+        SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_U));
+      }
+    break;
+    case Y_TILDE:
+      if (pressed) {
+        if (shift_pressed()) {
+          SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_U)));
+          return;
+        }
+        SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE)) SS_TAP(X_U));
+      }
+    break;
+    case N_TILDE:
+      if (pressed) {
+        SEND_STRING(SS_TAP(X_SCOLON));
+      }
+    break;
+    case G_TILDE:
+      if (pressed) {
+        if (shift_pressed()) {
+          SEND_STRING(SS_LSFT(SS_TAP(X_G) SS_TAP(X_QUOTE) SS_TAP(X_U)));
+          return;
+        }
+        SEND_STRING(SS_TAP(X_G) SS_LSFT(SS_TAP(X_QUOTE)) SS_TAP(X_U));
+      }
+    break;
   }
 }
