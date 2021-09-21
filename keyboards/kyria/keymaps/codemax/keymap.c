@@ -228,7 +228,7 @@ uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
 }
 
 void oneshot_mods_changed_user(uint8_t mods) {
-  HANDLE_ONESHOT_MODS
+
 }
 
 
