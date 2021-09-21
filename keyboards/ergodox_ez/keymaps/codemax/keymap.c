@@ -2,7 +2,7 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
 #include <stdlib.h>
-#include "codemax.h"
+#include "codemas.h"
 
 #define ERGODOX yes
 
