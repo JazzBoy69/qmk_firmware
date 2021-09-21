@@ -22,4 +22,4 @@
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-#define COMBO_COUNT 17
+#define COMBO_COUNT 19

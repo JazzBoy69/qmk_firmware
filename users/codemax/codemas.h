@@ -136,6 +136,8 @@ enum combo_events {
   L2_QUOTE,
   SHIFT_CAPS,
   RSHIFT_CAPS,
+  SEMICOLON,
+  COLON,
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -155,6 +157,8 @@ const uint16_t PROGMEM l1quote_combo[] = {SP_RPAREN, KC_Q, COMBO_END};
 const uint16_t PROGMEM l2quote_combo[] = {SP_RPAREN, KC_O, KC_Q, COMBO_END};
 const uint16_t PROGMEM shiftcaps_combo[] = {OSM(MOD_LSFT), SP_LPAREN, COMBO_END};
 const uint16_t PROGMEM rshiftcaps_combo[] = {OSM(MOD_LSFT), SP_RPAREN, COMBO_END};
+const uint16_t PROGMEM colon_combo[] = {SP_LPAREN, KC_DOT, COMBO_END};
+const uint16_t PROGMEM semicolon_combo[] = {SP_LPAREN, KC_COMMA, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -174,6 +178,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [L2_QUOTE] = COMBO(l2quote_combo, SC_OPENQUOTE),
   [SHIFT_CAPS] = COMBO(shiftcaps_combo, XXX),
   [RSHIFT_CAPS] = COMBO(rshiftcaps_combo, XXX),
+  [COLON] = COMBO(colon_combo, XXX),
+  [SEMICOLON] = COMBO(semicolon_combo, XXX),
 };
 
 
@@ -837,6 +843,16 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         register_code(KC_CAPSLOCK);
         unregister_code(KC_CAPSLOCK);
         tap_code(KC_LSHIFT);
+      }
+    break;
+    case COLON:
+      if (pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_DOT)));
+      }
+    break;
+    case SEMICOLON:
+      if (pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)));
       }
     break;
   }
