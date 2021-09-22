@@ -151,7 +151,11 @@ enum combo_events {
   ATCOMBO,
   HASHCOMBO,
   DLRCOMBO,
-  PERCCOMBO
+  PERCCOMBO,
+  TILDCOMBO,
+  SLASHCOMBO,
+  MINUSCOMBO,
+  PIPECOMBO,
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -186,6 +190,10 @@ const uint16_t PROGMEM at_combo[] = {SP_RPAREN, KC_X, COMBO_END};
 const uint16_t PROGMEM hash_combo[] = {SP_RPAREN, KC_C, COMBO_END};
 const uint16_t PROGMEM dlr_combo[] = {SP_RPAREN, KC_V, COMBO_END};
 const uint16_t PROGMEM perc_combo[] = {SP_RPAREN, KC_B, COMBO_END};
+const uint16_t PROGMEM tilde_combo[] = {SP_LPAREN, KC_J, COMBO_END};
+const uint16_t PROGMEM slash_combo[] = {SP_LPAREN, KC_L, COMBO_END};
+const uint16_t PROGMEM minus_combo[] = {SP_LPAREN, MEH_T(KC_U), COMBO_END};
+const uint16_t PROGMEM pipe_combo[] = {SP_LPAREN, KC_Y, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -220,17 +228,15 @@ combo_t key_combos[COMBO_COUNT] = {
   [HASHCOMBO] = COMBO(hash_combo, ES_HASH),
   [DLRCOMBO] = COMBO(dlr_combo, ES_DLR),
   [PERCCOMBO] = COMBO(perc_combo, ES_PERC),
+  [TILDCOMBO] = COMBO(tilde_combo, XXX),
+  [SLASHCOMBO] = COMBO(slash_combo, SP_SLASH),
+  [MINUSCOMBO] = COMBO(minus_combo, ES_MINS),
+  [PIPECOMBO] = COMBO(pipe_combo, ES_PIPE),
 };
 
 /*
 
 
-
-
-ES_TILD
-SP_SLASH
-ES_MINS
-ES_PIPE
 SC_SEMICLNENTER
 SC_EQUALS
 ES_RBRC
@@ -912,5 +918,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)));
       }
     break;
+    case TILDCOMBO:
+      if (pressed) {
+        SEND_STRING(SS_RALT(SS_TAP(X_4)) SS_TAP(X_SPACE));
+      }
+    break;
+    
   }
 }
