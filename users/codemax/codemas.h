@@ -168,6 +168,9 @@ enum combo_events {
   EMDASHCOMBO,
   EXACTLYEQUAL,
   PARENSEMI,
+  INVQUESCOMBO,
+  INVEXLCOMBO,
+  INVEXLCOMBO2,
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -219,6 +222,9 @@ const uint16_t PROGMEM endtag_combo[] = {SP_LPAREN, LT(NUMPAD,KC_A), KC_L, COMBO
 const uint16_t PROGMEM emdash_combo[] = {SP_LBKT, KC_Q, MEH_T(KC_U), COMBO_END};
 const uint16_t PROGMEM exactlyequal_combo[] = {SP_LPAREN, LT(NUMPAD,KC_A), KC_N, COMBO_END};
 const uint16_t PROGMEM parensemi_combo[] = {SP_LPAREN, LT(NUMPAD,KC_A), SP_RPAREN, COMBO_END};
+const uint16_t PROGMEM invques_combo[] = {SP_LBKT, SP_SLASH, COMBO_END};
+const uint16_t PROGMEM invexcl_combo[] = {SP_RBKT, KC_T, COMBO_END};
+const uint16_t PROGMEM invexcl_combo2[] = {SP_RBKT, LSFT_T(KC_T), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -270,10 +276,15 @@ combo_t key_combos[COMBO_COUNT] = {
   [EXACTLYEQUAL] = COMBO(exactlyequal_combo, XXX),
   [PARENSEMI] = COMBO(parensemi_combo, XXX),
   [MIMICOMBO] = COMBO(minusminus_combo, XXX),
+  [INVQUESCOMBO] = COMBO(invques_combo, ES_IQUE),
+  [INVEXLCOMBO] = COMBO(invexcl_combo, ES_IEXL),
+  [INVEXLCOMBO2] = COMBO(invexcl_combo2, ES_IEXL),
 };
 
 /*  
-
+superdot
+superques
+superinvques
 */
 
 
