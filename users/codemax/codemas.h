@@ -44,6 +44,7 @@
 #define ES_ASTR S(KC_RBRC) // *
 #define ES_QUES S(KC_MINUS)
 #define ES_COLON S(KC_DOT)
+#define ES_SEMI S(KC_COMMA)
 
 #define ESP_SLASH SS_LSFT(SS_TAP(X_7))
 #define ESP_QUES SS_TAP(X_MINUS)
@@ -512,9 +513,9 @@ combo_t key_combos[COMBO_COUNT] = {
 #define MRU_R3                                            _______
 
 
-#define ________________MRS_L1____________________           ___, SC_CLOSE1QUOTE,     KC_PIPE,  KC_MINUS,  KC_SLASH,         KC_TILD
-#define ________________MRS_L2____________________           ___,        KC_RCBR, KC_RBRACKET,   KC_RPRN, SC_EQUALS, SC_SEMICLNENTER
-#define ________________MRS_L3____________________           ___,      KC_BSLASH,     KC_COLN, KC_SCOLON,       ___,         KC_CIRC
+#define ________________MRS_L1____________________           SP_RBKT,      ___,  ES_PIPE, ES_MINS,  ES_SLSH,  ES_TILD
+#define ________________MRS_L2____________________           ES_RPRN,      ___,  ES_RBRC,     ___,   ES_EQL,    ___
+#define ________________MRS_L3____________________           ___,      ES_BSLS, ES_COLON, ES_SEMI,   ES_GRV,   SP_CARET
 
 #define ________________MRS_R1____________________         ________________BLANK_____________________
 #define ________________MRS_R2____________________         ________________BLANK_____________________
