@@ -174,6 +174,12 @@ enum combo_events {
   SUPERDOTCOMBO,
   SUPERQUES,
   SUPERINVQUES,
+  PARCOMBO,
+  SECTION,
+  ACCENT,
+  SEPARATOR,
+  MASC,
+  FEM,
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -231,6 +237,13 @@ const uint16_t PROGMEM invexcl_combo2[] = {SP_RBKT, LSFT_T(KC_T), COMBO_END};
 const uint16_t PROGMEM superdot_combo[] = {SP_LPAREN, LCTL_T(KC_SPACE), COMBO_END};
 const uint16_t PROGMEM superques_combo[] = {SP_LPAREN, ES_QUES, COMBO_END};
 const uint16_t PROGMEM superinvques_combo[] = {SP_LBKT, ES_QUES, COMBO_END};
+const uint16_t PROGMEM par_combo[] = {SP_RBKT, KC_P, COMBO_END};
+const uint16_t PROGMEM section_combo[] = {SP_RBKT, LCTL_T(KC_S), COMBO_END};
+const uint16_t PROGMEM accent_combo[] = {SP_LBKT, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM separator_combo[] = {SP_LBKT, KC_DOT, COMBO_END};
+const uint16_t PROGMEM masc_combo[] = {SP_LBKT, KC_Q, KC_O, COMBO_END};
+const uint16_t PROGMEM fem_combo[] = {SP_RBKT, SP_QUOTE, LT(NUMPAD,KC_A), COMBO_END};
+
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -288,11 +301,16 @@ combo_t key_combos[COMBO_COUNT] = {
   [SUPERDOTCOMBO] = COMBO(superdot_combo, XXX),
   [SUPERQUES] = COMBO(superques_combo, XXX),
   [SUPERINVQUES] = COMBO(superinvques_combo, XXX),
+  [PARCOMBO] = COMBO(par_combo, XXX),
+  [SECTION] = COMBO(section_combo, XXX),
+  [ACCENT] = COMBO(accent_combo, XXX),
+  [SEPARATOR] = COMBO(separator_combo, XXX),
+  [MASC] = COMBO(masc_combo, ES_MORD),
+  [FEM] = COMBO(fem_combo, ES_FORD),
 };
 
 /*
-superques
-superinvques
+
 */
 
 
@@ -435,12 +453,12 @@ superinvques
 
 
 #define ________________UNI_L1____________________        ___,      ___,   ___,  ___,  SC_PAR,     ___
-#define ________________UNI_L2____________________        ___,      ___,  ___, SC_SEC, SC_INVBANG, ___
-#define ________________UNI_L3____________________        SC_SHIFT, ___,   ___,  ___,   ___,        ___
+#define ________________UNI_L2____________________        ___,      ___,  ___, SC_SEC,  ___, ___
+#define ________________UNI_L3____________________        ___, ___,   ___,  ___,   ___,        ___
 
 #define ________________UNI_R1____________________         ___,    ___,  ___,     ___,     ___,   ___
 #define ________________UNI_R2____________________         ___,    ___,  ___,     ___,    ___,   ___
-#define ________________UNI_R3____________________         ___,    ___,  SC_COMMA, SC_DOT, ___, SC_SHIFT
+#define ________________UNI_R3____________________         ___,    ___,  SC_COMMA, SC_DOT, ___, ___
 
 
 #define _____UNI_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
@@ -1020,6 +1038,26 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       if (pressed) {
         SEND_STRING(SS_LSFT(SS_TAP(X_MINUS)) SS_TAP(X_SPACE));
         shift_time = timer_read();
+      }
+    break;
+    case SECTION:
+      if (pressed) {
+        SendAltCode(SEC, 4);
+      }
+    break;
+    case PARCOMBO:
+      if (pressed) {
+        SendAltCode(PAR, 4);;
+      }
+    break;
+    case ACCENT:
+      if (pressed) {
+        SendAltCode(COMMA, 4);
+      }
+    break;
+    case SEPARATOR:
+      if (pressed) {
+        SendAltCode(DOT, 4);
       }
     break;
   }
