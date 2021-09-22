@@ -42,6 +42,7 @@
 #define ES_LBRC ALGR(ES_GRV)  // [
 #define ES_RBRC ALGR(ES_PLUS) // ]
 #define ES_ASTR S(KC_RBRC) // *
+#define ES_QUES S(KC_MINUS)
 
 #define ESP_SLASH SS_LSFT(SS_TAP(X_7))
 #define ESP_QUES SS_TAP(X_MINUS)
@@ -138,6 +139,14 @@ enum combo_events {
   RSHIFT_CAPS,
   SEMICOLON,
   COLON,
+  ANDCOMBO,
+  PLUSCOMBO,
+  ASTRCOMBO,
+  EQLCOMBO,
+  LBRKCOMBO,
+  LBRKCOMBO2,
+  EXCLCOMBO,
+  EXCLCOMBO2
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -159,6 +168,14 @@ const uint16_t PROGMEM shiftcaps_combo[] = {OSM(MOD_LSFT), SP_LPAREN, COMBO_END}
 const uint16_t PROGMEM rshiftcaps_combo[] = {OSM(MOD_LSFT), SP_RPAREN, COMBO_END};
 const uint16_t PROGMEM colon_combo[] = {SP_LPAREN, KC_DOT, COMBO_END};
 const uint16_t PROGMEM semicolon_combo[] = {SP_LPAREN, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM and_combo[] = {SP_RPAREN, KC_W, COMBO_END};
+const uint16_t PROGMEM plus_combo[] = {SP_RPAREN, MEH_T(KC_F), COMBO_END};
+const uint16_t PROGMEM astr_combo[] = {SP_RPAREN, KC_P, COMBO_END};
+const uint16_t PROGMEM eql_combo[] = {SP_RPAREN, KC_G, COMBO_END};
+const uint16_t PROGMEM lbrk_combo[] = {SP_RPAREN, KC_R, COMBO_END};
+const uint16_t PROGMEM lbrk_combo2[] = {SP_RPAREN, LALT_T(KC_R), COMBO_END};
+const uint16_t PROGMEM excl_combo[] = {SP_RPAREN, KC_T, COMBO_END};
+const uint16_t PROGMEM excl_combo2[] = {SP_RPAREN, LSFT_T(KC_T), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -180,7 +197,33 @@ combo_t key_combos[COMBO_COUNT] = {
   [RSHIFT_CAPS] = COMBO(rshiftcaps_combo, XXX),
   [COLON] = COMBO(colon_combo, XXX),
   [SEMICOLON] = COMBO(semicolon_combo, XXX),
+  [ANDCOMBO] = COMBO(and_combo, ES_AMPR),
+  [PLUSCOMBO] = COMBO(plus_combo, ES_PLUS),
+  [ASTRCOMBO] = COMBO(astr_combo, ES_ASTR),
+  [EQLCOMBO] = COMBO(eql_combo, ES_EQL),
+  [LBRKCOMBO] = COMBO(lbrk_combo, ES_LBRC),
+  [LBRKCOMBO2] = COMBO(lbrk_combo2, ES_LBRC),
+  [EXCLCOMBO] = COMBO(excl_combo, ES_EXLM),
+  [EXCLCOMBO2] = COMBO(excl_combo2, ES_EXLM),
 };
+
+/*
+ES_BSLS
+ES_AMPR
+ES_HASH
+ES_DLR
+ES_PERC
+ES_TILD
+SP_SLASH
+ES_MINS
+ES_PIPE
+SC_SEMICLNENTER
+SC_EQUALS
+ES_RBRC
+SP_CARET
+KC_GRAVE
+KC_BSLASH*/
+
 
 
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
@@ -201,7 +244,7 @@ combo_t key_combos[COMBO_COUNT] = {
 #define THUMB_L1                                          LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER)
 #define TH_L2                                             _______
 #define TH_L3                                             _______
-#define THUMB_R1                                          KC_QUES,       LCTL_T(KC_SPACE)
+#define THUMB_R1                                          ES_QUES,    LCTL_T(KC_SPACE)
 #define TH_R2                                             _______
 #define TH_R3                                             _______
 

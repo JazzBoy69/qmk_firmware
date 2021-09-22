@@ -22,4 +22,5 @@
 
 #define NO_ACTION_MACRO
 #define NO_ACTION_FUNCTION
-#define COMBO_COUNT 19
+#define COMBO_COUNT 27
+#define COMBO_TERM 100
