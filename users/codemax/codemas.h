@@ -43,6 +43,7 @@
 #define ES_RBRC ALGR(ES_PLUS) // ]
 #define ES_ASTR S(KC_RBRC) // *
 #define ES_QUES S(KC_MINUS)
+#define ES_COLON S(KC_DOT)
 
 #define ESP_SLASH SS_LSFT(SS_TAP(X_7))
 #define ESP_QUES SS_TAP(X_MINUS)
@@ -320,7 +321,7 @@ combo_t key_combos[COMBO_COUNT] = {
 #define ________________NUMPAD_L2_________________        TO(COLEMAK), ___, SC_AR,   SC_AS, ___, ___
 #define ________________NUMPAD_L3_________________        ________________BLANK_____________________
 
-#define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9,        KC_COLN, KC_KP_MINUS
+#define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON, KC_KP_MINUS
 #define ________________NUMPAD_R2_________________        OSM(MOD_LALT), KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_ASTERISK,  KC_KP_PLUS
 #define ________________NUMPAD_R3_________________        XXX,           KC_KP_1, KC_KP_2, KC_KP_3,    KC_KP_SLASH,    KC_ENTER
 
