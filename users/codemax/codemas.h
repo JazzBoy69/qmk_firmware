@@ -146,7 +146,12 @@ enum combo_events {
   LBRKCOMBO,
   LBRKCOMBO2,
   EXCLCOMBO,
-  EXCLCOMBO2
+  EXCLCOMBO2,
+  BKSLASH,
+  ATCOMBO,
+  HASHCOMBO,
+  DLRCOMBO,
+  PERCCOMBO
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -176,6 +181,11 @@ const uint16_t PROGMEM lbrk_combo[] = {SP_RPAREN, KC_R, COMBO_END};
 const uint16_t PROGMEM lbrk_combo2[] = {SP_RPAREN, LALT_T(KC_R), COMBO_END};
 const uint16_t PROGMEM excl_combo[] = {SP_RPAREN, KC_T, COMBO_END};
 const uint16_t PROGMEM excl_combo2[] = {SP_RPAREN, LSFT_T(KC_T), COMBO_END};
+const uint16_t PROGMEM bkslash_combo[] = {SP_RPAREN, KC_Z, COMBO_END};
+const uint16_t PROGMEM at_combo[] = {SP_RPAREN, KC_X, COMBO_END};
+const uint16_t PROGMEM hash_combo[] = {SP_RPAREN, KC_C, COMBO_END};
+const uint16_t PROGMEM dlr_combo[] = {SP_RPAREN, KC_V, COMBO_END};
+const uint16_t PROGMEM perc_combo[] = {SP_RPAREN, KC_B, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -205,14 +215,18 @@ combo_t key_combos[COMBO_COUNT] = {
   [LBRKCOMBO2] = COMBO(lbrk_combo2, ES_LBRC),
   [EXCLCOMBO] = COMBO(excl_combo, ES_EXLM),
   [EXCLCOMBO2] = COMBO(excl_combo2, ES_EXLM),
+  [BKSLASH] = COMBO(bkslash_combo, ES_BSLS),
+  [ATCOMBO] = COMBO(at_combo, ES_AT),
+  [HASHCOMBO] = COMBO(hash_combo, ES_HASH),
+  [DLRCOMBO] = COMBO(dlr_combo, ES_DLR),
+  [PERCCOMBO] = COMBO(perc_combo, ES_PERC),
 };
 
 /*
-ES_BSLS
-ES_AMPR
-ES_HASH
-ES_DLR
-ES_PERC
+
+
+
+
 ES_TILD
 SP_SLASH
 ES_MINS
@@ -229,9 +243,9 @@ KC_BSLASH*/
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
-#define ________________COLEMAK_L1________________       SP_LBKT, KC_Q,      KC_W, MEH_T(KC_F),         KC_P,    KC_G
+#define ________________COLEMAK_L1________________       SP_LBKT, KC_Q,      KC_W,       MEH_T(KC_F),         KC_P,    KC_G
 #define ________________COLEMAK_L2________________       SP_LPAREN,    LT(NUMPAD,KC_A), LALT_T(KC_R), LCTL_T(KC_S), LSFT_T(KC_T),    LT(NAV,KC_D)
-#define ________________COLEMAK_L3________________       OSM(MOD_LSFT),KC_Z,                   KC_X,         KC_C,         KC_V,    KC_B
+#define ________________COLEMAK_L3________________       OSM(MOD_LSFT),      KC_Z,              KC_X,         KC_C,         KC_V,    KC_B
 
 #define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, SP_QUOTE, SP_RBKT
 #define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O, SP_RPAREN
