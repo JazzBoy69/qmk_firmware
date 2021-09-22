@@ -171,6 +171,9 @@ enum combo_events {
   INVQUESCOMBO,
   INVEXLCOMBO,
   INVEXLCOMBO2,
+  SUPERDOTCOMBO,
+  SUPERQUES,
+  SUPERINVQUES,
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -225,6 +228,9 @@ const uint16_t PROGMEM parensemi_combo[] = {SP_LPAREN, LT(NUMPAD,KC_A), SP_RPARE
 const uint16_t PROGMEM invques_combo[] = {SP_LBKT, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM invexcl_combo[] = {SP_RBKT, KC_T, COMBO_END};
 const uint16_t PROGMEM invexcl_combo2[] = {SP_RBKT, LSFT_T(KC_T), COMBO_END};
+const uint16_t PROGMEM superdot_combo[] = {SP_LPAREN, LCTL_T(KC_SPACE), COMBO_END};
+const uint16_t PROGMEM superques_combo[] = {SP_LPAREN, ES_QUES, COMBO_END};
+const uint16_t PROGMEM superinvques_combo[] = {SP_LBKT, ES_QUES, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -279,10 +285,12 @@ combo_t key_combos[COMBO_COUNT] = {
   [INVQUESCOMBO] = COMBO(invques_combo, ES_IQUE),
   [INVEXLCOMBO] = COMBO(invexcl_combo, ES_IEXL),
   [INVEXLCOMBO2] = COMBO(invexcl_combo2, ES_IEXL),
+  [SUPERDOTCOMBO] = COMBO(superdot_combo, XXX),
+  [SUPERQUES] = COMBO(superques_combo, XXX),
+  [SUPERINVQUES] = COMBO(superinvques_combo, XXX),
 };
 
-/*  
-superdot
+/*
 superques
 superinvques
 */
@@ -629,28 +637,6 @@ bool handle_keypress(uint16_t keycode) {
     break;
     case SP_CARET:
       SEND_STRING(SS_LSFT(SS_TAP(X_LBRC)) SS_TAP(X_SPACE));
-      return true;
-    break;
-    case SC_SUPERDOT:
-      tap_code(KC_DOT);
-      tap_code(KC_SPACE);
-      shift_time = timer_read();
-      return true;
-    break;
-    case SC_SUPERINVQUES:
-      set_oneshot_mods(0);
-      SendAltCode(INVQUES, 4);
-      layer_off(UNICODE);
-      layer_off(MIRUNI);
-      shift_time = timer_read();
-      return false;
-    break;   
-    case SC_SUPERQUES:
-      register_code(KC_LSHIFT);
-      tap_code(KC_SLASH);
-      unregister_code(KC_LSHIFT);
-      tap_code(KC_SPACE);
-      shift_time = timer_read();
       return true;
     break;
     case SP_LBKT:
@@ -1014,6 +1000,26 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case MIMICOMBO:
       if (pressed) {
         SEND_STRING(SS_TAP(X_SLASH) SS_TAP(X_SLASH));
+      }
+    break;
+    case SUPERDOTCOMBO:
+      if (pressed) {
+        tap_code(KC_DOT);
+        tap_code(KC_SPACE);
+        shift_time = timer_read();
+      }
+    break;
+    case SUPERINVQUES:
+      if (pressed) {
+        set_oneshot_mods(0);
+        SEND_STRING(SS_LSFT(SS_TAP(X_EQUAL)));
+        shift_time = timer_read();
+      }
+    break;   
+    case SUPERQUES:
+      if (pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_MINUS)) SS_TAP(X_SPACE));
+        shift_time = timer_read();
       }
     break;
   }
