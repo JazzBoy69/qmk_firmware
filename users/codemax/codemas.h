@@ -87,8 +87,6 @@ enum custom_keycodes {
   SC_NOTEQUAL,
   SC_EMDASH,
   SC_CLOSEQUOTE,
-  SC_EXACTLYEQUAL,
-  SC_PARENSEMICOLON,
   SC_LESSOREQUAL,
   SC_GREATOREQUAL,
   DEL_LINE,
@@ -141,6 +139,8 @@ enum combo_events {
   COLON,
   ANDCOMBO,
   PLUSCOMBO,
+  PLPLCOMBO,
+  PLPLENDCOMBO,
   ASTRCOMBO,
   EQLCOMBO,
   LBRKCOMBO,
@@ -155,6 +155,7 @@ enum combo_events {
   TILDCOMBO,
   SLASHCOMBO,
   MINUSCOMBO,
+  MIMICOMBO,
   PIPECOMBO,
   SCOLONENTER,
   EQUALSCOMBO,
@@ -162,6 +163,10 @@ enum combo_events {
   CARETCOMBO,
   GRAVECOMBO,
   BKSLASH2,
+  ENDTAG,
+  EMDASHCOMBO,
+  EXACTLYEQUAL,
+  PARENSEMI,
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -185,6 +190,8 @@ const uint16_t PROGMEM colon_combo[] = {SP_LPAREN, KC_DOT, COMBO_END};
 const uint16_t PROGMEM semicolon_combo[] = {SP_LPAREN, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM and_combo[] = {SP_RPAREN, KC_W, COMBO_END};
 const uint16_t PROGMEM plus_combo[] = {SP_RPAREN, MEH_T(KC_F), COMBO_END};
+const uint16_t PROGMEM plusplus_combo[] = {SP_RPAREN, KC_O, MEH_T(KC_F), COMBO_END};
+const uint16_t PROGMEM plusplusend_combo[] = {KC_COMMA, MEH_T(KC_F), COMBO_END};
 const uint16_t PROGMEM astr_combo[] = {SP_RPAREN, KC_P, COMBO_END};
 const uint16_t PROGMEM eql_combo[] = {SP_RPAREN, KC_G, COMBO_END};
 const uint16_t PROGMEM lbrk_combo[] = {SP_RPAREN, KC_R, COMBO_END};
@@ -199,6 +206,7 @@ const uint16_t PROGMEM perc_combo[] = {SP_RPAREN, KC_B, COMBO_END};
 const uint16_t PROGMEM tilde_combo[] = {SP_LPAREN, KC_J, COMBO_END};
 const uint16_t PROGMEM slash_combo[] = {SP_LPAREN, KC_L, COMBO_END};
 const uint16_t PROGMEM minus_combo[] = {SP_LPAREN, MEH_T(KC_U), COMBO_END};
+const uint16_t PROGMEM minusminus_combo[] = {SP_LPAREN, LT(NUMPAD,KC_A), MEH_T(KC_U), COMBO_END};
 const uint16_t PROGMEM pipe_combo[] = {SP_LPAREN, KC_Y, COMBO_END};
 const uint16_t PROGMEM scolonenter_combo[] = {SP_LPAREN, LT(NUMPAD,KC_A), KC_COMMA, COMBO_END};
 const uint16_t PROGMEM equals_combo[] = {SP_LPAREN, KC_N, COMBO_END};
@@ -206,6 +214,10 @@ const uint16_t PROGMEM rbrk_combo[] = {SP_LPAREN, KC_I, COMBO_END};
 const uint16_t PROGMEM caret_combo[] = {SP_LPAREN, KC_K, COMBO_END};
 const uint16_t PROGMEM grave_combo[] = {SP_LPAREN, KC_M, COMBO_END};
 const uint16_t PROGMEM bkslash_combo2[] = {SP_LPAREN, SP_SLASH, COMBO_END};
+const uint16_t PROGMEM endtag_combo[] = {SP_LPAREN, LT(NUMPAD,KC_A), KC_L, COMBO_END};
+const uint16_t PROGMEM emdash_combo[] = {SP_LBKT, KC_Q, MEH_T(KC_U), COMBO_END};
+const uint16_t PROGMEM exactlyequal_combo[] = {SP_LPAREN, LT(NUMPAD,KC_A), KC_N, COMBO_END};
+const uint16_t PROGMEM parensemi_combo[] = {SP_LPAREN, LT(NUMPAD,KC_A), SP_RPAREN, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -229,6 +241,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [SEMICOLON] = COMBO(semicolon_combo, XXX),
   [ANDCOMBO] = COMBO(and_combo, ES_AMPR),
   [PLUSCOMBO] = COMBO(plus_combo, ES_PLUS),
+  [PLPLCOMBO] = COMBO(plusplus_combo, XXX),
+  [PLPLENDCOMBO] = COMBO(plusplusend_combo, XXX),
   [ASTRCOMBO] = COMBO(astr_combo, ES_ASTR),
   [EQLCOMBO] = COMBO(eql_combo, ES_EQL),
   [LBRKCOMBO] = COMBO(lbrk_combo, ES_LBRC),
@@ -250,11 +264,16 @@ combo_t key_combos[COMBO_COUNT] = {
   [CARETCOMBO] = COMBO(caret_combo, XXX),
   [GRAVECOMBO] = COMBO(grave_combo, XXX),
   [BKSLASH2] = COMBO(bkslash_combo2, ES_BSLS),
+  [ENDTAG] = COMBO(endtag_combo, XXX),
+  [EMDASHCOMBO] = COMBO(emdash_combo, XXX),
+  [EXACTLYEQUAL] = COMBO(exactlyequal_combo, XXX),
+  [PARENSEMI] = COMBO(parensemi_combo, XXX),
+  [MIMICOMBO] = COMBO(minusminus_combo, XXX),
 };
 
-/*
+/*  
 
-KC_BSLASH*/
+*/
 
 
 
@@ -322,7 +341,7 @@ KC_BSLASH*/
 
 #define ________________NAV_R1____________________        LCTL(KC_HOME),  OSM(MOD_LCTL),   KC_UP,      KC_PGUP,      XXX,        KC_MS_WH_UP
 #define ________________NAV_R2____________________        LCTL(KC_LEFT),     KC_LEFT,     KC_DOWN,    KC_RIGHT,  LCTL(KC_RIGHT), KC_MS_WH_DOWN
-#define ________________NAV_R3____________________          DELWORD,        KC_DELETE,      XXX,      KC_PGDOWN,  LCTL(KC_END),  OSM(MOD_LSFT)
+#define ________________NAV_R3____________________          DELWORD,        KC_DELETE, SC_SELECTLINE,KC_PGDOWN,  LCTL(KC_END),  OSM(MOD_LSFT)
 
 
 #define _____NAV_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
@@ -379,9 +398,9 @@ KC_BSLASH*/
 #define ________________SYMP_L2___________________        KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,   ___, ___
 #define ________________SYMP_L3___________________        KC_END,      ___,     ___,      ___,   ___, ___
 
-#define ________________SYMP_R1___________________        ___,       SC_ENDTAG,         SC_EMDASH,             ___,   SC_CLOSEQUOTE,   ___
-#define ________________SYMP_R2___________________        ___, SC_EXACTLYEQUAL, SC_PARENSEMICOLON,   SC_SELECTLINE, SC_SURROUNDBRKT,   ___
-#define ________________SYMP_R3___________________        ___,             ___,    SC_LESSOREQUAL, SC_GREATOREQUAL,        DEL_LINE,   ___
+#define ________________SYMP_R1___________________        ___, ___, ___, ___,   ___,   ___
+#define ________________SYMP_R2___________________        ___, ___, ___, ___,   ___,   ___
+#define ________________SYMP_R3___________________        ___, ___, ___, ___,   ___,   ___
 
 
 #define _____SYMP_BOTTOM_L1________                       ________BLANK_BOTTOM_______
@@ -419,7 +438,7 @@ KC_BSLASH*/
 #define ________________MIR_L2____________________        OSL(MIRSYM),      KC_O,             KC_I,           KC_E,        KC_N,         KC_H
 #define ________________MIR_L3____________________        ___,             KC_QUES,          KC_DOT,        KC_COMMA,      KC_M,         KC_K
 
-#define ________________MIR_R1____________________         SC_ARROW,   SC_ENDTAG,         SC_EMDASH,               ___, SC_OPENQUOTE,   ___
+#define ________________MIR_R1____________________         SC_ARROW,   SC_ENDTAG,         SC_EMDASH,               ___, SC_OPENQUOTE,   SC_SURROUNDBRKT
 #define ________________MIR_R2____________________              ___, SC_NOTEQUAL, SC_OPENCLOSEPAREN, OPENCLOSEBRACKETS,   SC_SECTION,   ___
 #define ________________MIR_R3____________________              ___,         ___,    SC_LESSOREQUAL,   SC_GREATOREQUAL,     DEL_LINE,   ___
 
@@ -667,13 +686,13 @@ bool handle_keypress(uint16_t keycode) {
       SendAltCode(OPENQUOTE, 4);
     break;
     case SC_SECTION:
-      SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(20) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_TAB));
+      SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) SS_RALT(SS_TAP(X_QUOTE)) SS_DELAY(20) SS_TAP(X_ENTER) SS_TAP(X_ENTER) SS_DELAY(20) SS_RALT(SS_TAP(X_BSLASH)) SS_DELAY(20) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_TAB));
     break;
     case SC_OPENCLOSEPAREN:
-      SEND_STRING("()");
+      SEND_STRING(SS_LSFT(SS_TAP(X_8) SS_TAP(X_9)));
     break;
     case SC_NOTEQUAL:
-      SEND_STRING("!=");
+      SEND_STRING(SS_LSFT(SS_TAP(X_1) SS_TAP(X_0)));
     break;
     case SC_EMDASH:
       SendAltCode(EMDASH, 4);
@@ -681,29 +700,24 @@ bool handle_keypress(uint16_t keycode) {
     case SC_CLOSEQUOTE:
       SendAltCode(CLOSEQUOTE, 4);
     break;
-    case SC_EXACTLYEQUAL:
-      SEND_STRING("===");
-    break;
-    case SC_PARENSEMICOLON:
-      SEND_STRING("();");
-    break;
     case SC_LESSOREQUAL:
-      SEND_STRING("<=");
+      SEND_STRING(SS_TAP(X_NUBS) SS_LSFT(SS_TAP(X_0)));
     break;
     case SC_GREATOREQUAL:
-      SEND_STRING(">=");
+      SEND_STRING(SS_LSFT(SS_TAP(X_NUBS) SS_TAP(X_0)));
     break;
     case DEL_LINE:
       SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME) SS_TAP(X_HOME)) SS_DELAY(50) SS_TAP(X_DELETE) SS_DELAY(50) SS_TAP(X_DELETE));
     break;
     case SC_SURROUNDBRKT:
-      SEND_STRING(SS_LCTL(SS_TAP(X_X)) SS_DELAY(20) SS_LSFT(SS_TAP(X_TAB)) SS_DELAY(20) SS_LSFT(SS_TAP(X_LBRACKET)) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_LSFT(SS_TAP(X_RBRACKET)) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_TAP(X_TAB) SS_DELAY(20) SS_LCTL(SS_TAP(X_V)));
+      SEND_STRING(SS_LCTL(SS_TAP(X_X)) SS_DELAY(20) SS_LSFT(SS_TAP(X_TAB)) SS_DELAY(20) SS_RALT(SS_TAP(X_QUOTE)) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_RALT(SS_TAP(X_BSLASH)) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_TAP(X_TAB) SS_DELAY(20) SS_LCTL(SS_TAP(X_V)));
     break;
     case SC_SELECTLINE:
       SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME)));
     break;
     case OPENCLOSEBRACKETS:
-      SEND_STRING("[]");
+      tap_code16(ES_LBRC);
+      tap_code16(ES_RBRC);
     break;
     case DELWORD:
       SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)) SS_DELAY(50) SS_LSFT(SS_LCTL(SS_TAP(X_LEFT))) SS_DELAY(50) SS_TAP(X_DELETE));
@@ -712,7 +726,7 @@ bool handle_keypress(uint16_t keycode) {
         SEND_STRING("as");
     break;
     case SC_ARROW:
-        SEND_STRING("=>");
+        SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_NUBS)));
     break;
     case SC_AR:
       if (get_current_wpm()>35)
@@ -955,6 +969,40 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         SEND_STRING(SS_TAP(X_LBRACKET) SS_TAP(X_SPACE));
       }
     break;
-    
+    case PLPLCOMBO:
+      if (pressed) {
+        SEND_STRING(SS_TAP(X_RBRACKET) SS_TAP(X_RBRACKET));
+      }
+    break;
+    case PLPLENDCOMBO:
+      if (pressed) {
+        SEND_STRING(SS_TAP(X_RBRACKET) SS_TAP(X_RBRACKET) SS_LSFT(SS_TAP(X_COMMA)));
+      }
+    break;
+    case ENDTAG:
+      if (pressed) {
+        SEND_STRING(SS_TAP(X_NUBS) SS_LSFT(SS_TAP(X_7)));
+      }
+    break;
+    case EMDASHCOMBO:
+      if (pressed) {
+        SendAltCode(EMDASH, 4);
+      }
+    break;
+    case EXACTLYEQUAL:
+      if (pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_0)));
+      }
+    break;
+    case PARENSEMI:
+      if (pressed) {
+        SEND_STRING(SS_TAP(X_9) SS_TAP(X_COMMA));
+      }
+    break;
+    case MIMICOMBO:
+      if (pressed) {
+        SEND_STRING(SS_TAP(X_SLASH) SS_TAP(X_SLASH));
+      }
+    break;
   }
 }
