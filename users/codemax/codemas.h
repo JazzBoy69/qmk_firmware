@@ -156,6 +156,12 @@ enum combo_events {
   SLASHCOMBO,
   MINUSCOMBO,
   PIPECOMBO,
+  SCOLONENTER,
+  EQUALSCOMBO,
+  RBRKCOMBO,
+  CARETCOMBO,
+  GRAVECOMBO,
+  BKSLASH2,
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -194,6 +200,12 @@ const uint16_t PROGMEM tilde_combo[] = {SP_LPAREN, KC_J, COMBO_END};
 const uint16_t PROGMEM slash_combo[] = {SP_LPAREN, KC_L, COMBO_END};
 const uint16_t PROGMEM minus_combo[] = {SP_LPAREN, MEH_T(KC_U), COMBO_END};
 const uint16_t PROGMEM pipe_combo[] = {SP_LPAREN, KC_Y, COMBO_END};
+const uint16_t PROGMEM scolonenter_combo[] = {SP_LPAREN, LT(NUMPAD,KC_A), KC_COMMA, COMBO_END};
+const uint16_t PROGMEM equals_combo[] = {SP_LPAREN, KC_N, COMBO_END};
+const uint16_t PROGMEM rbrk_combo[] = {SP_LPAREN, KC_I, COMBO_END};
+const uint16_t PROGMEM caret_combo[] = {SP_LPAREN, KC_K, COMBO_END};
+const uint16_t PROGMEM grave_combo[] = {SP_LPAREN, KC_M, COMBO_END};
+const uint16_t PROGMEM bkslash_combo2[] = {SP_LPAREN, SP_SLASH, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -232,16 +244,16 @@ combo_t key_combos[COMBO_COUNT] = {
   [SLASHCOMBO] = COMBO(slash_combo, SP_SLASH),
   [MINUSCOMBO] = COMBO(minus_combo, ES_MINS),
   [PIPECOMBO] = COMBO(pipe_combo, ES_PIPE),
+  [SCOLONENTER] = COMBO(scolonenter_combo, XXX),
+  [EQUALSCOMBO] = COMBO(equals_combo, XXX),
+  [RBRKCOMBO] = COMBO(rbrk_combo, ES_RBRC),
+  [CARETCOMBO] = COMBO(caret_combo, XXX),
+  [GRAVECOMBO] = COMBO(grave_combo, XXX),
+  [BKSLASH2] = COMBO(bkslash_combo2, ES_BSLS),
 };
 
 /*
 
-
-SC_SEMICLNENTER
-SC_EQUALS
-ES_RBRC
-SP_CARET
-KC_GRAVE
 KC_BSLASH*/
 
 
@@ -921,6 +933,26 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case TILDCOMBO:
       if (pressed) {
         SEND_STRING(SS_RALT(SS_TAP(X_4)) SS_TAP(X_SPACE));
+      }
+    break;
+    case SCOLONENTER:
+      if (pressed) {
+        SEND_STRING(SS_TAP(X_END) SS_LSFT(SS_TAP(X_COMMA)) SS_TAP(X_ENTER));
+      }
+    break;
+    case EQUALSCOMBO:
+      if (pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0)));
+      }
+    break;
+    case CARETCOMBO:
+      if (pressed) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_LBRACKET)) SS_TAP(X_SPACE));
+      }
+    break;
+    case GRAVECOMBO:
+      if (pressed) {
+        SEND_STRING(SS_TAP(X_LBRACKET) SS_TAP(X_SPACE));
       }
     break;
     
