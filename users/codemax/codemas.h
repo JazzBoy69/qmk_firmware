@@ -4,12 +4,9 @@
 #define NAV 3
 #define GAME 4
 #define FN 5
-#define SYM 6
-#define SYMPLUS 7
-#define UNICODE 8
-#define MIRRORED 9
-#define MIRSYM 10
-#define MIRUNI 11
+#define MIRRORED 6
+#define MIRSYM 7
+#define MIRUNI 8
 
 #define SP_RBKT KC_BSLASH
 #define SP_LBKT KC_QUOT
@@ -100,7 +97,6 @@ enum custom_keycodes {
   SC_SEC,
   SC_INVBANG,
   SC_PAR,
-  SC_SHIFT,
   SC_DOT,
   SC_COMMA,
   SC_INVQUES,
@@ -114,7 +110,13 @@ enum custom_keycodes {
   SC_SUPERINVQUES,
   SC_SECTION,
   SP_SLASH,
-  SP_CARET
+  SP_CARET,
+  SP_O,
+  SP_I,
+  SP_E,
+  SP_N,
+  SP_U,
+  SP_Y,
 };
 
 //COMBOS
@@ -327,7 +329,7 @@ combo_t key_combos[COMBO_COUNT] = {
 #define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O, SP_RPAREN
 #define ________________COLEMAK_R3________________       KC_K,            KC_M,    KC_COMMA,        KC_DOT, SP_SLASH, OSM(MOD_LSFT)
 
-#define _________BOTTOM_L1_________                       KC_DELETE,    KC_ESCAPE,     LT(SYMPLUS,KC_SPACE)
+#define _________BOTTOM_L1_________                       KC_DELETE,    KC_ESCAPE,     KC_SPACE
 #define _________BOTTOM_R1_________                       KC_LGUI,  TO(NUMPAD),  ___   
 #define ________BLOCK_BOTTOM_______                       XXX,  XXX,  XXX
 #define ________BLANK_BOTTOM_______                       ___,  ___,  ___
@@ -413,65 +415,6 @@ combo_t key_combos[COMBO_COUNT] = {
 #define FN_R2                                             _______
 #define FN_R3                                             _______
 
-#define ________________SYM_L1____________________        ___,                 ___,      ES_AMPR,       ES_PLUS,        ES_ASTR,        ES_EQL
-#define ________________SYM_L2____________________        ___,              ___,       ES_LBRC,    ___,        ES_EXLM,        ES_UNDS
-#define ________________SYM_L3____________________        ___,              ES_BSLS,    ES_AMPR,  ES_HASH,     ES_DLR,         ES_PERC
-
-#define ________________SYM_R1____________________         ES_TILD,         SP_SLASH,  ES_MINS,        ES_PIPE,       ___,   ___
-#define ________________SYM_R2____________________        SC_SEMICLNENTER, SC_EQUALS,   ___,        ES_RBRC,     ___,         ___
-#define ________________SYM_R3____________________          SP_CARET,        KC_GRAVE, KC_SCOLON,        KC_COLN,     KC_BSLASH,          ___
-
-
-#define _____SYM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
-#define _____SYM_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
-
-#define SYM_L1                                            LCTL(KC_BSPACE),  ___
-#define SYM_L2                                            _______
-#define SYM_L3                                            _______
-#define SYM_R1                                            SC_SUPERQUES, SC_SUPERDOT
-#define SYM_R2                                            _______
-#define SYM_R3                                            _______
-
-
-#define ________________SYMP_L1___________________        ___,         ___,   KC_UP,      ___,   ___, ___
-#define ________________SYMP_L2___________________        KC_HOME, KC_LEFT, KC_DOWN, KC_RIGHT,   ___, ___
-#define ________________SYMP_L3___________________        KC_END,      ___,     ___,      ___,   ___, ___
-
-#define ________________SYMP_R1___________________        ___, ___, ___, ___,   ___,   ___
-#define ________________SYMP_R2___________________        ___, ___, ___, ___,   ___,   ___
-#define ________________SYMP_R3___________________        ___, ___, ___, ___,   ___,   ___
-
-
-#define _____SYMP_BOTTOM_L1________                       ________BLANK_BOTTOM_______
-#define _____SYMP_BOTTOM_R1________                       ________BLANK_BOTTOM_______
-
-#define SYMP_L1                                            ___,  ___
-#define SYMP_L2                                            _______
-#define SYMP_L3                                            _______
-#define SYMP_R1                                            ___,  ___
-#define SYMP_R2                                            _______
-#define SYMP_R3                                            _______
-
-
-#define ________________UNI_L1____________________        ___,      ___,   ___,  ___,  SC_PAR,     ___
-#define ________________UNI_L2____________________        ___,      ___,  ___, SC_SEC,  ___, ___
-#define ________________UNI_L3____________________        ___, ___,   ___,  ___,   ___,        ___
-
-#define ________________UNI_R1____________________         ___,    ___,  ___,     ___,     ___,   ___
-#define ________________UNI_R2____________________         ___,    ___,  ___,     ___,    ___,   ___
-#define ________________UNI_R3____________________         ___,    ___,  SC_COMMA, SC_DOT, ___, ___
-
-
-#define _____UNI_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
-#define _____UNI_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
-
-#define UNI_L1                                            ___,  ___
-#define UNI_L2                                            _______
-#define UNI_L3                                            _______
-#define UNI_R1                                            SC_SUPERINVQUES, ___
-#define UNI_R2                                            _______
-#define UNI_R3                                            _______
-
 
 #define ________________MIR_L1____________________        OSL(MIRUNI),     SP_QUOTE,          KC_Y,           KC_U,        KC_L,         KC_J
 #define ________________MIR_L2____________________        OSL(MIRSYM),      KC_O,             KC_I,           KC_E,        KC_N,         KC_H
@@ -493,9 +436,9 @@ combo_t key_combos[COMBO_COUNT] = {
 #define MIR_R3                                            _______
 
 
-#define ________________MRU_L1____________________        ___, ___, ___, ___, SC_PAR, ___
-#define ________________MRU_L2____________________        ___, ___, ___, ___,  ___,   ___
-#define ________________MRU_L3____________________        ___, ___, ___, ___,  ___,   ___
+#define ________________MRU_L1____________________        ___,  ___, SP_Y, SP_U,   ___,   ___
+#define ________________MRU_L2____________________        ___, SP_O, SP_I, SP_E,  SP_N,   ___
+#define ________________MRU_L3____________________        ___,  ___,  ___,  ___,   ___,   ___
 
 #define ________________MRU_R1____________________         ________________BLANK_____________________
 #define ________________MRU_R2____________________         ________________BLANK_____________________
@@ -562,7 +505,6 @@ void SendShiftedAltCode(uint16_t shifted[], uint16_t unshifted[]) {
   if (caps) {
     SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));
   }
-  layer_off(UNICODE);
   layer_off(MIRUNI);
 }
 
@@ -592,7 +534,7 @@ void SendAltCode(uint16_t code[], int length) {
 
 #define HANDLE_RETRO_TAPPING  if ((keycode == LCTL_T(KC_S)) \
     || (keycode == LSFT_T(KC_T))\
-    || (keycode == OSL(SYM)) || (keycode == OSL(UNICODE)) || (keycode == MEH_T(KC_SPACE))\
+    || (keycode == MEH_T(KC_SPACE))\
     || (keycode == MEH_T(KC_F)) || (keycode == MEH_T(KC_U))) {\
         return false;\
     }\
@@ -643,17 +585,10 @@ bool handle_keypress(uint16_t keycode) {
     unregister_code(KC_CAPSLOCK);
   }
   if (handle_unicode(keycode)) {
-    layer_off(UNICODE);
     layer_off(MIRUNI);
     return false;
   }
   switch (keycode) {
-    case SC_SHIFT:
-      set_oneshot_mods(MOD_BIT(KC_LSHIFT));
-      reset_oneshot_layer();
-      layer_on(UNICODE);
-      return true;
-    break;
     case SP_CARET:
       SEND_STRING(SS_LSFT(SS_TAP(X_LBRC)) SS_TAP(X_SPACE));
       return true;
@@ -752,7 +687,6 @@ bool handle_keypress(uint16_t keycode) {
         register_code(KC_LALT);
     break;
   }
-  layer_off(UNICODE);
   layer_off(MIRUNI);
   return true;
 }
@@ -820,6 +754,58 @@ bool handle_unicode(uint16_t keycode) {
     case SC_DOT:
       SendAltCode(DOT, 4);
       return true;
+    break;
+    case SP_E:
+      if (shift_pressed()) {
+        clear_oneshot_mods();
+        clear_mods();
+        SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_E)));
+        return true;
+      }
+      SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_E));
+      return true;
+    break;
+    case SP_I:
+      if (shift_pressed()) {
+        clear_oneshot_mods();
+        clear_mods();
+        SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_I)));
+        return true;
+      }
+      SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_I));
+      return true;
+    break;
+    case SP_O:
+      if (shift_pressed()) {
+        clear_oneshot_mods();
+        clear_mods();
+        SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_O)));
+        return true;
+      }
+      SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_O));
+      return true;
+    break;
+    case SP_U:
+        if (shift_pressed()) {
+          clear_oneshot_mods();
+          clear_mods();
+          SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_U)));
+          return true;
+        }
+        SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_U));
+        return true;
+    break;
+    case SP_Y:
+      if (shift_pressed()) {
+        SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_U)));
+        return true;
+      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_QUOTE)) SS_TAP(X_U));
+      return true;
+    break;
+    case SP_N:
+        SEND_STRING(SS_TAP(X_SCOLON));
+        return true;
     break;
   }
   return false;
