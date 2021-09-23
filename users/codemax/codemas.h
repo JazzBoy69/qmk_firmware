@@ -571,7 +571,7 @@ void SendAltCode(uint16_t code[], int length) {
 bool handle_keypress(uint16_t keycode) {
   pressed_time = timer_read();
   if (shift_time != 0) {//add shift to capitalize first letter of sentence
-      if (!caps_lock_on() && (timer_elapsed(shift_time) < 1000)) {
+      if (!caps_lock_on() && (timer_elapsed(shift_time) < 2000)) {
         set_oneshot_mods(MOD_BIT(KC_LSHIFT));
       }
       shift_time = 0;
