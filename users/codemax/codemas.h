@@ -183,6 +183,8 @@ enum combo_events {
   SEPARATOR,
   MASC,
   FEM,
+  YOUCOMBO,
+  YOUCOMBO2,
 };
 
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -246,6 +248,8 @@ const uint16_t PROGMEM accent_combo[] = {SP_LBKT, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM separator_combo[] = {SP_LBKT, KC_DOT, COMBO_END};
 const uint16_t PROGMEM masc_combo[] = {SP_LBKT, KC_Q, KC_O, COMBO_END};
 const uint16_t PROGMEM fem_combo[] = {SP_RBKT, SP_QUOTE, LT(NUMPAD,KC_A), COMBO_END};
+const uint16_t PROGMEM you_combo[] = {KC_Y, KC_U, COMBO_END};
+const uint16_t PROGMEM you_combo2[] = {KC_Y, MEH_T(KC_U), COMBO_END};
 
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -310,6 +314,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [SEPARATOR] = COMBO(separator_combo, XXX),
   [MASC] = COMBO(masc_combo, ES_MORD),
   [FEM] = COMBO(fem_combo, ES_FORD),
+  [YOUCOMBO] = COMBO(you_combo, XXX),
+  [YOUCOMBO2] = COMBO(you_combo2, XXX),
 };
 
 /*
@@ -420,7 +426,7 @@ combo_t key_combos[COMBO_COUNT] = {
 #define ________________MIR_L2____________________        OSL(MIRSYM),      KC_O,             KC_I,           KC_E,        KC_N,         KC_H
 #define ________________MIR_L3____________________        ___,             KC_QUES,          KC_DOT,        KC_COMMA,      KC_M,         KC_K
 
-#define ________________MIR_R1____________________         SC_ARROW,   SC_ENDTAG,         SC_EMDASH,               ___, SC_OPENQUOTE,   SC_SURROUNDBRKT
+#define ________________MIR_R1____________________         SC_ARROW,   SC_ENDTAG,         SC_EMDASH,               ___,       ___,   SC_SURROUNDBRKT
 #define ________________MIR_R2____________________              ___, SC_NOTEQUAL, SC_OPENCLOSEPAREN, OPENCLOSEBRACKETS,   SC_SECTION,   ___
 #define ________________MIR_R3____________________              ___,         ___,    SC_LESSOREQUAL,   SC_GREATOREQUAL,     DEL_LINE,   ___
 
@@ -632,7 +638,7 @@ bool handle_keypress(uint16_t keycode) {
       tap_code(KC_EQUAL);
     break;
     case SC_ENDTAG:
-      SEND_STRING("</");
+      SEND_STRING(SS_TAP(X_NUBS) SS_LSFT(SS_TAP(X_7)));
     break;
     case SC_OPENQUOTE:
       SendAltCode(OPENQUOTE, 4);
@@ -1045,6 +1051,16 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case SEPARATOR:
       if (pressed) {
         SendAltCode(DOT, 4);
+      }
+    break;
+    case YOUCOMBO:
+      if (pressed) {
+        SEND_STRING(SS_TAP(X_Y) SS_TAP(X_O) SS_TAP(X_U));
+      }
+    break;
+    case YOUCOMBO2:
+      if (pressed) {
+        SEND_STRING(SS_TAP(X_Y) SS_TAP(X_O) SS_TAP(X_U));
       }
     break;
   }
