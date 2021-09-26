@@ -144,7 +144,7 @@ enum custom_keycodes {
 
 
 #define ________________NUMPAD_L1_________________        KC_NUMLOCK,  ___,   ___,     ___, ___, ___
-#define ________________NUMPAD_L2_________________        TO(COLEMAK), ___, SC_AR,   SC_AS, ___, ___
+#define ________________NUMPAD_L2_________________        TO(COLEMAK), ___, KC_LALT,   SC_AS, ___, ___
 #define ________________NUMPAD_L3_________________        ________________BLANK_____________________
 
 #define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON, KC_KP_MINUS
