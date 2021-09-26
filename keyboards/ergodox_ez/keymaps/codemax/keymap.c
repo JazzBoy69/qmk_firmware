@@ -3,6 +3,7 @@
 #include "version.h"
 #include <stdlib.h>
 #include "codemas.h"
+#include "codemascombos.h"
 
 #define ERGODOX yes
 
@@ -41,17 +42,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                       TH_L2,  TH_R2,
                                             THUMB_L1, TH_L3,  TH_R3, THUMB_R1
   ),
-  [TYPING] = LAYOUT_ergodox_base_wrapper(
-    ________________BLANK_____________________, ___,               ___, ________________BLANK_____________________, 
-    ________________TYPING_L1_________________, ___,               ___, ________________TYPING_R1_________________, 
-    ________________TYPING_L2_________________,                         ________________TYPING_R2_________________, 
-    ________________TYPING_L3_________________, ___,               ___, ________________TYPING_R3_________________, 
-    ___, ___,     ____TYPE_BOTTOM_L1_________,                               ____TYPE_BOTTOM_R1_________, ___, ___,
-                                                     ___, ___,  ___, ___,
-                                                        TYPE_L2,  TYPE_R2,
-                                              TYPE_L1, TYPE_L3,   TYPE_R3, TYPE_R1
-
-  ), 
   [NUMPAD] = LAYOUT_ergodox_base_wrapper(
     ________________BLANK_____________________,  ___,      ___, ________________BLANK_____________________,                       
     ___, ___, ___,    ___,    ___,    TG(GAME),  XXX,      ___, ________________NUMPAD_R1_________________,               
@@ -183,7 +173,7 @@ void set_indicator(void) {
 		return;
 	}
 	led_1_off();
-	if ((current_layer == COLEMAK) || (current_layer == TYPING)) {
+	if (current_layer == COLEMAK) {
 		if (caps_lock_on()) {
 		  led_1_on();
 		}
@@ -259,7 +249,6 @@ void led_set_user(uint8_t usb_led) {
 
 
 void matrix_scan_user(void) {
-  HANDLE_MATRIX_SCAN 
   if (current_layer == GAME) {
 		run(512);
 		return;
@@ -277,6 +266,10 @@ uint32_t layer_state_set_user(uint32_t state) {
   set_indicator();
 	led_2_off();
 	led_3_off();
+  if (get_current_wpm() > 40)  {
+      led_2_on();
+      led_3_on();
+  }
   switch (current_layer) {
     case NUMPAD:
       led_3_on();
@@ -284,10 +277,6 @@ uint32_t layer_state_set_user(uint32_t state) {
     case NAV:
       led_2_on();
 	  break;
-    case TYPING:
-      led_2_on();
-      led_3_on();
-      break;
     case FN:
       led_1_on();
 	    led_2_on();
