@@ -249,6 +249,10 @@ void led_set_user(uint8_t usb_led) {
 
 
 void matrix_scan_user(void) {
+  if ((current_layer == COLEMAK) && (get_current_wpm() <= 40)) {
+      led_2_off();
+      led_3_off();
+  }
   if (current_layer == GAME) {
 		run(512);
 		return;
@@ -266,10 +270,6 @@ uint32_t layer_state_set_user(uint32_t state) {
   set_indicator();
 	led_2_off();
 	led_3_off();
-  if (get_current_wpm() > 40)  {
-      led_2_on();
-      led_3_on();
-  }
   switch (current_layer) {
     case NUMPAD:
       led_3_on();

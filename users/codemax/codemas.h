@@ -124,7 +124,7 @@ enum custom_keycodes {
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
 #define ________________COLEMAK_L1________________       SP_LBKT, KC_Q,      KC_W, MEH_T(KC_F), KC_P, KC_G
-#define ________________COLEMAK_L2________________       SP_LPAREN,    LT(NUMPAD,KC_A),   KC_R, KC_S, KC_T,    LT(NAV,KC_D)
+#define ________________COLEMAK_L2________________       SP_LPAREN,    LT(NUMPAD,KC_A),   KC_R, KC_S, LSFT_T(KC_T),    LT(NAV,KC_D)
 #define ________________COLEMAK_L3________________       OSM(MOD_LSFT),      KC_Z,        KC_X, KC_C, KC_V,    KC_B
 
 #define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, SP_QUOTE, SP_RBKT
