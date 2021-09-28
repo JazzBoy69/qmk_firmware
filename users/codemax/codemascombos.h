@@ -242,7 +242,7 @@ combo_t key_combos[COMBO_COUNT] = {
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     switch (index) {
         case NUM1COMBO...NUM0COMBO:
-            return 40;
+            return 50;
         case YOUCOMBO:
             return 250;
     }
