@@ -61,7 +61,17 @@ enum combo_events {
   LBRACE, //60
   RBRACE,
   LPAREN,
-  RPAREN, //63
+  RPAREN, 
+  NUM1COMBO,
+  NUM2COMBO, //65
+  NUM3COMBO,
+  NUM4COMBO,
+  NUM5COMBO,
+  NUM6COMBO,
+  NUM7COMBO, //70
+  NUM8COMBO,
+  NUM9COMBO,
+  NUM0COMBO, //73
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -138,6 +148,18 @@ const uint16_t PROGMEM r2quote_combo[] = {LEFTSHIFTSYMBOL, SP_QUOTE, COMBO_END};
 const uint16_t PROGMEM l2quote_combo[] = {RIGHTSHIFTSYMBOL, KC_Q, COMBO_END};
 const uint16_t PROGMEM plusplus_combo[] = {RIGHTSHIFTSYMBOL, MEH_T(KC_F), COMBO_END};
 
+const uint16_t PROGMEM num1_combo[] = {LT(NUMPAD,KC_A), KC_M, COMBO_END};
+const uint16_t PROGMEM num2_combo[] = {LT(NUMPAD,KC_A), KC_COMMA, COMBO_END};
+const uint16_t PROGMEM num3_combo[] = {LT(NUMPAD,KC_A), KC_DOT, COMBO_END};
+const uint16_t PROGMEM num4_combo[] = {LT(NUMPAD,KC_A), KC_N, COMBO_END};
+const uint16_t PROGMEM num5_combo[] = {LT(NUMPAD,KC_A), KC_E, COMBO_END};
+const uint16_t PROGMEM num6_combo[] = {LT(NUMPAD,KC_A), KC_I, COMBO_END};
+const uint16_t PROGMEM num7_combo[] = {LT(NUMPAD,KC_A), KC_L, COMBO_END};
+const uint16_t PROGMEM num8_combo[] = {LT(NUMPAD,KC_A), MEH_T(KC_U), COMBO_END};
+const uint16_t PROGMEM num9_combo[] = {LT(NUMPAD,KC_A), KC_Y, COMBO_END};
+const uint16_t PROGMEM num0_combo[] = {LT(NUMPAD,KC_A), LCTL_T(KC_SPACE), COMBO_END};
+
+
 const uint16_t PROGMEM plusplusend_combo[] = {KC_COMMA, MEH_T(KC_F), COMBO_END};
 const uint16_t PROGMEM you_combo[] = {KC_L, KC_Y, MEH_T(KC_U), COMBO_END};
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
@@ -205,9 +227,25 @@ combo_t key_combos[COMBO_COUNT] = {
   [LPAREN] = COMBO(lparen_combo, ES_LPRN),
   [RBRACE] = COMBO(rbrace_combo, SP_RBKT),
   [RPAREN] = COMBO(rparen_combo, ES_RPRN),
+  [NUM1COMBO] = COMBO(num1_combo, KC_1),
+  [NUM2COMBO] = COMBO(num2_combo, KC_2),
+  [NUM3COMBO] = COMBO(num3_combo, KC_3),
+  [NUM4COMBO] = COMBO(num4_combo, KC_4),
+  [NUM5COMBO] = COMBO(num5_combo, KC_5),
+  [NUM6COMBO] = COMBO(num6_combo, KC_6),
+  [NUM7COMBO] = COMBO(num7_combo, KC_7),
+  [NUM8COMBO] = COMBO(num8_combo, KC_8),
+  [NUM9COMBO] = COMBO(num9_combo, KC_9),
+  [NUM0COMBO] = COMBO(num0_combo, KC_0),
 };
 
-
+uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+    switch (index) {
+        case NUM1COMBO...NUM0COMBO:
+            return 60;
+    }
+    return COMBO_TERM;
+}
 
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
