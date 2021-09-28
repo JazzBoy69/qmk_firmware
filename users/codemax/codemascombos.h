@@ -161,7 +161,7 @@ const uint16_t PROGMEM num0_combo[] = {LT(NUMPAD,KC_A), LCTL_T(KC_SPACE), COMBO_
 
 
 const uint16_t PROGMEM plusplusend_combo[] = {KC_COMMA, MEH_T(KC_F), COMBO_END};
-const uint16_t PROGMEM you_combo[] = {KC_L, KC_Y, MEH_T(KC_U), COMBO_END};
+const uint16_t PROGMEM you_combo[] = {KC_L, MEH_T(KC_U), KC_Y, COMBO_END};
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -242,7 +242,9 @@ combo_t key_combos[COMBO_COUNT] = {
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     switch (index) {
         case NUM1COMBO...NUM0COMBO:
-            return 60;
+            return 40;
+        case YOUCOMBO:
+            return 250;
     }
     return COMBO_TERM;
 }
