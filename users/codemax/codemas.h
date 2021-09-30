@@ -6,6 +6,8 @@
 #define MIRRORED 5
 #define MIRSYM 6
 #define MIRUNI 7
+#define SPANISH 8
+#define SYMBOL 9
 
 #define SP_RBKT KC_BSLASH
 #define SP_LBKT KC_QUOT
@@ -68,10 +70,7 @@ uint16_t BULLET[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_9 };
     #define THIS_SAFE_RANGE SAFE_RANGE
   #endif
 
-// A 'transparent' key code (that falls back to the layers below it).
 #define ___ KC_TRANSPARENT
-
-// A 'blocking' key code. Does nothing but prevent falling back to another layer.
 #define XXX KC_NO
 
 enum custom_keycodes {
@@ -110,12 +109,15 @@ enum custom_keycodes {
   SC_SECTION,
   SP_SLASH,
   SP_CARET,
+  SP_GRAVE,
+  SP_A,
   SP_O,
   SP_I,
   SP_E,
   SP_N,
   SP_U,
   SP_Y,
+  SP_G,
 };
 
 
@@ -123,12 +125,12 @@ enum custom_keycodes {
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
-#define ________________COLEMAK_L1________________       SP_LBKT, KC_Q,      KC_W, MEH_T(KC_F), KC_P, KC_G
-#define ________________COLEMAK_L2________________       SP_LPAREN,    LT(NUMPAD,KC_A),   KC_R, KC_S, LSFT_T(KC_T),    LT(NAV,KC_D)
+#define ________________COLEMAK_L1________________       KC_ESCAPE, KC_Q,      KC_W, MEH_T(KC_F), KC_P, KC_G
+#define ________________COLEMAK_L2________________       OSL(SPANISH),    LT(NUMPAD,KC_A),   KC_R, KC_S, KC_T,    LT(NAV,KC_D)
 #define ________________COLEMAK_L3________________       OSM(MOD_LSFT),      KC_Z,        KC_X, KC_C, KC_V,    KC_B
 
 #define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, SP_QUOTE, SP_RBKT
-#define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O, SP_RPAREN
+#define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O, OSL(SPANISH)
 #define ________________COLEMAK_R3________________       KC_K,            KC_M,    KC_COMMA,        KC_DOT, SP_SLASH, OSM(MOD_LSFT)
 
 #define _________BOTTOM_L1_________                       KC_DELETE,    KC_ESCAPE,     KC_SPACE
@@ -161,6 +163,46 @@ enum custom_keycodes {
 #define NUM_R1                                            KC_ESCAPE,  KC_KP_0
 #define NUM_R2                                            ___
 #define NUM_R3                                            ___
+
+
+
+#define ________________SPANSH_L1_________________        ___,   ___,  ___,  ___, ___, SP_G
+#define ________________SPANSH_L2_________________        ___,   SP_A,  ___,  ___, ES_IEXL, ___
+#define ________________SPANSH_L3_________________        ________________BLANK_____________________
+
+#define ________________SPANSH_R1_________________        ___,  ___,  SP_U, SP_Y, ___,   ___
+#define ________________SPANSH_R2_________________        ___, SP_N, SP_E, SP_I,  SP_O, ___
+#define ________________SPANSH_R3_________________        ___, ___, SC_COMMA, SC_DOT,  ES_IQUE, ___
+
+#define _____SPA_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
+#define _____SPA_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
+
+
+#define SPA_L1                                            ___, ___
+#define SPA_L2                                            ___
+#define SPA_L3                                            ___
+#define SPA_R1                                            SC_SUPERINVQUES,  ___
+#define SPA_R2                                            ___
+#define SPA_R3                                            ___
+
+#define ________________SYM_L1_________________        ___,   SC_OPEN1QUOTE,  ES_AMPR,  ES_PLUS, ES_ASTR, ES_EQL
+#define ________________SYM_L2_________________        ___,   SP_LBKT,  ES_LBRC,  ES_LPRN, ES_EXLM, ___
+#define ________________SYM_L3_________________        ___,   ES_SLSH,  ES_AT,  ES_HASH, ES_DLR, ES_PERC
+
+#define ________________SYM_R1_________________        ES_TILD,  ES_SLSH,  ES_MINS, ES_PIPE, SC_CLOSE1QUOTE,   ___
+#define ________________SYM_R2_________________        ___, SC_EQUALS, ES_RPRN, ES_RBRC,  SP_RBKT, ___
+#define ________________SYM_R3_________________        SP_CARET, SP_GRAVE, ES_SEMI, ES_COLON, ES_BSLS, ___
+
+#define _____SYM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
+#define _____SYM_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
+
+
+#define SYM_L1                                            LCTL(KC_BSPACE), ___
+#define SYM_L2                                            ___
+#define SYM_L3                                            ___
+#define SYM_R1                                            ___,  ___
+#define SYM_R2                                            ___
+#define SYM_R3                                            ___
 
 #define ________________NAV_L1____________________        KC_SCROLLLOCK, ___,  ___,       ___,       ___, ___
 #define ________________NAV_L2____________________        TO(COLEMAK),   ___,  ___,  KC_LCTRL, KC_LSHIFT, ___
@@ -203,7 +245,7 @@ enum custom_keycodes {
 
 
 #define ________________MIR_L1____________________        OSL(MIRUNI),     SP_QUOTE,          KC_Y,           KC_U,        KC_L,         KC_J
-#define ________________MIR_L2____________________        OSL(MIRSYM),      KC_O,             KC_I,           KC_E,        KC_N,         KC_H
+#define ________________MIR_L2____________________        OSL(MIRSYM),      KC_O,     LALT_T(KC_I),   LCTL_T(KC_E), LSFT_T(KC_N),         KC_H
 #define ________________MIR_L3____________________        ___,             KC_QUES,          KC_DOT,        KC_COMMA,      KC_M,         KC_K
 
 #define ________________MIR_R1____________________         SC_ARROW,   SC_ENDTAG,         SC_EMDASH,               ___,       ___,   SC_SURROUNDBRKT
@@ -274,6 +316,21 @@ bool handle_unicode(uint16_t keycode);
 void SendShiftedAltCode(uint16_t shifted[], uint16_t unshifted[]);
 void SendAltCode(uint16_t code[], int length);
 bool handle_shiftedsymbols(uint16_t keycode);
+void press_tilde_and_letter(uint8_t keycode);
+
+void press_tilde_and_letter(uint8_t keycode) {
+    if (shift_pressed()) {
+        clear_oneshot_mods();
+        clear_mods();
+        tap_code(KC_QUOTE);
+        register_code(KC_LSHIFT);
+        tap_code(keycode);
+        unregister_code(KC_LSHIFT);
+        return;
+    }
+    tap_code(KC_QUOTE);
+    tap_code(keycode);
+}
 
 void SendShiftedAltCode(uint16_t shifted[], uint16_t unshifted[]) {
   uint8_t caps = caps_lock_on();
@@ -345,8 +402,17 @@ bool handle_keypress(uint16_t keycode) {
     return false;
   }
   switch (keycode) {
+    case SC_SUPERINVQUES:
+      set_oneshot_mods(0);
+      SEND_STRING(SS_LSFT(SS_TAP(X_EQUAL)));
+      shift_time = timer_read();
+    break;   
     case SP_CARET:
       SEND_STRING(SS_LSFT(SS_TAP(X_LBRC)) SS_TAP(X_SPACE));
+      return true;
+    break;
+    case SP_GRAVE:
+      SEND_STRING(SS_TAP(X_LBRACKET) SS_TAP(X_SPACE));
       return true;
     break;
     case SP_LBKT:
@@ -512,43 +578,19 @@ bool handle_unicode(uint16_t keycode) {
       return true;
     break;
     case SP_E:
-      if (shift_pressed()) {
-        clear_oneshot_mods();
-        clear_mods();
-        SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_E)));
-        return true;
-      }
-      SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_E));
+      press_tilde_and_letter(KC_E);
       return true;
     break;
     case SP_I:
-      if (shift_pressed()) {
-        clear_oneshot_mods();
-        clear_mods();
-        SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_I)));
-        return true;
-      }
-      SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_I));
+      press_tilde_and_letter(KC_I);
       return true;
     break;
     case SP_O:
-      if (shift_pressed()) {
-        clear_oneshot_mods();
-        clear_mods();
-        SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_O)));
-        return true;
-      }
-      SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_O));
+      press_tilde_and_letter(KC_O);
       return true;
     break;
     case SP_U:
-        if (shift_pressed()) {
-          clear_oneshot_mods();
-          clear_mods();
-          SEND_STRING(SS_TAP(X_QUOTE) SS_LSFT(SS_TAP(X_U)));
-          return true;
-        }
-        SEND_STRING(SS_TAP(X_QUOTE) SS_TAP(X_U));
+        press_tilde_and_letter(KC_U);
         return true;
     break;
     case SP_Y:
@@ -561,6 +603,18 @@ bool handle_unicode(uint16_t keycode) {
     break;
     case SP_N:
         SEND_STRING(SS_TAP(X_SCOLON));
+        return true;
+    break;
+    case SP_A:
+        press_tilde_and_letter(KC_A);
+        return true;
+    break;
+    case SP_G:
+        if (shift_pressed()) {
+          SEND_STRING(SS_LSFT(SS_TAP(X_G) SS_TAP(X_QUOTE) SS_TAP(X_U)));
+          return true;
+        }
+        SEND_STRING(SS_TAP(X_G) SS_LSFT(SS_TAP(X_QUOTE)) SS_TAP(X_U));
         return true;
     break;
   }
