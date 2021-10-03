@@ -167,11 +167,11 @@ enum custom_keycodes {
 
 #define ________________SPANSH_L1_________________        ___,   ___,  ___,  ___, ___, SP_G
 #define ________________SPANSH_L2_________________        ___,   SP_A,  ___,  ___, ES_IEXL, ___
-#define ________________SPANSH_L3_________________        ________________BLANK_____________________
+#define ________________SPANSH_L3_________________        OSM(MOD_LSFT),  ___,  ___, ___, ___, ___
 
 #define ________________SPANSH_R1_________________        ___,  ___,  SP_U, SP_Y, ___,   ___
 #define ________________SPANSH_R2_________________        ___, SP_N, SP_E, SP_I,  SP_O, ___
-#define ________________SPANSH_R3_________________        ___, ___, SC_COMMA, SC_DOT,  ES_IQUE, ___
+#define ________________SPANSH_R3_________________        ___, ___, SC_COMMA, SC_DOT,  ES_IQUE, OSM(MOD_LSFT)
 
 #define _____SPA_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
 #define _____SPA_BOTTOM_R1_________                       ________BLANK_BOTTOM_______

@@ -144,7 +144,7 @@ const uint16_t PROGMEM plusplus_combo[] = {RIGHTSHIFTSYMBOL, MEH_T(KC_F), COMBO_
 const uint16_t PROGMEM plusplusend_combo[] = {KC_COMMA, MEH_T(KC_F), COMBO_END};
 const uint16_t PROGMEM you_combo[] = {KC_L, MEH_T(KC_U), KC_Y, COMBO_END};
 const uint16_t PROGMEM tion_combo[] = {KC_N, KC_E, KC_I, KC_O, COMBO_END};
-const uint16_t PROGMEM cion_combo[] = {KC_C, KC_N, KC_E, KC_I, KC_O, COMBO_END};
+const uint16_t PROGMEM cion_combo[] = {KC_C, KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
 
 const uint16_t PROGMEM lsymhold_combo[] = {KC_S, KC_T, COMBO_END};
