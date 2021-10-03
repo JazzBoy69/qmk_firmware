@@ -101,7 +101,6 @@ enum custom_keycodes {
   SC_MIRSHIFT,
   SC_AS,
   SC_AR,
-  SC_SUPERSHIFT,
   SC_ARROW,
   SC_SUPERDOT,
   SC_SUPERQUES,
@@ -181,7 +180,7 @@ enum custom_keycodes {
 #define SPA_L1                                            ___, ___
 #define SPA_L2                                            ___
 #define SPA_L3                                            ___
-#define SPA_R1                                            SC_SUPERINVQUES,  ___
+#define SPA_R1                                            SC_SUPERINVQUES,  SC_SUPERDOT
 #define SPA_R2                                            ___
 #define SPA_R3                                            ___
 
@@ -200,7 +199,7 @@ enum custom_keycodes {
 #define SYM_L1                                            LCTL(KC_BSPACE), ___
 #define SYM_L2                                            ___
 #define SYM_L3                                            ___
-#define SYM_R1                                            ___,  ___
+#define SYM_R1                                            SC_SUPERQUES,  SC_SUPERDOT
 #define SYM_R2                                            ___
 #define SYM_R3                                            ___
 
@@ -406,7 +405,15 @@ bool handle_keypress(uint16_t keycode) {
       set_oneshot_mods(0);
       SEND_STRING(SS_LSFT(SS_TAP(X_EQUAL)));
       shift_time = timer_read();
-    break;   
+    break; 
+    case SC_SUPERDOT:
+      SEND_STRING(SS_TAP(X_DOT) SS_TAP(X_SPACE));
+      shift_time = timer_read();
+    break;  
+    case SC_SUPERQUES:
+      SEND_STRING(SS_LSFT(SS_TAP(X_MINUS)) SS_TAP(X_SPACE));
+      shift_time = timer_read();
+    break;  
     case SP_CARET:
       SEND_STRING(SS_LSFT(SS_TAP(X_LBRC)) SS_TAP(X_SPACE));
       return true;
