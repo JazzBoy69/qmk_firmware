@@ -117,6 +117,7 @@ enum custom_keycodes {
   SP_U,
   SP_Y,
   SP_G,
+  SC_CLOSESEMI,
 };
 
 
@@ -124,16 +125,16 @@ enum custom_keycodes {
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
-#define ________________COLEMAK_L1________________       KC_ESCAPE, KC_Q,      KC_W, MEH_T(KC_F), KC_P, KC_G
-#define ________________COLEMAK_L2________________       OSL(SPANISH),    LT(NUMPAD,KC_A),   KC_R, KC_S, KC_T,    LT(NAV,KC_D)
-#define ________________COLEMAK_L3________________       OSM(MOD_LSFT),      KC_Z,        KC_X, KC_C, KC_V,    KC_B
+#define ________________COLEMAK_L1________________       KC_ESCAPE,          KC_Q,           KC_W, MEH_T(KC_F), KC_P,    KC_G
+#define ________________COLEMAK_L2________________       OSL(SPANISH),    LT(NUMPAD,KC_A),   KC_R, KC_S,        KC_T,    LT(NAV,KC_D)
+#define ________________COLEMAK_L3________________       OSM(MOD_LSFT),      KC_Z,           KC_X, KC_C,        KC_V,    KC_B
 
-#define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, SP_QUOTE, SP_RBKT
-#define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O, OSL(SPANISH)
+#define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, SP_QUOTE, LGUI_T(KC_CAPSLOCK)
+#define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O,  OSL(SPANISH)
 #define ________________COLEMAK_R3________________       KC_K,            KC_M,    KC_COMMA,        KC_DOT, SP_SLASH, OSM(MOD_LSFT)
 
-#define _________BOTTOM_L1_________                       KC_DELETE,    KC_ESCAPE,     KC_SPACE
-#define _________BOTTOM_R1_________                       KC_LGUI,  TO(NUMPAD),  ___   
+#define _________BOTTOM_L1_________                       LALT_T(KC_DELETE),   LCTL_T(KC_ESCAPE),  LSFT_T(KC_SPACE)
+#define _________BOTTOM_R1_________                       SC_CLOSESEMI,        ES_SEMI,            ES_COLON  
 #define ________BLOCK_BOTTOM_______                       XXX,  XXX,  XXX
 #define ________BLANK_BOTTOM_______                       ___,  ___,  ___
 #define THUMB_L1                                          LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER)
@@ -141,7 +142,7 @@ enum custom_keycodes {
 #define TH_L3                                             _______
 #define THUMB_R1                                          ES_QUES,    LCTL_T(KC_SPACE)
 #define TH_R2                                             _______
-#define TH_R3                                             _______
+#define TH_R3                                             TO(NUMPAD)
 
 
 #define ________________NUMPAD_L1_________________        KC_NUMLOCK,  ___,   ___,     ___, ___, ___
@@ -160,8 +161,8 @@ enum custom_keycodes {
 #define NUM_L2                                            ___
 #define NUM_L3                                            ___
 #define NUM_R1                                            KC_ESCAPE,  KC_KP_0
-#define NUM_R2                                            ___
-#define NUM_R3                                            ___
+#define NUM_R2                                            KC_NUMLOCK
+#define NUM_R3                                            TO(COLEMAK)
 
 
 
@@ -219,8 +220,8 @@ enum custom_keycodes {
 #define NAV_L2                                            _______
 #define NAV_L3                                            _______
 #define NAV_R1                                            KC_HOME,  KC_END
-#define NAV_R2                                            _______
-#define NAV_R3                                            _______
+#define NAV_R2                                            KC_SCROLLLOCK
+#define NAV_R3                                            TO(COLEMAK)
 
 
 #define ________________FN_L1_____________________        RESET,           ___,           ___,     SC_EMDASH,      ___,     ___
@@ -426,6 +427,10 @@ bool handle_keypress(uint16_t keycode) {
       register_code(KC_RALT);
       tap_code(SP_LBKT);
       unregister_code(KC_RALT);
+      return false;
+    break;
+    case SC_CLOSESEMI:
+      SEND_STRING(SS_LSFT(SS_TAP(X_9) SS_TAP(X_COMMA)));
       return false;
     break;
     case SP_RBKT:
