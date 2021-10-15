@@ -118,6 +118,7 @@ enum custom_keycodes {
   SP_Y,
   SP_G,
   SC_CLOSESEMI,
+  SC_OPENCLOSESEMI,
 };
 
 
@@ -254,7 +255,7 @@ enum custom_keycodes {
 
 
 #define _____MIR_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
-#define _____MIR_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
+#define _____MIR_BOTTOM_R1_________                       SC_OPENCLOSESEMI, ___, ___
 
 #define MIR_L1                                            ___,  ___
 #define MIR_L2                                            _______
@@ -431,6 +432,10 @@ bool handle_keypress(uint16_t keycode) {
     break;
     case SC_CLOSESEMI:
       SEND_STRING(SS_LSFT(SS_TAP(X_9) SS_TAP(X_COMMA)));
+      return false;
+    break;
+    case SC_OPENCLOSESEMI:
+      SEND_STRING(SS_LSFT(SS_TAP(X_8) SS_TAP(X_9) SS_TAP(X_COMMA)));
       return false;
     break;
     case SP_RBKT:
