@@ -307,6 +307,7 @@ enum custom_keycodes {
 
 uint8_t caps_lock_on(void);
 uint8_t shift_pressed(void);
+bool shift_held(void);
 uint8_t current_layer = 0;
 uint16_t change_time = 0;
 uint16_t pressed_time = 0;
@@ -540,7 +541,11 @@ bool handle_shiftedsymbols(uint16_t keycode) {
     break;
     case SP_QUOTE:
       if (shift_pressed()) {
+        bool held = shift_held();
         SEND_STRING(ESP_2QUOTE);
+        if (held)  {
+            register_code(KC_LSHIFT);
+          }
         return true;
       }
       tap_code(SP_QUOTE);
@@ -548,9 +553,13 @@ bool handle_shiftedsymbols(uint16_t keycode) {
     break;
     case KC_COMMA:
       if (shift_pressed()) {
+        bool held = shift_held();
         clear_mods();
         clear_oneshot_mods();
         SEND_STRING(ESP_LT);
+        if (held)  {
+            register_code(KC_LSHIFT);
+        }
         return true;
       }
       SEND_STRING(SS_TAP(X_COMMA));
@@ -558,7 +567,11 @@ bool handle_shiftedsymbols(uint16_t keycode) {
     break;
     case KC_DOT:
       if (shift_pressed()) {
+        bool held = shift_held();
         SEND_STRING(ESP_GT);
+        if (held)  {
+          register_code(KC_LSHIFT);
+        }
         return true;
       } 
       SEND_STRING(SS_TAP(X_DOT));
@@ -566,7 +579,11 @@ bool handle_shiftedsymbols(uint16_t keycode) {
     break;
     case SP_SLASH:
       if (shift_pressed()) {
+        bool held = shift_held();
         SEND_STRING(ESP_QUES);
+        if (held) {
+          register_code(KC_LSHIFT);
+        }
         return true;
       }
       SEND_STRING(ESP_SLASH);
@@ -663,3 +680,6 @@ uint8_t shift_pressed() {
   }
   return 0;
 }
+bool shift_held() {
+    return ((get_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT));
+  }
