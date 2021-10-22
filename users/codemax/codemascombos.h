@@ -49,22 +49,21 @@ enum combo_events {
   EXACTLYEQUAL,
   PARENSEMI,
   INVQUESCOMBO, //50
-  TIONCOMBO,
   SUPERDOTCOMBO,
   SUPERQUES,
   SUPERINVQUES,
-  PARCOMBO, //55
-  SECTION,
+  PARCOMBO, 
+  SECTION, //55
   ACCENT,
   SEPARATOR,
   MASC, 
-  LBRACE, //60
-  RBRACE,
+  LBRACE, 
+  RBRACE, //60
   LPAREN,
   RPAREN,
   LSYMHOLD,
-  RSYMHOLD, //65
-  CIONCOMBO,
+  RSYMHOLD, 
+  DASHCOMBO,//65
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -143,9 +142,8 @@ const uint16_t PROGMEM plusplus_combo[] = {RIGHTSHIFTSYMBOL, MEH_T(KC_F), COMBO_
 
 const uint16_t PROGMEM plusplusend_combo[] = {KC_COMMA, MEH_T(KC_F), COMBO_END};
 const uint16_t PROGMEM you_combo[] = {KC_L, MEH_T(KC_U), KC_Y, COMBO_END};
-const uint16_t PROGMEM tion_combo[] = {KC_N, KC_E, KC_I, KC_O, COMBO_END};
-const uint16_t PROGMEM cion_combo[] = {KC_C, KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
+const uint16_t PROGMEM dash_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
 
 const uint16_t PROGMEM lsymhold_combo[] = {KC_S, KC_T, COMBO_END};
 const uint16_t PROGMEM rsymhold_combo[] = {KC_N, KC_E, COMBO_END};
@@ -198,8 +196,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [PARENSEMI] = COMBO(parensemi_combo, XXX),
   [MIMICOMBO] = COMBO(minusminus_combo, XXX),
   [INVQUESCOMBO] = COMBO(invques_combo, ES_IQUE),
-  [TIONCOMBO] = COMBO(tion_combo, XXX),
-  [CIONCOMBO] = COMBO(cion_combo, XXX),
   [SUPERDOTCOMBO] = COMBO(superdot_combo, XXX),
   [SUPERQUES] = COMBO(superques_combo, XXX),
   [SUPERINVQUES] = COMBO(superinvques_combo, XXX),
@@ -216,6 +212,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [RPAREN] = COMBO(rparen_combo, ES_RPRN),
   [LSYMHOLD] = COMBO(lsymhold_combo, XXX),
   [RSYMHOLD] = COMBO(rsymhold_combo, XXX),
+  [DASHCOMBO] = COMBO(dash_combo, ES_MINS),
 };
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
@@ -430,16 +427,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       }
       else {
         layer_off(SYMBOL);
-      }
-    break;
-    case TIONCOMBO:
-      if (pressed) {
-        SEND_STRING(SS_TAP(X_T) SS_TAP(X_I) SS_TAP(X_O) SS_TAP(X_N));
-      }
-    break;
-    case CIONCOMBO:
-      if (pressed) {
-        SEND_STRING(SS_TAP(X_C) SS_TAP(X_I) SS_TAP(X_QUOTE) SS_TAP(X_O) SS_TAP(X_N));
       }
     break;
   }
