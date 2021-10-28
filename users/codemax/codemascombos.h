@@ -3,68 +3,67 @@ enum combo_events {
   A_TILDE,
   E_TILDE,
   I_TILDE,
-  O_TILDE, //5
+  O_TILDE, 
   U_TILDE,
   Y_TILDE,
   N_TILDE,
   G_TILDE,
-  CTRL_BKSP, //10
+  CTRL_BKSP, 
   CTRL_BKSP2,
   R1_QUOTE,
   R2_QUOTE,
   L1_QUOTE,
-  L2_QUOTE, //15
+  L2_QUOTE, 
   SHIFT_CAPS,
   RSHIFT_CAPS,
   SEMICOLON,
-  COLON,
-  ANDCOMBO, //20
+  ANDCOMBO, 
   PLUSCOMBO,
   PLPLCOMBO,
   PLPLENDCOMBO,
   ASTRCOMBO,
-  EQLCOMBO, //25
+  EQLCOMBO, 
   LBRKCOMBO,
   EXCLCOMBO,
   BKSLASH, 
   ATCOMBO,
-  HASHCOMBO, //30
+  HASHCOMBO, 
   DLRCOMBO,
   PERCCOMBO,
   FEM, 
   YOUCOMBO,
-  TILDCOMBO, //35
+  TILDCOMBO, 
   SLASHCOMBO,
   MINUSCOMBO,
   MIMICOMBO,
   PIPECOMBO,
-  SCOLONENTER, //40
+  SCOLONENTER, 
   EQUALSCOMBO,
   RBRKCOMBO,
   CARETCOMBO,
   GRAVECOMBO,
-  BKSLASH2, //45
+  BKSLASH2, 
   ENDTAG,
   EMDASHCOMBO,
   EXACTLYEQUAL,
   PARENSEMI,
-  INVQUESCOMBO, //50
+  INVQUESCOMBO, 
   SUPERDOTCOMBO,
   SUPERQUES,
   SUPERINVQUES,
   PARCOMBO, 
-  SECTION, //55
+  SECTION, 
   ACCENT,
   SEPARATOR,
   MASC, 
   LBRACE, 
-  RBRACE, //60
+  RBRACE, 
   LPAREN,
   RPAREN,
   LSYMHOLD,
   RSYMHOLD, 
-  DASHCOMBO,//65
-  PARACOMBO,
+  DASHCOMBO,
+  PARACOMBO,//65
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -126,7 +125,7 @@ const uint16_t PROGMEM caret_combo[] = {LEFTSYMBOL, KC_K, COMBO_END};
 const uint16_t PROGMEM grave_combo[] = {LEFTSYMBOL, KC_M, COMBO_END};
 const uint16_t PROGMEM shiftcaps_combo[] = {LEFTSYMBOL, OSM(MOD_LSFT), COMBO_END};
 const uint16_t PROGMEM bkslash_combo2[] = {LEFTSYMBOL, SP_SLASH, COMBO_END};
-const uint16_t PROGMEM colon_combo[] = {LEFTSYMBOL, KC_DOT, COMBO_END};
+const uint16_t PROGMEM sdot_combo[] = {LEFTSYMBOL, KC_DOT, COMBO_END};
 const uint16_t PROGMEM semicolon_combo[] = {LEFTSYMBOL, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM superdot_combo[] = {LEFTSYMBOL, LCTL_T(KC_SPACE), COMBO_END};
 const uint16_t PROGMEM superques_combo[] = {LEFTSYMBOL, ES_QUES, COMBO_END};
@@ -143,8 +142,7 @@ const uint16_t PROGMEM plusplus_combo[] = {RIGHTSHIFTSYMBOL, MEH_T(KC_F), COMBO_
 
 const uint16_t PROGMEM plusplusend_combo[] = {KC_COMMA, MEH_T(KC_F), COMBO_END};
 const uint16_t PROGMEM you_combo[] = {KC_L, MEH_T(KC_U), KC_Y, COMBO_END};
-const uint16_t PROGMEM para_combo[] = {KC_P, KC_A, COMBO_END};
-const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
+const uint16_t PROGMEM para_combo[] = {KC_W, MEH_T(KC_F), KC_P, COMBO_END};
 const uint16_t PROGMEM dash_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
 
 const uint16_t PROGMEM lsymhold_combo[] = {KC_S, KC_T, COMBO_END};
@@ -167,7 +165,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [L2_QUOTE] = COMBO(l2quote_combo, SC_OPENQUOTE),
   [SHIFT_CAPS] = COMBO(shiftcaps_combo, XXX),
   [RSHIFT_CAPS] = COMBO(rshiftcaps_combo, XXX),
-  [COLON] = COMBO(colon_combo, XXX),
   [SEMICOLON] = COMBO(semicolon_combo, XXX),
   [ANDCOMBO] = COMBO(and_combo, ES_AMPR),
   [PLUSCOMBO] = COMBO(plus_combo, ES_PLUS),
@@ -307,11 +304,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
         register_code(KC_CAPSLOCK);
         unregister_code(KC_CAPSLOCK);
         tap_code(KC_LSHIFT);
-      }
-    break;
-    case COLON:
-      if (pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_DOT)));
       }
     break;
     case SEMICOLON:
