@@ -64,6 +64,7 @@ enum combo_events {
   LSYMHOLD,
   RSYMHOLD, 
   DASHCOMBO,//65
+  PARACOMBO,
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -142,6 +143,7 @@ const uint16_t PROGMEM plusplus_combo[] = {RIGHTSHIFTSYMBOL, MEH_T(KC_F), COMBO_
 
 const uint16_t PROGMEM plusplusend_combo[] = {KC_COMMA, MEH_T(KC_F), COMBO_END};
 const uint16_t PROGMEM you_combo[] = {KC_L, MEH_T(KC_U), KC_Y, COMBO_END};
+const uint16_t PROGMEM para_combo[] = {KC_P, KC_A, COMBO_END};
 const uint16_t PROGMEM sdot_combo[] = {KC_Q, KC_O, COMBO_END};
 const uint16_t PROGMEM dash_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
 
@@ -213,6 +215,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [LSYMHOLD] = COMBO(lsymhold_combo, XXX),
   [RSYMHOLD] = COMBO(rsymhold_combo, XXX),
   [DASHCOMBO] = COMBO(dash_combo, ES_MINS),
+  [PARACOMBO] = COMBO(para_combo, XXX),
 };
 
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
@@ -419,6 +422,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case YOUCOMBO:
       if (pressed) {
         SEND_STRING(SS_TAP(X_Y) SS_TAP(X_O) SS_TAP(X_U));
+      }
+    break;
+    case PARACOMBO:
+      if (pressed) {
+        SEND_STRING(SS_TAP(X_P) SS_TAP(X_A) SS_TAP(X_R) SS_TAP(X_A));
       }
     break;
     case LSYMHOLD...RSYMHOLD:
