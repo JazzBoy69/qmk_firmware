@@ -139,8 +139,8 @@ enum custom_keycodes {
 #define ________BLOCK_BOTTOM_______                       XXX,  XXX,  XXX
 #define ________BLANK_BOTTOM_______                       ___,  ___,  ___
 #define THUMB_L1                                          LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER)
-#define TH_L2                                             _______
-#define TH_L3                                             _______
+#define TH_L2                                             KC_TAB
+#define TH_L3                                             LSFT(KC_TAB)
 #define THUMB_R1                                          SC_SUPERQUES,    LCTL_T(KC_SPACE)
 #define TH_R2                                             _______
 #define TH_R3                                             TO(NUMPAD)
@@ -231,7 +231,7 @@ enum custom_keycodes {
 
 #define ________________FN_R1_____________________        XXX, KC_F7, KC_F8, KC_F9, XXX,  KC_F12
 #define ________________FN_R2_____________________        XXX, KC_F4, KC_F5, KC_F6, XXX,  XXX
-#define ________________FN_R3_____________________        XXX, KC_F1, KC_F2, KC_F3, XXX,  ___
+#define ________________FN_R3_____________________        XXX, KC_F1, KC_F2, KC_F3, XXX,  KC_SYSTEM_POWER
 
 
 #define _____FN_BOTTOM_L1__________                       ________BLANK_BOTTOM_______
