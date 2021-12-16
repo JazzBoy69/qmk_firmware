@@ -63,7 +63,8 @@ enum combo_events {
   LSYMHOLD,
   RSYMHOLD, 
   DASHCOMBO,
-  PARACOMBO,//65
+  MASCOMBO,
+  PARACOMBO,//66
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -144,6 +145,7 @@ const uint16_t PROGMEM plusplusend_combo[] = {KC_COMMA, MEH_T(KC_F), COMBO_END};
 const uint16_t PROGMEM you_combo[] = {KC_L, MEH_T(KC_U), KC_Y, COMBO_END};
 const uint16_t PROGMEM para_combo[] = {KC_W, MEH_T(KC_F), KC_P, COMBO_END};
 const uint16_t PROGMEM dash_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
+const uint16_t PROGMEM mas_combo[] = {KC_X, KC_C, COMBO_END};
 
 const uint16_t PROGMEM lsymhold_combo[] = {KC_S, KC_T, COMBO_END};
 const uint16_t PROGMEM rsymhold_combo[] = {KC_N, KC_E, COMBO_END};
@@ -212,6 +214,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [LSYMHOLD] = COMBO(lsymhold_combo, XXX),
   [RSYMHOLD] = COMBO(rsymhold_combo, XXX),
   [DASHCOMBO] = COMBO(dash_combo, ES_MINS),
+  [MASCOMBO] = COMBO(mas_combo, ES_PLUS),
   [PARACOMBO] = COMBO(para_combo, XXX),
 };
 
