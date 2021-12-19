@@ -119,6 +119,7 @@ enum custom_keycodes {
   SP_G,
   SC_CLOSESEMI,
   SC_OPENCLOSESEMI,
+  SC_QU,
 };
 
 
@@ -126,7 +127,7 @@ enum custom_keycodes {
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
-#define ________________COLEMAK_L1________________       KC_ESCAPE,          KC_Q,           KC_W, MEH_T(KC_F), KC_P,    KC_G
+#define ________________COLEMAK_L1________________       KC_ESCAPE,          SC_QU,           KC_W, MEH_T(KC_F), KC_P,    KC_G
 #define ________________COLEMAK_L2________________       OSL(SPANISH),    LT(NUMPAD,KC_A),   KC_R, KC_S,        KC_T,    LT(NAV,KC_D)
 #define ________________COLEMAK_L3________________       OSM(MOD_LSFT),      KC_Z,           KC_X, KC_C,        KC_V,    KC_B
 
@@ -167,7 +168,7 @@ enum custom_keycodes {
 
 
 
-#define ________________SPANSH_L1_________________        ___,   ES_LPRN,  ___,  ___, ___, SP_G
+#define ________________SPANSH_L1_________________        ___,   KC_Q,  ___,  ___, ___, SP_G
 #define ________________SPANSH_L2_________________        ___,   SP_A,  ___,  ___, ES_IEXL, ___
 #define ________________SPANSH_L3_________________        OSM(MOD_LSFT),  ___,  ___, ___, ___, ___
 
@@ -425,6 +426,9 @@ bool handle_keypress(uint16_t keycode) {
       SEND_STRING(SS_TAP(X_LBRACKET) SS_TAP(X_SPACE));
       return true;
     break;
+    case SC_QU:
+      SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U));
+      return true;
     case SP_LBKT:
       register_code(KC_RALT);
       tap_code(SP_LBKT);
