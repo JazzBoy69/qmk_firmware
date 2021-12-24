@@ -311,8 +311,6 @@ uint8_t shift_pressed(void);
 bool shift_held(void);
 uint8_t current_layer = 0;
 uint16_t change_time = 0;
-uint16_t pressed_time = 0;
-uint16_t shift_time = 0;
 bool handle_keypress(uint16_t keycode);
 bool handle_keyrelease(uint16_t keycode);
 bool handle_unicode(uint16_t keycode);
@@ -320,6 +318,20 @@ void SendShiftedAltCode(uint16_t shifted[], uint16_t unshifted[]);
 void SendAltCode(uint16_t code[], int length);
 bool handle_shiftedsymbols(uint16_t keycode);
 void press_tilde_and_letter(uint8_t keycode);
+uint16_t pressed_time = 0;
+uint16_t shift_time = 0;
+void handle_shifttimer(void);
+
+
+void handle_shifttimer() {
+  pressed_time = timer_read();
+  if (shift_time != 0) {//add shift to capitalize first letter of sentence
+      if (!caps_lock_on() && (timer_elapsed(shift_time) < 2000)) {
+        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
+      }
+      shift_time = 0;
+  }
+}
 
 void press_tilde_and_letter(uint8_t keycode) {
     if (shift_pressed()) {
@@ -383,15 +395,8 @@ void SendAltCode(uint16_t code[], int length) {
   }\
   return handle_keyrelease(keycode);\
 
-
 bool handle_keypress(uint16_t keycode) {
-  pressed_time = timer_read();
-  if (shift_time != 0) {//add shift to capitalize first letter of sentence
-      if (!caps_lock_on() && (timer_elapsed(shift_time) < 2000)) {
-        set_oneshot_mods(MOD_BIT(KC_LSHIFT));
-      }
-      shift_time = 0;
-  }
+  handle_shifttimer();
   if (handle_shiftedsymbols(keycode)) {
     return false;
   }

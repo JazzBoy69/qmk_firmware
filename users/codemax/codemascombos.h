@@ -218,6 +218,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [PARACOMBO] = COMBO(para_combo, XXX),
 };
 
+
 uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     switch (index) {
         case YOUCOMBO:
@@ -236,6 +237,7 @@ bool get_combo_must_hold(uint16_t index, combo_t *combo) {
 }
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
+  handle_shifttimer();
   switch(combo_index) {
     case DOT_BUL:
       if (pressed) {
@@ -416,6 +418,10 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     break;
     case YOUCOMBO:
       if (pressed) {
+        if (shift_pressed()) {
+          SEND_STRING(SS_LSFT(SS_TAP(X_Y)) SS_TAP(X_O) SS_TAP(X_U));
+          return;
+        }
         SEND_STRING(SS_TAP(X_Y) SS_TAP(X_O) SS_TAP(X_U));
       }
     break;
