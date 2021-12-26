@@ -168,8 +168,8 @@ enum custom_keycodes {
 
 
 
-#define ________________SPANSH_L1_________________        ___,   KC_Q,  ___,  ___, ___, SP_G
-#define ________________SPANSH_L2_________________        ___,   SP_A,  ___,  ___, ES_IEXL, ___
+#define ________________SPANSH_L1_________________        ___,   KC_Q,  ___,  ___, SC_PAR, SP_G
+#define ________________SPANSH_L2_________________        ___,   SP_A,  ___,  SC_SEC, ES_IEXL, ___
 #define ________________SPANSH_L3_________________        OSM(MOD_LSFT),  ___,  ___, ___, ___, ___
 
 #define ________________SPANSH_R1_________________        ___,  ___,  SP_U, SP_Y, ES_RPRN,   ___
