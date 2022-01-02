@@ -148,7 +148,7 @@ enum custom_keycodes {
 
 
 #define ________________NUMPAD_L1_________________        KC_NUMLOCK,  ___,   ___,     ___, ___, ___
-#define ________________NUMPAD_L2_________________        KC_LALT, ___, SC_AR,   SC_AS, ___, ___
+#define ________________NUMPAD_L2_________________        ___, ___, SC_AR,   SC_AS, ___, ___
 #define ________________NUMPAD_L3_________________        ________________BLANK_____________________
 
 #define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON, KC_KP_MINUS
@@ -159,7 +159,7 @@ enum custom_keycodes {
 #define _____NUM_BOTTOM_R1_________                       KC_X,    KC_KP_COMMA,  KC_KP_DOT
 
 
-#define NUM_L1                                            LSFT(KC_TAB), KC_TAB
+#define NUM_L1                                            KC_LALT, ___
 #define NUM_L2                                            ___
 #define NUM_L3                                            ___
 #define NUM_R1                                            KC_ESCAPE,  KC_KP_0
