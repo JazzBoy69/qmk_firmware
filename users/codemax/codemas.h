@@ -231,7 +231,7 @@ enum custom_keycodes {
 #define ________________FN_L3_____________________        KC_PSCREEN,           KC_6,         KC_7,         KC_8,       KC_9,    KC_0
 
 #define ________________FN_R1_____________________        XXX, KC_F7, KC_F8, KC_F9, XXX,  KC_F12
-#define ________________FN_R2_____________________        XXX, KC_F4, KC_F5, KC_F6, XXX,  XXX
+#define ________________FN_R2_____________________        XXX, KC_F4, KC_F5, KC_F6, XXX,  LALT(LCTL(KC_DEL))
 #define ________________FN_R3_____________________        XXX, KC_F1, KC_F2, KC_F3, XXX,  KC_SYSTEM_POWER
 
 
