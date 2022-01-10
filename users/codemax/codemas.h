@@ -477,8 +477,7 @@ bool handle_keypress(uint16_t keycode) {
       SEND_STRING(SS_TAP(X_END) SS_TAP(X_SCOLON) SS_TAP(X_ENTER));
     break;
     case SC_EQUALS:
-      tap_code(KC_EQUAL);
-      tap_code(KC_EQUAL);
+      SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0)));
     break;
     case SC_ENDTAG:
       SEND_STRING(SS_TAP(X_NUBS) SS_LSFT(SS_TAP(X_7)));
