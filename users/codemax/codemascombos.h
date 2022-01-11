@@ -56,6 +56,7 @@ enum combo_events {
 #define RIGHTSHIFTSYMBOL KC_N, KC_E, KC_I
 #define LEFTSHIFTSYMBOL KC_R, KC_S, KC_T
 #define NUMMOD KC_Q
+#define DASH KC_COMMA, KC_DOT
 
 
 
@@ -63,18 +64,12 @@ const uint16_t PROGMEM par_combo[] = {RIGHTUNICODE, KC_P, COMBO_END};
 const uint16_t PROGMEM section_combo[] = {RIGHTUNICODE, KC_S, COMBO_END};
 const uint16_t PROGMEM fem_combo[] = {RIGHTUNICODE, LT(NUMPAD,KC_A), COMBO_END};
 
-const uint16_t PROGMEM emdash_combo[] = {LEFTUNICODE, MEH_T(KC_U), COMBO_END};
 const uint16_t PROGMEM masc_combo[] = {LEFTUNICODE, KC_O, COMBO_END};
 const uint16_t PROGMEM sdot_combo[] = {LEFTUNICODE, KC_DOT, COMBO_END};
 
 const uint16_t PROGMEM parbksp_combo[] = {RIGHTSYMBOL, LT(MIRRORED,KC_BSPACE), COMBO_END};
 const uint16_t PROGMEM l1quote_combo[] = {RIGHTSYMBOL, KC_Q, COMBO_END};
 const uint16_t PROGMEM and_combo[] = {RIGHTSYMBOL, KC_W, COMBO_END};
-const uint16_t PROGMEM eql_combo[] = {KC_X, KC_C, COMBO_END};
-const uint16_t PROGMEM lbrace_combo[] = {RIGHTSYMBOL, LT(NUMPAD,KC_A), COMBO_END};
-const uint16_t PROGMEM lbrk_combo[] = {RIGHTSYMBOL, KC_R, COMBO_END};
-const uint16_t PROGMEM lparen_combo[] = {KC_Z, KC_X, COMBO_END};
-const uint16_t PROGMEM excl_combo[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM bkslash_combo[] = {RIGHTSYMBOL, KC_Z, COMBO_END};
 const uint16_t PROGMEM at_combo[] = {RIGHTSYMBOL, KC_X, COMBO_END};
 const uint16_t PROGMEM hash_combo[] = {RIGHTSYMBOL, KC_C, COMBO_END};
@@ -85,18 +80,14 @@ const uint16_t PROGMEM rshiftcaps_combo[] = {RIGHTSYMBOL, OSM(MOD_LSFT), COMBO_E
 const uint16_t PROGMEM tilde_combo[] = {LEFTSYMBOL, KC_J, COMBO_END};
 const uint16_t PROGMEM pipe_combo[] = {LEFTSYMBOL, KC_Y, COMBO_END};
 const uint16_t PROGMEM r1quote_combo[] = {LEFTSYMBOL, SP_QUOTE, COMBO_END};
-const uint16_t PROGMEM equals_combo[] = {KC_Z, KC_V, COMBO_END};
-const uint16_t PROGMEM rparen_combo[] = {KC_DOT, SP_SLASH, COMBO_END};
-const uint16_t PROGMEM rbrk_combo[] = {LEFTSYMBOL, KC_I, COMBO_END};
-const uint16_t PROGMEM rbrace_combo[] = {LEFTSYMBOL, KC_O, COMBO_END};
 const uint16_t PROGMEM caret_combo[] = {LEFTSYMBOL, KC_K, COMBO_END};
 const uint16_t PROGMEM grave_combo[] = {LEFTSYMBOL, KC_M, COMBO_END};
 const uint16_t PROGMEM shiftcaps_combo[] = {LEFTSYMBOL, OSM(MOD_LSFT), COMBO_END};
 const uint16_t PROGMEM bkslash_combo2[] = {LEFTSYMBOL, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM semicolon_combo[] = {LEFTSYMBOL, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM emdash_combo[] = {LEFTSYMBOL, DASH, COMBO_END};
 
 const uint16_t PROGMEM endtag_combo[] = {LEFTSHIFTSYMBOL, KC_L, COMBO_END};
-const uint16_t PROGMEM exactlyequal_combo[] = {KC_Z, KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM parensemi_combo[] = {LEFTSHIFTSYMBOL, KC_E, COMBO_END};
 const uint16_t PROGMEM scolonenter_combo[] = {LEFTSHIFTSYMBOL, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM minusminus_combo[] = {LEFTSHIFTSYMBOL, MEH_T(KC_U), COMBO_END};
@@ -108,13 +99,25 @@ const uint16_t PROGMEM plusplus_combo[] = {RIGHTSHIFTSYMBOL, MEH_T(KC_F), COMBO_
 const uint16_t PROGMEM plusplusend_combo[] = {KC_COMMA, MEH_T(KC_F), COMBO_END};
 const uint16_t PROGMEM you_combo[] = {KC_L, MEH_T(KC_U), KC_Y, COMBO_END};
 const uint16_t PROGMEM para_combo[] = {KC_W, MEH_T(KC_F), KC_P, COMBO_END};
-const uint16_t PROGMEM dash_combo[] = {KC_COMMA, KC_DOT, COMBO_END};
-const uint16_t PROGMEM mas_combo[] = {KC_M, KC_COMMA, COMBO_END};
-const uint16_t PROGMEM times_combo[] = {KC_M, SP_SLASH, COMBO_END};
 
 const uint16_t PROGMEM lsymhold_combo[] = {KC_S, KC_T, COMBO_END};
 const uint16_t PROGMEM rsymhold_combo[] = {KC_N, KC_E, COMBO_END};
+
 const uint16_t PROGMEM notequal_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM exactlyequal_combo[] = {KC_Z, KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM equals_combo[] = {KC_X, KC_V, COMBO_END};
+const uint16_t PROGMEM excl_combo[] = {KC_C, KC_V, COMBO_END};
+const uint16_t PROGMEM eql_combo[] = {KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM lparen_combo[] = {KC_Z, KC_X, COMBO_END};
+const uint16_t PROGMEM lbrk_combo[] = {KC_Z, KC_C, COMBO_END};
+const uint16_t PROGMEM lbrace_combo[] = {KC_Z, KC_V, COMBO_END};
+
+const uint16_t PROGMEM dash_combo[] = {DASH, COMBO_END};
+const uint16_t PROGMEM mas_combo[] = {KC_M, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM times_combo[] = {KC_M, KC_DOT, COMBO_END};
+const uint16_t PROGMEM rparen_combo[] = {KC_DOT, SP_SLASH, COMBO_END};
+const uint16_t PROGMEM rbrk_combo[] = {KC_COMMA, SP_SLASH, COMBO_END};
+const uint16_t PROGMEM rbrace_combo[] = {KC_M, SP_SLASH, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
