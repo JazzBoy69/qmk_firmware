@@ -10,7 +10,6 @@ enum combo_events {
   RSHIFT_CAPS,
   SEMICOLON,
   ANDCOMBO, 
-  PLPLCOMBO,
   PLPLENDCOMBO,
   EQLCOMBO, 
   LBRKCOMBO,
@@ -46,7 +45,7 @@ enum combo_events {
   MASCOMBO,
   PARACOMBO,
   TIMESCOMBO,
-  NOTEQUAL, //48
+  NOTEQUAL, //47
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -94,9 +93,7 @@ const uint16_t PROGMEM minusminus_combo[] = {LEFTSHIFTSYMBOL, MEH_T(KC_U), COMBO
 const uint16_t PROGMEM r2quote_combo[] = {LEFTSHIFTSYMBOL, SP_QUOTE, COMBO_END};
 
 const uint16_t PROGMEM l2quote_combo[] = {RIGHTSHIFTSYMBOL, KC_Q, COMBO_END};
-const uint16_t PROGMEM plusplus_combo[] = {RIGHTSHIFTSYMBOL, MEH_T(KC_F), COMBO_END};
 
-const uint16_t PROGMEM plusplusend_combo[] = {KC_COMMA, MEH_T(KC_F), COMBO_END};
 const uint16_t PROGMEM you_combo[] = {KC_L, MEH_T(KC_U), KC_Y, COMBO_END};
 const uint16_t PROGMEM para_combo[] = {KC_W, MEH_T(KC_F), KC_P, COMBO_END};
 
@@ -115,6 +112,7 @@ const uint16_t PROGMEM lbrace_combo[] = {KC_Z, KC_V, COMBO_END};
 const uint16_t PROGMEM dash_combo[] = {DASH, COMBO_END};
 const uint16_t PROGMEM mas_combo[] = {KC_M, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM times_combo[] = {KC_M, KC_DOT, COMBO_END};
+const uint16_t PROGMEM plusplusend_combo[] = {KC_M, KC_COMMA, KC_DOT, COMBO_END};
 const uint16_t PROGMEM rparen_combo[] = {KC_DOT, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM rbrk_combo[] = {KC_COMMA, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM rbrace_combo[] = {KC_M, SP_SLASH, COMBO_END};
@@ -130,7 +128,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [RSHIFT_CAPS] = COMBO(rshiftcaps_combo, XXX),
   [SEMICOLON] = COMBO(semicolon_combo, XXX),
   [ANDCOMBO] = COMBO(and_combo, ES_AMPR),
-  [PLPLCOMBO] = COMBO(plusplus_combo, XXX),
   [PLPLENDCOMBO] = COMBO(plusplusend_combo, XXX),
   [EQLCOMBO] = COMBO(eql_combo, ES_EQL),
   [LBRKCOMBO] = COMBO(lbrk_combo, ES_LBRC),
@@ -237,11 +234,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case GRAVECOMBO:
       if (pressed) {
         SEND_STRING(SS_TAP(X_LBRACKET) SS_TAP(X_SPACE));
-      }
-    break;
-    case PLPLCOMBO:
-      if (pressed) {
-        SEND_STRING(SS_TAP(X_RBRACKET) SS_TAP(X_RBRACKET));
       }
     break;
     case PLPLENDCOMBO:

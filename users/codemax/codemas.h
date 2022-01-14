@@ -248,7 +248,7 @@ enum custom_keycodes {
 
 #define ________________MIR_L1____________________        OSL(MIRUNI),     SP_QUOTE,          KC_Y,           KC_U,        KC_L,         KC_J
 #define ________________MIR_L2____________________        OSL(MIRSYM),      KC_O,     LALT_T(KC_I),   LCTL_T(KC_E), LSFT_T(KC_N),         KC_H
-#define ________________MIR_L3____________________        ___,             KC_QUES,          KC_DOT,        KC_COMMA,      KC_M,         KC_K
+#define ________________MIR_L3____________________        ___,             SP_SLASH,        KC_DOT,        KC_COMMA,      KC_M,         KC_K
 
 #define ________________MIR_R1____________________         SC_ARROW,   SC_ENDTAG,         SC_EMDASH,               ___,       ___,   SC_SURROUNDBRKT
 #define ________________MIR_R2____________________              ___, SC_NOTEQUAL, SC_OPENCLOSEPAREN, OPENCLOSEBRACKETS,   SC_SECTION,   ___
