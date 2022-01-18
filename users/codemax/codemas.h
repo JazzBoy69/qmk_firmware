@@ -151,12 +151,12 @@ enum custom_keycodes {
 #define ________________NUMPAD_L2_________________        ___, ___, SC_AR,   SC_AS, ___, ___
 #define ________________NUMPAD_L3_________________        ________________BLANK_____________________
 
-#define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON, KC_KP_MINUS
-#define ________________NUMPAD_R2_________________        OSM(MOD_LALT), KC_KP_4, KC_KP_5, KC_KP_6, KC_KP_ASTERISK,  KC_KP_PLUS
-#define ________________NUMPAD_R3_________________        XXX,           KC_KP_1, KC_KP_2, KC_KP_3,    KC_KP_SLASH,    KC_ENTER
+#define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
+#define ________________NUMPAD_R2_________________        ES_AMPR,       KC_KP_4, KC_KP_5, KC_KP_6, ES_SEMI,      KC_KP_PLUS
+#define ________________NUMPAD_R3_________________        XXX,           KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_SLASH,  KC_ENTER
 
 #define _____NUM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
-#define _____NUM_BOTTOM_R1_________                       KC_X,    KC_KP_COMMA,  KC_KP_DOT
+#define _____NUM_BOTTOM_R1_________                       KC_SPACE,    KC_COMMA,  KC_KP_DOT
 
 
 #define NUM_L1                                            KC_LALT, ___
@@ -216,7 +216,7 @@ enum custom_keycodes {
 
 
 #define _____NAV_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
-#define _____NAV_BOTTOM_R1_________                       KC_X,    KC_KP_COMMA,  KC_KP_DOT
+#define _____NAV_BOTTOM_R1_________                       ___,  ___, DEL_LINE
 
 #define NAV_L1                                            KC_MS_BTN2,  KC_MS_BTN1
 #define NAV_L2                                            _______
@@ -252,7 +252,7 @@ enum custom_keycodes {
 
 #define ________________MIR_R1____________________         SC_ARROW,   SC_ENDTAG,         SC_EMDASH,               ___,       ___,   SC_SURROUNDBRKT
 #define ________________MIR_R2____________________              ___, SC_NOTEQUAL, SC_OPENCLOSEPAREN, OPENCLOSEBRACKETS,   SC_SECTION,   ___
-#define ________________MIR_R3____________________              ___,         ___,    SC_LESSOREQUAL,   SC_GREATOREQUAL,     DEL_LINE,   ___
+#define ________________MIR_R3____________________              ___,         ___,    SC_LESSOREQUAL,   SC_GREATOREQUAL,     ___,   ___
 
 
 #define _____MIR_BOTTOM_L1_________                       ________BLANK_BOTTOM_______

@@ -17,6 +17,7 @@ enum combo_events {
   BKSLASH, 
   ATCOMBO,
   HASHCOMBO, 
+  NUMHASHCOMBO,
   DLRCOMBO,
   PERCCOMBO,
   FEM, 
@@ -45,7 +46,11 @@ enum combo_events {
   MASCOMBO,
   PARACOMBO,
   TIMESCOMBO,
-  NOTEQUAL, //47
+  NOTEQUAL, 
+  NUMDASHCOMBO,
+  NUMMASCOMBO,
+  NUMTIMESCOMBO, 
+  NUMXCOMBO, //52
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -72,6 +77,7 @@ const uint16_t PROGMEM and_combo[] = {RIGHTSYMBOL, KC_W, COMBO_END};
 const uint16_t PROGMEM bkslash_combo[] = {RIGHTSYMBOL, KC_Z, COMBO_END};
 const uint16_t PROGMEM at_combo[] = {RIGHTSYMBOL, KC_X, COMBO_END};
 const uint16_t PROGMEM hash_combo[] = {RIGHTSYMBOL, KC_C, COMBO_END};
+const uint16_t PROGMEM numhash_combo[] = {KC_KP_4, KC_KP_5, COMBO_END};
 const uint16_t PROGMEM dlr_combo[] = {RIGHTSYMBOL, KC_V, COMBO_END};
 const uint16_t PROGMEM perc_combo[] = {RIGHTSYMBOL, KC_B, COMBO_END};
 const uint16_t PROGMEM rshiftcaps_combo[] = {RIGHTSYMBOL, OSM(MOD_LSFT), COMBO_END};
@@ -116,6 +122,11 @@ const uint16_t PROGMEM plusplusend_combo[] = {KC_M, KC_COMMA, KC_DOT, COMBO_END}
 const uint16_t PROGMEM rparen_combo[] = {KC_DOT, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM rbrk_combo[] = {KC_COMMA, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM rbrace_combo[] = {KC_M, SP_SLASH, COMBO_END};
+const uint16_t PROGMEM nummas_combo[] = {KC_KP_1, KC_KP_2, COMBO_END};
+const uint16_t PROGMEM numtimes_combo[] = {KC_KP_1, KC_KP_3, COMBO_END};
+const uint16_t PROGMEM numdash_combo[] = {KC_KP_2, KC_KP_3, COMBO_END};
+
+const uint16_t PROGMEM numx_combo[] = {KC_KP_5, KC_KP_6, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -135,6 +146,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [BKSLASH] = COMBO(bkslash_combo, ES_BSLS),
   [ATCOMBO] = COMBO(at_combo, ES_AT),
   [HASHCOMBO] = COMBO(hash_combo, ES_HASH),
+  [NUMHASHCOMBO] = COMBO(numhash_combo, ES_HASH),
   [DLRCOMBO] = COMBO(dlr_combo, ES_DLR),
   [PERCCOMBO] = COMBO(perc_combo, ES_PERC),
   [TILDCOMBO] = COMBO(tilde_combo, XXX),
@@ -162,8 +174,12 @@ combo_t key_combos[COMBO_COUNT] = {
   [DASHCOMBO] = COMBO(dash_combo, ES_MINS),
   [MASCOMBO] = COMBO(mas_combo, ES_PLUS),
   [TIMESCOMBO] = COMBO(times_combo, ES_ASTR),
+  [NUMDASHCOMBO] = COMBO(numdash_combo, ES_MINS),
+  [NUMMASCOMBO] = COMBO(nummas_combo, ES_PLUS),
+  [NUMTIMESCOMBO] = COMBO(numtimes_combo, ES_ASTR),
   [PARACOMBO] = COMBO(para_combo, XXX),
   [NOTEQUAL] = COMBO(notequal_combo, XXX),
+  [NUMXCOMBO] = COMBO(numx_combo, KC_X),
 };
 
 
