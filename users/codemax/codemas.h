@@ -127,9 +127,9 @@ enum custom_keycodes {
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
-#define ________________COLEMAK_L1________________       KC_ESCAPE,          KC_Q,           KC_W, MEH_T(KC_F), KC_P,    KC_G
-#define ________________COLEMAK_L2________________       OSL(SPANISH),    LT(NUMPAD,KC_A),   KC_R, KC_S,        KC_T,    LT(NAV,KC_D)
-#define ________________COLEMAK_L3________________       OSM(MOD_LSFT),      KC_Z,           KC_X, KC_C,        KC_V,    KC_B
+#define ________________COLEMAK_L1________________       MO(NUMPAD),          KC_Q,     KC_W, MEH_T(KC_F), KC_P,    KC_G
+#define ________________COLEMAK_L2________________       OSL(SPANISH),         KC_A,     KC_R, KC_S,        KC_T,    LT(NAV,KC_D)
+#define ________________COLEMAK_L3________________       OSM(MOD_LSFT),        KC_Z,     KC_X, KC_C,        KC_V,    KC_B
 
 #define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, SP_QUOTE, LGUI_T(KC_CAPSLOCK)
 #define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O,  OSL(SPANISH)
@@ -148,7 +148,7 @@ enum custom_keycodes {
 
 
 #define ________________NUMPAD_L1_________________        KC_NUMLOCK,  ___,   ___,     ___, ___, ___
-#define ________________NUMPAD_L2_________________        ___, ___, SC_AR,   SC_AS, ___, ___
+#define ________________NUMPAD_L2_________________        ___, ___, ___,   ___, ___, ___
 #define ________________NUMPAD_L3_________________        ________________BLANK_____________________
 
 #define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
@@ -156,7 +156,7 @@ enum custom_keycodes {
 #define ________________NUMPAD_R3_________________        ES_DLR,        KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_SLASH,  KC_ENTER
 
 #define _____NUM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
-#define _____NUM_BOTTOM_R1_________                       KC_SPACE,    KC_COMMA,  KC_KP_DOT
+#define _____NUM_BOTTOM_R1_________                       KC_SPACE,    KC_COMMA,  KC_DOT
 
 
 #define NUM_L1                                            KC_LALT, ___
@@ -383,8 +383,8 @@ void SendAltCode(uint16_t code[], int length) {
     }\
     return true;\
 
-#define HANDLE_TAPPING_TERM if (keycode == LT(NUMPAD,KC_A)) {\
-      return 170;\
+#define HANDLE_TAPPING_TERM if (keycode == LT(NUMPAD,KC_ESCAPE)) {\
+      return 125;\
     }\
     return TAPPING_TERM;\
 

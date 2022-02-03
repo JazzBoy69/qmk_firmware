@@ -41,19 +41,13 @@ enum combo_events {
   RBRACE, 
   LPAREN,
   RPAREN,
-  LSYMHOLD,
-  RSYMHOLD, 
   DASHCOMBO,
   MASCOMBO,
   PARACOMBO,
   TIMESCOMBO,
   NOTEQUAL, 
-  NUMDASHCOMBO,
-  NUMMASCOMBO,
-  NUMTIMESCOMBO, 
-  NUMXCOMBO, 
   NUMRPAREN,
-  NUMLPAREN,//55
+  NUMLPAREN,//51
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -80,7 +74,7 @@ const uint16_t PROGMEM and_combo[] = {RIGHTSYMBOL, KC_W, COMBO_END};
 const uint16_t PROGMEM bkslash_combo[] = {RIGHTSYMBOL, KC_Z, COMBO_END};
 const uint16_t PROGMEM at_combo[] = {RIGHTSYMBOL, KC_X, COMBO_END};
 const uint16_t PROGMEM hash_combo[] = {RIGHTSYMBOL, KC_C, COMBO_END};
-const uint16_t PROGMEM numhash_combo[] = {KC_KP_4, KC_KP_5, COMBO_END};
+const uint16_t PROGMEM numhash_combo[] = {KC_KP_4, KC_KP_5, KC_KP_6, COMBO_END};
 const uint16_t PROGMEM dlr_combo[] = {RIGHTSYMBOL, KC_V, COMBO_END};
 const uint16_t PROGMEM perc_combo[] = {RIGHTSYMBOL, KC_B, COMBO_END};
 const uint16_t PROGMEM rshiftcaps_combo[] = {RIGHTSYMBOL, OSM(MOD_LSFT), COMBO_END};
@@ -106,9 +100,6 @@ const uint16_t PROGMEM l2quote_combo[] = {RIGHTSHIFTSYMBOL, KC_Q, COMBO_END};
 const uint16_t PROGMEM you_combo[] = {KC_L, MEH_T(KC_U), KC_Y, COMBO_END};
 const uint16_t PROGMEM para_combo[] = {KC_W, MEH_T(KC_F), KC_P, COMBO_END};
 
-const uint16_t PROGMEM lsymhold_combo[] = {KC_S, KC_T, COMBO_END};
-const uint16_t PROGMEM rsymhold_combo[] = {KC_N, KC_E, COMBO_END};
-
 const uint16_t PROGMEM notequal_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM exactlyequal_combo[] = {KC_Z, KC_X, KC_C, COMBO_END};
 const uint16_t PROGMEM equals_combo[] = {KC_X, KC_V, COMBO_END};
@@ -126,10 +117,6 @@ const uint16_t PROGMEM rparen_combo[] = {KC_DOT, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM rbrk_combo[] = {KC_COMMA, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM rbrace_combo[] = {KC_M, SP_SLASH, COMBO_END};
 
-const uint16_t PROGMEM nummas_combo[] = {KC_KP_1, KC_KP_2, COMBO_END};
-const uint16_t PROGMEM numtimes_combo[] = {KC_KP_1, KC_KP_3, COMBO_END};
-const uint16_t PROGMEM numdash_combo[] = {KC_KP_2, KC_KP_3, COMBO_END};
-const uint16_t PROGMEM numx_combo[] = {KC_KP_5, KC_KP_6, COMBO_END};
 const uint16_t PROGMEM numrparen_combo[] = {KC_KP_3, KC_KP_SLASH, COMBO_END};
 const uint16_t PROGMEM numlparen_combo[] = {KC_KP_6, ES_SEMI, COMBO_END};
 const uint16_t PROGMEM numcaret_combo[] = {KC_KP_1, KC_KP_2, KC_KP_3, COMBO_END};
@@ -175,17 +162,11 @@ combo_t key_combos[COMBO_COUNT] = {
   [LPAREN] = COMBO(lparen_combo, ES_LPRN),
   [RBRACE] = COMBO(rbrace_combo, SP_RBKT),
   [RPAREN] = COMBO(rparen_combo, ES_RPRN),
-  [LSYMHOLD] = COMBO(lsymhold_combo, XXX),
-  [RSYMHOLD] = COMBO(rsymhold_combo, XXX),
   [DASHCOMBO] = COMBO(dash_combo, ES_MINS),
   [MASCOMBO] = COMBO(mas_combo, ES_PLUS),
   [TIMESCOMBO] = COMBO(times_combo, ES_ASTR),
-  [NUMDASHCOMBO] = COMBO(numdash_combo, ES_MINS),
-  [NUMMASCOMBO] = COMBO(nummas_combo, ES_PLUS),
-  [NUMTIMESCOMBO] = COMBO(numtimes_combo, ES_ASTR),
   [PARACOMBO] = COMBO(para_combo, XXX),
   [NOTEQUAL] = COMBO(notequal_combo, XXX),
-  [NUMXCOMBO] = COMBO(numx_combo, KC_X),
   [NUMRPAREN] = COMBO(numrparen_combo, ES_RPRN),
   [NUMLPAREN] = COMBO(numlparen_combo, ES_LPRN),
   [NUMCARET] = COMBO(numcaret_combo, XXX),
@@ -200,14 +181,6 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
     return COMBO_TERM;
 }
 
-bool get_combo_must_hold(uint16_t index, combo_t *combo) {
-    switch (index) {
-        case LSYMHOLD...RSYMHOLD:
-            return true;
-    }
-
-    return false;
-}
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   handle_shifttimer();
@@ -308,14 +281,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case NOTEQUAL:
       if (pressed) {
         SEND_STRING(SS_LSFT(SS_TAP(X_1) SS_TAP(X_0)));
-      }
-    break;
-    case LSYMHOLD...RSYMHOLD:
-      if (pressed) {
-        layer_on(SYMBOL);
-      }
-      else {
-        layer_off(SYMBOL);
       }
     break;
   }
