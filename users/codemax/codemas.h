@@ -147,9 +147,9 @@ enum custom_keycodes {
 #define TH_R3                                             TO(NUMPAD)
 
 
-#define ________________NUMPAD_L1_________________        KC_NUMLOCK,  ___,   ___,     ___, ___, ___
-#define ________________NUMPAD_L2_________________        ___, ___, ___,   ___, ___, ___
-#define ________________NUMPAD_L3_________________        ________________BLANK_____________________
+#define ________________NUMPAD_L1_________________        TO(COLEMAK),  ___,   ___,    S(KC_F), ___, ___
+#define ________________NUMPAD_L2_________________        ___,          S(KC_A),   ___,    S(KC_E), S(KC_D), ___
+#define ________________NUMPAD_L3_________________        OSM(MOD_LSFT),  KC_Z,   KC_X, S(KC_C), KC_V, S(KC_B)
 
 #define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
 #define ________________NUMPAD_R2_________________        ES_AMPR,       KC_KP_4, KC_KP_5, KC_KP_6, ES_SEMI,      KC_KP_PLUS
@@ -159,7 +159,7 @@ enum custom_keycodes {
 #define _____NUM_BOTTOM_R1_________                       KC_SPACE,    KC_COMMA,  KC_DOT
 
 
-#define NUM_L1                                            KC_LALT, ___
+#define NUM_L1                                            LALT_T(KC_BSPACE), ___
 #define NUM_L2                                            ___
 #define NUM_L3                                            ___
 #define NUM_R1                                            KC_ESCAPE,  KC_KP_0
@@ -207,7 +207,7 @@ enum custom_keycodes {
 #define SYM_R3                                            ___
 
 #define ________________NAV_L1____________________        KC_SCROLLLOCK, ___,  ___,       ___,       ___, ___
-#define ________________NAV_L2____________________        TO(COLEMAK),   ___,  ___,  KC_LCTRL, KC_LSHIFT, ___
+#define ________________NAV_L2____________________        TO(COLEMAK),   ___,  KC_LALT,  KC_LCTRL, KC_LSHIFT, ___
 #define ________________NAV_L3____________________        ________________BLANK_____________________
 
 #define ________________NAV_R1____________________        LCTL(KC_HOME),  OSM(MOD_LCTL),   KC_UP,      KC_PGUP,      XXX,        KC_MS_WH_UP
@@ -226,7 +226,7 @@ enum custom_keycodes {
 #define NAV_R3                                            TO(COLEMAK)
 
 
-#define ________________FN_L1_____________________        RESET,           ___,           ___,     SC_EMDASH,      ___,     ___
+#define ________________FN_L1_____________________        RESET,                 ___,           ___,          ___,          ___,     ___
 #define ________________FN_L2_____________________        KC_SYSTEM_SLEEP,      KC_1,  LALT_T(KC_2), LCTL_T(KC_3), LSFT_T(KC_4), KC_5
 #define ________________FN_L3_____________________        KC_PSCREEN,           KC_6,         KC_7,         KC_8,       KC_9,    KC_0
 
