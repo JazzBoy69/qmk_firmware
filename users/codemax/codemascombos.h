@@ -47,7 +47,11 @@ enum combo_events {
   TIMESCOMBO,
   NOTEQUAL, 
   NUMRPAREN,
-  NUMLPAREN,//51
+  NUMLPAREN,
+  QUACOMBO,
+  QUECOMBO,
+  QUICOMBO,
+  QUOCOMBO,//55
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -121,6 +125,11 @@ const uint16_t PROGMEM numrparen_combo[] = {KC_KP_3, KC_KP_SLASH, COMBO_END};
 const uint16_t PROGMEM numlparen_combo[] = {KC_KP_6, ES_SEMI, COMBO_END};
 const uint16_t PROGMEM numcaret_combo[] = {KC_KP_1, KC_KP_2, KC_KP_3, COMBO_END};
 
+const uint16_t PROGMEM quacombo[] = {KC_Q, KC_A, COMBO_END};
+const uint16_t PROGMEM quecombo[] = {KC_Q, KC_E, COMBO_END};
+const uint16_t PROGMEM quicombo[] = {KC_Q, KC_I, COMBO_END};
+const uint16_t PROGMEM quocombo[] = {KC_Q, KC_O, COMBO_END};
+
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
   [CTRL_BKSP] = COMBO(parbksp_combo, LCTL(KC_BSPACE)),
@@ -170,6 +179,10 @@ combo_t key_combos[COMBO_COUNT] = {
   [NUMRPAREN] = COMBO(numrparen_combo, ES_RPRN),
   [NUMLPAREN] = COMBO(numlparen_combo, ES_LPRN),
   [NUMCARET] = COMBO(numcaret_combo, XXX),
+  [QUACOMBO] = COMBO(quacombo, XXX),
+  [QUECOMBO] = COMBO(quecombo, XXX),
+  [QUICOMBO] = COMBO(quicombo, XXX),
+  [QUOCOMBO] = COMBO(quocombo, XXX),
 };
 
 
@@ -184,104 +197,78 @@ uint16_t get_combo_term(uint16_t index, combo_t *combo) {
 
 void process_combo_event(uint16_t combo_index, bool pressed) {
   handle_shifttimer();
+  if (!pressed) return;
   switch(combo_index) {
     case DOT_BUL:
-      if (pressed) {
-        SendAltCode(BULLET, 4);
-      }
+      SendAltCode(BULLET, 4);
     break;
     case SHIFT_CAPS:
-      if (pressed) {
-        register_code(KC_CAPSLOCK);
-        unregister_code(KC_CAPSLOCK);
-        tap_code(KC_LSHIFT);
-      }
+      register_code(KC_CAPSLOCK);
+      unregister_code(KC_CAPSLOCK);
+      tap_code(KC_LSHIFT);
     break;
     case RSHIFT_CAPS:
-      if (pressed) {
-        register_code(KC_CAPSLOCK);
-        unregister_code(KC_CAPSLOCK);
-        tap_code(KC_LSHIFT);
-      }
+      register_code(KC_CAPSLOCK);
+      unregister_code(KC_CAPSLOCK);
+      tap_code(KC_LSHIFT);
     break;
     case SEMICOLON:
-      if (pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)));
     break;
     case TILDCOMBO:
-      if (pressed) {
-        SEND_STRING(SS_RALT(SS_TAP(X_4)) SS_TAP(X_SPACE));
-      }
+      SEND_STRING(SS_RALT(SS_TAP(X_4)) SS_TAP(X_SPACE));
     break;
     case SCOLONENTER:
-      if (pressed) {
-        SEND_STRING(SS_TAP(X_END) SS_LSFT(SS_TAP(X_COMMA)) SS_TAP(X_ENTER));
-      }
+      SEND_STRING(SS_TAP(X_END) SS_LSFT(SS_TAP(X_COMMA)) SS_TAP(X_ENTER));
     break;
     case EQUALSCOMBO:
-      if (pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0)));
     break;
     case CARETCOMBO...NUMCARET:
-      if (pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_LBRACKET)) SS_TAP(X_SPACE));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_LBRACKET)) SS_TAP(X_SPACE));
     break;
     case GRAVECOMBO:
-      if (pressed) {
-        SEND_STRING(SS_TAP(X_LBRACKET) SS_TAP(X_SPACE));
-      }
+      SEND_STRING(SS_TAP(X_LBRACKET) SS_TAP(X_SPACE));
     break;
     case PLPLENDCOMBO:
-      if (pressed) {
-        SEND_STRING(SS_TAP(X_RBRACKET) SS_TAP(X_RBRACKET) SS_LSFT(SS_TAP(X_COMMA)));
-      }
+      SEND_STRING(SS_TAP(X_RBRACKET) SS_TAP(X_RBRACKET) SS_LSFT(SS_TAP(X_COMMA)));
     break;
     case ENDTAG:
-      if (pressed) {
-        SEND_STRING(SS_TAP(X_NUBS) SS_LSFT(SS_TAP(X_7)));
-      }
+      SEND_STRING(SS_TAP(X_NUBS) SS_LSFT(SS_TAP(X_7)));
     break;
     case EMDASHCOMBO:
-      if (pressed) {
-        SendAltCode(EMDASH, 4);
-      }
+      SendAltCode(EMDASH, 4);
     break;
     case EXACTLYEQUAL:
-      if (pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_0)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_0)));
     break;
     case PARENSEMI:
-      if (pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_8) SS_TAP(X_9) SS_TAP(X_COMMA)));
-      }
+      SEND_STRING(SS_LSFT(SS_TAP(X_8) SS_TAP(X_9) SS_TAP(X_COMMA)));
     break;
     case MIMICOMBO:
-      if (pressed) {
-        SEND_STRING(SS_TAP(X_SLASH) SS_TAP(X_SLASH));
-      }
+      SEND_STRING(SS_TAP(X_SLASH) SS_TAP(X_SLASH));
     break;   
     case YOUCOMBO:
-      if (pressed) {
-        if (shift_pressed()) {
-          SEND_STRING(SS_LSFT(SS_TAP(X_Y)) SS_TAP(X_O) SS_TAP(X_U));
-          return;
-        }
-        SEND_STRING(SS_TAP(X_Y) SS_TAP(X_O) SS_TAP(X_U));
+      if (shift_pressed()) {
+        SEND_STRING(SS_LSFT(SS_TAP(X_Y)) SS_TAP(X_O) SS_TAP(X_U));
+        return;
       }
+      SEND_STRING(SS_TAP(X_Y) SS_TAP(X_O) SS_TAP(X_U));
     break;
     case PARACOMBO:
-      if (pressed) {
-        SEND_STRING(SS_TAP(X_P) SS_TAP(X_A) SS_TAP(X_R) SS_TAP(X_A));
-      }
+      SEND_STRING(SS_TAP(X_P) SS_TAP(X_A) SS_TAP(X_R) SS_TAP(X_A));
     break;
-    case NOTEQUAL:
-      if (pressed) {
-        SEND_STRING(SS_LSFT(SS_TAP(X_1) SS_TAP(X_0)));
-      }
+    case QUACOMBO:
+      SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U) SS_TAP(X_A));
+    break;
+    case QUECOMBO:
+      SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U) SS_TAP(X_E));
+    break;
+    case QUICOMBO:
+      SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U) SS_TAP(X_I));
+    break;
+    case QUOCOMBO:
+      SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U) SS_TAP(X_O));
     break;
   }
 }
