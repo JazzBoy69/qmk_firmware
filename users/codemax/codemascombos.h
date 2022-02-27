@@ -57,7 +57,7 @@ enum combo_events {
 };
 
 #define RIGHTUNICODE KC_I, KC_O
-#define LEFTUNICODE LT(NUMPAD,KC_A), KC_R
+#define LEFTUNICODE KC_A, KC_R
 #define RIGHTSYMBOL KC_N, KC_E
 #define LEFTSYMBOL KC_S, KC_T
 #define RIGHTSHIFTSYMBOL KC_N, KC_E, KC_I
@@ -66,10 +66,7 @@ enum combo_events {
 #define DASH KC_COMMA, KC_DOT
 
 
-
-const uint16_t PROGMEM par_combo[] = {RIGHTUNICODE, KC_P, COMBO_END};
-const uint16_t PROGMEM section_combo[] = {RIGHTUNICODE, KC_S, COMBO_END};
-const uint16_t PROGMEM fem_combo[] = {RIGHTUNICODE, LT(NUMPAD,KC_A), COMBO_END};
+const uint16_t PROGMEM fem_combo[] = {RIGHTUNICODE, KC_A, COMBO_END};
 
 const uint16_t PROGMEM masc_combo[] = {LEFTUNICODE, KC_O, COMBO_END};
 const uint16_t PROGMEM sdot_combo[] = {LEFTUNICODE, KC_DOT, COMBO_END};
