@@ -120,6 +120,8 @@ enum custom_keycodes {
   SC_CLOSESEMI,
   SC_OPENCLOSESEMI,
   SC_QU,
+  SP_CUA,
+  SP_CO,
 };
 
 
@@ -172,9 +174,9 @@ enum custom_keycodes {
 #define ________________SPANSH_L2_________________        ___,   SP_A,  ___,  SC_SEC, ES_IEXL, ___
 #define ________________SPANSH_L3_________________        OSM(MOD_LSFT),  ___,  ___, ___, ___, ___
 
-#define ________________SPANSH_R1_________________        ___,  ___,  SP_U, SP_Y, ES_RPRN,   ___
+#define ________________SPANSH_R1_________________        ___,  ___,  SP_U, SP_Y, SP_CUA,   ___
 #define ________________SPANSH_R2_________________        ___, SP_N, SP_E, SP_I,  SP_O, ___
-#define ________________SPANSH_R3_________________        ___, ___, SC_COMMA, SC_DOT,  ES_IQUE, OSM(MOD_LSFT)
+#define ________________SPANSH_R3_________________        ___, SP_CO, SC_COMMA, SC_DOT,  ES_IQUE, OSM(MOD_LSFT)
 
 #define _____SPA_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
 #define _____SPA_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
@@ -522,18 +524,16 @@ bool handle_keypress(uint16_t keycode) {
     case DELWORD:
       SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)) SS_DELAY(50) SS_LSFT(SS_LCTL(SS_TAP(X_LEFT))) SS_DELAY(50) SS_TAP(X_DELETE));
     break;
-    case SC_AS:
-        SEND_STRING("as");
-    break;
     case SC_ARROW:
         SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_NUBS)));
     break;
-    case SC_AR:
-      if (get_current_wpm()>35)
-        SEND_STRING("ar");
-      else
-        register_code(KC_LALT);
+    case SP_CO:
+      SEND_STRING(SS_TAP(X_C));
+      press_tilde_and_letter(KC_O);
     break;
+    case SP_CUA:
+      SEND_STRING(SS_TAP(X_C) SS_TAP(X_U));
+      press_tilde_and_letter(KC_A);
   }
   layer_off(MIRUNI);
   return true;
