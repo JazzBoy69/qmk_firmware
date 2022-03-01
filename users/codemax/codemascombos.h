@@ -129,8 +129,8 @@ const uint16_t PROGMEM quecombo[] = {KC_Q, KC_E, COMBO_END};
 const uint16_t PROGMEM quicombo[] = {KC_Q, KC_I, COMBO_END};
 const uint16_t PROGMEM quocombo[] = {KC_Q, KC_O, COMBO_END};
 
-const uint16_t PROGMEM quespa[] = {KC_Q, SP_E, COMBO_END};
-const uint16_t PROGMEM quispa[] = {KC_Q, SP_I, COMBO_END};
+const uint16_t PROGMEM quespa[] = {SP_N, SP_E, COMBO_END};
+const uint16_t PROGMEM quispa[] = {SP_N, SP_I, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -277,10 +277,16 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case QUESPA:
       SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U));
       press_tilde_and_letter(KC_E);
+      reset_oneshot_layer();
+      layer_off(SPANISH);
+      layer_on(COLEMAK);
     break;
     case QUISPA:
       SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U));
       press_tilde_and_letter(KC_I);
+      reset_oneshot_layer();
+      layer_off(SPANISH);
+      layer_on(COLEMAK);
     break;
   }
 }
