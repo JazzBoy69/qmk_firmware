@@ -263,7 +263,7 @@ enum custom_keycodes {
 #define MIR_L1                                            ___,  ___
 #define MIR_L2                                            _______
 #define MIR_L3                                            _______
-#define MIR_R1                                            ___, ___
+#define MIR_R1                                            LSFT(KC_TAB), KC_TAB
 #define MIR_R2                                            _______
 #define MIR_R3                                            _______
 

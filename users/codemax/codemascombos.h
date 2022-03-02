@@ -53,7 +53,8 @@ enum combo_events {
   QUICOMBO,
   QUOCOMBO,
   QUESPA,
-  QUISPA,//57
+  QUISPA,
+  TABCOMBO,//58
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -132,6 +133,8 @@ const uint16_t PROGMEM quocombo[] = {KC_Q, KC_O, COMBO_END};
 const uint16_t PROGMEM quespa[] = {SP_N, SP_E, COMBO_END};
 const uint16_t PROGMEM quispa[] = {SP_N, SP_I, COMBO_END};
 
+const uint16_t PROGMEM tabcombo[] = {LT(MIRRORED,KC_BSPACE), LCTL_T(KC_SPACE), COMBO_END};
+
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
   [CTRL_BKSP] = COMBO(parbksp_combo, LCTL(KC_BSPACE)),
@@ -187,6 +190,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [QUOCOMBO] = COMBO(quocombo, XXX),
   [QUESPA] = COMBO(quespa, XXX),
   [QUISPA] = COMBO(quispa, XXX),
+  [TABCOMBO] = COMBO(tabcombo, KC_TAB),
 };
 
 
@@ -227,6 +231,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     break;
     case EQUALSCOMBO:
       SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0)));
+    break;
+    case NOTEQUAL:
+      SEND_STRING(SS_LSFT(SS_TAP(X_1) SS_TAP(X_0)));
     break;
     case CARETCOMBO...NUMCARET:
       SEND_STRING(SS_LSFT(SS_TAP(X_LBRACKET)) SS_TAP(X_SPACE));
