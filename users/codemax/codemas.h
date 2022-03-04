@@ -119,7 +119,7 @@ enum custom_keycodes {
   SP_G,
   SC_CLOSESEMI,
   SC_OPENCLOSESEMI,
-  SC_QU,
+  SC_QUE,
   SP_CUA,
   SP_CO,
 };
@@ -175,7 +175,7 @@ enum custom_keycodes {
 #define ________________SPANSH_L3_________________        OSM(MOD_LSFT),  ___,  ___, ___, ___, ___
 
 #define ________________SPANSH_R1_________________        ___,  ___,  SP_U, SP_Y, SP_CUA,   ___
-#define ________________SPANSH_R2_________________        ___, SP_N, SP_E, SP_I,  SP_O, ___
+#define ________________SPANSH_R2_________________        SC_QUE, SP_N, SP_E, SP_I,  SP_O, ___
 #define ________________SPANSH_R3_________________        ___, SP_CO, SC_COMMA, SC_DOT,  ES_IQUE, OSM(MOD_LSFT)
 
 #define _____SPA_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
@@ -433,8 +433,12 @@ bool handle_keypress(uint16_t keycode) {
       SEND_STRING(SS_TAP(X_LBRACKET) SS_TAP(X_SPACE));
       return true;
     break;
-    case SC_QU:
+    case SC_QUE:      
       SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U));
+      press_tilde_and_letter(KC_E);
+      reset_oneshot_layer();
+      layer_off(SPANISH);
+      layer_on(COLEMAK);
       return true;
     case SP_LBKT:
       register_code(KC_RALT);

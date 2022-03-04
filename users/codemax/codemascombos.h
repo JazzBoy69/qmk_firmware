@@ -52,9 +52,8 @@ enum combo_events {
   QUECOMBO,
   QUICOMBO,
   QUOCOMBO,
-  QUESPA,
   QUISPA,
-  TABCOMBO,//58
+  TABCOMBO,//57
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -130,7 +129,6 @@ const uint16_t PROGMEM quecombo[] = {KC_Q, KC_E, COMBO_END};
 const uint16_t PROGMEM quicombo[] = {KC_Q, KC_I, COMBO_END};
 const uint16_t PROGMEM quocombo[] = {KC_Q, KC_O, COMBO_END};
 
-const uint16_t PROGMEM quespa[] = {SP_N, SP_E, COMBO_END};
 const uint16_t PROGMEM quispa[] = {SP_N, SP_I, COMBO_END};
 
 const uint16_t PROGMEM tabcombo[] = {LT(MIRRORED,KC_BSPACE), LCTL_T(KC_SPACE), COMBO_END};
@@ -188,7 +186,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [QUECOMBO] = COMBO(quecombo, XXX),
   [QUICOMBO] = COMBO(quicombo, XXX),
   [QUOCOMBO] = COMBO(quocombo, XXX),
-  [QUESPA] = COMBO(quespa, XXX),
   [QUISPA] = COMBO(quispa, XXX),
   [TABCOMBO] = COMBO(tabcombo, KC_TAB),
 };
@@ -280,13 +277,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     break;
     case QUOCOMBO:
       SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U) SS_TAP(X_O));
-    break;
-    case QUESPA:
-      SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U));
-      press_tilde_and_letter(KC_E);
-      reset_oneshot_layer();
-      layer_off(SPANISH);
-      layer_on(COLEMAK);
     break;
     case QUISPA:
       SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U));
