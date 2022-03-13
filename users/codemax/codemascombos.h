@@ -53,7 +53,8 @@ enum combo_events {
   QUICOMBO,
   QUOCOMBO,
   QUISPA,
-  TABCOMBO,//57
+  TABCOMBO,
+  STABCOMBO,//58
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -132,6 +133,7 @@ const uint16_t PROGMEM quocombo[] = {KC_Q, KC_O, COMBO_END};
 const uint16_t PROGMEM quispa[] = {SP_N, SP_I, COMBO_END};
 
 const uint16_t PROGMEM tabcombo[] = {LT(MIRRORED,KC_BSPACE), LCTL_T(KC_SPACE), COMBO_END};
+const uint16_t PROGMEM stabcombo[] = {LT(MIRRORED,KC_BSPACE), SC_SUPERQUES, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -188,6 +190,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [QUOCOMBO] = COMBO(quocombo, XXX),
   [QUISPA] = COMBO(quispa, XXX),
   [TABCOMBO] = COMBO(tabcombo, KC_TAB),
+  [STABCOMBO] = COMBO(stabcombo, S(KC_TAB)),
 };
 
 

@@ -142,8 +142,8 @@ enum custom_keycodes {
 #define ________BLOCK_BOTTOM_______                       XXX,  XXX,  XXX
 #define ________BLANK_BOTTOM_______                       ___,  ___,  ___
 #define THUMB_L1                                          LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER)
-#define TH_L2                                             KC_TAB
-#define TH_L3                                             LSFT(KC_TAB)
+#define TH_L2                                             XXX
+#define TH_L3                                             XXX
 #define THUMB_R1                                          SC_SUPERQUES,    LCTL_T(KC_SPACE)
 #define TH_R2                                             _______
 #define TH_R3                                             TO(NUMPAD)
