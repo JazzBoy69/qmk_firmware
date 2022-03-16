@@ -182,7 +182,7 @@ enum custom_keycodes {
 #define _____SPA_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
 
 
-#define SPA_L1                                            ___, ___
+#define SPA_L1                                            S(KC_TAB), KC_TAB
 #define SPA_L2                                            ___
 #define SPA_L3                                            ___
 #define SPA_R1                                            SC_SUPERINVQUES,  SC_SUPERDOT
