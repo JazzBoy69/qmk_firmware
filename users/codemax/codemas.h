@@ -150,7 +150,7 @@ enum custom_keycodes {
 
 
 #define ________________NUMPAD_L1_________________        TO(COLEMAK),  ___,   ___,    S(KC_F), ___, ___
-#define ________________NUMPAD_L2_________________        ___,          S(KC_A),   ___,    S(KC_E), S(KC_D), ___
+#define ________________NUMPAD_L2_________________        ___,          S(KC_A),   ___,    S(KC_E), ___, S(KC_D)
 #define ________________NUMPAD_L3_________________        OSM(MOD_LSFT),  KC_Z,   KC_X, S(KC_C), KC_V, S(KC_B)
 
 #define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
@@ -175,7 +175,7 @@ enum custom_keycodes {
 #define ________________SPANSH_L3_________________        OSM(MOD_LSFT),  ___,  ___, ___, ___, ___
 
 #define ________________SPANSH_R1_________________        ___,  ___,  SP_U, SP_Y, SP_CUA,   ___
-#define ________________SPANSH_R2_________________        SC_QUE, SP_N, SP_E, SP_I,  SP_O, ___
+#define ________________SPANSH_R2_________________        SC_QUE, SP_N, SP_E, LALT_T(SP_I),  SP_O, ___
 #define ________________SPANSH_R3_________________        ___, SP_CO, SC_COMMA, SC_DOT,  ES_IQUE, OSM(MOD_LSFT)
 
 #define _____SPA_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
