@@ -202,8 +202,8 @@ void set_indicator(void) {
   if (current_layer == NUMPAD) {
     if (!(sys_led_state & sys_led_mask_num_lock)) {
       led_1_on();
-    } 
-	return;
+    }
+	  return;
   }
   if (current_layer == NAV) {
     if (sys_led_state & sys_led_mask_scroll_lock) {
