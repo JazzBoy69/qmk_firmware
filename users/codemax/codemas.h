@@ -129,7 +129,7 @@ enum custom_keycodes {
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
-#define ________________COLEMAK_L1________________       MO(NUMPAD),          KC_Q,     KC_W, MEH_T(KC_F), KC_P,    KC_G
+#define ________________COLEMAK_L1________________       OSL(NUMPAD),          KC_Q,     KC_W, MEH_T(KC_F), KC_P,    KC_G
 #define ________________COLEMAK_L2________________       OSL(SPANISH),         KC_A,     KC_R, KC_S,        KC_T,    LT(NAV,KC_D)
 #define ________________COLEMAK_L3________________       OSM(MOD_LSFT),        KC_Z,     KC_X, KC_C,        KC_V,    KC_B
 
@@ -174,8 +174,8 @@ enum custom_keycodes {
 #define ________________SPANSH_L2_________________        ___,   SP_A,  ___,  SC_SEC, ES_IEXL, ___
 #define ________________SPANSH_L3_________________        OSM(MOD_LSFT),  ___,  ___, ___, ___, ___
 
-#define ________________SPANSH_R1_________________        ___,  ___,  SP_U, SP_Y, SP_CUA,   ___
-#define ________________SPANSH_R2_________________        SC_QUE, SP_N, SP_E, LALT_T(SP_I),  SP_O, ___
+#define ________________SPANSH_R1_________________        ___,  KC_LALT,  SP_U, SP_Y, SP_CUA,   ___
+#define ________________SPANSH_R2_________________        SC_QUE, SP_N, SP_E, SP_I,  SP_O, ___
 #define ________________SPANSH_R3_________________        ___, SP_CO, SC_COMMA, SC_DOT,  ES_IQUE, OSM(MOD_LSFT)
 
 #define _____SPA_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
