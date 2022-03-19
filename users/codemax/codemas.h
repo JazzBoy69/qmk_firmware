@@ -149,9 +149,9 @@ enum custom_keycodes {
 #define TH_R3                                             TO(NUMPAD)
 
 
-#define ________________NUMPAD_L1_________________        TO(COLEMAK),  ___,   ___,    S(KC_F), ___, ___
-#define ________________NUMPAD_L2_________________        ___,          S(KC_A),   ___,    S(KC_E), ___, S(KC_D)
-#define ________________NUMPAD_L3_________________        OSM(MOD_LSFT),  KC_Z,   KC_X, S(KC_C), KC_V, S(KC_B)
+#define ________________NUMPAD_L1_________________        TO(COLEMAK),      ___,  ___, S(KC_F), ___,  ___
+#define ________________NUMPAD_L2_________________        KC_NUMLOCK,   S(KC_A),  ___, S(KC_E), ___, S(KC_D)
+#define ________________NUMPAD_L3_________________        OSM(MOD_LSFT),    ___,  ___, S(KC_C), ___, S(KC_B)
 
 #define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
 #define ________________NUMPAD_R2_________________        ES_AMPR,       KC_KP_4, KC_KP_5, KC_KP_6, ES_SEMI,      KC_KP_PLUS
