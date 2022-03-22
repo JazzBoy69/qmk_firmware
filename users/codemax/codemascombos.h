@@ -6,8 +6,6 @@ enum combo_events {
   R2_QUOTE,
   L1_QUOTE,
   L2_QUOTE, 
-  SHIFT_CAPS,
-  RSHIFT_CAPS,
   SEMICOLON,
   ANDCOMBO, 
   PLPLENDCOMBO,
@@ -56,7 +54,9 @@ enum combo_events {
   TABCOMBO,
   STABCOMBO,
   NUMLOCKCOMBO,
-  NUMLAYERCOMBO,//60
+  NUMLAYERCOMBO,
+  CAPSLOCKCOMBO,
+  //59
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -83,14 +83,12 @@ const uint16_t PROGMEM hash_combo[] = {RIGHTSYMBOL, KC_C, COMBO_END};
 const uint16_t PROGMEM numhash_combo[] = {KC_KP_4, KC_KP_5, KC_KP_6, COMBO_END};
 const uint16_t PROGMEM dlr_combo[] = {RIGHTSYMBOL, KC_V, COMBO_END};
 const uint16_t PROGMEM perc_combo[] = {RIGHTSYMBOL, KC_B, COMBO_END};
-const uint16_t PROGMEM rshiftcaps_combo[] = {RIGHTSYMBOL, OSM(MOD_LSFT), COMBO_END};
 
 const uint16_t PROGMEM tilde_combo[] = {LEFTSYMBOL, KC_J, COMBO_END};
 const uint16_t PROGMEM pipe_combo[] = {LEFTSYMBOL, KC_Y, COMBO_END};
 const uint16_t PROGMEM r1quote_combo[] = {LEFTSYMBOL, SP_QUOTE, COMBO_END};
 const uint16_t PROGMEM caret_combo[] = {LEFTSYMBOL, KC_K, COMBO_END};
 const uint16_t PROGMEM grave_combo[] = {LEFTSYMBOL, KC_M, COMBO_END};
-const uint16_t PROGMEM shiftcaps_combo[] = {LEFTSYMBOL, OSM(MOD_LSFT), COMBO_END};
 const uint16_t PROGMEM bkslash_combo2[] = {LEFTSYMBOL, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM semicolon_combo[] = {LEFTSYMBOL, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM emdash_combo[] = {LEFTSYMBOL, DASH, COMBO_END};
@@ -138,6 +136,7 @@ const uint16_t PROGMEM tabcombo[] = {LT(FN,KC_ENTER), LCTL_T(KC_SPACE), COMBO_EN
 const uint16_t PROGMEM stabcombo[] = {LT(FN,KC_ENTER), SC_SUPERQUES, COMBO_END};
 const uint16_t PROGMEM numlockcombo[] = {ES_DLR, KC_KP_4, COMBO_END};
 const uint16_t PROGMEM numlayercombo[] = {OSL(NUMPAD), SC_SUPERQUES, COMBO_END};
+const uint16_t PROGMEM capslockcombo[] = {SCMD_T(KC_H), KC_N, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -146,8 +145,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [R2_QUOTE] = COMBO(r2quote_combo, SC_CLOSEQUOTE),
   [L1_QUOTE] = COMBO(l1quote_combo, SC_OPEN1QUOTE),
   [L2_QUOTE] = COMBO(l2quote_combo, SC_OPENQUOTE),
-  [SHIFT_CAPS] = COMBO(shiftcaps_combo, XXX),
-  [RSHIFT_CAPS] = COMBO(rshiftcaps_combo, XXX),
   [SEMICOLON] = COMBO(semicolon_combo, XXX),
   [ANDCOMBO] = COMBO(and_combo, ES_AMPR),
   [PLPLENDCOMBO] = COMBO(plusplusend_combo, XXX),
@@ -197,6 +194,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [STABCOMBO] = COMBO(stabcombo, S(KC_TAB)),
   [NUMLOCKCOMBO] = COMBO(numlockcombo, KC_NUMLOCK),
   [NUMLAYERCOMBO] = COMBO(numlayercombo, XXX),
+  [CAPSLOCKCOMBO] = COMBO(capslockcombo, KC_CAPSLOCK),
 };
 
 
@@ -215,16 +213,6 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   switch(combo_index) {
     case DOT_BUL:
       SendAltCode(BULLET, 4);
-    break;
-    case SHIFT_CAPS:
-      register_code(KC_CAPSLOCK);
-      unregister_code(KC_CAPSLOCK);
-      tap_code(KC_LSHIFT);
-    break;
-    case RSHIFT_CAPS:
-      register_code(KC_CAPSLOCK);
-      unregister_code(KC_CAPSLOCK);
-      tap_code(KC_LSHIFT);
     break;
     case SEMICOLON:
       SEND_STRING(SS_LSFT(SS_TAP(X_COMMA)));
