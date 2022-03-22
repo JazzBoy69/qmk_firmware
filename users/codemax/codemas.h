@@ -146,16 +146,16 @@ enum custom_keycodes {
 #define TH_L3                                             XXX
 #define THUMB_R1                                          SC_SUPERQUES,    LCTL_T(KC_SPACE)
 #define TH_R2                                             _______
-#define TH_R3                                             TO(NUMPAD)
+#define TH_R3                                             _______
 
 
-#define ________________NUMPAD_L1_________________        TO(COLEMAK),      ___,  ___, S(KC_F), ___,  ___
-#define ________________NUMPAD_L2_________________        KC_NUMLOCK,   S(KC_A),  ___, S(KC_E), ___, S(KC_D)
-#define ________________NUMPAD_L3_________________        OSM(MOD_LSFT),    ___,  ___, S(KC_C), ___, S(KC_B)
+#define ________________NUMPAD_L1_________________        TO(COLEMAK),     ___,     ___, S(KC_F),    ___,   ___
+#define ________________NUMPAD_L2_________________        XXX,         S(KC_A),     ___, S(KC_E),    ___, S(KC_D)
+#define ________________NUMPAD_L3_________________        TO(NUMPAD),      ___,     ___, S(KC_C),    ___, S(KC_B)
 
-#define ________________NUMPAD_R1_________________        XXX,           KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
-#define ________________NUMPAD_R2_________________        ES_AMPR,       KC_KP_4, KC_KP_5, KC_KP_6, ES_SEMI,      KC_KP_PLUS
-#define ________________NUMPAD_R3_________________        ES_DLR,        KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_SLASH,  KC_ENTER
+#define ________________NUMPAD_R1_________________        ES_HASH,      KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
+#define ________________NUMPAD_R2_________________        ES_DLR,       KC_KP_4, KC_KP_5, KC_KP_6, ES_SEMI,      KC_KP_PLUS
+#define ________________NUMPAD_R3_________________        ES_AMPR,      KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_SLASH,  KC_ENTER
 
 #define _____NUM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
 #define _____NUM_BOTTOM_R1_________                       KC_SPACE,    KC_COMMA,  KC_DOT
@@ -165,8 +165,8 @@ enum custom_keycodes {
 #define NUM_L2                                            ___
 #define NUM_L3                                            ___
 #define NUM_R1                                            KC_ESCAPE,  KC_KP_0
-#define NUM_R2                                            KC_NUMLOCK
-#define NUM_R3                                            TO(COLEMAK)
+#define NUM_R2                                            ___
+#define NUM_R3                                            ___
 
 
 
@@ -534,6 +534,7 @@ bool handle_keypress(uint16_t keycode) {
     case SP_CO:
       SEND_STRING(SS_TAP(X_C));
       press_tilde_and_letter(KC_O);
+      SEND_STRING(SS_TAP(X_M) SS_DELAY(20) SS_TAP(X_O) SS_DELAY(20) SS_TAP(X_SPACE));
     break;
     case SP_CUA:
       SEND_STRING(SS_TAP(X_C) SS_TAP(X_U));

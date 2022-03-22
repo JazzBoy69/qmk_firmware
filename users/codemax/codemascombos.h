@@ -54,7 +54,9 @@ enum combo_events {
   QUOCOMBO,
   QUISPA,
   TABCOMBO,
-  STABCOMBO,//58
+  STABCOMBO,
+  NUMLOCKCOMBO,
+  NUMLAYERCOMBO,//60
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -132,8 +134,10 @@ const uint16_t PROGMEM quocombo[] = {KC_Q, KC_O, COMBO_END};
 
 const uint16_t PROGMEM quispa[] = {SP_N, SP_I, COMBO_END};
 
-const uint16_t PROGMEM tabcombo[] = {LT(MIRRORED,KC_BSPACE), LCTL_T(KC_SPACE), COMBO_END};
-const uint16_t PROGMEM stabcombo[] = {LT(MIRRORED,KC_BSPACE), SC_SUPERQUES, COMBO_END};
+const uint16_t PROGMEM tabcombo[] = {LT(FN,KC_ENTER), LCTL_T(KC_SPACE), COMBO_END};
+const uint16_t PROGMEM stabcombo[] = {LT(FN,KC_ENTER), SC_SUPERQUES, COMBO_END};
+const uint16_t PROGMEM numlockcombo[] = {ES_DLR, KC_KP_4, COMBO_END};
+const uint16_t PROGMEM numlayercombo[] = {OSL(NUMPAD), SC_SUPERQUES, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -191,6 +195,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [QUISPA] = COMBO(quispa, XXX),
   [TABCOMBO] = COMBO(tabcombo, KC_TAB),
   [STABCOMBO] = COMBO(stabcombo, S(KC_TAB)),
+  [NUMLOCKCOMBO] = COMBO(numlockcombo, KC_NUMLOCK),
+  [NUMLAYERCOMBO] = COMBO(numlayercombo, XXX),
 };
 
 
@@ -287,6 +293,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       reset_oneshot_layer();
       layer_off(SPANISH);
       layer_on(COLEMAK);
+    break;
+    case NUMLAYERCOMBO:
+      layer_on(NUMPAD);
     break;
   }
 }
