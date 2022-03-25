@@ -92,9 +92,7 @@ enum custom_keycodes {
   OPENCLOSEBRACKETS,
   DELWORD,
   LOCKALT,
-  SC_SEC,
   SC_INVBANG,
-  SC_PAR,
   SC_DOT,
   SC_COMMA,
   SC_INVQUES,
@@ -170,9 +168,9 @@ enum custom_keycodes {
 
 
 
-#define ________________SPANSH_L1_________________        ___,   KC_Q,  ___,  ___, SC_PAR, SP_G
-#define ________________SPANSH_L2_________________        ___,   SP_A,  ___,  SC_SEC, ES_IEXL, ___
-#define ________________SPANSH_L3_________________        OSM(MOD_LSFT),  ___,  ___, ___, ___, ___
+#define ________________SPANSH_L1_________________        ___,   KC_Q,        ___,     ___,     ___, SP_G
+#define ________________SPANSH_L2_________________        ___,   SP_A,  S(KC_TAB),  KC_TAB, ES_IEXL, ___
+#define ________________SPANSH_L3_________________        OSM(MOD_LSFT),      ___,     ___,     ___, ___, ___
 
 #define ________________SPANSH_R1_________________        ___,  KC_LALT,  SP_U, SP_Y, SP_CUA,   ___
 #define ________________SPANSH_R2_________________        SC_QUE, SP_N, SP_E, SP_I,  SP_O, ___
@@ -182,7 +180,7 @@ enum custom_keycodes {
 #define _____SPA_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
 
 
-#define SPA_L1                                            S(KC_TAB), KC_TAB
+#define SPA_L1                                            TO(COLEMAK), ___
 #define SPA_L2                                            ___
 #define SPA_L3                                            ___
 #define SPA_R1                                            SC_SUPERINVQUES,  SC_SUPERDOT
@@ -608,14 +606,6 @@ bool handle_shiftedsymbols(uint16_t keycode) {
 
 bool handle_unicode(uint16_t keycode) {
   switch (keycode) {
-  case SC_SEC:
-      SendAltCode(SEC, 4);
-      return true;
-    break;
-    case SC_PAR:
-      SendAltCode(PAR, 4);;
-      return true;
-    break;
     case SC_COMMA:
       SendAltCode(COMMA, 4);
       return true;

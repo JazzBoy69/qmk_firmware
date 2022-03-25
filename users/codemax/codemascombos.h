@@ -56,7 +56,9 @@ enum combo_events {
   NUMLOCKCOMBO,
   NUMLAYERCOMBO,
   CAPSLOCKCOMBO,
-  //59
+  SECCOMBO,
+  PARCOMBO,
+  //61
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -83,6 +85,8 @@ const uint16_t PROGMEM hash_combo[] = {RIGHTSYMBOL, KC_C, COMBO_END};
 const uint16_t PROGMEM numhash_combo[] = {KC_KP_4, KC_KP_5, KC_KP_6, COMBO_END};
 const uint16_t PROGMEM dlr_combo[] = {RIGHTSYMBOL, KC_V, COMBO_END};
 const uint16_t PROGMEM perc_combo[] = {RIGHTSYMBOL, KC_B, COMBO_END};
+const uint16_t PROGMEM par_combo[] = {RIGHTSYMBOL, KC_P, COMBO_END};
+const uint16_t PROGMEM sec_combo[] = {RIGHTSYMBOL, KC_S, COMBO_END};
 
 const uint16_t PROGMEM tilde_combo[] = {LEFTSYMBOL, KC_J, COMBO_END};
 const uint16_t PROGMEM pipe_combo[] = {LEFTSYMBOL, KC_Y, COMBO_END};
@@ -195,6 +199,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [NUMLOCKCOMBO] = COMBO(numlockcombo, KC_NUMLOCK),
   [NUMLAYERCOMBO] = COMBO(numlayercombo, XXX),
   [CAPSLOCKCOMBO] = COMBO(capslockcombo, KC_CAPSLOCK),
+  [SECCOMBO] = COMBO(sec_combo, XXX),
+  [PARCOMBO] = COMBO(par_combo, XXX),
 };
 
 
@@ -211,6 +217,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   handle_shifttimer();
   if (!pressed) return;
   switch(combo_index) {
+    case SECCOMBO:
+      SendAltCode(SEC, 4);
+    break;
+    case PARCOMBO:
+      SendAltCode(PAR, 4);;
+    break;
     case DOT_BUL:
       SendAltCode(BULLET, 4);
     break;
