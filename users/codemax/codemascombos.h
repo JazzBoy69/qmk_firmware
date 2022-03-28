@@ -55,10 +55,11 @@ enum combo_events {
   STABCOMBO,
   NUMLOCKCOMBO,
   NUMLAYERCOMBO,
+  CANCELNUMLAYER,
   CAPSLOCKCOMBO,
   SECCOMBO,
   PARCOMBO,
-  //61
+  //62
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -139,7 +140,8 @@ const uint16_t PROGMEM quispa[] = {SP_N, SP_I, COMBO_END};
 const uint16_t PROGMEM tabcombo[] = {LT(FN,KC_ENTER), LCTL_T(KC_SPACE), COMBO_END};
 const uint16_t PROGMEM stabcombo[] = {LT(FN,KC_ENTER), SC_SUPERQUES, COMBO_END};
 const uint16_t PROGMEM numlockcombo[] = {ES_DLR, KC_KP_4, COMBO_END};
-const uint16_t PROGMEM numlayercombo[] = {OSL(NUMPAD), SC_SUPERQUES, COMBO_END};
+const uint16_t PROGMEM numlayercombo[] = {KC_T, LT(NAV,KC_D), COMBO_END};
+const uint16_t PROGMEM cancelnumlayer[] = {KC_T, S(KC_D), COMBO_END};
 const uint16_t PROGMEM capslockcombo[] = {SCMD_T(KC_H), KC_N, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -201,6 +203,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [CAPSLOCKCOMBO] = COMBO(capslockcombo, KC_CAPSLOCK),
   [SECCOMBO] = COMBO(sec_combo, XXX),
   [PARCOMBO] = COMBO(par_combo, XXX),
+  [CANCELNUMLAYER] = COMBO(cancelnumlayer, XXX),
 };
 
 
@@ -296,6 +299,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     break;
     case NUMLAYERCOMBO:
       layer_on(NUMPAD);
+    break;
+    case CANCELNUMLAYER:
+      layer_off(NUMPAD);
     break;
   }
 }
