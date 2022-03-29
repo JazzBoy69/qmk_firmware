@@ -59,7 +59,9 @@ enum combo_events {
   CAPSLOCKCOMBO,
   SECCOMBO,
   PARCOMBO,
-  //62
+  FIVEBACK,
+  THREEBACK,
+  //64
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -143,6 +145,8 @@ const uint16_t PROGMEM numlockcombo[] = {ES_DLR, KC_KP_4, COMBO_END};
 const uint16_t PROGMEM numlayercombo[] = {KC_T, LT(NAV,KC_D), COMBO_END};
 const uint16_t PROGMEM cancelnumlayer[] = {KC_T, S(KC_D), COMBO_END};
 const uint16_t PROGMEM capslockcombo[] = {SCMD_T(KC_H), KC_N, COMBO_END};
+const uint16_t PROGMEM fiveback[] = {SCMD_T(KC_H), LT(MIRRORED,KC_BSPACE), COMBO_END};
+const uint16_t PROGMEM threeback[] = {LT(MIRRORED,KC_BSPACE), KC_N, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -204,6 +208,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [SECCOMBO] = COMBO(sec_combo, XXX),
   [PARCOMBO] = COMBO(par_combo, XXX),
   [CANCELNUMLAYER] = COMBO(cancelnumlayer, XXX),
+  [FIVEBACK] = COMBO(fiveback, XXX),
+  [THREEBACK] = COMBO(threeback, XXX),
 };
 
 
@@ -302,6 +308,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     break;
     case CANCELNUMLAYER:
       layer_off(NUMPAD);
+    break;
+    case FIVEBACK:
+      SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC));
+    break;
+    case THREEBACK:
+      SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC));
     break;
   }
 }
