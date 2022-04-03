@@ -306,6 +306,8 @@ enum custom_keycodes {
 #define MRS_R3                                            _______
 
 
+#define ________________MEDIA_____________________           KC_MSTP,   KC_MPRV,  ___, KC_MPLY,  KC_MNXT,  ___
+
 uint8_t caps_lock_on(void);
 uint8_t shift_pressed(void);
 bool shift_held(void);

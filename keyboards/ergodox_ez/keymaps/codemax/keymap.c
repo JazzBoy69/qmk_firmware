@@ -33,10 +33,10 @@
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [COLEMAK] = LAYOUT_ergodox_base_wrapper(
-        ________________BLOCK_____________________, XXX,          XXX, ________________BLOCK_____________________, 
-        ________________COLEMAK_L1________________, XXX,          XXX, ________________COLEMAK_R1________________, 
+        ________________MEDIA_____________________, KC_MUTE,          XXX, ________________BLOCK_____________________, 
+        ________________COLEMAK_L1________________, KC_VOLU,          XXX, ________________COLEMAK_R1________________, 
         ________________COLEMAK_L2________________,                    ________________COLEMAK_R2________________,
-        ________________COLEMAK_L3________________, XXX,          XXX, ________________COLEMAK_R3________________,
+        ________________COLEMAK_L3________________, KC_VOLD,          XXX, ________________COLEMAK_R3________________,
     XXX, KC_SPACE, _________BOTTOM_L1_________,                        _________BOTTOM_R1_________, XXX, XXX,
                                                     XXX,XXX,  KC_PSCREEN, XXX,
                                                       TH_L2,  TH_R2,
