@@ -36,8 +36,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ________________BLOCK_____________________, XXX,          XXX, ________________BLOCK_____________________, 
         ________________COLEMAK_L1________________, XXX,          XXX, ________________COLEMAK_R1________________, 
         ________________COLEMAK_L2________________,                    ________________COLEMAK_R2________________,
-        ________________COLEMAK_L3________________, XXX,      XXX, ________________COLEMAK_R3________________,
-    XXX, XXX,     _________BOTTOM_L1_________,                                     _________BOTTOM_R1_________, XXX, XXX,
+        ________________COLEMAK_L3________________, XXX,          XXX, ________________COLEMAK_R3________________,
+    XXX, KC_SPACE, _________BOTTOM_L1_________,                        _________BOTTOM_R1_________, XXX, XXX,
                                                     XXX,XXX,  KC_PSCREEN, XXX,
                                                       TH_L2,  TH_R2,
                                             THUMB_L1, TH_L3,  TH_R3, THUMB_R1
