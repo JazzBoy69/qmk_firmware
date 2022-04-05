@@ -61,7 +61,8 @@ enum combo_events {
   PARCOMBO,
   FIVEBACK,
   THREEBACK,
-  //64
+  NONBREAKING,
+  //65
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -99,6 +100,7 @@ const uint16_t PROGMEM grave_combo[] = {LEFTSYMBOL, KC_M, COMBO_END};
 const uint16_t PROGMEM bkslash_combo2[] = {LEFTSYMBOL, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM semicolon_combo[] = {LEFTSYMBOL, KC_COMMA, COMBO_END};
 const uint16_t PROGMEM emdash_combo[] = {LEFTSYMBOL, DASH, COMBO_END};
+const uint16_t PROGMEM nonbreaking[] = {LEFTSYMBOL, LCTL_T(KC_SPACE), COMBO_END};
 
 const uint16_t PROGMEM endtag_combo[] = {LEFTSHIFTSYMBOL, KC_L, COMBO_END};
 const uint16_t PROGMEM parensemi_combo[] = {LEFTSHIFTSYMBOL, KC_E, COMBO_END};
@@ -210,6 +212,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [CANCELNUMLAYER] = COMBO(cancelnumlayer, XXX),
   [FIVEBACK] = COMBO(fiveback, XXX),
   [THREEBACK] = COMBO(threeback, XXX),
+  [NONBREAKING] = COMBO(nonbreaking, XXX),
 };
 
 
@@ -314,6 +317,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     break;
     case THREEBACK:
       SEND_STRING(SS_TAP(X_BSPC) SS_TAP(X_BSPC) SS_TAP(X_BSPC));
+    break;
+    case NONBREAKING:
+      SendAltCode(NONBREAKINGSPACE, 3);
     break;
   }
 }

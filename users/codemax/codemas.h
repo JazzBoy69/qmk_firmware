@@ -62,6 +62,7 @@ uint16_t INVBANG[4] = { KC_KP_0, KC_KP_1, KC_KP_6, KC_KP_1 };
 uint16_t COMMA[4] = { KC_KP_0, KC_KP_1, KC_KP_8, KC_KP_0 };
 uint16_t DOT[4] = { KC_KP_0, KC_KP_1, KC_KP_8, KC_KP_3 };
 uint16_t BULLET[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_9 };
+uint16_t NONBREAKINGSPACE[3] = {KC_KP_2, KC_KP_5, KC_KP_5 };
 
 
 #ifdef ERGODOX
