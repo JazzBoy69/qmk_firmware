@@ -73,11 +73,7 @@ enum combo_events {
 #define DASH KC_COMMA, KC_DOT
 
 
-const uint16_t PROGMEM fem_combo[] = {RIGHTUNICODE, KC_A, COMBO_END};
-
-const uint16_t PROGMEM masc_combo[] = {LEFTUNICODE, KC_O, COMBO_END};
-const uint16_t PROGMEM sdot_combo[] = {LEFTUNICODE, KC_DOT, COMBO_END};
-
+const uint16_t PROGMEM fem_combo[] = {RIGHTSYMBOL, KC_A, COMBO_END};
 const uint16_t PROGMEM parbksp_combo[] = {RIGHTSYMBOL, LT(MIRRORED,KC_BSPACE), COMBO_END};
 const uint16_t PROGMEM l1quote_combo[] = {RIGHTSYMBOL, KC_Q, COMBO_END};
 const uint16_t PROGMEM and_combo[] = {RIGHTSYMBOL, KC_W, COMBO_END};
@@ -100,6 +96,8 @@ const uint16_t PROGMEM emdash_combo[] = {LEFTSYMBOL, DASH, COMBO_END};
 const uint16_t PROGMEM nonbreaking[] = {LEFTSYMBOL, LCTL_T(KC_SPACE), COMBO_END};
 const uint16_t PROGMEM parensemi_combo[] = {LEFTSYMBOL, KC_E, COMBO_END};
 const uint16_t PROGMEM scolonenter_combo[] = {LEFTSYMBOL, KC_COMMA, COMBO_END};
+const uint16_t PROGMEM masc_combo[] = {LEFTSYMBOL, KC_O, COMBO_END};
+const uint16_t PROGMEM sdot_combo[] = {LEFTSYMBOL, KC_DOT, COMBO_END};
 
 
 const uint16_t PROGMEM r2quote_combo[] = {LEFTSHIFTSYMBOL, SP_QUOTE, COMBO_END};
