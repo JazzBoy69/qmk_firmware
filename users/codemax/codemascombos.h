@@ -31,6 +31,7 @@ enum combo_events {
   BKSLASH2, 
   EMDASHCOMBO,
   EXACTLYEQUAL,
+  NOTEXACTLYEQUAL,
   PARENSEMI,
   MASC, 
   LBRACE, 
@@ -60,7 +61,7 @@ enum combo_events {
   FIVEBACK,
   THREEBACK,
   NONBREAKING,
-  //65
+  //64
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -107,6 +108,7 @@ const uint16_t PROGMEM para_combo[] = {KC_W, MEH_T(KC_F), KC_P, COMBO_END};
 
 const uint16_t PROGMEM notequal_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM exactlyequal_combo[] = {KC_Z, KC_X, KC_C, COMBO_END};
+const uint16_t PROGMEM notexactlyequal_combo[] = {KC_Z, KC_X, KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM equals_combo[] = {KC_X, KC_V, COMBO_END};
 const uint16_t PROGMEM excl_combo[] = {KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM eql_combo[] = {KC_X, KC_C, COMBO_END};
@@ -172,6 +174,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [BKSLASH2] = COMBO(bkslash_combo2, ES_BSLS),
   [EMDASHCOMBO] = COMBO(emdash_combo, XXX),
   [EXACTLYEQUAL] = COMBO(exactlyequal_combo, XXX),
+  [NOTEXACTLYEQUAL] = COMBO(notexactlyequal_combo, XXX),
   [PARENSEMI] = COMBO(parensemi_combo, XXX),
   [MIMICOMBO] = COMBO(minusminus_combo, XXX),
   [MASC] = COMBO(masc_combo, ES_MORD),
@@ -256,6 +259,9 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     break;
     case EXACTLYEQUAL:
       SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_0)));
+    break;
+    case NOTEXACTLYEQUAL:
+      SEND_STRING(SS_LSFT(SS_TAP(X_1) SS_TAP(X_0) SS_TAP(X_0)));
     break;
     case PARENSEMI:
       SEND_STRING(SS_LSFT(SS_TAP(X_8) SS_TAP(X_9) SS_TAP(X_COMMA)));
