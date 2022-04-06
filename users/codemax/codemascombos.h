@@ -80,7 +80,6 @@ const uint16_t PROGMEM and_combo[] = {RIGHTSYMBOL, KC_W, COMBO_END};
 const uint16_t PROGMEM bkslash_combo[] = {RIGHTSYMBOL, KC_Z, COMBO_END};
 const uint16_t PROGMEM at_combo[] = {RIGHTSYMBOL, KC_X, COMBO_END};
 const uint16_t PROGMEM hash_combo[] = {RIGHTSYMBOL, KC_C, COMBO_END};
-const uint16_t PROGMEM numhash_combo[] = {KC_KP_4, KC_KP_5, KC_KP_6, COMBO_END};
 const uint16_t PROGMEM dlr_combo[] = {RIGHTSYMBOL, KC_V, COMBO_END};
 const uint16_t PROGMEM perc_combo[] = {RIGHTSYMBOL, KC_B, COMBO_END};
 const uint16_t PROGMEM par_combo[] = {RIGHTSYMBOL, KC_P, COMBO_END};
@@ -127,6 +126,7 @@ const uint16_t PROGMEM rbrace_combo[] = {KC_M, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM numrparen_combo[] = {KC_KP_3, KC_KP_SLASH, COMBO_END};
 const uint16_t PROGMEM numlparen_combo[] = {KC_KP_6, ES_SEMI, COMBO_END};
 const uint16_t PROGMEM numcaret_combo[] = {KC_KP_1, KC_KP_2, KC_KP_3, COMBO_END};
+const uint16_t PROGMEM numhash_combo[] = {KC_KP_4, KC_KP_5, KC_KP_6, COMBO_END};
 
 const uint16_t PROGMEM quacombo[] = {KC_Q, SP_QUOTE, COMBO_END};
 const uint16_t PROGMEM quecombo[] = {KC_Q, KC_E, COMBO_END};
@@ -137,10 +137,10 @@ const uint16_t PROGMEM quispa[] = {SP_N, SP_I, COMBO_END};
 
 const uint16_t PROGMEM tabcombo[] = {LT(FN,KC_ENTER), LCTL_T(KC_SPACE), COMBO_END};
 const uint16_t PROGMEM stabcombo[] = {LT(FN,KC_ENTER), SC_SUPERQUES, COMBO_END};
-const uint16_t PROGMEM numlockcombo[] = {ES_DLR, KC_KP_4, COMBO_END};
+const uint16_t PROGMEM numlockcombo[] = {KC_T, ES_DLR, KC_KP_4, COMBO_END};
 const uint16_t PROGMEM numlayercombo[] = {KC_T, LT(NAV,KC_D), COMBO_END};
 const uint16_t PROGMEM cancelnumlayer[] = {KC_T, S(KC_D), COMBO_END};
-const uint16_t PROGMEM capslockcombo[] = {SCMD_T(KC_H), KC_N, COMBO_END};
+const uint16_t PROGMEM capslockcombo[] = {KC_T, SCMD_T(KC_H), KC_N, COMBO_END};
 const uint16_t PROGMEM fiveback[] = {SCMD_T(KC_H), LT(MIRRORED,KC_BSPACE), COMBO_END};
 const uint16_t PROGMEM threeback[] = {LT(MIRRORED,KC_BSPACE), KC_N, COMBO_END};
 
