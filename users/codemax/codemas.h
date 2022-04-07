@@ -122,6 +122,7 @@ enum custom_keycodes {
   SC_QUIEN,
   SP_CUA,
   SP_CO,
+  SP_SPACEEND,
 };
 
 
@@ -143,7 +144,7 @@ enum custom_keycodes {
 #define ________BLANK_BOTTOM_______                       ___,  ___,  ___
 #define THUMB_L1                                          LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER)
 #define TH_L2                                             XXX
-#define TH_L3                                             XXX
+#define TH_L3                                             TO(NUMPAD)
 #define THUMB_R1                                          SC_SUPERQUES,    LCTL_T(KC_SPACE)
 #define TH_R2                                             _______
 #define TH_R3                                             _______
@@ -151,7 +152,7 @@ enum custom_keycodes {
 
 #define ________________NUMPAD_L1_________________        TO(COLEMAK),     ___,     ___, S(KC_F),    ___,   ___
 #define ________________NUMPAD_L2_________________        XXX,         S(KC_A),     ___, S(KC_E),    ___, S(KC_D)
-#define ________________NUMPAD_L3_________________        TO(NUMPAD),      ___,     ___, S(KC_C),    ___, S(KC_B)
+#define ________________NUMPAD_L3_________________        ___,             ___,     ___, S(KC_C),    ___, S(KC_B)
 
 #define ________________NUMPAD_R1_________________        ES_HASH,      KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
 #define ________________NUMPAD_R2_________________        ES_DLR,       KC_KP_4, KC_KP_5, KC_KP_6, ES_SEMI,      KC_KP_PLUS
@@ -161,7 +162,7 @@ enum custom_keycodes {
 #define _____NUM_BOTTOM_R1_________                       KC_SPACE,    KC_COMMA,  KC_DOT
 
 
-#define NUM_L1                                            LALT_T(KC_BSPACE), ___
+#define NUM_L1                                            LALT_T(KC_BSPACE), SP_SPACEEND
 #define NUM_L2                                            ___
 #define NUM_L3                                            ___
 #define NUM_R1                                            KC_ESCAPE,  KC_KP_0
@@ -441,6 +442,11 @@ bool handle_keypress(uint16_t keycode) {
       reset_oneshot_layer();
       layer_off(SPANISH);
       layer_on(COLEMAK);
+      return true;
+    break;
+    case SP_SPACEEND:
+      SEND_STRING(SS_TAP(X_SPACE));
+      layer_off(NUMPAD);
       return true;
     break;
     case SC_QUIEN:      
