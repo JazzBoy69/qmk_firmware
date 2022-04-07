@@ -139,10 +139,10 @@ const uint16_t PROGMEM quispa[] = {SP_N, SP_I, COMBO_END};
 
 const uint16_t PROGMEM tabcombo[] = {LT(FN,KC_ENTER), LCTL_T(KC_SPACE), COMBO_END};
 const uint16_t PROGMEM stabcombo[] = {LT(FN,KC_ENTER), SC_SUPERQUES, COMBO_END};
-const uint16_t PROGMEM numlockcombo[] = {KC_T, ES_DLR, KC_KP_4, COMBO_END};
-const uint16_t PROGMEM numlayercombo[] = {KC_T, LT(NAV,KC_D), COMBO_END};
-const uint16_t PROGMEM cancelnumlayer[] = {KC_T, S(KC_D), COMBO_END};
-const uint16_t PROGMEM capslockcombo[] = {KC_T, SCMD_T(KC_H), KC_N, COMBO_END};
+const uint16_t PROGMEM numlockcombo[] = {S(KC_E), KC_T, KC_KP_4, COMBO_END};
+const uint16_t PROGMEM numlayercombo[] = {LEFTSYMBOL, KC_E, COMBO_END};
+const uint16_t PROGMEM cancelnumlayer[] = {S(KC_E), KC_T, KC_KP_5, COMBO_END};
+const uint16_t PROGMEM capslockcombo[] = {LEFTSYMBOL, KC_N, COMBO_END};
 const uint16_t PROGMEM fiveback[] = {SCMD_T(KC_H), LT(MIRRORED,KC_BSPACE), COMBO_END};
 const uint16_t PROGMEM threeback[] = {LT(MIRRORED,KC_BSPACE), KC_N, COMBO_END};
 
