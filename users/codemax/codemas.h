@@ -254,7 +254,7 @@ enum custom_keycodes {
 #define ________________MIR_L3____________________        ___,             SP_SLASH,        KC_DOT,        KC_COMMA,      KC_M,         KC_K
 
 #define ________________MIR_R1____________________         SC_ARROW,   SC_ENDTAG,         SC_EMDASH,               ___,       ___,   SC_SURROUNDBRKT
-#define ________________MIR_R2____________________              ___, SC_NOTEQUAL, SC_OPENCLOSEPAREN, OPENCLOSEBRACKETS,   SC_SECTION,   ___
+#define ________________MIR_R2____________________              ___,       ___, SC_OPENCLOSEPAREN, OPENCLOSEBRACKETS,   SC_SECTION,   ___
 #define ________________MIR_R3____________________              ___,         ___,    SC_LESSOREQUAL,   SC_GREATOREQUAL,     ___,   ___
 
 
