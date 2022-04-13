@@ -27,5 +27,5 @@
     "[json]": {
 	    "editor.formatOnSave": false
     },
-    "editor.autoIndent": "advanced"
+    "editor.autoIndent": "full"
 }

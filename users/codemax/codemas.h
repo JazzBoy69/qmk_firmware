@@ -371,6 +371,10 @@ void SendShiftedAltCode(uint16_t shifted[], uint16_t unshifted[]) {
     SEND_STRING(SS_TAP(X_CAPSLOCK) SS_DELAY(30));
   }
   layer_off(MIRUNI);
+  if (true) {
+
+  }
+
 }
 
 void SendAltCode(uint16_t code[], int length) {
@@ -417,6 +421,9 @@ bool handle_keypress(uint16_t keycode) {
     unregister_code(KC_CAPSLOCK);
     SEND_STRING(SS_TAP(X_SPACE));
     return false;
+  }
+  if (shift_pressed() && (keycode == SC_SUPERQUES)) {
+    keycode = SC_SUPERINVQUES;
   }
   if (alt_held()) {
     if (keycode == LCTL_T(KC_SPACE)) {
@@ -536,7 +543,7 @@ bool handle_keypress(uint16_t keycode) {
       SendAltCode(OPENQUOTE, 4);
     break;
     case SC_SECTION:
-      SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) SS_RALT(SS_TAP(X_QUOTE)) SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) SS_RALT(SS_TAP(X_BSLASH)) SS_DELAY(50) SS_TAP(X_UP));
+      SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) SS_RALT(SS_TAP(X_QUOTE)) SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) SS_RALT(SS_TAP(X_BSLASH)) SS_DELAY(50) SS_TAP(X_UP) SS_DELAY(50) SS_TAP(X_TAB));
     break;
     case SC_OPENCLOSEPAREN:
       SEND_STRING(SS_LSFT(SS_TAP(X_8) SS_TAP(X_9)));
