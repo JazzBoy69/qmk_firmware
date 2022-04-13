@@ -101,8 +101,8 @@ const uint16_t PROGMEM sdot_combo[] = {LEFTSYMBOL, KC_DOT, COMBO_END};
 const uint16_t PROGMEM r2quote_combo[] = {LEFTSHIFTSYMBOL, SP_QUOTE, COMBO_END};
 const uint16_t PROGMEM l2quote_combo[] = {RIGHTSHIFTSYMBOL, KC_Q, COMBO_END};
 
-const uint16_t PROGMEM you_combo[] = {KC_L, MEH_T(KC_U), KC_Y, COMBO_END};
-const uint16_t PROGMEM para_combo[] = {KC_W, MEH_T(KC_F), KC_P, COMBO_END};
+const uint16_t PROGMEM you_combo[] = {KC_L, KC_U, KC_Y, COMBO_END};
+const uint16_t PROGMEM para_combo[] = {KC_W, KC_F, KC_P, COMBO_END};
 
 const uint16_t PROGMEM notequal_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM exactlyequal_combo[] = {KC_Z, KC_X, KC_C, COMBO_END};
@@ -141,7 +141,7 @@ const uint16_t PROGMEM numlockcombo[] = {S(KC_E), KC_T, KC_KP_4, COMBO_END};
 const uint16_t PROGMEM numlayercombo[] = {LEFTSYMBOL, KC_E, COMBO_END};
 const uint16_t PROGMEM cancelnumlayer[] = {S(KC_E), KC_T, KC_KP_5, COMBO_END};
 const uint16_t PROGMEM capslockcombo[] = {LEFTSYMBOL, KC_N, COMBO_END};
-const uint16_t PROGMEM fiveback[] = {SCMD_T(KC_H), LT(MIRRORED,KC_BSPACE), COMBO_END};
+const uint16_t PROGMEM fiveback[] = {LT(MIRRORED,KC_BSPACE), KC_E, COMBO_END};
 const uint16_t PROGMEM threeback[] = {LT(MIRRORED,KC_BSPACE), KC_N, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {

@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ________________COLEMAK_L2________________,                    ________________COLEMAK_R2________________,
         ________________COLEMAK_L3________________, KC_VOLD,          XXX, ________________COLEMAK_R3________________,
     XXX, KC_SPACE, _________BOTTOM_L1_________,                        _________BOTTOM_R1_________, XXX, XXX,
-                                                    XXX,XXX,  KC_PSCREEN, XXX,
+                                             KC_MEH,S(KC_LGUI),  S(KC_LGUI), KC_MEH,
                                                       TH_L2,  TH_R2,
                                             THUMB_L1, TH_L3,  TH_R3, THUMB_R1
   ),

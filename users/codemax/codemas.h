@@ -123,6 +123,7 @@ enum custom_keycodes {
   SP_CUA,
   SP_CO,
   SP_SPACEEND,
+  SC_MINI,
 };
 
 
@@ -130,13 +131,13 @@ enum custom_keycodes {
 #define ________________BLOCK_____________________        XXX,     XXX,     XXX,     XXX,     XXX,    XXX
 #define ________________BLANK_____________________        ___,     ___,     ___,     ___,     ___,    ___
 
-#define ________________COLEMAK_L1________________       OSL(NUMPAD),          KC_Q,     KC_W, MEH_T(KC_F), KC_P,    KC_G
+#define ________________COLEMAK_L1________________       OSL(NUMPAD),          KC_Q,     KC_W, KC_F, KC_P,    KC_G
 #define ________________COLEMAK_L2________________       OSL(SPANISH),         KC_A,     KC_R, KC_S,        KC_T,    LT(NAV,KC_D)
 #define ________________COLEMAK_L3________________       OSM(MOD_LSFT),        KC_Z,     KC_X, KC_C,        KC_V,    KC_B
 
-#define ________________COLEMAK_R1________________       KC_J,            KC_L, MEH_T(KC_U),          KC_Y, SP_QUOTE, LGUI_T(KC_CAPSLOCK)
-#define ________________COLEMAK_R2________________       SCMD_T(KC_H),    KC_N,        KC_E,          KC_I,    KC_O,  OSL(SPANISH)
-#define ________________COLEMAK_R3________________       KC_K,            KC_M,    KC_COMMA,        KC_DOT, SP_SLASH, OSM(MOD_LSFT)
+#define ________________COLEMAK_R1________________       KC_J,    KC_L,        KC_U,          KC_Y, SP_QUOTE, LGUI_T(KC_CAPSLOCK)
+#define ________________COLEMAK_R2________________       KC_H,    KC_N,        KC_E,          KC_I,    KC_O,  OSL(SPANISH)
+#define ________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMMA,        KC_DOT, SP_SLASH, OSM(MOD_LSFT)
 
 #define _________BOTTOM_L1_________                       LALT_T(KC_DELETE),   LCTL_T(KC_ESCAPE),  LSFT_T(KC_SPACE)
 #define _________BOTTOM_R1_________                       SC_CLOSESEMI,        ES_SEMI,            ES_COLON  
@@ -229,13 +230,13 @@ enum custom_keycodes {
 #define NAV_R3                                            TO(COLEMAK)
 
 
-#define ________________FN_L1_____________________        RESET,                 ___,           ___,          ___,          ___,     ___
+#define ________________FN_L1_____________________        RESET,                 ___,           ___,      LALT(KC_F4),     SC_MINI,     ___
 #define ________________FN_L2_____________________        KC_SYSTEM_SLEEP,      KC_1,  LALT_T(KC_2), LCTL_T(KC_3), LSFT_T(KC_4), KC_5
 #define ________________FN_L3_____________________        KC_PSCREEN,           KC_6,         KC_7,         KC_8,       KC_9,    KC_0
 
-#define ________________FN_R1_____________________        XXX, KC_F7, KC_F8, KC_F9, XXX,  KC_F12
-#define ________________FN_R2_____________________        XXX, KC_F4, KC_F5, KC_F6, XXX,  LALT(LCTL(KC_DEL))
-#define ________________FN_R3_____________________        XXX, KC_F1, KC_F2, KC_F3, XXX,  KC_SYSTEM_POWER
+#define ________________FN_R1_____________________        XXX,           KC_F7, KC_F8, KC_F9, XXX,  KC_F12
+#define ________________FN_R2_____________________        SC_MINI,       KC_F4, KC_F5, KC_F6, XXX,  LALT(LCTL(KC_DEL))
+#define ________________FN_R3_____________________        XXX,           KC_F1, KC_F2, KC_F3, XXX,  KC_SYSTEM_POWER
 
 
 #define _____FN_BOTTOM_L1__________                       ________BLANK_BOTTOM_______
@@ -314,6 +315,7 @@ enum custom_keycodes {
 uint8_t caps_lock_on(void);
 uint8_t shift_pressed(void);
 bool shift_held(void);
+bool alt_held(void);
 uint8_t current_layer = 0;
 uint16_t change_time = 0;
 bool handle_keypress(uint16_t keycode);
@@ -410,6 +412,26 @@ bool handle_keypress(uint16_t keycode) {
     register_code(KC_CAPSLOCK);
     unregister_code(KC_CAPSLOCK);
   }
+  if (caps_lock_on() && (keycode == LT(FN,KC_ENTER))) {
+    register_code(KC_CAPSLOCK);
+    unregister_code(KC_CAPSLOCK);
+    SEND_STRING(SS_TAP(X_SPACE));
+    return false;
+  }
+  if (alt_held()) {
+    if (keycode == LCTL_T(KC_SPACE)) {
+      register_code(KC_TAB);
+      unregister_code(KC_TAB);
+      return false;
+    }
+    if (keycode == SC_SUPERQUES) {
+      register_code(KC_LSHIFT);
+      register_code(KC_TAB);
+      unregister_code(KC_TAB);
+      unregister_code(KC_LSHIFT);
+      return false;
+    }
+  }
   if (handle_unicode(keycode)) {
     layer_off(MIRUNI);
     return false;
@@ -421,6 +443,10 @@ bool handle_keypress(uint16_t keycode) {
       shift_time = timer_read();
     break; 
     case SC_SUPERDOT:
+      if (caps_lock_on()) {
+        register_code(KC_CAPSLOCK);
+        unregister_code(KC_CAPSLOCK);
+      }
       SEND_STRING(SS_TAP(X_DOT) SS_TAP(X_SPACE));
       shift_time = timer_read();
     break;  
@@ -442,7 +468,7 @@ bool handle_keypress(uint16_t keycode) {
       reset_oneshot_layer();
       layer_off(SPANISH);
       layer_on(COLEMAK);
-      return true;
+      return false;
     break;
     case SP_SPACEEND:
       SEND_STRING(SS_TAP(X_SPACE));
@@ -535,6 +561,9 @@ bool handle_keypress(uint16_t keycode) {
     break;
     case SC_SURROUNDBRKT:
       SEND_STRING(SS_LCTL(SS_TAP(X_X)) SS_DELAY(20) SS_LSFT(SS_TAP(X_TAB)) SS_DELAY(20) SS_RALT(SS_TAP(X_QUOTE)) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_RALT(SS_TAP(X_BSLASH)) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_TAP(X_TAB) SS_DELAY(20) SS_LCTL(SS_TAP(X_V)));
+    break;
+    case SC_MINI:
+      SEND_STRING(SS_LALT(SS_TAP(X_SPACE)) SS_TAP(X_N));
     break;
     case SC_SELECTLINE:
       SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME)));
@@ -706,3 +735,7 @@ uint8_t shift_pressed() {
 bool shift_held() {
     return ((get_mods() & MOD_BIT(KC_LSHIFT)) == MOD_BIT(KC_LSHIFT));
   }
+
+bool alt_held() {
+  return ((get_mods() & MOD_BIT(KC_LALT)) == MOD_BIT(KC_LALT));
+}
