@@ -46,16 +46,16 @@ i2c_status_t i2c_receive(uint8_t address, uint8_t* data, uint16_t length, uint16
 Receive multiple bytes from the selected SPI device.
 
 Arguments
-```uint8_t address```
-The 7-bit I2C address of the device.
-```uint8_t *data```
-A pointer to the buffer to read into.
-```uint16_t length```
-The number of bytes to read. Take care not to overrun the length of data.
-```uint16_t timeout```
-The time in milliseconds to wait for a response from the target device.
-Return Value
-I2C_STATUS_TIMEOUT if the timeout period elapses, I2C_STATUS_ERROR if some other error occurs, otherwise I2C_STATUS_SUCCESS.
+
+```uint8_t address``` The 7-bit I2C address of the device.
+
+```uint8_t *data``` A pointer to the buffer to read into.
+
+```uint16_t length``` The number of bytes to read. Take care not to overrun the length of data.
+
+```uint16_t timeout``` The time in milliseconds to wait for a response from the target device.
+
+Return Value I2C_STATUS_TIMEOUT if the timeout period elapses, I2C_STATUS_ERROR if some other error occurs, otherwise I2C_STATUS_SUCCESS.
 
 
 	Send row/column info
