@@ -1,7 +1,7 @@
 Keyboard/Mouse QMK Converter Firmware
 ======================
 
-These configuration files does not implement the ‘matrix scan’ in the same way that other keyboards do. This converter relies on an external controller to maintain a matrix of keystates and receives the matrix state from the external controller. It also requests rotary encoder and mouse info from the external controller. This project allows QMK features to be used on the received matrix and mouse info.
+This converter does not implement the ‘matrix scan’ in the same way that other keyboards do. It relies on an external controller to maintain a matrix of keystates and send the information. It also receives rotary encoder and mouse information from the external controller. The converter uses QMK to process the received information.
 
 This can be useful if: 1) the attached keyboard does not implement QMK, 2) the attached mouse does not implement QMK, and/or 3) you want to use the mouse and keyboard as one QMK device.
 
@@ -15,6 +15,9 @@ setup microcontroller to send info to host
 
 ## Program to convert input to matrix info
 
+pygame
+
+5 x 24 matrix 120 keys
 ``Pseudocode
 ``
 
