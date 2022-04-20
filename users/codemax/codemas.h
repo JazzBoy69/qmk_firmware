@@ -151,7 +151,7 @@ enum custom_keycodes {
 #define TH_R3                                             _______
 
 
-#define ________________NUMPAD_L1_________________        TO(COLEMAK),     ___,     ___, S(KC_F),    ___,   ___
+#define ________________NUMPAD_L1_________________        TO(COLEMAK),     ___,     ___, S(KC_F),    ___, ___
 #define ________________NUMPAD_L2_________________        XXX,         S(KC_A),     ___, S(KC_E),    ___, S(KC_D)
 #define ________________NUMPAD_L3_________________        ___,             ___,     ___, S(KC_C),    ___, S(KC_B)
 
@@ -191,24 +191,6 @@ enum custom_keycodes {
 #define SPA_R2                                            ___
 #define SPA_R3                                            ___
 
-#define ________________SYM_L1_________________        ___,   SC_OPEN1QUOTE,  ES_AMPR,  ES_PLUS, ES_ASTR, ES_EQL
-#define ________________SYM_L2_________________        ___,   SP_LBKT,  ES_LBRC,  ES_LPRN, ES_EXLM, ___
-#define ________________SYM_L3_________________        ___,   ES_SLSH,  ES_AT,  ES_HASH, ES_DLR, ES_PERC
-
-#define ________________SYM_R1_________________        ES_TILD,  ES_SLSH,  ES_MINS, ES_PIPE, SC_CLOSE1QUOTE,   ___
-#define ________________SYM_R2_________________        ___, SC_EQUALS, ES_RPRN, ES_RBRC,  SP_RBKT, ___
-#define ________________SYM_R3_________________        SP_CARET, SP_GRAVE, ES_SEMI, ES_COLON, ES_BSLS, ___
-
-#define _____SYM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
-#define _____SYM_BOTTOM_R1_________                       ________BLANK_BOTTOM_______
-
-
-#define SYM_L1                                            LCTL(KC_BSPACE), ___
-#define SYM_L2                                            ___
-#define SYM_L3                                            ___
-#define SYM_R1                                            SC_SUPERQUES,  SC_SUPERDOT
-#define SYM_R2                                            ___
-#define SYM_R3                                            ___
 
 #define ________________NAV_L1____________________        KC_SCROLLLOCK, ___,  ___,       ___,       ___, ___
 #define ________________NAV_L2____________________        TO(COLEMAK),   ___,  KC_LALT,  KC_LCTRL, KC_LSHIFT, ___
@@ -250,8 +232,8 @@ enum custom_keycodes {
 #define FN_R3                                             _______
 
 
-#define ________________MIR_L1____________________        OSL(MIRUNI),     SP_QUOTE,          KC_Y,           KC_U,        KC_L,         KC_J
-#define ________________MIR_L2____________________        OSL(MIRSYM),      KC_O,     LALT_T(KC_I),   LCTL_T(KC_E), LSFT_T(KC_N),         KC_H
+#define ________________MIR_L1____________________        OSL(MIRSYM),     SP_QUOTE,          KC_Y,           KC_U,        KC_L,         KC_J
+#define ________________MIR_L2____________________        OSL(MIRUNI),      KC_O,     LALT_T(KC_I),   LCTL_T(KC_E), LSFT_T(KC_N),         KC_H
 #define ________________MIR_L3____________________        ___,             SP_SLASH,        KC_DOT,        KC_COMMA,      KC_M,         KC_K
 
 #define ________________MIR_R1____________________         SC_ARROW,   SC_ENDTAG,         SC_EMDASH,               ___,       ___,   SC_SURROUNDBRKT
@@ -259,7 +241,7 @@ enum custom_keycodes {
 #define ________________MIR_R3____________________              ___,         ___,    SC_LESSOREQUAL,   SC_GREATOREQUAL,     ___,   ___
 
 
-#define _____MIR_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
+#define _____MIR_BOTTOM_L1_________                       ___, ES_COLON, ES_SEMI
 #define _____MIR_BOTTOM_R1_________                       SC_OPENCLOSESEMI, ___, ___
 
 #define MIR_L1                                            ___,  ___
@@ -290,9 +272,9 @@ enum custom_keycodes {
 #define MRU_R3                                            _______
 
 
-#define ________________MRS_L1____________________           SP_RBKT,      ___,  ES_PIPE, ES_MINS,  ES_SLSH,  ES_TILD
-#define ________________MRS_L2____________________           ES_RPRN,      ___,  ES_RBRC,     ___,   ES_EQL,    ___
-#define ________________MRS_L3____________________           ___,      ES_BSLS, ES_COLON, ES_SEMI,   ES_GRV,   SP_CARET
+#define ________________MRS_L1____________________           ___,      ___,  ES_PIPE, ___,  ES_SLSH,  ES_TILD
+#define ________________MRS_L2____________________           ___,      ___,      ___, ___,   ___,    ___
+#define ________________MRS_L3____________________           ___,      ES_BSLS,  ___, ___,   ES_GRV,   SP_CARET
 
 #define ________________MRS_R1____________________         ________________BLANK_____________________
 #define ________________MRS_R2____________________         ________________BLANK_____________________

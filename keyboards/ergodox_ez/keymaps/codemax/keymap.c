@@ -28,7 +28,7 @@
                                                                  K60,                 K61,\
                                                        K70, K71, K72,                 K73, K74, K75\
     )
-/* Re-pass though to allow templates to be used */
+/* Re-pass to allow templates to be used */
 #define LAYOUT_ergodox_base_wrapper(...)       LAYOUT_ergodox_base(__VA_ARGS__)
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ________________COLEMAK_L2________________,                    ________________COLEMAK_R2________________,
         ________________COLEMAK_L3________________, KC_VOLD,          XXX, ________________COLEMAK_R3________________,
     XXX, KC_F19, _________BOTTOM_L1_________,                        _________BOTTOM_R1_________, XXX, XXX,
-                                             KC_MEH,S(KC_LGUI),  S(KC_LGUI), KC_MEH,
+                                             KC_F21,S(KC_LGUI),  S(KC_LGUI), KC_F21,
                                                       TH_L2,  TH_R2,
                                             THUMB_L1, TH_L3,  TH_R3, THUMB_R1
   ),
@@ -133,16 +133,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                              ___, ___,  ___, ___,
                                                 SPA_L2,  SPA_R2,
                                         SPA_L1, SPA_L3,   SPA_R3, SPA_R1                                                                                       
-  ),
-  [SYMBOL] = LAYOUT_ergodox_base_wrapper(
-    ________________BLANK_____________________,  ___,       ___, ________________BLANK_____________________,                       
-    ________________SYM_L1_________________,  XXX,       ___, ________________SYM_R1_________________,                 
-    ________________SYM_L2_________________,                  ________________SYM_R2_________________,     
-    ________________SYM_L3_________________,  ___,       ___, ________________SYM_R3_________________,    
-    ___, ___,     _____SYM_BOTTOM_L1_________,                     _____SYM_BOTTOM_R1_________, ___, ___,       
-                                             ___, ___,  ___, ___,
-                                                SYM_L2,  SYM_R2,
-                                        SYM_L1, SYM_L3,   SYM_R3, SYM_R1                                                                                       
   ),
 };
 
@@ -269,10 +259,6 @@ void led_set_user(uint8_t usb_led) {
 
 
 void matrix_scan_user(void) {
-  if ((current_layer == COLEMAK) && (get_current_wpm() <= 40)) {
-      led_2_off();
-      led_3_off();
-  }
   if (current_layer == GAME) {
 		run(512);
 		return;
