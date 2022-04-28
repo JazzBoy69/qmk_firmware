@@ -193,7 +193,7 @@ enum custom_keycodes {
 
 
 #define ________________NAV_L1____________________        KC_SCROLLLOCK, ___,  ___,       ___,       ___, ___
-#define ________________NAV_L2____________________        TO(COLEMAK),   ___,  KC_LALT,  KC_LCTRL, KC_LSHIFT, ___
+#define ________________NAV_L2____________________        TO(COLEMAK),   KC_LGUI,  KC_LALT,  KC_LCTRL, KC_LSHIFT, ___
 #define ________________NAV_L3____________________        ________________BLANK_____________________
 
 #define ________________NAV_R1____________________        LCTL(KC_HOME),  OSM(MOD_LCTL),   KC_UP,      KC_PGUP,      XXX,        KC_MS_WH_UP
@@ -212,12 +212,12 @@ enum custom_keycodes {
 #define NAV_R3                                            TO(COLEMAK)
 
 
-#define ________________FN_L1_____________________        RESET,                 ___,           ___,      LALT(KC_F4),     SC_MINI,     ___
+#define ________________FN_L1_____________________        RESET,                KC_F1,     KC_F2,     KC_F3,     KC_F4,   KC_F5
 #define ________________FN_L2_____________________        KC_SYSTEM_SLEEP,      KC_1,  LALT_T(KC_2), LCTL_T(KC_3), LSFT_T(KC_4), KC_5
 #define ________________FN_L3_____________________        KC_PSCREEN,           KC_6,         KC_7,         KC_8,       KC_9,    KC_0
 
 #define ________________FN_R1_____________________        XXX,           KC_F7, KC_F8, KC_F9, XXX,  KC_F12
-#define ________________FN_R2_____________________        SC_MINI,       KC_F4, KC_F5, KC_F6, XXX,  LALT(LCTL(KC_DEL))
+#define ________________FN_R2_____________________        XXX,           KC_F4, KC_F5, KC_F6, XXX,  LALT(LCTL(KC_DEL))
 #define ________________FN_R3_____________________        XXX,           KC_F1, KC_F2, KC_F3, XXX,  KC_SYSTEM_POWER
 
 

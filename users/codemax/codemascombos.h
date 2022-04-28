@@ -27,6 +27,7 @@ enum combo_events {
   RBRKCOMBO,
   CARETCOMBO,
   NUMCARET,
+  NUMMULTI,
   GRAVECOMBO,
   BKSLASH2, 
   EMDASHCOMBO,
@@ -127,6 +128,7 @@ const uint16_t PROGMEM numrparen_combo[] = {KC_KP_3, KC_KP_SLASH, COMBO_END};
 const uint16_t PROGMEM numlparen_combo[] = {KC_KP_6, ES_SEMI, COMBO_END};
 const uint16_t PROGMEM numcaret_combo[] = {KC_KP_1, KC_KP_2, KC_KP_3, COMBO_END};
 const uint16_t PROGMEM numhash_combo[] = {KC_KP_4, KC_KP_5, KC_KP_6, COMBO_END};
+const uint16_t PROGMEM nummulti_combo[] = {ES_SEMI, KC_KP_PLUS, COMBO_END};
 
 const uint16_t PROGMEM quacombo[] = {KC_Q, SP_QUOTE, COMBO_END};
 const uint16_t PROGMEM quecombo[] = {KC_Q, KC_E, COMBO_END};
@@ -205,6 +207,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [FIVEBACK] = COMBO(fiveback, XXX),
   [THREEBACK] = COMBO(threeback, XXX),
   [NONBREAKING] = COMBO(nonbreaking, XXX),
+  [NUMMULTI] = COMBO(nummulti_combo, ES_ASTR),
 };
 
 
