@@ -135,7 +135,7 @@ enum custom_keycodes {
 #define ________________COLEMAK_L2________________       OSL(SPANISH),         KC_A,     KC_R, KC_S,        KC_T,    LT(NAV,KC_D)
 #define ________________COLEMAK_L3________________       OSM(MOD_LSFT),        KC_Z,     KC_X, KC_C,        KC_V,    KC_B
 
-#define ________________COLEMAK_R1________________       KC_J,    KC_L,        KC_U,          KC_Y, SP_QUOTE, LGUI_T(KC_CAPSLOCK)
+#define ________________COLEMAK_R1________________       KC_J,    KC_L,        KC_U,          KC_Y, SP_QUOTE, OSL(NUMPAD)
 #define ________________COLEMAK_R2________________       KC_H,    KC_N,        KC_E,          KC_I,    KC_O,  OSL(SPANISH)
 #define ________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMMA,        KC_DOT, SP_SLASH, OSM(MOD_LSFT)
 
@@ -151,13 +151,13 @@ enum custom_keycodes {
 #define TH_R3                                             _______
 
 
-#define ________________NUMPAD_L1_________________        TO(COLEMAK),     ___,     ___, S(KC_F),    ___, ___
-#define ________________NUMPAD_L2_________________        XXX,         S(KC_A),     ___, S(KC_E),    ___, S(KC_D)
-#define ________________NUMPAD_L3_________________        ___,             ___,     ___, S(KC_C),    ___, S(KC_B)
+#define ________________NUMPAD_L1_________________        TO(COLEMAK),    ___,  ES_AMPR,   ES_PIPE,      ___, ___
+#define ________________NUMPAD_L2_________________        XXX,            ___,   ES_DLR,   ES_PERC, SP_CARET, ___
+#define ________________NUMPAD_L3_________________        ___,        ES_BSLS,  ES_EXLM,     ES_AT,  ES_HASH, ___
 
-#define ________________NUMPAD_R1_________________        ES_HASH,      KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
-#define ________________NUMPAD_R2_________________        ES_DLR,       KC_KP_4, KC_KP_5, KC_KP_6, ES_SEMI,      KC_KP_PLUS
-#define ________________NUMPAD_R3_________________        ES_AMPR,      KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_SLASH,  KC_ENTER
+#define ________________NUMPAD_R1_________________        ES_TILD,      KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
+#define ________________NUMPAD_R2_________________        SP_GRAVE,     KC_KP_4, KC_KP_5, KC_KP_6, ES_SEMI,      KC_KP_PLUS
+#define ________________NUMPAD_R3_________________        ___,          KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_SLASH,  KC_ENTER
 
 #define _____NUM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
 #define _____NUM_BOTTOM_R1_________                       KC_SPACE,    KC_COMMA,  KC_DOT
@@ -581,6 +581,34 @@ bool handle_keypress(uint16_t keycode) {
 }
 bool handle_shiftedsymbols(uint16_t keycode) {
     switch (keycode) {
+    case KC_KP_2:
+      if (shift_pressed()) {
+        bool held = shift_held();
+        clear_mods();
+        clear_oneshot_mods();
+        SEND_STRING(ESP_LT);
+        if (held)  {
+            register_code(KC_LSHIFT);
+        }
+        return true;
+      }
+      SEND_STRING(SS_TAP(X_2));
+      return true;
+    break;
+    case KC_KP_3:
+      if (shift_pressed()) {
+        bool held = shift_held();
+        clear_mods();
+        clear_oneshot_mods();
+        SEND_STRING(ESP_GT);
+        if (held)  {
+            register_code(KC_LSHIFT);
+        }
+        return true;
+      }
+      SEND_STRING(SS_TAP(X_3));
+      return true;
+    break;
     case LCTL_T(KC_SPACE):
       if (shift_pressed()) {
         tap_code(KC_SLASH);
