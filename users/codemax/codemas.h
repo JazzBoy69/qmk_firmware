@@ -36,7 +36,6 @@
 #define ES_PIPE ALGR(KC_1)    // |
 #define ES_AT   ALGR(KC_2)    // @
 #define ES_HASH ALGR(KC_3)    // #
-#define ES_TILD ALGR(KC_4)    // ~
 #define ES_LBRC ALGR(ES_GRV)  // [
 #define ES_RBRC ALGR(ES_PLUS) // ]
 #define ES_ASTR S(KC_RBRC) // *
@@ -124,6 +123,7 @@ enum custom_keycodes {
   SP_CO,
   SP_SPACEEND,
   SC_MINI,
+  ES_TILD,
 };
 
 
@@ -153,7 +153,7 @@ enum custom_keycodes {
 
 #define ________________NUMPAD_L1_________________        TO(COLEMAK),    ___,  ES_AMPR,   ES_PIPE,      ___, ___
 #define ________________NUMPAD_L2_________________        XXX,            ___,   ES_DLR,   ES_PERC, SP_CARET, ___
-#define ________________NUMPAD_L3_________________        ___,        ES_BSLS,  ES_EXLM,     ES_AT,  ES_HASH, ___
+#define ________________NUMPAD_L3_________________        ___,        ES_BSLS,      ___,     ES_AT,  ES_HASH, ___
 
 #define ________________NUMPAD_R1_________________        ES_TILD,      KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
 #define ________________NUMPAD_R2_________________        SP_GRAVE,     KC_KP_4, KC_KP_5, KC_KP_6, ES_SEMI,      KC_KP_PLUS
@@ -426,6 +426,9 @@ bool handle_keypress(uint16_t keycode) {
     return false;
   }
   switch (keycode) {
+    case ES_TILD:
+      SEND_STRING(SS_RALT(SS_TAP(X_4)) SS_TAP(X_SPACE));
+    break;
     case SC_SUPERINVQUES:
       set_oneshot_mods(0);
       SEND_STRING(SS_LSFT(SS_TAP(X_EQUAL)));
