@@ -12,7 +12,6 @@ enum combo_events {
   BKSLASH, 
   ATCOMBO,
   HASHCOMBO, 
-  NUMHASHCOMBO,
   DLRCOMBO,
   PERCCOMBO,
   FEM, 
@@ -23,7 +22,6 @@ enum combo_events {
   SCOLONENTER, 
   EQUALSCOMBO,
   CARETCOMBO,
-  NUMCARET,
   NUMMULTI,
   GRAVECOMBO,
   BKSLASH2, 
@@ -77,7 +75,8 @@ enum combo_events {
   HEXD,
   HEXE,
   HEXF,
-  //79
+  NUMBKSP,
+  //80
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -140,8 +139,6 @@ const uint16_t PROGMEM rparen_combo[] = {KC_DOT, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM rbrk_combo[] = {KC_COMMA, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM rbrace_combo[] = {KC_M, SP_SLASH, COMBO_END};
 
-const uint16_t PROGMEM numcaret_combo[] = {KC_KP_1, KC_KP_2, KC_KP_3, COMBO_END};
-const uint16_t PROGMEM numhash_combo[] = {KC_KP_4, KC_KP_5, KC_KP_6, COMBO_END};
 const uint16_t PROGMEM nummulti_combo[] = {ES_SEMI, KC_KP_PLUS, COMBO_END};
 
 const uint16_t PROGMEM numnotequal_combo[] = {ES_EXLM, ES_AT, ES_HASH, COMBO_END};
@@ -153,6 +150,7 @@ const uint16_t PROGMEM numeql_combo[] = {ES_EXLM, ES_AT, COMBO_END};
 const uint16_t PROGMEM numlparen_combo[] = {ES_BSLS,  ES_EXLM, COMBO_END};
 const uint16_t PROGMEM numlbrk_combo[] = {ES_BSLS, ES_AT, COMBO_END};
 const uint16_t PROGMEM numlbrace_combo[] = {ES_BSLS, ES_HASH, COMBO_END};
+const uint16_t PROGMEM numbksp_combo[] = {KC_KP_4, KC_KP_5, LALT_T(KC_BSPACE), COMBO_END};
 
 const uint16_t PROGMEM numrparen_combo[] = {KC_KP_3, KC_KP_SLASH, COMBO_END};
 const uint16_t PROGMEM numrbrk_combo[] = {KC_KP_2, KC_KP_SLASH, COMBO_END};
@@ -185,6 +183,7 @@ const uint16_t PROGMEM threeback[] = {LT(MIRRORED,KC_BSPACE), KC_N, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
   [CTRL_BKSP] = COMBO(parbksp_combo, LCTL(KC_BSPACE)),
+  [NUMBKSP] = COMBO(numbksp_combo, LCTL(KC_BSPACE)),
   [R1_QUOTE] = COMBO(r1quote_combo, SC_CLOSE1QUOTE),
   [R2_QUOTE] = COMBO(r2quote_combo, SC_CLOSEQUOTE),
   [L1_QUOTE] = COMBO(l1quote_combo, SC_OPEN1QUOTE),
@@ -194,7 +193,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [BKSLASH] = COMBO(bkslash_combo, ES_BSLS),
   [ATCOMBO] = COMBO(at_combo, ES_AT),
   [HASHCOMBO] = COMBO(hash_combo, ES_HASH),
-  [NUMHASHCOMBO] = COMBO(numhash_combo, ES_HASH),
   [DLRCOMBO] = COMBO(dlr_combo, ES_DLR),
   [PERCCOMBO] = COMBO(perc_combo, ES_PERC),
   [TILDCOMBO] = COMBO(tilde_combo, XXX),
@@ -236,7 +234,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [NUMLPAREN] = COMBO(numlparen_combo, ES_LPRN),
   [NUMLBRACE] = COMBO(numlbrace_combo, SP_LBKT),
   [NUMLBRKCOMBO] = COMBO(numlbrk_combo, ES_LBRC),
-  [NUMCARET] = COMBO(numcaret_combo, XXX),
   [QUACOMBO] = COMBO(quacombo, XXX),
   [QUECOMBO] = COMBO(quecombo, XXX),
   [QUICOMBO] = COMBO(quicombo, XXX),
@@ -299,7 +296,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case NUMNOTEQUAL:
       SEND_STRING(SS_LSFT(SS_TAP(X_1) SS_TAP(X_0)));
     break;
-    case CARETCOMBO...NUMCARET:
+    case CARETCOMBO:
       SEND_STRING(SS_LSFT(SS_TAP(X_LBRACKET)) SS_TAP(X_SPACE));
     break;
     case GRAVECOMBO:
