@@ -22,7 +22,6 @@ enum combo_events {
   PIPECOMBO,
   SCOLONENTER, 
   EQUALSCOMBO,
-  RBRKCOMBO,
   CARETCOMBO,
   NUMCARET,
   NUMMULTI,
@@ -42,14 +41,17 @@ enum combo_events {
   NUMNOTEQUAL, 
   MASC, 
   LBRACE, 
-  RBRACE, 
   LPAREN,
   RPAREN,
+  RBRACE, 
+  RBRKCOMBO,
+  NUMRPAREN,
+  NUMRBRACE, 
+  NUMRBRKCOMBO,
   DASHCOMBO,
   MASCOMBO,
   PARACOMBO,
   TIMESCOMBO,
-  NUMRPAREN,
   NUMLPAREN,
   NUMLBRACE,
   NUMLBRKCOMBO,
@@ -70,7 +72,7 @@ enum combo_events {
   THREEBACK,
   NONBREAKING,
   HEXD,
-  //71
+  //74
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -133,7 +135,6 @@ const uint16_t PROGMEM rparen_combo[] = {KC_DOT, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM rbrk_combo[] = {KC_COMMA, SP_SLASH, COMBO_END};
 const uint16_t PROGMEM rbrace_combo[] = {KC_M, SP_SLASH, COMBO_END};
 
-const uint16_t PROGMEM numrparen_combo[] = {KC_KP_3, KC_KP_SLASH, COMBO_END};
 const uint16_t PROGMEM numcaret_combo[] = {KC_KP_1, KC_KP_2, KC_KP_3, COMBO_END};
 const uint16_t PROGMEM numhash_combo[] = {KC_KP_4, KC_KP_5, KC_KP_6, COMBO_END};
 const uint16_t PROGMEM nummulti_combo[] = {ES_SEMI, KC_KP_PLUS, COMBO_END};
@@ -147,6 +148,10 @@ const uint16_t PROGMEM numeql_combo[] = {ES_EXLM, ES_AT, COMBO_END};
 const uint16_t PROGMEM numlparen_combo[] = {ES_BSLS,  ES_EXLM, COMBO_END};
 const uint16_t PROGMEM numlbrk_combo[] = {ES_BSLS, ES_AT, COMBO_END};
 const uint16_t PROGMEM numlbrace_combo[] = {ES_BSLS, ES_HASH, COMBO_END};
+
+const uint16_t PROGMEM numrparen_combo[] = {KC_KP_3, KC_KP_SLASH, COMBO_END};
+const uint16_t PROGMEM numrbrk_combo[] = {KC_KP_2, KC_KP_SLASH, COMBO_END};
+const uint16_t PROGMEM numrbrace_combo[] = {KC_KP_1, KC_KP_SLASH, COMBO_END};
 
 const uint16_t PROGMEM hexd[] = {SP_CARET, KC_KP_4, COMBO_END};
 
@@ -197,7 +202,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [NOTEXACTLYEQUAL] = COMBO(notexactlyequal_combo, XXX),
   [NOTEQUAL] = COMBO(notequal_combo, XXX),
   [NUMNOTEQUAL] = COMBO(numnotequal_combo, XXX),
-  [RBRKCOMBO] = COMBO(rbrk_combo, ES_RBRC),
   [CARETCOMBO] = COMBO(caret_combo, XXX),
   [GRAVECOMBO] = COMBO(grave_combo, XXX),
   [BKSLASH2] = COMBO(bkslash_combo2, ES_BSLS),
@@ -211,6 +215,9 @@ combo_t key_combos[COMBO_COUNT] = {
   [LPAREN] = COMBO(lparen_combo, ES_LPRN),
   [RBRACE] = COMBO(rbrace_combo, SP_RBKT),
   [RPAREN] = COMBO(rparen_combo, ES_RPRN),
+  [RBRKCOMBO] = COMBO(rbrk_combo, ES_RBRC),
+  [NUMRBRACE] = COMBO(numrbrace_combo, SP_RBKT),
+  [NUMRBRKCOMBO] = COMBO(numrbrk_combo, ES_RBRC),
   [DASHCOMBO] = COMBO(dash_combo, ES_MINS),
   [MASCOMBO] = COMBO(mas_combo, ES_PLUS),
   [TIMESCOMBO] = COMBO(times_combo, ES_ASTR),
