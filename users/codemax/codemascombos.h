@@ -71,8 +71,13 @@ enum combo_events {
   FIVEBACK,
   THREEBACK,
   NONBREAKING,
+  HEXA,
+  HEXB,
+  HEXC,
   HEXD,
-  //74
+  HEXE,
+  HEXF,
+  //79
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -153,7 +158,12 @@ const uint16_t PROGMEM numrparen_combo[] = {KC_KP_3, KC_KP_SLASH, COMBO_END};
 const uint16_t PROGMEM numrbrk_combo[] = {KC_KP_2, KC_KP_SLASH, COMBO_END};
 const uint16_t PROGMEM numrbrace_combo[] = {KC_KP_1, KC_KP_SLASH, COMBO_END};
 
+const uint16_t PROGMEM hexa[] = {SP_CARET, KC_KP_1, COMBO_END};
+const uint16_t PROGMEM hexb[] = {SP_CARET, KC_KP_2, COMBO_END};
+const uint16_t PROGMEM hexc[] = {SP_CARET, KC_KP_3, COMBO_END};
 const uint16_t PROGMEM hexd[] = {SP_CARET, KC_KP_4, COMBO_END};
+const uint16_t PROGMEM hexe[] = {SP_CARET, KC_KP_5, COMBO_END};
+const uint16_t PROGMEM hexf[] = {SP_CARET, KC_KP_6, COMBO_END};
 
 
 const uint16_t PROGMEM quacombo[] = {KC_Q, SP_QUOTE, COMBO_END};
@@ -165,7 +175,7 @@ const uint16_t PROGMEM quispa[] = {SP_N, SP_I, COMBO_END};
 
 const uint16_t PROGMEM tabcombo[] = {LT(FN,KC_ENTER), LCTL_T(KC_SPACE), COMBO_END};
 const uint16_t PROGMEM stabcombo[] = {LT(FN,KC_ENTER), SC_SUPERQUES, COMBO_END};
-const uint16_t PROGMEM numlockcombo[] = {S(KC_E), KC_T, KC_KP_4, COMBO_END};
+const uint16_t PROGMEM numlockcombo[] = {ES_PERC, SP_CARET, KC_KP_4, COMBO_END};
 const uint16_t PROGMEM numlayercombo[] = {LEFTSYMBOL, KC_E, COMBO_END};
 const uint16_t PROGMEM cancelnumlayer[] = {ES_PERC, SP_CARET, KC_KP_5, COMBO_END};
 const uint16_t PROGMEM capslockcombo[] = {LEFTSYMBOL, KC_N, COMBO_END};
@@ -244,7 +254,12 @@ combo_t key_combos[COMBO_COUNT] = {
   [THREEBACK] = COMBO(threeback, XXX),
   [NONBREAKING] = COMBO(nonbreaking, XXX),
   [NUMMULTI] = COMBO(nummulti_combo, ES_ASTR),
+  [HEXA] = COMBO(hexa, S(KC_A)),
+  [HEXB] = COMBO(hexb, S(KC_B)),
+  [HEXC] = COMBO(hexc, S(KC_C)),
   [HEXD] = COMBO(hexd, S(KC_D)),
+  [HEXE] = COMBO(hexe, S(KC_E)),
+  [HEXF] = COMBO(hexf, S(KC_F)),
 };
 
 
