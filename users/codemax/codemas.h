@@ -147,7 +147,7 @@ enum custom_keycodes {
 #define TH_L2                                             XXX
 #define TH_L3                                             TO(NUMPAD)
 #define THUMB_R1                                          SC_SUPERQUES,    LCTL_T(KC_SPACE)
-#define TH_R2                                             KC_NUMLOCK
+#define TH_R2                                             ___
 #define TH_R3                                             _______
 
 
@@ -167,8 +167,8 @@ enum custom_keycodes {
 #define NUM_L2                                            ___
 #define NUM_L3                                            ___
 #define NUM_R1                                            KC_ESCAPE,  KC_KP_0
-#define NUM_R2                                            ___
-#define NUM_R3                                            ___
+#define NUM_R2                                            KC_NUMLOCK
+#define NUM_R3                                            TO(COLEMAK)
 
 
 
@@ -192,7 +192,7 @@ enum custom_keycodes {
 #define SPA_R3                                            ___
 
 
-#define ________________NAV_L1____________________        KC_SCROLLLOCK, ___,  ___,       ___,       ___, ___
+#define ________________NAV_L1____________________        KC_INS, ___,  ___,       ___,       ___, ___
 #define ________________NAV_L2____________________        TO(COLEMAK),   KC_LGUI,  KC_LALT,  KC_LCTRL, KC_LSHIFT, ___
 #define ________________NAV_L3____________________        ________________BLANK_____________________
 
