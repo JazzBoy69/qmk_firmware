@@ -46,6 +46,8 @@ enum combo_events {
   NUMRPAREN,
   NUMRBRACE, 
   NUMRBRKCOMBO,
+  NUMBACKTAB, 
+  NUMTAB,
   DASHCOMBO,
   MASCOMBO,
   PARACOMBO,
@@ -100,9 +102,9 @@ const uint16_t PROGMEM dlr_combo[] = {RIGHTSYMBOL, KC_V, COMBO_END};
 const uint16_t PROGMEM perc_combo[] = {RIGHTSYMBOL, KC_B, COMBO_END};
 const uint16_t PROGMEM par_combo[] = {RIGHTSYMBOL, KC_P, COMBO_END};
 const uint16_t PROGMEM sec_combo[] = {RIGHTSYMBOL, KC_S, COMBO_END};
+const uint16_t PROGMEM pipe_combo[] = {RIGHTSYMBOL, KC_F, COMBO_END};
 
 const uint16_t PROGMEM tilde_combo[] = {LEFTSYMBOL, KC_J, COMBO_END};
-const uint16_t PROGMEM pipe_combo[] = {LEFTSYMBOL, KC_Y, COMBO_END};
 const uint16_t PROGMEM r1quote_combo[] = {LEFTSYMBOL, SP_QUOTE, COMBO_END};
 const uint16_t PROGMEM caret_combo[] = {LEFTSYMBOL, KC_K, COMBO_END};
 const uint16_t PROGMEM grave_combo[] = {LEFTSYMBOL, KC_M, COMBO_END};
@@ -151,6 +153,8 @@ const uint16_t PROGMEM numlparen_combo[] = {ES_BSLS,  ES_EXLM, COMBO_END};
 const uint16_t PROGMEM numlbrk_combo[] = {ES_BSLS, ES_AT, COMBO_END};
 const uint16_t PROGMEM numlbrace_combo[] = {ES_BSLS, ES_HASH, COMBO_END};
 const uint16_t PROGMEM numbksp_combo[] = {KC_KP_4, KC_KP_5, LALT_T(KC_BSPACE), COMBO_END};
+const uint16_t PROGMEM numbacktab_combo[] = {SP_SPACEEND, KC_ESCAPE, COMBO_END};
+const uint16_t PROGMEM numtab_combo[] = {SP_SPACEEND, KC_KP_0, COMBO_END};
 
 const uint16_t PROGMEM numrparen_combo[] = {KC_KP_3, KC_KP_SLASH, COMBO_END};
 const uint16_t PROGMEM numrbrk_combo[] = {KC_KP_2, KC_KP_SLASH, COMBO_END};
@@ -241,6 +245,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [QUISPA] = COMBO(quispa, XXX),
   [TABCOMBO] = COMBO(tabcombo, KC_TAB),
   [STABCOMBO] = COMBO(stabcombo, S(KC_TAB)),
+  [NUMTAB] = COMBO(numtab_combo, KC_TAB),
+  [NUMBACKTAB] = COMBO(numbacktab_combo, S(KC_TAB)),
   [NUMLOCKCOMBO] = COMBO(numlockcombo, KC_NUMLOCK),
   [NUMLAYERCOMBO] = COMBO(numlayercombo, XXX),
   [CAPSLOCKCOMBO] = COMBO(capslockcombo, KC_CAPSLOCK),

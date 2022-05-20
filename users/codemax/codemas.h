@@ -151,9 +151,10 @@ enum custom_keycodes {
 #define TH_R3                                             _______
 
 
-#define ________________NUMPAD_L1_________________        TO(COLEMAK),    ___,  ES_AMPR,   ES_PIPE,      ___, ___
-#define ________________NUMPAD_L2_________________        XXX,            ___,   ES_DLR,   ES_PERC, SP_CARET, ___
-#define ________________NUMPAD_L3_________________        ___,        ES_BSLS,      ___,     ES_AT,  ES_HASH, ___
+#define ________________NUMPAD_L1_________________        TO(COLEMAK),    ___, ES_AMPR,   ES_PIPE,      ___,  ___
+#define ________________NUMPAD_L2_________________        XXX,       SP_CARET,     ___,       ___,      ___,  ES_EXLM 
+#define ________________NUMPAD_L3_________________        ___,        ES_BSLS,   ES_AT,   ES_HASH,   ES_DLR,  ES_PERC
+
 
 #define ________________NUMPAD_R1_________________        ES_TILD,      KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
 #define ________________NUMPAD_R2_________________        SP_GRAVE,     KC_KP_4, KC_KP_5, KC_KP_6, ES_SEMI,      KC_KP_PLUS
