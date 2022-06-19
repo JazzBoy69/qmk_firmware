@@ -497,6 +497,21 @@ bool handle_keypress(uint16_t keycode) {
       unregister_code(KC_RALT);
       return false;
     break;
+    case LT(MIRRORED,KC_BSPACE): 
+      if (get_oneshot_mods() != 0) {
+        clear_oneshot_mods();
+        return false;
+      }
+      return true;
+    break;
+    case LALT_T(KC_BSPACE):
+      if (get_oneshot_layer_state()) {
+        reset_oneshot_layer();
+        layer_off(NUMPAD);
+        return false;
+      }
+      return true;
+    break;
     case KC_ESCAPE:
       clear_oneshot_mods(); 
       clear_mods();
