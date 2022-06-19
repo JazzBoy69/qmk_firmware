@@ -177,9 +177,9 @@ const uint16_t PROGMEM quispa[] = {SP_N, SP_I, COMBO_END};
 
 const uint16_t PROGMEM tabcombo[] = {LT(FN,KC_ENTER), LCTL_T(KC_SPACE), COMBO_END};
 const uint16_t PROGMEM stabcombo[] = {LT(FN,KC_ENTER), SC_SUPERQUES, COMBO_END};
-const uint16_t PROGMEM numlockcombo[] = {ES_PERC, SP_CARET, KC_KP_4, COMBO_END};
+const uint16_t PROGMEM numlockcombo[] = {LEFTSYMBOL, KC_KP_4, COMBO_END};
 const uint16_t PROGMEM numlayercombo[] = {LEFTSYMBOL, KC_E, COMBO_END};
-const uint16_t PROGMEM cancelnumlayer[] = {ES_PERC, SP_CARET, KC_KP_5, COMBO_END};
+const uint16_t PROGMEM cancelnumlayer[] = {LEFTSYMBOL, KC_KP_5, COMBO_END};
 const uint16_t PROGMEM capslockcombo[] = {LEFTSYMBOL, KC_N, COMBO_END};
 const uint16_t PROGMEM fiveback[] = {LT(MIRRORED,KC_BSPACE), KC_H, COMBO_END};
 const uint16_t PROGMEM threeback[] = {LT(MIRRORED,KC_BSPACE), KC_N, COMBO_END};
