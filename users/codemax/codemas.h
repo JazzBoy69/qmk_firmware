@@ -139,12 +139,12 @@ enum custom_keycodes {
 #define ________________COLEMAK_R2________________       KC_H,    KC_N,        KC_E,          KC_I,    KC_O,  OSL(SPANISH)
 #define ________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMMA,        KC_DOT, SP_SLASH, OSM(MOD_LSFT)
 
-#define _________BOTTOM_L1_________                       LALT_T(KC_DELETE),   LCTL_T(KC_ESCAPE),  LSFT_T(KC_SPACE)
+#define _________BOTTOM_L1_________                       KC_LALT,   KC_LCTRL,  KC_LSHIFT
 #define _________BOTTOM_R1_________                       SC_CLOSESEMI,        ES_SEMI,            ES_COLON  
 #define ________BLOCK_BOTTOM_______                       XXX,  XXX,  XXX
 #define ________BLANK_BOTTOM_______                       ___,  ___,  ___
 #define THUMB_L1                                          LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER)
-#define TH_L2                                             XXX
+#define TH_L2                                             KC_ESCAPE
 #define TH_L3                                             TO(NUMPAD)
 #define THUMB_R1                                          SC_SUPERQUES,    LCTL_T(KC_SPACE)
 #define TH_R2                                             ___
