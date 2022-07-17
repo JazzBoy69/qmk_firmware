@@ -166,7 +166,7 @@ enum custom_keycodes {
 
 #define NUM_L1                                            LALT_T(KC_BSPACE), SP_SPACEEND
 #define NUM_L2                                            ___
-#define NUM_L3                                            ___
+#define NUM_L3                                            TO(COLEMAK)
 #define NUM_R1                                            KC_ESCAPE,  KC_KP_0
 #define NUM_R2                                            KC_NUMLOCK
 #define NUM_R3                                            TO(COLEMAK)
