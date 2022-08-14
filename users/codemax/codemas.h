@@ -377,8 +377,8 @@ void SendAltCode(uint16_t code[], int length) {
     }\
     return true;\
 
-#define HANDLE_TAPPING_TERM if (keycode == LT(NUMPAD,KC_ESCAPE)) {\
-      return 125;\
+#define HANDLE_TAPPING_TERM if (keycode == OSL(NUMPAD)) {\
+      return 75;\
     }\
     return TAPPING_TERM;\
 
