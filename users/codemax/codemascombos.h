@@ -312,24 +312,24 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       SEND_STRING(ESP_CARET);
     break;
     case GRAVECOMBO:
-      SEND_STRING(SS_TAP(X_LBRACKET) SS_TAP(X_SPACE));
+      SEND_STRING(ESP_GRAVE);
     break;
     case PLPLENDCOMBO:
-      SEND_STRING(SS_TAP(X_RBRACKET) SS_TAP(X_RBRACKET) SS_LSFT(SS_TAP(X_COMMA)));
+      SEND_STRING(ESP_PLUS ESP_PLUS ESP_SEMICOLON);
     break;
     case EMDASHCOMBO:
       SendAltCode(EMDASH, 4);
     break;
     case EXACTLYEQUAL:
     case NUMEXACTLYEQUAL:
-      SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0) SS_TAP(X_0)));
+      SEND_STRING(ESP_EQUAL ESP_EQUAL ESP_EQUAL);
     break;
     case NOTEXACTLYEQUAL:
     case NUMNOTEXACTLYEQUAL:
-      SEND_STRING(SS_LSFT(SS_TAP(X_1) SS_TAP(X_0) SS_TAP(X_0)));
+      SEND_STRING(ESP_EXCL ESP_EQUAL ESP_EQUAL);
     break;
     case MIMICOMBO:
-      SEND_STRING(SS_TAP(X_SLASH) SS_TAP(X_SLASH) SS_LSFT(SS_TAP(X_COMMA)));
+      SEND_STRING(ESP_MINUS ESP_MINUS ESP_SEMICOLON);
     break;   
     case YOUCOMBO:
       if (shift_pressed()) {
