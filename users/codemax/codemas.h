@@ -10,8 +10,8 @@
 #define SYMBOL 9
 
 #define SP_RBKT KC_BSLASH //}
-#define SP_LBKT KC_QUOT // {
-#define SP_QUOTE KC_QUOTE //'
+#define SP_LBKT S(ES_LBRC) // {
+//#define SP_QUOTE KC_QUOTE //'
 #define SP_LPAREN ES_LPRN // (
 #define SP_RPAREN ES_RPRN // )
 #define ES_MINS KC_MINUS // -
@@ -21,7 +21,7 @@
 //#define ES_FORD S(ES_MORD) // ª
 #define ES_EXLM S(KC_1)    // !
 #define ES_IEXL ALGR(KC_1)  // ¡
-#define ES_DQUO S(KC_QUOTE)    // "
+//#define ES_DQUO S(KC_QUOTE)    // "
 //#define ES_BULT S(KC_3)    // ·
 #define ES_DLR  S(KC_4)    // $
 #define ES_PERC S(KC_5)    // %
@@ -32,7 +32,7 @@
 #define ES_EQL  KC_EQUAL    // =
 #define ES_IQUE ALGR(KC_SLASH) // ¿
 #define ES_UNDS S(ES_MINS) // _
-#define ES_BSLS KC_BSLASH // (backslash)
+#define ES_BSLS KC_BSLS // (backslash)
 #define ES_PIPE KC_PIPE    // |
 #define ES_AT   S(KC_2)    // @
 #define ES_HASH S(KC_3)    // #
@@ -47,7 +47,8 @@
 #define ESP_QUES SS_LSFT(SS_TAP(X_SLASH))
 #define ESP_GT SS_TAP(X_DOT)
 #define ESP_LT SS_LSFT(SS_TAP(X_COMMA))
-#define ESP_2QUOTE SS_LSFT(SS_TAP(X_QUOTE))
+#define ESP_2QUOTE SS_LSFT(SS_TAP(X_QUOTE)) SS_TAP(X_SPACE)
+#define ESP_QUOTE SS_TAP(X_QUOTE) SS_TAP(X_SPACE)
 #define ESP_TILDE SS_LSFT(SS_TAP(X_GRAVE)) SS_TAP(X_SPACE)
 #define ESP_SEMICOLON SS_TAP(X_SCOLON)
 #define ESP_EQUAL SS_TAP(X_EQUAL)
@@ -60,6 +61,7 @@
 #define ESP_LBRK SS_LSFT(SS_TAP(X_LBRC))
 #define ESP_LPAREN SS_LSFT(SS_TAP(X_9))
 #define ESP_RPAREN SS_LSFT(SS_TAP(X_0))
+#define ESP_RBRK SS_LSFT(SS_TAP(X_RBRC))
 
 uint16_t OPEN1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_5 };
 uint16_t CLOSE1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_6 };
@@ -137,7 +139,8 @@ enum custom_keycodes {
   SP_CO,
   SP_SPACEEND,
   SC_MINI,
-  ES_TILD,
+  ES_TILD, 
+  SP_QUOTE,
 };
 
 
@@ -504,9 +507,7 @@ bool handle_keypress(uint16_t keycode) {
       return false;
     break;
     case SP_RBKT:
-      register_code(KC_RALT);
-      tap_code(SP_RBKT);
-      unregister_code(KC_RALT);
+      SEND_STRING(ESP_RBRK);
       return false;
     break;
     case LT(MIRRORED,KC_BSPACE): 
@@ -656,7 +657,7 @@ bool handle_shiftedsymbols(uint16_t keycode) {
           }
         return true;
       }
-      tap_code(SP_QUOTE);
+      SEND_STRING(ESP_QUOTE);
       return true;
     break;
     case KC_COMMA:
