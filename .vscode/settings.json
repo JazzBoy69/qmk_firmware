@@ -2,6 +2,18 @@
 {
     // Unofficially, QMK uses spaces for indentation
     "editor.insertSpaces": true,
+    "terminal.integrated.profiles.windows": {
+        "QMK_MSYS": {
+            "path": "C:\\QMK_MSYS\\usr\\bin\\bash.exe",
+            "env": {
+                "MSYSTEM": "MINGW64",
+                "CHERE_INVOKING": "1"
+            },
+            "args": ["--login"]
+        }
+    },
+
+    "terminal.integrated.cursorStyle": "line",
     // Configure glob patterns for excluding files and folders.
     "files.exclude": {
         "**/.build": true,
@@ -27,17 +39,6 @@
     "[json]": {
 	    "editor.formatOnSave": false
     },
-    "editor.autoIndent": "full",
-        "terminal.integrated.profiles.windows": {
-            "QMK_MSYS": {
-                "path": "C:/QMK_MSYS/usr/bin/bash.exe",
-                "env": {
-                    "MSYSTEM": "MINGW64",
-                    "CHERE_INVOKING": "1"
-                },
-                "args": ["--login"]
-            }
-        },
-   
-        "terminal.integrated.cursorStyle": "line"
+    "editor.autoIndent": "full"
+
 }
