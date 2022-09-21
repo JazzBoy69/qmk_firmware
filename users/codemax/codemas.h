@@ -48,7 +48,7 @@
 #define ESP_GT SS_TAP(X_DOT)
 #define ESP_LT SS_LSFT(SS_TAP(X_COMMA))
 #define ESP_2QUOTE SS_LSFT(SS_TAP(X_QUOTE))
-#define ESP_TILDE SS_RALT(SS_TAP(X_4)) SS_TAP(X_SPACE)
+#define ESP_TILDE SS_LSFT(SS_TAP(X_GRAVE)) SS_TAP(X_SPACE)
 #define ESP_SEMICOLON SS_TAP(X_SCOLON)
 #define ESP_EQUAL SS_TAP(X_EQUAL)
 #define ESP_EXCL SS_LSFT(SS_TAP(X_1))
@@ -56,6 +56,10 @@
 #define ESP_GRAVE SS_TAP(X_GRAVE) SS_TAP(X_SPACE)
 #define ESP_PLUS SS_LSFT(SS_TAP(X_EQUAL))
 #define ESP_MINUS SS_TAP(X_MINUS)
+#define ESP_INVQUES SS_RALT(SS_TAP(X_1))
+#define ESP_LBRK SS_LSFT(SS_TAP(X_LBRC))
+#define ESP_LPAREN SS_LSFT(SS_TAP(X_9))
+#define ESP_RPAREN SS_LSFT(SS_TAP(X_0))
 
 uint16_t OPEN1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_5 };
 uint16_t CLOSE1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_6 };
@@ -438,11 +442,11 @@ bool handle_keypress(uint16_t keycode) {
   }
   switch (keycode) {
     case ES_TILD:
-      SEND_STRING(SS_RALT(SS_TAP(X_4)) SS_TAP(X_SPACE));
+      SEND_STRING(ESP_TILDE);
     break;
     case SC_SUPERINVQUES:
       set_oneshot_mods(0);
-      SEND_STRING(SS_LSFT(SS_TAP(X_EQUAL)));
+      SEND_STRING(ESP_INVQUES);
       shift_time = timer_read();
     break; 
     case SC_SUPERDOT:
@@ -454,15 +458,15 @@ bool handle_keypress(uint16_t keycode) {
       shift_time = timer_read();
     break;  
     case SC_SUPERQUES:
-      SEND_STRING(SS_LSFT(SS_TAP(X_MINUS)) SS_TAP(X_SPACE));
+      SEND_STRING(ESP_QUES SS_TAP(X_SPACE));
       shift_time = timer_read();
     break;  
     case SP_CARET:
-      SEND_STRING(SS_LSFT(SS_TAP(X_LBRC)) SS_TAP(X_SPACE));
+      SEND_STRING(ESP_CARET);
       return true;
     break;
     case SP_GRAVE:
-      SEND_STRING(SS_TAP(X_LBRACKET) SS_TAP(X_SPACE));
+      SEND_STRING(ESP_GRAVE);
       return true;
     break;
     case SC_QUE:      
@@ -488,17 +492,15 @@ bool handle_keypress(uint16_t keycode) {
       return false;
     break;
     case SP_LBKT:
-      register_code(KC_RALT);
-      tap_code(SP_LBKT);
-      unregister_code(KC_RALT);
+      SEND_STRING(ESP_LBRK);
       return false;
     break;
     case SC_CLOSESEMI:
-      SEND_STRING(SS_LSFT(SS_TAP(X_9) SS_TAP(X_COMMA)));
+      SEND_STRING(ESP_RPAREN ESP_SEMICOLON);
       return false;
     break;
     case SC_OPENCLOSESEMI:
-      SEND_STRING(SS_LSFT(SS_TAP(X_8) SS_TAP(X_9) SS_TAP(X_COMMA)));
+      SEND_STRING(ESP_LPAREN ESP_RPAREN ESP_SEMICOLON);
       return false;
     break;
     case SP_RBKT:
