@@ -9,45 +9,46 @@
 #define SPANISH 8
 #define SYMBOL 9
 
-#define SP_RBKT KC_BSLASH
-#define SP_LBKT KC_QUOT
-#define SP_QUOTE KC_MINUS
-#define SP_LPAREN KC_ASTR
-#define SP_RPAREN KC_LPRN
-#define ES_MINS KC_SLSH // -
-#define ES_GRV  KC_LBRC // ` (dead)
-#define ES_MORD KC_GRV  // º
-#define ES_PLUS KC_RBRC // +
-#define ES_FORD S(ES_MORD) // ª
+#define SP_RBKT KC_BSLASH //}
+#define SP_LBKT KC_QUOT // {
+#define SP_QUOTE KC_QUOTE //'
+#define SP_LPAREN ES_LPRN // (
+#define SP_RPAREN ES_RPRN // )
+#define ES_MINS KC_MINUS // -
+#define ES_GRV  KC_GRV // ` (dead)
+//#define ES_MORD KC_GRV  // º
+#define ES_PLUS KC_PLUS // +
+//#define ES_FORD S(ES_MORD) // ª
 #define ES_EXLM S(KC_1)    // !
-#define ES_IEXL KC_EQL  // ¡
-#define ES_DQUO S(KC_2)    // "
-#define ES_BULT S(KC_3)    // ·
+#define ES_IEXL ALGR(KC_1)  // ¡
+#define ES_DQUO S(KC_QUOTE)    // "
+//#define ES_BULT S(KC_3)    // ·
 #define ES_DLR  S(KC_4)    // $
 #define ES_PERC S(KC_5)    // %
-#define ES_AMPR S(KC_6)    // &
-#define ES_SLSH S(KC_7)    // /
-#define ES_LPRN S(KC_8)    // (
-#define ES_RPRN S(KC_9)    // )
-#define ES_EQL  S(KC_0)    // =
-#define ES_IQUE S(ES_IEXL) // ¿
+#define ES_AMPR S(KC_7)    // &
+#define ES_SLSH KC_SLASH    // /
+#define ES_LPRN S(KC_9)    // (
+#define ES_RPRN S(KC_0)    // )
+#define ES_EQL  KC_EQUAL    // =
+#define ES_IQUE ALGR(KC_SLASH) // ¿
 #define ES_UNDS S(ES_MINS) // _
-#define ES_BSLS ALGR(ES_MORD) // (backslash)
-#define ES_PIPE ALGR(KC_1)    // |
-#define ES_AT   ALGR(KC_2)    // @
-#define ES_HASH ALGR(KC_3)    // #
-#define ES_LBRC ALGR(ES_GRV)  // [
-#define ES_RBRC ALGR(ES_PLUS) // ]
-#define ES_ASTR S(KC_RBRC) // *
-#define ES_QUES S(KC_MINUS)
-#define ES_COLON S(KC_DOT)
-#define ES_SEMI S(KC_COMMA)
+#define ES_BSLS KC_BSLASH // (backslash)
+#define ES_PIPE KC_PIPE    // |
+#define ES_AT   S(KC_2)    // @
+#define ES_HASH S(KC_3)    // #
+#define ES_LBRC KC_LBRACKET  // [
+#define ES_RBRC KC_RBRACKET // ]
+#define ES_ASTR S(KC_8) // *
+#define ES_QUES S(KC_SLASH)
+#define ES_COLON S(KC_SCOLON)
+#define ES_SEMI KC_SCOLON
 
-#define ESP_SLASH SS_LSFT(SS_TAP(X_7))
-#define ESP_QUES SS_TAP(X_MINUS)
-#define ESP_GT SS_LSFT(SS_TAP(X_NUBS))
-#define ESP_LT SS_TAP(X_NUBS)
-#define ESP_2QUOTE SS_LSFT(SS_TAP(X_2))
+#define ESP_SLASH SS_TAP(X_SLASH)
+#define ESP_QUES SS_LSFT(SS_TAP(X_SLASH))
+#define ESP_GT SS_TAP(X_DOT)
+#define ESP_LT SS_LSFT(SS_TAP(X_COMMA))
+#define ESP_2QUOTE SS_LSFT(SS_TAP(X_QUOTE))
+#define ESP_TILDE SS_RALT(SS_TAP(X_4)) SS_TAP(X_SPACE)
 
 uint16_t OPEN1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_5 };
 uint16_t CLOSE1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_6 };
@@ -62,6 +63,8 @@ uint16_t COMMA[4] = { KC_KP_0, KC_KP_1, KC_KP_8, KC_KP_0 };
 uint16_t DOT[4] = { KC_KP_0, KC_KP_1, KC_KP_8, KC_KP_3 };
 uint16_t BULLET[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_9 };
 uint16_t NONBREAKINGSPACE[3] = {KC_KP_2, KC_KP_5, KC_KP_5 };
+uint16_t MASCORD[4] = {KC_KP_0, KC_KP_1, KC_KP_8, KC_KP_6};
+uint16_t FEMORD[4] = {KC_KP_0, KC_KP_1, KC_KP_7, KC_KP_0};
 
 
 #ifdef ERGODOX

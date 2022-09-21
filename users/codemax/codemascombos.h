@@ -219,8 +219,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [BKSLASH2] = COMBO(bkslash_combo2, ES_BSLS),
   [EMDASHCOMBO] = COMBO(emdash_combo, XXX),
   [MIMICOMBO] = COMBO(minusminus_combo, XXX),
-  [MASC] = COMBO(masc_combo, ES_MORD),
-  [FEM] = COMBO(fem_combo, ES_FORD),
+  [MASC] = COMBO(masc_combo, XXX),
+  [FEM] = COMBO(fem_combo, XXX),
   [YOUCOMBO] = COMBO(you_combo, XXX),
   [LBRACE] = COMBO(lbrace_combo, SP_LBKT),
   [LBRKCOMBO] = COMBO(lbrk_combo, ES_LBRC),
@@ -279,6 +279,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   handle_shifttimer();
   if (!pressed) return;
   switch(combo_index) {
+    case MASC: 
+      SendAltCode(MASCORD, 4); 
+    break;
+    case FEM: 
+      SendAltCode(FEMORD, 4); 
+    break;
     case SECCOMBO:
       SendAltCode(SEC, 4);
     break;
@@ -289,7 +295,7 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       SendAltCode(BULLET, 4);
     break;
     case TILDCOMBO:
-      SEND_STRING(SS_RALT(SS_TAP(X_4)) SS_TAP(X_SPACE));
+      SEND_STRING(ESP_TILDE);
     break;
     case SCOLONENTER:
       SEND_STRING(SS_TAP(X_END) SS_LSFT(SS_TAP(X_COMMA)) SS_TAP(X_ENTER));
