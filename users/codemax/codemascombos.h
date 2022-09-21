@@ -298,18 +298,18 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
       SEND_STRING(ESP_TILDE);
     break;
     case SCOLONENTER:
-      SEND_STRING(SS_TAP(X_END) SS_LSFT(SS_TAP(X_COMMA)) SS_TAP(X_ENTER));
+      SEND_STRING(SS_TAP(X_END) ESP_SEMICOLON SS_TAP(X_ENTER));
     break;
     case EQUALSCOMBO:
     case NUMEQUALSCOMBO:
-      SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0)));
+      SEND_STRING(ESP_EQUAL ESP_EQUAL);
     break;
     case NOTEQUAL:
     case NUMNOTEQUAL:
-      SEND_STRING(SS_LSFT(SS_TAP(X_1) SS_TAP(X_0)));
+      SEND_STRING(ESP_EXCL ESP_EQUAL);
     break;
     case CARETCOMBO:
-      SEND_STRING(SS_LSFT(SS_TAP(X_LBRACKET)) SS_TAP(X_SPACE));
+      SEND_STRING(ESP_CARET);
     break;
     case GRAVECOMBO:
       SEND_STRING(SS_TAP(X_LBRACKET) SS_TAP(X_SPACE));
