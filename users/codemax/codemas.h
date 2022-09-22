@@ -643,7 +643,7 @@ bool handle_shiftedsymbols(uint16_t keycode) {
     break;
     case LCTL_T(KC_SPACE):
       if (shift_pressed()) {
-        tap_code(KC_SLASH);
+        tap_code(KC_MINUS);
         return true;
       }
       return false;
