@@ -45,7 +45,7 @@
 
 #define ESP_SLASH SS_TAP(X_SLASH)
 #define ESP_QUES SS_LSFT(SS_TAP(X_SLASH))
-#define ESP_GT SS_TAP(X_DOT)
+#define ESP_GT SS_LSFT(SS_TAP(X_DOT))
 #define ESP_LT SS_LSFT(SS_TAP(X_COMMA))
 #define ESP_2QUOTE SS_LSFT(SS_TAP(X_QUOTE)) SS_TAP(X_SPACE)
 #define ESP_QUOTE SS_TAP(X_QUOTE) SS_TAP(X_SPACE)
@@ -545,25 +545,25 @@ bool handle_keypress(uint16_t keycode) {
       SendAltCode(CLOSE1QUOTE, 4);
     break;
     case SC_SEMICLNENTER:
-      SEND_STRING(SS_TAP(X_END) SS_TAP(X_SCOLON) SS_TAP(X_ENTER));
+      SEND_STRING(SS_TAP(X_END) ESP_SEMICOLON SS_TAP(X_ENTER));
     break;
     case SC_EQUALS:
-      SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_0)));
+      SEND_STRING(ESP_EQUAL ESP_EQUAL);
     break;
     case SC_ENDTAG:
-      SEND_STRING(SS_TAP(X_NUBS) SS_LSFT(SS_TAP(X_7)));
+      SEND_STRING(ESP_LT ESP_SLASH);
     break;
     case SC_OPENQUOTE:
       SendAltCode(OPENQUOTE, 4);
     break;
     case SC_SECTION:
-      SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) SS_RALT(SS_TAP(X_QUOTE)) SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) SS_RALT(SS_TAP(X_BSLASH)) SS_DELAY(50) SS_TAP(X_UP) SS_DELAY(50) SS_TAP(X_TAB));
+      SEND_STRING(SS_TAP(X_END) SS_DELAY(20) SS_TAP(X_SPACE) SS_DELAY(20) ESP_LBRK SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) SS_TAP(X_ENTER) SS_DELAY(50) ESP_RBRK SS_DELAY(50) SS_TAP(X_UP) SS_DELAY(50) SS_TAP(X_TAB));
     break;
     case SC_OPENCLOSEPAREN:
-      SEND_STRING(SS_LSFT(SS_TAP(X_8) SS_TAP(X_9)));
+      SEND_STRING(ESP_LPAREN ESP_RPAREN);
     break;
     case SC_NOTEQUAL:
-      SEND_STRING(SS_LSFT(SS_TAP(X_1) SS_TAP(X_0)));
+      SEND_STRING(ESP_EXCL ESP_EQUAL);
     break;
     case SC_EMDASH:
       SendAltCode(EMDASH, 4);
@@ -572,16 +572,16 @@ bool handle_keypress(uint16_t keycode) {
       SendAltCode(CLOSEQUOTE, 4);
     break;
     case SC_LESSOREQUAL:
-      SEND_STRING(SS_TAP(X_NUBS) SS_LSFT(SS_TAP(X_0)));
+      SEND_STRING(ESP_LT ESP_EQUAL);
     break;
     case SC_GREATOREQUAL:
-      SEND_STRING(SS_LSFT(SS_TAP(X_NUBS) SS_TAP(X_0)));
+      SEND_STRING(ESP_GT ESP_EQUAL);
     break;
     case DEL_LINE:
       SEND_STRING(SS_TAP(X_END) SS_DELAY(50) SS_LSFT(SS_TAP(X_HOME) SS_TAP(X_HOME)) SS_DELAY(50) SS_TAP(X_DELETE) SS_DELAY(50) SS_TAP(X_DELETE));
     break;
     case SC_SURROUNDBRKT:
-      SEND_STRING(SS_LCTL(SS_TAP(X_X)) SS_DELAY(20) SS_LSFT(SS_TAP(X_TAB)) SS_DELAY(20) SS_RALT(SS_TAP(X_QUOTE)) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_RALT(SS_TAP(X_BSLASH)) SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_TAP(X_TAB) SS_DELAY(20) SS_LCTL(SS_TAP(X_V)));
+      SEND_STRING(SS_LCTL(SS_TAP(X_X)) SS_DELAY(20) SS_LSFT(SS_TAP(X_TAB)) SS_DELAY(20) ESP_LBRK SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) ESP_RBRK SS_TAP(X_UP) SS_DELAY(20) SS_TAP(X_ENTER) SS_DELAY(20) SS_TAP(X_TAB) SS_DELAY(20) SS_LCTL(SS_TAP(X_V)));
     break;
     case SC_MINI:
       SEND_STRING(SS_LALT(SS_TAP(X_SPACE)) SS_TAP(X_N));
@@ -597,7 +597,7 @@ bool handle_keypress(uint16_t keycode) {
       SEND_STRING(SS_LCTL(SS_TAP(X_RIGHT)) SS_DELAY(50) SS_LSFT(SS_LCTL(SS_TAP(X_LEFT))) SS_DELAY(50) SS_TAP(X_DELETE));
     break;
     case SC_ARROW:
-        SEND_STRING(SS_LSFT(SS_TAP(X_0) SS_TAP(X_NUBS)));
+        SEND_STRING(ESP_EQUAL ESP_GT);
     break;
     case SP_CO:
       SEND_STRING(SS_TAP(X_C));
@@ -677,6 +677,8 @@ bool handle_shiftedsymbols(uint16_t keycode) {
     case KC_DOT:
       if (shift_pressed()) {
         bool held = shift_held();
+        clear_mods();
+        clear_oneshot_mods();
         SEND_STRING(ESP_GT);
         if (held)  {
           register_code(KC_LSHIFT);
