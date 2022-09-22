@@ -9,7 +9,7 @@
 #define SPANISH 8
 #define SYMBOL 9
 
-#define SP_RBKT KC_BSLASH //}
+#define SP_RBKT S(ES_RBRC) //}
 #define SP_LBKT S(ES_LBRC) // {
 //#define SP_QUOTE KC_QUOTE //'
 #define SP_LPAREN ES_LPRN // (
@@ -32,7 +32,7 @@
 #define ES_EQL  KC_EQUAL    // =
 #define ES_IQUE ALGR(KC_SLASH) // ¿
 #define ES_UNDS S(ES_MINS) // _
-#define ES_BSLS KC_BSLS // (backslash)
+#define ES_BSLS KC_BSLASH // (backslash)
 #define ES_PIPE KC_PIPE    // |
 #define ES_AT   S(KC_2)    // @
 #define ES_HASH S(KC_3)    // #
