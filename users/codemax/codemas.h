@@ -57,11 +57,12 @@
 #define ESP_GRAVE SS_TAP(X_GRAVE) SS_TAP(X_SPACE)
 #define ESP_PLUS SS_LSFT(SS_TAP(X_EQUAL))
 #define ESP_MINUS SS_TAP(X_MINUS)
-#define ESP_INVQUES SS_RALT(SS_TAP(X_1))
+#define ESP_INVQUES SS_RALT(SS_TAP(X_SLASH))
 #define ESP_LBRK SS_LSFT(SS_TAP(X_LBRC))
 #define ESP_LPAREN SS_LSFT(SS_TAP(X_9))
 #define ESP_RPAREN SS_LSFT(SS_TAP(X_0))
 #define ESP_RBRK SS_LSFT(SS_TAP(X_RBRC))
+#define ESP_ENE SS_RALT(SS_TAP(X_N))
 
 uint16_t OPEN1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_5 };
 uint16_t CLOSE1QUOTE[4] = { KC_KP_0, KC_KP_1, KC_KP_4, KC_KP_6 };
@@ -739,7 +740,7 @@ bool handle_unicode(uint16_t keycode) {
       return true;
     break;
     case SP_N:
-        SEND_STRING(SS_TAP(X_SCOLON));
+        SEND_STRING(ESP_ENE);
         return true;
     break;
     case SP_A:
