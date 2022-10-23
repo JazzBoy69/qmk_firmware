@@ -260,7 +260,7 @@ enum custom_keycodes {
 #define ________________MIR_R3____________________              ___,         ___,    SC_LESSOREQUAL,   SC_GREATOREQUAL,     ___,   ___
 
 
-#define _____MIR_BOTTOM_L1_________                       ___, ES_COLON, ES_SEMI
+#define _____MIR_BOTTOM_L1_________                       ES_COLON, ES_SEMI, ___
 #define _____MIR_BOTTOM_R1_________                       SC_OPENCLOSESEMI, ___, ___
 
 #define MIR_L1                                            ___,  ___
