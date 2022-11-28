@@ -153,7 +153,7 @@ enum custom_keycodes {
 #define ________________COLEMAK_L2________________       OSL(SPANISH),         KC_A,     KC_R, KC_S,        KC_T,    LT(NAV,KC_D)
 #define ________________COLEMAK_L3________________       OSM(MOD_LSFT),        KC_Z,     KC_X, KC_C,        KC_V,    KC_B
 
-#define ________________COLEMAK_R1________________       KC_J,    KC_L,        KC_U,          KC_Y, SP_QUOTE, OSL(NUMPAD)
+#define ________________COLEMAK_R1________________       KC_J,    KC_L,        KC_U,          KC_Y, SP_QUOTE, KC_MINUS
 #define ________________COLEMAK_R2________________       KC_H,    KC_N,        KC_E,          KC_I,    KC_O,  OSL(SPANISH)
 #define ________________COLEMAK_R3________________       KC_K,    KC_M,    KC_COMMA,        KC_DOT, SP_SLASH, OSM(MOD_LSFT)
 
