@@ -165,8 +165,8 @@ enum custom_keycodes {
 #define TH_L2                                             KC_ESCAPE
 #define TH_L3                                             TO(NUMPAD)
 #define THUMB_R1                                          SC_SUPERQUES,    LCTL_T(KC_SPACE)
-#define TH_R2                                             ___
-#define TH_R3                                             _______
+#define TH_R2                                             KC_MS_BTN4
+#define TH_R3                                             KC_MS_BTN5
 
 
 #define ________________NUMPAD_L1_________________        TO(COLEMAK),    ___, ES_AMPR,   ES_PIPE,      ___,  ___

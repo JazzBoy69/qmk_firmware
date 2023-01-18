@@ -65,14 +65,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [GAME] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
     KC_ESCAPE, KC_1,  KC_2,     KC_3,      KC_4,    KC_5, ___,             
-    ___, KC_Y,  KC_Q,     KC_W,      KC_E,    KC_R, KC_T,               
+ OSL(NUMPAD), KC_Y,  KC_Q,     KC_W,      KC_E,    KC_R, KC_T,               
    KC_X, KC_G,  KC_A,     KC_S,      KC_D,    KC_F,             
     ___, KC_B,  KC_Z,     KC_X,      KC_C,    KC_V, ___,                          
     ___, KC_DOT, ___,      ___,       ___,                                                                                        
  // left thumb --------------------------------------------------------------------------------------------------
                                   XXX,              ___, 
                                                     KC_PGUP, 
-                               KC_SPACE,  KC_SPACE, KC_PGDOWN, 
+                               KC_SPACE,  LT(FN,KC_SPACE), KC_PGDOWN, 
 // right hand --------------------------------------------------------------------------------------------------
                                  ___, KC_6, KC_7,     KC_8,    KC_9,    KC_0,  KC_LOCK,
                                  ___, ___,  ___,      KC_UP,    ___,     ___,  TO(COLEMAK),
