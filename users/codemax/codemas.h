@@ -142,6 +142,7 @@ enum custom_keycodes {
   SC_MINI,
   ES_TILD, 
   SP_QUOTE,
+  SC_QUI,
 };
 
 
@@ -192,7 +193,7 @@ enum custom_keycodes {
 
 
 #define ________________SPANSH_L1_________________        ___,  S(KC_F18),  ___,    ___,     ___, SP_G
-#define ________________SPANSH_L2_________________        ___,   SP_A,      ___,    ___, ES_IEXL, ___
+#define ________________SPANSH_L2_________________        ___,   SP_A,   SC_QUI,    ___, ES_IEXL, ___
 #define ________________SPANSH_L3_________________        OSM(MOD_LSFT),    ___,    ___,     ___, ___, ___
 
 #define ________________SPANSH_R1_________________        ___,  ___,  SP_U, SP_Y, SP_CUA,   ___
@@ -476,6 +477,14 @@ bool handle_keypress(uint16_t keycode) {
     case SC_QUE:      
       SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U));
       press_tilde_and_letter(KC_E);
+      reset_oneshot_layer();
+      layer_off(SPANISH);
+      layer_on(COLEMAK);
+      return false;
+    break;
+    case SC_QUI:      
+      SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U));
+      press_tilde_and_letter(KC_I);
       reset_oneshot_layer();
       layer_off(SPANISH);
       layer_on(COLEMAK);

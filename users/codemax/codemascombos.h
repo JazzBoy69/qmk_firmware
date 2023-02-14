@@ -78,7 +78,8 @@ enum combo_events {
   HEXE,
   HEXF,
   NUMBKSP,
-  //80
+  AQUI,
+  //83
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -172,8 +173,7 @@ const uint16_t PROGMEM quacombo[] = {KC_Q, SP_QUOTE, COMBO_END};
 const uint16_t PROGMEM quecombo[] = {KC_Q, KC_E, COMBO_END};
 const uint16_t PROGMEM quicombo[] = {KC_Q, KC_I, COMBO_END};
 const uint16_t PROGMEM quocombo[] = {KC_Q, KC_O, COMBO_END};
-
-const uint16_t PROGMEM quispa[] = {SP_N, SP_I, COMBO_END};
+const uint16_t PROGMEM aquicombo[] = {SP_A, SC_QUI, COMBO_END};
 
 const uint16_t PROGMEM tabcombo[] = {LT(FN,KC_ENTER), LCTL_T(KC_SPACE), COMBO_END};
 const uint16_t PROGMEM stabcombo[] = {LT(FN,KC_ENTER), SC_SUPERQUES, COMBO_END};
@@ -242,7 +242,7 @@ combo_t key_combos[COMBO_COUNT] = {
   [QUECOMBO] = COMBO(quecombo, XXX),
   [QUICOMBO] = COMBO(quicombo, XXX),
   [QUOCOMBO] = COMBO(quocombo, XXX),
-  [QUISPA] = COMBO(quispa, XXX),
+  [AQUI] = COMBO(aquicombo, XXX),
   [TABCOMBO] = COMBO(tabcombo, KC_TAB),
   [STABCOMBO] = COMBO(stabcombo, S(KC_TAB)),
   [NUMTAB] = COMBO(numtab_combo, KC_TAB),
@@ -353,8 +353,8 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case QUOCOMBO:
       SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U) SS_TAP(X_O));
     break;
-    case QUISPA:
-      SEND_STRING(SS_TAP(X_Q) SS_TAP(X_U));
+    case AQUI:
+      SEND_STRING(SS_TAP(X_A) SS_TAP(X_Q) SS_TAP(X_U));
       press_tilde_and_letter(KC_I);
       reset_oneshot_layer();
       layer_off(SPANISH);
