@@ -418,12 +418,6 @@ bool handle_keypress(uint16_t keycode) {
     register_code(KC_CAPSLOCK);
     unregister_code(KC_CAPSLOCK);
   }
-  if (caps_lock_on() && (keycode == LT(FN,KC_ENTER))) {
-    register_code(KC_CAPSLOCK);
-    unregister_code(KC_CAPSLOCK);
-    SEND_STRING(SS_TAP(X_SPACE));
-    return false;
-  }
   if (shift_pressed() && (keycode == SC_SUPERQUES)) {
     keycode = SC_SUPERINVQUES;
   }
