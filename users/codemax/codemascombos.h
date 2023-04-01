@@ -181,8 +181,7 @@ const uint16_t PROGMEM numlockcombo[] = {LEFTSYMBOL, KC_KP_4, COMBO_END};
 const uint16_t PROGMEM numlayercombo[] = {LEFTSYMBOL, KC_E, COMBO_END};
 const uint16_t PROGMEM cancelnumlayer[] = {LEFTSYMBOL, KC_KP_5, COMBO_END};
 const uint16_t PROGMEM capslockcombo[] = {LEFTSYMBOL, KC_N, COMBO_END};
-const uint16_t PROGMEM fiveback[] = {LT(MIRRORED,KC_BSPACE), KC_H, COMBO_END};
-const uint16_t PROGMEM threeback[] = {LT(MIRRORED,KC_BSPACE), KC_N, COMBO_END};
+
 
 combo_t key_combos[COMBO_COUNT] = {
   [DOT_BUL] = COMBO(sdot_combo, XXX),
@@ -253,8 +252,6 @@ combo_t key_combos[COMBO_COUNT] = {
   [SECCOMBO] = COMBO(sec_combo, XXX),
   [PARCOMBO] = COMBO(par_combo, XXX),
   [CANCELNUMLAYER] = COMBO(cancelnumlayer, XXX),
-  [FIVEBACK] = COMBO(fiveback, XXX),
-  [THREEBACK] = COMBO(threeback, XXX),
   [NONBREAKING] = COMBO(nonbreaking, XXX),
   [NUMMULTI] = COMBO(nummulti_combo, ES_ASTR),
   [HEXA] = COMBO(hexa, S(KC_A)),

@@ -8,6 +8,7 @@
 #define MIRUNI 7
 #define SPANISH 8
 #define SYMBOL 9
+#define PHOTOSHOP 10
 
 #define SP_RBKT S(ES_RBRC) //}
 #define SP_LBKT S(ES_LBRC) // {
