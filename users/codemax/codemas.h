@@ -165,7 +165,7 @@ enum custom_keycodes {
 #define ________BLANK_BOTTOM_______                       ___,  ___,  ___
 #define THUMB_L1                                          LT(MIRRORED,KC_BSPACE),LT(FN,KC_ENTER)
 #define TH_L2                                             KC_ESCAPE
-#define TH_L3                                             TO(NUMPAD)
+#define TH_L3                                             LALT(KC_HOME)
 #define THUMB_R1                                          SC_SUPERQUES,    LCTL_T(KC_SPACE)
 #define TH_R2                                             KC_MS_BTN4
 #define TH_R3                                             KC_MS_BTN5
