@@ -184,7 +184,7 @@ enum custom_keycodes {
 #define _____NUM_BOTTOM_R1_________                       KC_SPACE,    KC_COMMA,  KC_DOT
 
 
-#define NUM_L1                                            LALT_T(KC_BSPACE), SP_SPACEEND
+#define NUM_L1                                            LALT_T(KC_BSPACE), ___
 #define NUM_L2                                            ___
 #define NUM_L3                                            TO(COLEMAK)
 #define NUM_R1                                            KC_ESCAPE,  KC_KP_0
