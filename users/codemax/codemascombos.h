@@ -79,7 +79,9 @@ enum combo_events {
   HEXF,
   NUMBKSP,
   AQUI,
-  //83
+  PARANUMBER,
+  ENDPARANUMBER,
+  //82
 };
 
 #define RIGHTUNICODE KC_I, KC_O
@@ -181,6 +183,8 @@ const uint16_t PROGMEM numlockcombo[] = {LEFTSYMBOL, KC_KP_4, COMBO_END};
 const uint16_t PROGMEM numlayercombo[] = {LEFTSYMBOL, KC_E, COMBO_END};
 const uint16_t PROGMEM cancelnumlayer[] = {LEFTSYMBOL, KC_KP_5, COMBO_END};
 const uint16_t PROGMEM capslockcombo[] = {LEFTSYMBOL, KC_N, COMBO_END};
+const uint16_t PROGMEM paranumber[] = {LEFTSYMBOL, KC_U, COMBO_END};
+const uint16_t PROGMEM endparanumber[] = {LEFTSYMBOL, KC_KP_8, COMBO_END};
 
 
 combo_t key_combos[COMBO_COUNT] = {
@@ -260,6 +264,8 @@ combo_t key_combos[COMBO_COUNT] = {
   [HEXD] = COMBO(hexd, S(KC_D)),
   [HEXE] = COMBO(hexe, S(KC_E)),
   [HEXF] = COMBO(hexf, S(KC_F)),
+  [PARANUMBER] = COMBO(paranumber, XXX),
+  [ENDPARANUMBER] = COMBO(endparanumber, XXX),
 };
 
 
@@ -287,6 +293,14 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     break;
     case PARCOMBO:
       SendAltCode(PAR, 4);;
+    break;
+    case PARANUMBER:
+      SEND_STRING(ESP_CARET);
+      layer_on(NUMPAD);
+    break;
+    case ENDPARANUMBER:
+      SEND_STRING(ESP_CARET);
+      layer_off(NUMPAD);
     break;
     case DOT_BUL:
       SendAltCode(BULLET, 4);
