@@ -144,6 +144,7 @@ enum custom_keycodes {
   ES_TILD, 
   SP_QUOTE,
   SC_QUI,
+  SC_COMMASPACE,
 };
 
 
@@ -181,7 +182,7 @@ enum custom_keycodes {
 #define ________________NUMPAD_R3_________________        ___,          KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_SLASH,  KC_ENTER
 
 #define _____NUM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
-#define _____NUM_BOTTOM_R1_________                       KC_SPACE,    KC_COMMA,  KC_DOT
+#define _____NUM_BOTTOM_R1_________                       KC_SPACE,    SC_COMMASPACE,  KC_DOT
 
 
 #define NUM_L1                                            LALT_T(KC_BSPACE), ___
@@ -467,6 +468,10 @@ bool handle_keypress(uint16_t keycode) {
     break;
     case SP_GRAVE:
       SEND_STRING(ESP_GRAVE);
+      return true;
+    break;
+    case SC_COMMASPACE:
+      SEND_STRING(SS_TAP(X_COMMA) SS_TAP(X_SPACE));
       return true;
     break;
     case SC_QUE:      
