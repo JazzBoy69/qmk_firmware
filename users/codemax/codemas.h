@@ -179,7 +179,7 @@ enum custom_keycodes {
 
 #define ________________NUMPAD_R1_________________        ES_TILD,      KC_KP_7, KC_KP_8, KC_KP_9, ES_COLON,     KC_KP_MINUS
 #define ________________NUMPAD_R2_________________        SP_GRAVE,     KC_KP_4, KC_KP_5, KC_KP_6, ES_SEMI,      KC_KP_PLUS
-#define ________________NUMPAD_R3_________________        ___,          KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_SLASH,  KC_ENTER
+#define ________________NUMPAD_R3_________________        SP_CARET,     KC_KP_1, KC_KP_2, KC_KP_3, KC_KP_SLASH,  KC_ENTER
 
 #define _____NUM_BOTTOM_L1_________                       ________BLANK_BOTTOM_______
 #define _____NUM_BOTTOM_R1_________                       KC_SPACE,    SC_COMMASPACE,  KC_DOT
