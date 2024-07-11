@@ -38,7 +38,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         ________________COLEMAK_L2________________,                    ________________COLEMAK_R2________________,
         ________________COLEMAK_L3________________, KC_VOLD,          OSM(MOD_LGUI), ________________COLEMAK_R3________________,
     KC_DEL, KC_SPACE, _________BOTTOM_L1_________,                        _________BOTTOM_R1_________, XXX, XXX,
-                                             KC_F21,S(KC_LGUI),  S(KC_LGUI), KC_F21,
+                                             KC_PGDOWN,KC_PGUP,  S(KC_LGUI), KC_F21,
                                                       TH_L2,  TH_R2,
                                             THUMB_L1, TH_L3,  TH_R3, THUMB_R1
   ),
@@ -65,9 +65,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [GAME] = LAYOUT_ergodox(
   // left hand ---------------------------------------------------------------------------------------------------
     KC_ESCAPE, KC_1,  KC_2,     KC_3,      KC_4,    KC_5, ___,             
- OSL(NUMPAD), KC_Y,  KC_Q,     KC_W,      KC_E,    KC_R, KC_T,               
+ OSL(NUMPAD), KC_T,  KC_Q,     KC_W,      KC_E,    KC_R, KC_T,               
    KC_X, KC_G,  KC_A,     KC_S,      KC_D,    KC_F,             
-    ___, KC_B,  KC_Z,     KC_X,      KC_C,    KC_V, ___,                          
+    ___, KC_Z,     KC_X,      KC_C,    KC_V, KC_B, ___,                          
     ___, KC_DOT, ___,      ___,       ___,                                                                                        
  // left thumb --------------------------------------------------------------------------------------------------
                                   XXX,              ___, 
