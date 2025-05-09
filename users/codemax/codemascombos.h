@@ -3,9 +3,14 @@ enum combo_events {
   CTRL_BKSP, 
   CTRL_BKSP2,
   R1_QUOTE,
+  R1a_QUOTE,
   R2_QUOTE,
+  R2a_QUOTE,
   L1_QUOTE,
+  L1a_QUOTE,
   L2_QUOTE, 
+  L2a_QUOTE,
+  M1_QUOTE,
   ANDCOMBO, 
   PLPLENDCOMBO,
   LBRKCOMBO,
@@ -124,6 +129,11 @@ const uint16_t PROGMEM l2quote_combo[] = {RIGHTSHIFTSYMBOL, KC_Q, COMBO_END};
 
 const uint16_t PROGMEM you_combo[] = {KC_L, KC_U, KC_Y, COMBO_END};
 const uint16_t PROGMEM para_combo[] = {KC_W, KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM squote_combo[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM dquote_combo[] = {KC_Q, KC_F, COMBO_END};
+const uint16_t PROGMEM srquote_combo[] = {KC_F, KC_P, COMBO_END};
+const uint16_t PROGMEM drquote_combo[] = {KC_W, KC_P, COMBO_END};
+const uint16_t PROGMEM m1quote_combo[] = {KC_W, KC_F, COMBO_END};
 
 const uint16_t PROGMEM notequal_combo[] = {KC_X, KC_C, KC_V, COMBO_END};
 const uint16_t PROGMEM exactlyequal_combo[] = {KC_Z, KC_X, KC_C, COMBO_END};
@@ -192,9 +202,14 @@ combo_t key_combos[COMBO_COUNT] = {
   [CTRL_BKSP] = COMBO(parbksp_combo, LCTL(KC_BSPACE)),
   [NUMBKSP] = COMBO(numbksp_combo, LCTL(KC_BSPACE)),
   [R1_QUOTE] = COMBO(r1quote_combo, SC_CLOSE1QUOTE),
+  [R1a_QUOTE] = COMBO(srquote_combo, SC_CLOSE1QUOTE),
   [R2_QUOTE] = COMBO(r2quote_combo, SC_CLOSEQUOTE),
+  [R2a_QUOTE] = COMBO(drquote_combo, SC_CLOSEQUOTE),
   [L1_QUOTE] = COMBO(l1quote_combo, SC_OPEN1QUOTE),
+  [L1a_QUOTE] = COMBO(squote_combo, SC_OPEN1QUOTE),
   [L2_QUOTE] = COMBO(l2quote_combo, SC_OPENQUOTE),
+  [L2a_QUOTE] = COMBO(dquote_combo, SC_OPENQUOTE),
+  [M1_QUOTE] = COMBO(m1quote_combo, SP_QUOTE),
   [ANDCOMBO] = COMBO(and_combo, ES_AMPR),
   [PLPLENDCOMBO] = COMBO(plusplusend_combo, XXX),
   [BKSLASH] = COMBO(bkslash_combo, ES_BSLS),
