@@ -194,7 +194,7 @@ enum custom_keycodes {
 
 
 
-#define ________________SPANSH_L1_________________        ___,  S(KC_F18),  ___,    ___,     ___, SP_G
+#define ________________SPANSH_L1_________________        ___,  SP_GRAVE,  ___,    ___,     ___, SP_G
 #define ________________SPANSH_L2_________________        ___,   SP_A,   SC_QUI,    ___, ES_IEXL, ___
 #define ________________SPANSH_L3_________________        OSM(MOD_LSFT),    ___,    ___,     ___, ___, ___
 
